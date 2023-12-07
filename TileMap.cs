@@ -24,7 +24,7 @@ public partial class TileMap : Godot.TileMap
 	public delegate void ToggleInventoryEventHandler(bool InvenotryToggle, string info);
 
 	[Signal]
-	public delegate void UpdateBuildingProgressEventHandler(double progress, int amount, string name, string type);
+	public delegate void UpdateBuildingProgressEventHandler(double progress, int amount, string name, string type, Vector2I coords);
 
 	public bool BUILDINGMODE = false;
 	public bool UITOGGLE = false;
@@ -111,7 +111,7 @@ public partial class TileMap : Godot.TileMap
 		{
 			dynamic buildingDisplayInfo = GetBuildingInfo(cellPostionByMouse);
 
-			wolrdInfo = $"Building: {buildingDisplayInfo.name} \nHarvesting: "/*{items[buildingDisplayInfo.outputSlots[0].resource.ToString()].name}*/+ "\nProgress: {(int)(buildingDisplayInfo.productionProgress * 100)}% \nResource Amount: {buildingDisplayInfo.outputSlots[0].amount}";	
+			wolrdInfo = $"Building: {buildingDisplayInfo.name} \nHarvesting: {items[buildingDisplayInfo.outputSlots[0].resource.ToString()].name}\nProgress: {(int)(buildingDisplayInfo.productionProgress * 100)}% \nResource Amount: {buildingDisplayInfo.outputSlots[0].amount}";	
 		}
 		else
 		{
@@ -322,8 +322,9 @@ public partial class TileMap : Godot.TileMap
 			if (UITOGGLE)
 			{
 				string itemName = items[buildingsInfo[i].outputSlots[0].resource.ToString()].name.ToString();
-				string itemType = items[buildingsInfo[i].outputSlots[0].resource.ToString()].type.ToString();
-				EmitSignal(SignalName.UpdateBuildingProgress, (double)buildingsInfo[i].productionProgress, (int)buildingsInfo[i].outputSlots[0].amount, itemName, itemType);
+				string itemType = buildingsInfo[i].outputSlots[0].resource.ToString();
+				Vector2I builduingCoordinates = new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]);
+				EmitSignal(SignalName.UpdateBuildingProgress, (double)buildingsInfo[i].productionProgress, (int)buildingsInfo[i].outputSlots[0].amount, itemName, itemType, builduingCoordinates);
 			}
 		}
 	}
