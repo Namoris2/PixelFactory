@@ -1,0 +1,9 @@
+productionRate
+    how many resources will be produced per minute
+
+
+productionProgress
+    how many percent of resource was made
+    if productionProgress is 1, it resets and resource will be added to slot
+
+    one production step = productionRate / 60(seconds) / 20(update rate per second)

@@ -1,0 +1,331 @@
+using Godot;
+using Godot.Collections;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+using Newtonsoft.Json;
+using System.Linq;
+using System.Dynamic;
+using System.Data;
+using System.Security.AccessControl;
+using System.Diagnostics.Metrics;
+using System.Security.Cryptography;
+
+public partial class TileMap : Godot.TileMap
+{
+	[Signal]
+	public delegate void ResourcesUpdatedEventHandler();
+
+	[Signal]
+	public delegate void UpdateResourceInfoEventHandler(string resourceName);
+
+	[Signal]
+	public delegate void ToggleInventoryEventHandler(bool InvenotryToggle, string info);
+
+	[Signal]
+	public delegate void UpdateBuildingProgressEventHandler(double progress, int amount, string name, string type);
+
+	public bool BUILDINGMODE = false;
+	public bool UITOGGLE = false;
+
+	Vector2I previousCellPositon = new (0, 0);
+
+	// setting default grid curor parameters
+	int tileMapId = 100;
+	int tileMapLayer = 3;
+	Vector2I atlasPosition = new (0, 0);
+	string[] buildingsCoords = new string[] {};
+	List<dynamic> buildingsInfo = new();
+	public string selectedBuilding;
+	int buildingRotation = 0;
+	dynamic resourcesHervestedByHand;
+
+	int resourceAmount = 10000;
+	dynamic buildings;
+	dynamic items;
+
+
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+		// hide cursor
+		//Input.MouseMode = Input.MouseModeEnum.Hidden;
+		
+		EmitSignal(SignalName.ResourcesUpdated, resourceAmount);
+
+		LoadFile load = GetNode<LoadFile>("/root/main/LoadFile");
+
+		// loads 'buildigns.json' file and parses in to dynamic object
+		buildings = load.LoadJson("buildings.json");
+		resourcesHervestedByHand = buildings.handHarvest;
+
+		items = load.LoadJson("items.json");
+
+		// gets TickRate node and every time its reset, 'OnTickUpdate' function is called
+		Timer tickUpdate =  GetNode<Timer>("/root/main/TickRate");
+		tickUpdate.Timeout += OnTickUpdate;
+
+		//UITOGGLE = GetNode<UIToggle>("/root/main/UI/UIToggle").toggle;
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+		// getting mouse position with TileMap coordinates
+		Vector2I cellPostionByMouse = GetMousePosition();
+		
+		// getting tileMap data by mouse coordinates that hovers over TileMap cell
+		TileData groundData = GetCellTileData(0, cellPostionByMouse);
+		TileData buildingsData = GetCellTileData(1, cellPostionByMouse);
+		string groundResourceName = (string)groundData.GetCustomData("resourceName");
+
+		string wolrdInfo;
+
+		if (Input.IsActionJustPressed("ToggleBuildingInventory") && !BUILDINGMODE)
+		{
+			dynamic buildingDisplayInfo = GetBuildingInfo(cellPostionByMouse);
+
+			if (!UITOGGLE && buildingsData != null)
+			{
+				UITOGGLE = true;				
+			}
+			else
+			{
+				UITOGGLE = false;
+			}
+			
+			EmitSignal(SignalName.ToggleInventory, UITOGGLE, Newtonsoft.Json.JsonConvert.SerializeObject(buildingDisplayInfo));
+		}
+
+		if (BUILDINGMODE && Input.IsActionJustPressed("Back"))
+		{
+			ToggleBuildMode();
+		}
+
+		
+		// if any inventory is oppend any of the action bellow won't work
+		if (UITOGGLE) { return; }
+
+		if (buildingsData != null && GetBuildingInfo(cellPostionByMouse).buildingType.ToString() == "machine")
+		{
+			dynamic buildingDisplayInfo = GetBuildingInfo(cellPostionByMouse);
+
+			wolrdInfo = $"Building: {buildingDisplayInfo.name} \nHarvesting: "/*{items[buildingDisplayInfo.outputSlots[0].resource.ToString()].name}*/+ "\nProgress: {(int)(buildingDisplayInfo.productionProgress * 100)}% \nResource Amount: {buildingDisplayInfo.outputSlots[0].amount}";	
+		}
+		else
+		{
+			wolrdInfo = $"Resource: {items[groundResourceName].name}";
+		}
+
+		EmitSignal(SignalName.UpdateResourceInfo, wolrdInfo);
+
+		// if in building mode and selected building can rotate and 'Rotate' input is called, it rotates building
+		if (BUILDINGMODE && Input.IsActionJustPressed("Rotate") && (bool)buildings[selectedBuilding].canRotate)
+		{
+			RotateBuilding();
+		}
+
+		// moves square cursor to tiles
+		CursorTexture(cellPostionByMouse);
+
+		// builds a building
+		Build(groundResourceName, buildingsData, cellPostionByMouse);
+
+		// farming resources
+		FarmResources(groundResourceName, buildingsData, GetBuildingInfo(cellPostionByMouse));
+	}
+
+	public Vector2I GetMousePosition()
+	{
+		var mousePosition = GetGlobalMousePosition();
+		Vector2I cellPostionByMouse = new ((int)(mousePosition[0] / (4 * 16)), (int)(mousePosition[1]  / (4 * 16)));
+
+		if (mousePosition[0] < 0)
+		{
+			cellPostionByMouse = new Vector2I((int)(cellPostionByMouse[0] - 1), (int)(cellPostionByMouse[1]));
+		}
+
+		if (mousePosition[1] < 0)
+		{
+			cellPostionByMouse = new Vector2I((int)(cellPostionByMouse[0]), (int)(cellPostionByMouse[1] - 1));
+		}
+
+		return cellPostionByMouse;
+	}
+
+	public void CursorTexture(Vector2I cellPostionByMouse)
+	{
+		ClearLayer(tileMapLayer);
+		
+		if (BUILDINGMODE)
+		{
+			Vector2I atlasCoords = new Vector2I((int)buildings[selectedBuilding].atlasCoords[0] + buildingRotation, (int)buildings[selectedBuilding].atlasCoords[1]);
+			SetCell(tileMapLayer, cellPostionByMouse, tileMapId, atlasCoords);
+
+			if ((bool)buildings[selectedBuilding].hasAdditionalAtlasPosition)
+			{
+				for (int i = 0; i < buildings[selectedBuilding].additionalAtlasPosition.Count; i++)
+					{
+						Vector2I additionalAtlasPosition = new Vector2I((int)buildings[selectedBuilding].additionalAtlasPosition[i][0], (int)buildings[selectedBuilding].additionalAtlasPosition[i][1]);
+						SetCell(tileMapLayer, cellPostionByMouse + additionalAtlasPosition, tileMapId, atlasCoords + additionalAtlasPosition);
+					}
+			}
+		}
+		else {
+			SetCell(tileMapLayer, cellPostionByMouse, tileMapId, atlasPosition);
+		}
+
+	}
+
+	public void FarmResources(string groundResourceName, TileData buildingsData, dynamic buildingDisplayInfo)
+	{
+		if (BUILDINGMODE) { return; }
+
+		if (GroundResourceValidate(resourcesHervestedByHand.canBeUsedOn, groundResourceName) && buildingsData == null && Input.IsActionJustPressed("Use"))
+		{
+			resourceAmount++;
+			EmitSignal(SignalName.ResourcesUpdated, resourceAmount);
+		}
+
+		if (buildingsData != null && (Input.IsActionPressed("TakeAll") || Input.IsActionJustPressed("Use"))) {
+			resourceAmount += (int)buildingDisplayInfo.outputSlots[0].amount;
+			buildingDisplayInfo.outputSlots[0].amount = 0;
+			EmitSignal(SignalName.ResourcesUpdated, resourceAmount);
+		}
+			
+	}
+
+	public void RotateBuilding()
+	{
+		buildingRotation = (buildingRotation + 1) % (int)buildings[selectedBuilding].rotationAmount;
+		//GD.Print(buildingRotation);
+	}
+
+	public void ToggleBuildMode()
+	{
+		BUILDINGMODE = !BUILDINGMODE;
+		
+		ClearLayer(tileMapLayer);
+		tileMapLayer = 2;
+		tileMapId = 1;
+		atlasPosition = new (0, 0);
+		
+		if (!BUILDINGMODE)
+		{
+			// draws square crosshair to TileMap
+			tileMapLayer = 3;
+			tileMapId = 100;
+			atlasPosition = new (0, 0);
+			buildingRotation = 0;
+		}
+	}
+
+	public void Build(string groundResourceName, TileData buildingsData, Vector2I cellPostionByMouse)
+	{
+		if (Input.IsMouseButtonPressed(MouseButton.Left) && BUILDINGMODE)
+		{	
+			if (GroundResourceValidate(buildings[selectedBuilding].canBePlacedOn, groundResourceName) && buildingsData == null && resourceAmount >= (int)buildings[selectedBuilding].cost)
+			{
+				SetCell(1, cellPostionByMouse, 1, new((int)buildings[selectedBuilding].atlasCoords[0] + buildingRotation, (int)buildings[selectedBuilding].atlasCoords[1]));
+				resourceAmount -= (int)buildings[selectedBuilding].cost;
+				EmitSignal(SignalName.ResourcesUpdated, resourceAmount);
+
+				string buildingsJson = Newtonsoft.Json.JsonConvert.SerializeObject(buildings);
+				dynamic building = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
+				building = building[selectedBuilding];
+				building.coords[0] = cellPostionByMouse[0];
+				building.coords[1] = cellPostionByMouse[1];
+				if (building.type.ToString() == "drill")
+				{
+					building.production = items[groundResourceName].name;
+					building.outputSlots[0].resource = groundResourceName;
+				}
+
+				if((bool)building.hasAdditionalAtlasPosition)
+				{
+					for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
+					{
+						Vector2I atlasCoords = new Vector2I((int)building.atlasCoords[0], (int)building.atlasCoords[1]);
+						Vector2I additionalAtlasPosition = new Vector2I((int)building.additionalAtlasPosition[i][0], (int)building.additionalAtlasPosition[i][1]);
+						SetCell(1, cellPostionByMouse + additionalAtlasPosition, 1, atlasCoords + additionalAtlasPosition);
+						//GD.Print($"[{building.additionalAtlasPosition[i][0]}, {building.additionalAtlasPosition[i][1]}]");
+					}
+				}
+
+				buildingsInfo.Add(building);
+				buildings = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
+			}
+		}
+	}
+	public dynamic GetBuildingInfo(Vector2 cellPostionByMouse) 
+	{
+		foreach (var building in buildingsInfo)
+		{
+			if (building.coords[0] == cellPostionByMouse[0] && building.coords[1] == cellPostionByMouse[1])
+			{
+				return building;
+			}
+		}
+		return new object();
+	}
+
+	public static bool GroundResourceValidate(dynamic canBePlacedOn, string groundResourceName)
+	{
+		foreach(string resource in canBePlacedOn)
+		{
+			if (resource == groundResourceName)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void RemoveItemFromSlot(Vector2I coords, string type, int slotIndex)
+	{
+		dynamic building = GetBuildingInfo(coords);
+
+		if (type == "Input")
+		{
+			resourceAmount += (int)building.inputSlots[slotIndex].amount;
+			building.inputSlots[slotIndex].amount = 0;
+			EmitSignal(SignalName.ResourcesUpdated, resourceAmount);
+		}
+		else if (type == "Output")
+		{
+			resourceAmount += (int)building.outputSlots[slotIndex].amount;
+			building.outputSlots[slotIndex].amount = 0;
+			EmitSignal(SignalName.ResourcesUpdated, resourceAmount);
+		}
+	}
+
+	// every game tic this is called
+	private void OnTickUpdate()
+	{
+		for (int i = 0; i < buildingsInfo.Count; i++)
+		{
+			if(buildingsInfo[i].buildingType.ToString() != "machine") { return; }
+
+			string resource = buildingsInfo[i].outputSlots[0].resource;
+			if (buildingsInfo[i].outputSlots[0].amount < items[resource].maxStackSize) {
+				buildingsInfo[i].productionProgress += (float)buildingsInfo[i].productionRate / 60 / 20;
+			}
+
+			if (buildingsInfo[i].productionProgress >= 1)
+			{
+				buildingsInfo[i].productionProgress = 0;
+				buildingsInfo[i].outputSlots[0].amount += 1;
+			}
+
+			// if inventory is oppened, data will be sent to the inventory to show on screeen
+			if (UITOGGLE)
+			{
+				string itemName = items[buildingsInfo[i].outputSlots[0].resource.ToString()].name.ToString();
+				string itemType = items[buildingsInfo[i].outputSlots[0].resource.ToString()].type.ToString();
+				EmitSignal(SignalName.UpdateBuildingProgress, (double)buildingsInfo[i].productionProgress, (int)buildingsInfo[i].outputSlots[0].amount, itemName, itemType);
+			}
+		}
+	}
+
+}

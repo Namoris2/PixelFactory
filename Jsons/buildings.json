@@ -1,0 +1,82 @@
+{
+    "handHarvest" : {
+        "canBeUsedOn" : ["CoalOre", "CopperOre", "IronOre"]
+    },
+    "drill" : {
+        "buildingType" : "machine",
+        "type" : "drill",
+        "name" : "Small Drill",
+        "cost" : 20,
+        "coords" : [0, 0],
+        "atlasCoords" : [0, 0],
+        "width" : 1,
+        "height" : 1,
+        "canRotate" : false,
+        "rotationAmount" : 0,
+        "rotation" : 0,
+        "hasAdditionalAtlasPosition" : false,
+        "additionalAtlasPosition" : [],
+        "production" : "",
+        "productionRate" : 30,
+        "productionProgress" : 0,
+        "canBePlacedOn" : ["CoalOre", "CopperOre", "IronOre"],
+        "inputSlots" : [],
+        "outputSlots" : [
+            {
+                "resource" : "",
+                "amount" : 0,
+                "canConnectToBelts" : false,
+                "connection" : []
+            }
+        ] 
+    },
+    "belt1" : {
+        "buildingType" : "belt",
+        "type" : "belt1",
+        "name" : "Conveyor Belt MK1",
+        "cost" : 5,
+        "coords" : [0, 0],
+        "atlasCoords" : [0, 1],
+        "width" : 1,
+        "height" : 1,
+        "canRotate" : true,
+        "rotationAmount" : 4,
+        "rotation" : 0,
+        "hasAdditionalAtlasPosition" : false,
+        "additionalAtlasPosition" : [],
+        "speed" : 30,
+        "canBePlacedOn" : ["Grass", "Concrete"]
+    },
+    "test" : {
+        "buildingType" : "test",
+        "type" : "test",
+        "name" : "Test Building 1",
+        "cost" : 0,
+        "coords" : [0, 0],
+        "atlasCoords" : [0, 2],
+        "width" : 2,
+        "height" : 2,
+        "hasAdditionalAtlasPosition" : true,
+        "additionalAtlasPosition" : [        [1, 0],
+                                     [0, 1], [1, 1]],
+        "canBePlacedOn" : ["Grass"]
+    },
+    "test2" : {
+        "buildingType" : "test",
+        "type" : "test",
+        "name" : "Test Building 2",
+        "cost" : 0,
+        "coords" : [0, 0],
+        "atlasCoords" : [2, 2],
+        "width" : 3,
+        "height" : 3,
+        "hasAdditionalAtlasPosition" : true,
+        "additionalAtlasPosition" : [        [0, 1], [0, 2],
+                                     [1, 0], [1, 1], [1, 2], 
+                                     [2, 0], [2, 1], [2, 2]],
+        "canBePlacedOn" : ["Grass"]
+    },
+    "test3" : {
+        "name" :"Test Building 3"
+    }
+}

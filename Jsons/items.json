@@ -1,0 +1,24 @@
+{
+	"Grass" : {
+		"name" : "Grass",
+		"maxStackSize" : 0
+	},
+	"IronOre" : {
+		"type" : "IronOre",
+		"name" : "Iron Ore",
+		"maxStackSize" : 100,
+		"atlasCoords" : [1, 0]
+	},
+	"CopperOre" : {
+		"type" : "CopperOre",
+		"name" : "Copper Ore",
+		"maxStackSize" : 100,
+		"atlasCoords" : [2, 0]
+	},
+	"CoalOre" : {
+		"type" : "CoalOre",
+		"name" : "Coal Ore",
+		"maxStackSize" : 100,
+		"atlasCoords" : [0, 0]
+	}
+}
