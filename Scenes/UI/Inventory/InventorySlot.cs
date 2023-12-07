@@ -75,6 +75,7 @@ public partial class InventorySlot : Button
 			textureAtlas.Region = new Rect2I(atlasCoords[0] * 16, atlasCoords[1] * 16, 16, 16);
 
 			itemTexture.Texture = textureAtlas;
+			GD.Print(itemType);
 		}
 		else
 		{

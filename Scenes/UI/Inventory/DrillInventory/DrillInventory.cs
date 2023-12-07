@@ -57,6 +57,9 @@ public partial class DrillInventory : Control
 			{
 				InventorySlot slot = slots.GetChild<InventorySlot>(i);
 				slot.buildingCoordinates = coordinates;
+				slot.itemType = buildingInfo.outputSlots[i].resource.ToString();
+				slot.UpdateSlotTexture(slot.itemType);
+				//GD.Print(slot.itemType);
 			}
 
 			this.Show();
@@ -68,7 +71,7 @@ public partial class DrillInventory : Control
 		}
 	}
 
-	private void UpdateInventory(double progress, int itemAmount, string itemName, string itemType)
+	private void UpdateInventory(double progress, int itemAmount, string itemName, string itemType, Vector2I coodrinates)
 	{
 		ProgressBar productionProgress = GetNode<ProgressBar>("ProductionProgress");
 		productionProgress.Value = progress;
@@ -78,6 +81,8 @@ public partial class DrillInventory : Control
 
 		if (itemAmount > 0)
 		{
+			if (slot.buildingCoordinates != coodrinates) { return; }
+			
 			resourceAmount.Text = itemAmount.ToString();
 			slot.itemType = itemType;
 			slot.UpdateSlotTexture(itemType);
