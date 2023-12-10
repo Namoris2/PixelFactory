@@ -30,13 +30,18 @@ public partial class HoldingItem : TextureRect
 		}
 	}
 
-	public void ShowHoldingItem(string type, string amount, Texture2D texture)
+	public void ShowHoldingItem(string type, string amount)
 	{
 		itemName = type;
 		itemAmount = amount;
 		ISHOLDINGITEM = true;
 
 		GetNode<Label>("ResourceAmount").Text = itemAmount;
+		AtlasTexture texture = new ();
+		Vector2I atlasCoords = new Vector2I((int)items[type].atlasCoords[0], (int)items[type].atlasCoords[1]);
+
+		texture.Atlas = GD.Load<Texture2D>("res://Gimp/items/items.png");
+		texture.Region = new Rect2I(atlasCoords[0] * 16, atlasCoords[1] * 16, 16, 16);
 		this.Texture = texture;
 
 		this.Show();
