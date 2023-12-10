@@ -7,12 +7,12 @@ public partial class InventorySlot : Button
 	[Signal]
 	public delegate void SlotClickedEventHandler(Vector2I coords, string type, int slotIndex);
 	[Signal]
-	public delegate void ShowHoldingItemEventHandler(string name, string amount, Texture2D texture);	
+	public delegate void ShowHoldingItemEventHandler(string name, string amount);	
 	[Signal]
 	public delegate void HideHoldingItemEventHandler();
 
 	[Export]
-	public bool UserInput = true;	
+	public bool UserImport = true;	
 	[Export]
 	public bool UserExport = true;
 	[Export]
@@ -71,11 +71,10 @@ public partial class InventorySlot : Button
 		{
 			Vector2I atlasCoords = new Vector2I((int)items[itemType].atlasCoords[0], (int)items[itemType].atlasCoords[1]);
 
-			textureAtlas.Atlas = GD.Load<Texture2D>("res://Gimp/items/items.png");
 			textureAtlas.Region = new Rect2I(atlasCoords[0] * 16, atlasCoords[1] * 16, 16, 16);
 
 			itemTexture.Texture = textureAtlas;
-			GD.Print(itemType);
+			//GD.Print(itemType);
 		}
 		else
 		{
@@ -99,27 +98,63 @@ public partial class InventorySlot : Button
 
 				EmitSignal(SignalName.SlotClicked, buildingCoordinates, slotType, inventorySlotIndex);
 			}
-			EmitSignal(SignalName.ShowHoldingItem, itemType, resourceAmount.Text, itemTexture.Texture);
+			EmitSignal(SignalName.ShowHoldingItem, itemType, resourceAmount.Text);
 			
 			itemType = "";
 			resourceAmount.Text = "";
 			itemTexture.Texture = null;
-
-			this.ShowHoldingItem -= holdingItem.ShowHoldingItem;
-			return;
 		}
 
-		if (holdingItem.ISHOLDINGITEM)
+		else if (holdingItem.ISHOLDINGITEM && UserImport)
 		{
-			itemType = holdingItem.itemName;
-			resourceName.Text = itemType;
-			resourceAmount.Text = holdingItem.itemAmount;
-			UpdateSlotTexture(itemType);
+			if (itemType == "")
+			{
+				itemType = holdingItem.itemName;
+				resourceName.Text = itemType;
+				resourceAmount.Text = holdingItem.itemAmount;
+				UpdateSlotTexture(itemType);
 
-			EmitSignal(SignalName.HideHoldingItem);
-			this.HideHoldingItem -= holdingItem.HideHoldingItem;
-			return;
+				EmitSignal(SignalName.HideHoldingItem);
+			}
+
+			else if (itemType == holdingItem.itemName)
+			{
+				if ((int.Parse(resourceAmount.Text) + int.Parse(holdingItem.itemAmount)) <= (int)items[itemType].maxStackSize)
+				{
+					resourceAmount.Text = (int.Parse(resourceAmount.Text) + int.Parse(holdingItem.itemAmount)).ToString();
+					EmitSignal(SignalName.HideHoldingItem);
+				}
+				else
+				{
+					holdingItem.itemAmount = (int.Parse(holdingItem.itemAmount) - ((int)items[itemType].maxStackSize - int.Parse(resourceAmount.Text))).ToString();
+					resourceAmount.Text = items[itemType].maxStackSize.ToString();
+					GetNode<Label>(holdingItem.GetPath() + "/ResourceAmount").Text = holdingItem.itemAmount;
+				}
+			}
+
+			else
+			{
+				string helperItemType;
+				string helperResourceAmount;
+				Texture2D helperTexture;
+
+				helperItemType = holdingItem.itemName;
+				helperResourceAmount = holdingItem.itemAmount;
+				helperTexture = holdingItem.Texture;
+
+				holdingItem.itemName = itemType;
+				holdingItem.itemAmount = resourceAmount.Text;
+				GetNode<Label>(holdingItem.GetPath() + "/ResourceAmount").Text = holdingItem.itemAmount; 
+				EmitSignal(SignalName.ShowHoldingItem, itemType, resourceAmount.Text);
+
+				itemType = helperItemType;
+				resourceAmount.Text = helperResourceAmount;
+				itemTexture.Texture = helperTexture;
+				//UpdateSlotTexture(itemType);
+			}
 		}
 
+		this.ShowHoldingItem -= holdingItem.ShowHoldingItem;
+		this.HideHoldingItem -= holdingItem.HideHoldingItem;
 	}
 }

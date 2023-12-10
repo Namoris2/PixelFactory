@@ -73,16 +73,17 @@ public partial class DrillInventory : Control
 
 	private void UpdateInventory(double progress, int itemAmount, string itemName, string itemType, Vector2I coodrinates)
 	{
+		Label resourceAmount = GetNode<Label>("Slots/OutputSlot0/ResourceAmount");
+		InventorySlot slot = GetNode<InventorySlot>("Slots/OutputSlot0");
+		
+		if (slot.buildingCoordinates != coodrinates) { return; }
+		
 		ProgressBar productionProgress = GetNode<ProgressBar>("ProductionProgress");
 		productionProgress.Value = progress;
 
-		Label resourceAmount = GetNode<Label>("Slots/OutputSlot0/ResourceAmount");
-		InventorySlot slot = GetNode<InventorySlot>("Slots/OutputSlot0");
 
 		if (itemAmount > 0)
-		{
-			if (slot.buildingCoordinates != coodrinates) { return; }
-			
+		{		
 			resourceAmount.Text = itemAmount.ToString();
 			slot.itemType = itemType;
 			slot.UpdateSlotTexture(itemType);
