@@ -44,6 +44,7 @@ public partial class TileMap : Godot.TileMap
 	int resourceAmount = 10000;
 	dynamic buildings;
 	dynamic items;
+	dynamic groundResources;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -61,10 +62,19 @@ public partial class TileMap : Godot.TileMap
 		resourcesHervestedByHand = buildings.handHarvest;
 
 		items = load.LoadJson("items.json");
+		groundResources = load.LoadJson("groundResources.json");
 
 		// gets TickRate node and every time its reset, 'OnTickUpdate' function is called
 		Timer tickUpdate =  GetNode<Timer>("/root/main/TickRate");
 		tickUpdate.Timeout += OnTickUpdate;
+
+		// this generates the world
+		/*GenerateWorld generateWorld = GetNode<GenerateWorld>("/root/main/GenerateWorld");
+		Vector2I mapSize = new Vector2I(500, 500);
+		generateWorld.GenerateResource(mapSize, "Grass", true);
+		generateWorld.GenerateResource(mapSize, "IronOre");
+		generateWorld.GenerateResource(mapSize, "CoalOre");
+		generateWorld.GenerateResource(mapSize, "CopperOre");*/
 
 		//UITOGGLE = GetNode<UIToggle>("/root/main/UI/UIToggle").toggle;
 	}
@@ -111,11 +121,11 @@ public partial class TileMap : Godot.TileMap
 		{
 			dynamic buildingDisplayInfo = GetBuildingInfo(cellPostionByMouse);
 
-			wolrdInfo = $"Building: {buildingDisplayInfo.name} \nHarvesting: {items[buildingDisplayInfo.outputSlots[0].resource.ToString()].name}\nProgress: {(int)(buildingDisplayInfo.productionProgress * 100)}% \nResource Amount: {buildingDisplayInfo.outputSlots[0].amount}";	
+			wolrdInfo = $"Building: {buildingDisplayInfo.name} \nHarvesting: {groundResources[buildingDisplayInfo.outputSlots[0].resource.ToString()].name}\nProgress: {(int)(buildingDisplayInfo.productionProgress * 100)}% \nResource Amount: {buildingDisplayInfo.outputSlots[0].amount}";	
 		}
 		else
 		{
-			wolrdInfo = $"Resource: {items[groundResourceName].name}";
+			wolrdInfo = $"Resource: {groundResources[groundResourceName].name}";
 		}
 
 		EmitSignal(SignalName.UpdateResourceInfo, wolrdInfo);

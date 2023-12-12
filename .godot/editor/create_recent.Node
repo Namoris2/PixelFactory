@@ -1,8 +1,9 @@
+Node2D
+Node
 TileMap
 CenterContainer
 FlowContainer
 Container
-Node
 CanvasLayer
 Button
 Panel
@@ -11,5 +12,3 @@ TextureRect
 AspectRatioContainer
 GridContainer
 ItemList
-Node2D
-CollisionPolygon2D

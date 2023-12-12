@@ -1,5 +1,6 @@
-[gd_scene load_steps=26 format=3 uid="uid://bbqmsnkmc3pac"]
+[gd_scene load_steps=27 format=3 uid="uid://bbqmsnkmc3pac"]
 
+[ext_resource type="Script" path="res://Scenes/Game/World/GenerateWorld.cs" id="1_fr7ss"]
 [ext_resource type="Texture2D" uid="uid://cakt6ts1d5n8k" path="res://Gimp/Ground Materials/ground.png" id="2_ks7bs"]
 [ext_resource type="Texture2D" uid="uid://ck712pm16mpkt" path="res://Gimp/Cussor/cursor_tile_hover.png" id="3_jwn2t"]
 [ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="3_pfvbk"]
@@ -46,6 +47,7 @@ texture = ExtResource("2_ks7bs")
 4:0/0 = 0
 4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 4:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:0/0/custom_data_0 = "Water"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7gb0d"]
@@ -136,6 +138,9 @@ sources/100 = SubResource("TileSetAtlasSource_kytue")
 sources/1 = SubResource("TileSetAtlasSource_7gb0d")
 
 [node name="main" type="Node2D"]
+
+[node name="GenerateWorld" type="Node" parent="."]
+script = ExtResource("1_fr7ss")
 
 [node name="LoadFile" type="Node" parent="."]
 script = ExtResource("14_qdtg8")

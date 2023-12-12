@@ -1,8 +1,4 @@
 {
-	"Grass" : {
-		"name" : "Grass",
-		"maxStackSize" : 0
-	},
 	"IronOre" : {
 		"type" : "IronOre",
 		"name" : "Iron Ore",
