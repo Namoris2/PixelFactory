@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://i4r6u351cl60"]
+[gd_scene load_steps=5 format=3 uid="uid://i4r6u351cl60"]
 
+[ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="1_nriof"]
 [ext_resource type="Texture2D" uid="uid://boc8atf82trf" path="res://icon.svg" id="1_po5us"]
 [ext_resource type="Script" path="res://Scenes/Player/PlayerCamera.cs" id="2_laqpu"]
 
@@ -7,6 +8,7 @@
 size = Vector2(64, 64)
 
 [node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_nriof")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(576, 324)

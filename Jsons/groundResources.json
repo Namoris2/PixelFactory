@@ -1,0 +1,22 @@
+{
+    "Grass" : {
+        "generationCap" : 0.33,
+        "frequency" : 0.01,
+		"atlasCoords" : [0, 0]
+    },
+    "IronOre" : {
+        "generationCap" : -0.55,
+        "frequency" : 0.03,
+		"atlasCoords" : [2, 0]
+    },
+    "CopperOre" : {
+        "generationCap" : -0.55,
+        "frequency" : 0.03,
+		"atlasCoords" : [3, 0]
+    },
+    "CoalOre" : {
+        "generationCap" : -0.55,
+        "frequency" : 0.03,
+		"atlasCoords" : [1, 0]
+    }
+}
