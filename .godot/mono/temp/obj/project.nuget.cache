@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Zb73OUR+ecsZE3lVErSyPisXoZpE/yx7zFxazrS6WZlM9VGpeLlwUAe31VbITij8JgRKb0x6qSK0GNKFqwlWBw==",
+  "dgSpecHash": "tVRmvvEKyetk+R7JX4XxPEYNWRBPAktXPeAYUdl5bfmcNwgf50ygY9iyn0vGZZZMEnH3AkNuJM09K1yFY5j5Ig==",
   "success": true,
   "projectFilePath": "C:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\FactoryBuilder\\FactoryBuilder.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\namor\\.nuget\\packages\\godot.sourcegenerators\\4.1.1\\godot.sourcegenerators.4.1.1.nupkg.sha512",
-    "C:\\Users\\namor\\.nuget\\packages\\godotsharp\\4.1.1\\godotsharp.4.1.1.nupkg.sha512",
-    "C:\\Users\\namor\\.nuget\\packages\\godotsharpeditor\\4.1.1\\godotsharpeditor.4.1.1.nupkg.sha512",
+    "C:\\Users\\namor\\.nuget\\packages\\godot.sourcegenerators\\4.2.0\\godot.sourcegenerators.4.2.0.nupkg.sha512",
+    "C:\\Users\\namor\\.nuget\\packages\\godotsharp\\4.2.0\\godotsharp.4.2.0.nupkg.sha512",
+    "C:\\Users\\namor\\.nuget\\packages\\godotsharpeditor\\4.2.0\\godotsharpeditor.4.2.0.nupkg.sha512",
     "C:\\Users\\namor\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\namor\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\2.0.0\\microsoft.extensions.caching.abstractions.2.0.0.nupkg.sha512",
     "C:\\Users\\namor\\.nuget\\packages\\microsoft.extensions.caching.memory\\2.0.0\\microsoft.extensions.caching.memory.2.0.0.nupkg.sha512",

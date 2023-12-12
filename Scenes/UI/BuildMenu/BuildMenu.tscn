@@ -27,6 +27,7 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
+alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="drill" parent="FlowContainer" instance=ExtResource("1_j2t4k")]
@@ -48,12 +49,3 @@ BuildingName = "test"
 custom_minimum_size = Vector2(192, 192)
 layout_mode = 2
 BuildingName = "test2"
-
-[node name="test3" parent="FlowContainer" instance=ExtResource("1_j2t4k")]
-custom_minimum_size = Vector2(192, 192)
-layout_mode = 2
-BuildingName = "test3"
-
-[node name="placeholder2" parent="FlowContainer" instance=ExtResource("1_j2t4k")]
-custom_minimum_size = Vector2(192, 192)
-layout_mode = 2
