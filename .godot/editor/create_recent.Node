@@ -1,3 +1,7 @@
+TextureRect
+Button
+RichTextLabel
+Label
 Node2D
 Node
 TileMap
@@ -5,10 +9,6 @@ CenterContainer
 FlowContainer
 Container
 CanvasLayer
-Button
 Panel
-Label
-TextureRect
 AspectRatioContainer
 GridContainer
-ItemList

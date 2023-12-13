@@ -1,6 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://bbqmsnkmc3pac"]
+[gd_scene load_steps=29 format=3 uid="uid://bbqmsnkmc3pac"]
 
 [ext_resource type="Script" path="res://Scenes/Game/World/GenerateWorld.cs" id="1_fr7ss"]
+[ext_resource type="Script" path="res://Scenes/main.cs" id="1_qhp31"]
 [ext_resource type="Texture2D" uid="uid://cakt6ts1d5n8k" path="res://Gimp/Ground Materials/ground.png" id="2_ks7bs"]
 [ext_resource type="Texture2D" uid="uid://ck712pm16mpkt" path="res://Gimp/Cussor/cursor_tile_hover.png" id="3_jwn2t"]
 [ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="3_pfvbk"]
@@ -21,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bsymbesh48kwd" path="res://Scenes/UI/BuildMenu/BuildMenu.tscn" id="15_14qvx"]
 [ext_resource type="Script" path="res://Scenes/UI/BuildMenu/BuildMenu.cs" id="15_v7e3e"]
 [ext_resource type="Script" path="res://Scenes/UI/UIToggle.cs" id="16_pxye0"]
+[ext_resource type="PackedScene" uid="uid://bxn21jfq72eky" path="res://Scenes/UI/Pause Menu/PauseMenu.tscn" id="19_3uy5l"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sa6ha"]
 
@@ -138,6 +140,7 @@ sources/100 = SubResource("TileSetAtlasSource_kytue")
 sources/1 = SubResource("TileSetAtlasSource_7gb0d")
 
 [node name="main" type="Node2D"]
+script = ExtResource("1_qhp31")
 
 [node name="GenerateWorld" type="Node" parent="."]
 script = ExtResource("1_fr7ss")
@@ -172,6 +175,7 @@ script = ExtResource("4_doi5u")
 [node name="Background" type="ParallaxBackground" parent="World"]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="World/Background"]
+visible = false
 position = Vector2(0, -1)
 motion_mirroring = Vector2(2048, 512)
 
@@ -245,6 +249,8 @@ metadata/_edit_use_anchors_ = true
 
 [node name="UIToggle" type="Node" parent="UI"]
 script = ExtResource("16_pxye0")
+
+[node name="PauseMenu" parent="UI" instance=ExtResource("19_3uy5l")]
 
 [node name="ResourceAmount" type="Label" parent="UI"]
 anchors_preset = 2
