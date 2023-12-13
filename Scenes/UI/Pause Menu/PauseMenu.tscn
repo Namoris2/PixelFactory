@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxn21jfq72eky"]
+
+[ext_resource type="Script" path="res://Scenes/UI/Pause Menu/PauseMenu.cs" id="1_e0k0e"]
+
+[node name="PauseMenu" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e0k0e")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.368056
+anchor_top = 0.0493827
+anchor_right = 0.631944
+anchor_bottom = 0.253086
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Game Paused
+
+Controls"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+anchor_left = 0.111111
+anchor_top = 0.283951
+anchor_right = 0.5
+anchor_bottom = 1.0
+theme_override_font_sizes/normal_font_size = 30
+text = "Move UP							W
+Move DOWN					S
+Move LEFT						A
+Move RIGHT					D
+Sprint								SHIFT"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.283951
+anchor_right = 0.993056
+anchor_bottom = 1.0
+theme_override_font_sizes/normal_font_size = 30
+text = "Harvest Resource / 		LEFT MOUSE
+Collect from building	BUTTON
+Open Build Menu			B
+Interact							E
+
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="Close" type="Button" parent="."]
+layout_mode = 0
+anchor_left = 0.430556
+anchor_top = 0.740741
+anchor_right = 0.569444
+anchor_bottom = 0.82716
+offset_top = 3.05176e-05
+theme_override_font_sizes/font_size = 30
+text = "CLOSE"
+metadata/_edit_use_anchors_ = true

@@ -3,7 +3,7 @@ using System;
 
 public partial class PlayerCamera : Camera2D
 {
-	Vector2 minZoom = new (.6f, .6f);
+	Vector2 minZoom = new (.4f, .4f);
 	Vector2 maxZoom = new (2.4f, 2.4f);
 	Vector2 zoomSpeed = new (.2f, .2f);
 
