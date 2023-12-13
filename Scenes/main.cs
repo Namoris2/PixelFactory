@@ -12,13 +12,13 @@ public partial class main : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{		
-		TileMap tileMap = GetNode<TileMap>("World/TileMap");
+		/*TileMap tileMap = GetNode<TileMap>("World/TileMap");
 		Control pauseMenu = GetNode<Control>("UI/PauseMenu");
 
-		if(Input.IsActionJustPressed("Back") && !tileMap.UITOGGLE)
+		if(Input.IsActionJustPressed("Back") && !tileMap.UITOGGLE && !tileMap.BUILDINGMODE)
 		{
 			GetTree().Paused = !GetTree().Paused;
 			pauseMenu.Visible = !pauseMenu.Visible;
-		}
+		}*/
 	}
 }

@@ -2,6 +2,12 @@
     "handHarvest" : {
         "canBeUsedOn" : ["CoalOre", "CopperOre", "IronOre"]
     },
+    "buildingPart" :
+    {
+        "parentBuilding" : "",
+        "coords" : [0, 0],
+        "atlasCoords" : [0, 0]
+    },
     "drill" : {
         "buildingType" : "machine",
         "type" : "drill",

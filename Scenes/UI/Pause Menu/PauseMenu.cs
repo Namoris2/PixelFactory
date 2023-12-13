@@ -3,6 +3,7 @@ using System;
 
 public partial class PauseMenu : Control
 {
+	public bool CanPause = true;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -14,11 +15,12 @@ public partial class PauseMenu : Control
 	public override void _Process(double delta)
 	{
 		TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
-		GD.Print(Visible);
+		//GD.Print($"UI: {tileMap.UITOGGLE} BUILDINGMODE: {tileMap.BUILDINGMODE}");
 
-		if(Input.IsActionJustPressed("Back") && !tileMap.UITOGGLE)
+		if(Input.IsActionJustPressed("Back") && CanPause)
 		{
-			//UnpauseGame();
+			Visible = !Visible;
+			GetTree().Paused = !GetTree().Paused;
 		}
 	}
 

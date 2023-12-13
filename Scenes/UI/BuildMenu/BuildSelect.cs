@@ -38,6 +38,7 @@ dynamic buildings;
 
 		TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
 		tileMap.selectedBuilding = BuildingName;
+		tileMap.BUILDINGMODE = false;
 		tileMap.ToggleBuildMode();
 	}
 }

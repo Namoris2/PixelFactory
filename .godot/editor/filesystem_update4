@@ -1,9 +1,7 @@
-res://Scenes/UI/Pause Menu/PauseMenu.tscn
 res://Scenes/main.tscn
+res://Scenes/UI/Pause Menu/PauseMenu.tscn
 res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
 res://Scenes/UI/Inventory/DrillInventory/DrillInventory.tscn
-res://Scenes/UI/Inventory/HoldingItem.tscn
-res://Scenes/UI/BuildMenu/BuildMenu.tscn
 res://Scenes/UI/BuildMenu/BuildSelect.tscn
 res://Scenes/Game/World/GanerationTest.tscn
 res://Scenes/Player/player.tscn
@@ -27,7 +25,7 @@ res://Scenes/UI/Inventory/InventorySlot.cs
 res://Scenes/UI/Inventory/Item.cs
 res://Scenes/UI/Inventory/ItemName.cs
 res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.cs
+res://Scenes/UI/Pause Menu/PauseMenu.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/UIToggle.cs
 res://TileMap.cs
-res://Scenes/UI/Pause Menu/PauseMenu.cs

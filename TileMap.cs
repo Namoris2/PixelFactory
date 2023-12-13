@@ -41,7 +41,7 @@ public partial class TileMap : Godot.TileMap
 	int buildingRotation = 0;
 	dynamic resourcesHervestedByHand;
 
-	int resourceAmount = 10000;
+	int resourceAmount = 0;
 	dynamic buildings;
 	dynamic items;
 	dynamic groundResources;
@@ -69,12 +69,12 @@ public partial class TileMap : Godot.TileMap
 		tickUpdate.Timeout += OnTickUpdate;
 
 		// this generates the world
-		/*GenerateWorld generateWorld = GetNode<GenerateWorld>("/root/main/GenerateWorld");
+		GenerateWorld generateWorld = GetNode<GenerateWorld>("/root/main/GenerateWorld");
 		Vector2I mapSize = new Vector2I(500, 500);
 		generateWorld.GenerateResource(mapSize, "Grass", true);
 		generateWorld.GenerateResource(mapSize, "IronOre");
 		generateWorld.GenerateResource(mapSize, "CoalOre");
-		generateWorld.GenerateResource(mapSize, "CopperOre");*/
+		generateWorld.GenerateResource(mapSize, "CopperOre");
 
 		//UITOGGLE = GetNode<UIToggle>("/root/main/UI/UIToggle").toggle;
 	}
@@ -82,6 +82,10 @@ public partial class TileMap : Godot.TileMap
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		PauseMenu pauseMenu = GetNode<PauseMenu>("/root/main/UI/PauseMenu");
+		pauseMenu.CanPause = !UITOGGLE && !BUILDINGMODE;
+
+
 		// getting mouse position with TileMap coordinates
 		Vector2I cellPostionByMouse = GetMousePosition();
 		
@@ -108,10 +112,10 @@ public partial class TileMap : Godot.TileMap
 			EmitSignal(SignalName.ToggleInventory, UITOGGLE, Newtonsoft.Json.JsonConvert.SerializeObject(buildingDisplayInfo));
 		}
 
-		if (BUILDINGMODE && Input.IsActionJustPressed("Back"))
+		/*if (BUILDINGMODE && Input.IsActionJustPressed("Back"))
 		{
 			ToggleBuildMode();
-		}
+		}*/
 
 		
 		// if any inventory is oppend any of the action bellow won't work

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/UI/Pause Menu/PauseMenu.cs" id="1_e0k0e"]
 
 [node name="PauseMenu" type="Control"]
-process_mode = 2
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_e0k0e")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.192157, 0.192157, 0.192157, 0.478431)
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -29,17 +39,19 @@ horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.111111
 anchor_top = 0.283951
 anchor_right = 0.5
 anchor_bottom = 1.0
-theme_override_font_sizes/normal_font_size = 30
-text = "Move UP							W
-Move DOWN					S
-Move LEFT						A
-Move RIGHT					D
-Sprint								SHIFT"
+theme_override_font_sizes/normal_font_size = 25
+text = "Move UP						W
+Move DOWN				S
+Move LEFT					A
+Move RIGHT				D
+Sprint							SHIFT
+Zoom							MOUSE WHEEL"
 metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="."]
@@ -49,11 +61,12 @@ anchor_left = 0.5
 anchor_top = 0.283951
 anchor_right = 0.993056
 anchor_bottom = 1.0
-theme_override_font_sizes/normal_font_size = 30
-text = "Harvest Resource / 		LEFT MOUSE
-Collect from building	BUTTON
-Open Build Menu			B
-Interact							E
+theme_override_font_sizes/normal_font_size = 25
+text = "	Harvest Resource / 		LEFT MOUSE
+	Collect from building	BUTTON
+	Open Build Menu			B
+	Rotate Building				R
+	Interact							E
 
 "
 metadata/_edit_use_anchors_ = true
@@ -67,4 +80,3 @@ anchor_bottom = 0.82716
 offset_top = 3.05176e-05
 theme_override_font_sizes/font_size = 30
 text = "CLOSE"
-metadata/_edit_use_anchors_ = true
