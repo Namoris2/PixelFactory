@@ -40,9 +40,15 @@ public partial class DrillInventory : Control
 
 	private void ToggleInventory(bool TOGGLEINGINVENTORY, string building)
 	{
+		if (!TOGGLEINGINVENTORY) 
+		{
+			this.Hide();
+			return; 
+		}
+
 		dynamic buildingInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(building);
 
-		if (buildingInfo.type == "drill" && TOGGLEINGINVENTORY)
+		if (buildingInfo.type == "drill")
 		{
 			Label buildingName = GetNode<Label>("Name");
 			Label resourceProduction = GetNode<Label>("Production");
@@ -63,11 +69,6 @@ public partial class DrillInventory : Control
 			}
 
 			this.Show();
-		}
-		else
-		{
-			//this.Free();
-			this.Hide();
 		}
 	}
 

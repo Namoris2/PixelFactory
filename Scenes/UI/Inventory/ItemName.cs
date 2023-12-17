@@ -47,7 +47,7 @@ public partial class ItemName : Label
 
 		nodeHidden = false;
 
-		LoadFile load = GetNode<LoadFile>("/root/main/LoadFile");
+		LoadFile load = new();
 		dynamic items = load.LoadJson("items.json");
 		this.Text = items[slot.itemType].name.ToString();
 

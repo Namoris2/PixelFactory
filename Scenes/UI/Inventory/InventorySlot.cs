@@ -32,7 +32,7 @@ public partial class InventorySlot : Button
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		LoadFile load = GetNode<LoadFile>("/root/main/LoadFile");
+		LoadFile load = new();
 		items = load.LoadJson("items.json");
 
 		itemTexture = GetNode<TextureRect>("ItemTexture");

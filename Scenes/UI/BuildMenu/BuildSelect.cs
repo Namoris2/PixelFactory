@@ -9,7 +9,7 @@ dynamic buildings;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		LoadFile load = GetNode<LoadFile>("/root/main/LoadFile");
+		LoadFile load = new();
 
 		// loads 'buildigns.json' file and parses in to dynamic object
 		buildings = load.LoadJson("buildings.json");

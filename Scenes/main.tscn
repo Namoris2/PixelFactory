@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bbqmsnkmc3pac"]
+[gd_scene load_steps=28 format=3 uid="uid://bbqmsnkmc3pac"]
 
 [ext_resource type="Script" path="res://Scenes/Game/World/GenerateWorld.cs" id="1_fr7ss"]
 [ext_resource type="Script" path="res://Scenes/main.cs" id="1_qhp31"]
@@ -18,7 +18,6 @@
 [ext_resource type="Script" path="res://Scenes/UI/HUD/TestLabel.cs" id="11_bqjwt"]
 [ext_resource type="PackedScene" uid="uid://dyxbbw8tmug2l" path="res://Scenes/UI/Inventory/DrillInventory/DrillInventory.tscn" id="13_dtspo"]
 [ext_resource type="Script" path="res://Scenes/UI/HUD/TestSprite.cs" id="13_m0xvw"]
-[ext_resource type="Script" path="res://Scenes/Game/LoadFile.cs" id="14_qdtg8"]
 [ext_resource type="PackedScene" uid="uid://bsymbesh48kwd" path="res://Scenes/UI/BuildMenu/BuildMenu.tscn" id="15_14qvx"]
 [ext_resource type="Script" path="res://Scenes/UI/BuildMenu/BuildMenu.cs" id="15_v7e3e"]
 [ext_resource type="Script" path="res://Scenes/UI/UIToggle.cs" id="16_pxye0"]
@@ -59,26 +58,21 @@ texture = ExtResource("3_pfvbk")
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-0:0/0/custom_data_0 = "drill"
 0:1/next_alternative_id = 4
 0:1/0 = 0
 0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:1/0/physics_layer_0/angular_velocity = 0.0
-0:1/0/custom_data_0 = "drill1"
 1:1/0 = 0
 1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:1/0/physics_layer_0/angular_velocity = 0.0
-1:1/0/custom_data_0 = "drill1"
 1:1/0/custom_data_1 = 1
 2:1/0 = 0
 2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:1/0/physics_layer_0/angular_velocity = 0.0
-2:1/0/custom_data_0 = "drill1"
 2:1/0/custom_data_1 = 2
 3:1/0 = 0
 3:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:1/0/physics_layer_0/angular_velocity = 0.0
-3:1/0/custom_data_0 = "drill1"
 3:1/0/custom_data_1 = 3
 0:2/0 = 0
 0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -144,9 +138,6 @@ script = ExtResource("1_qhp31")
 
 [node name="GenerateWorld" type="Node" parent="."]
 script = ExtResource("1_fr7ss")
-
-[node name="LoadFile" type="Node" parent="."]
-script = ExtResource("14_qdtg8")
 
 [node name="TickRate" type="Timer" parent="."]
 wait_time = 0.05

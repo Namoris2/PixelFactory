@@ -41,7 +41,7 @@ public partial class TileMap : Godot.TileMap
 	int buildingRotation = 0;
 	dynamic resourcesHervestedByHand;
 
-	int resourceAmount = 0;
+	int resourceAmount = 100000;
 	dynamic buildings;
 	dynamic items;
 	dynamic groundResources;
@@ -55,7 +55,7 @@ public partial class TileMap : Godot.TileMap
 		
 		EmitSignal(SignalName.ResourcesUpdated, resourceAmount);
 
-		LoadFile load = GetNode<LoadFile>("/root/main/LoadFile");
+		LoadFile load = new();
 
 		// loads 'buildigns.json' file and parses in to dynamic object
 		buildings = load.LoadJson("buildings.json");
@@ -88,7 +88,7 @@ public partial class TileMap : Godot.TileMap
 
 		// getting mouse position with TileMap coordinates
 		Vector2I cellPostionByMouse = GetMousePosition();
-		
+
 		// getting tileMap data by mouse coordinates that hovers over TileMap cell
 		TileData groundData = GetCellTileData(0, cellPostionByMouse);
 		TileData buildingsData = GetCellTileData(1, cellPostionByMouse);
@@ -118,9 +118,9 @@ public partial class TileMap : Godot.TileMap
 		}*/
 
 		
-		// if any inventory is oppend any of the action bellow won't work
+		// if any inventory is oppend any of the actions bellow won't work
 		if (UITOGGLE) { return; }
-
+		
 		if (buildingsData != null && GetBuildingInfo(cellPostionByMouse).buildingType.ToString() == "machine")
 		{
 			dynamic buildingDisplayInfo = GetBuildingInfo(cellPostionByMouse);
@@ -139,10 +139,10 @@ public partial class TileMap : Godot.TileMap
 		{
 			RotateBuilding();
 		}
-
+		
 		// moves square cursor to tiles
 		CursorTexture(cellPostionByMouse);
-
+		
 		// builds a building
 		Build(groundResourceName, buildingsData, cellPostionByMouse);
 
@@ -260,10 +260,19 @@ public partial class TileMap : Godot.TileMap
 				{
 					for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
 					{
-						Vector2I atlasCoords = new Vector2I((int)building.atlasCoords[0], (int)building.atlasCoords[1]);
-						Vector2I additionalAtlasPosition = new Vector2I((int)building.additionalAtlasPosition[i][0], (int)building.additionalAtlasPosition[i][1]);
+						Vector2I atlasCoords = new ((int)building.atlasCoords[0], (int)building.atlasCoords[1]);
+						Vector2I additionalAtlasPosition = new ((int)building.additionalAtlasPosition[i][0], (int)building.additionalAtlasPosition[i][1]);
+						
+						dynamic buildingPart = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);;
+						buildingPart = buildingPart.buildingPart;
+
+						buildingPart.coords[0] = cellPostionByMouse[0] + additionalAtlasPosition[0];
+						buildingPart.coords[1] = cellPostionByMouse[1] + additionalAtlasPosition[1];
+						buildingPart.parentBuilding[0] = building.coords[0];
+						buildingPart.parentBuilding[1] = building.coords[1];
+
 						SetCell(1, cellPostionByMouse + additionalAtlasPosition, 1, atlasCoords + additionalAtlasPosition);
-						//GD.Print($"[{building.additionalAtlasPosition[i][0]}, {building.additionalAtlasPosition[i][1]}]");
+						buildingsInfo.Add(buildingPart);
 					}
 				}
 
@@ -278,10 +287,17 @@ public partial class TileMap : Godot.TileMap
 		{
 			if (building.coords[0] == cellPostionByMouse[0] && building.coords[1] == cellPostionByMouse[1])
 			{
-				return building;
+				if (building.buildingType.ToString() == "buildingPart")
+				{
+					return GetBuildingInfo(new Vector2((int)building.parentBuilding[0], (int)building.parentBuilding[1]));
+				}
+				else
+				{
+					return building;
+				}
 			}
 		}
-		return new object();
+		return null;
 	}
 
 	public static bool GroundResourceValidate(dynamic canBePlacedOn, string groundResourceName)

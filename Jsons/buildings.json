@@ -4,9 +4,9 @@
     },
     "buildingPart" :
     {
-        "parentBuilding" : "",
-        "coords" : [0, 0],
-        "atlasCoords" : [0, 0]
+        "buildingType" : "buildingPart",
+        "parentBuilding" : [0, 0],
+        "coords" : [0, 0]
     },
     "drill" : {
         "buildingType" : "machine",
