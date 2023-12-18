@@ -11,6 +11,7 @@ using System.Data;
 using System.Security.AccessControl;
 using System.Diagnostics.Metrics;
 using System.Security.Cryptography;
+using System.Diagnostics.CodeAnalysis;
 
 public partial class TileMap : Godot.TileMap
 {
@@ -171,7 +172,7 @@ public partial class TileMap : Godot.TileMap
 		return cellPostionByMouse;
 	}
 
-	public void CursorTexture(Vector2I cellPostionByMouse)
+	private void CursorTexture(Vector2I cellPostionByMouse)
 	{
 		ClearLayer(tileMapLayer);
 		
@@ -195,7 +196,7 @@ public partial class TileMap : Godot.TileMap
 
 	}
 
-	public void FarmResources(string groundResourceName, TileData buildingsData, dynamic buildingDisplayInfo)
+	private void FarmResources(string groundResourceName, TileData buildingsData, dynamic buildingDisplayInfo)
 	{
 		if (BUILDINGMODE) { return; }
 
@@ -213,7 +214,7 @@ public partial class TileMap : Godot.TileMap
 			
 	}
 
-	public void RotateBuilding()
+	private void RotateBuilding()
 	{
 		buildingRotation = (buildingRotation + 1) % (int)buildings[selectedBuilding].rotationAmount;
 		//GD.Print(buildingRotation);
@@ -238,7 +239,7 @@ public partial class TileMap : Godot.TileMap
 		}
 	}
 
-	public void Build(string groundResourceName, TileData buildingsData, Vector2I cellPostionByMouse)
+	private void Build(string groundResourceName, TileData buildingsData, Vector2I cellPostionByMouse)
 	{
 		if (Input.IsMouseButtonPressed(MouseButton.Left) && BUILDINGMODE)
 		{	
@@ -287,7 +288,7 @@ public partial class TileMap : Godot.TileMap
 			}
 		}
 	}
-	public dynamic GetBuildingInfo(Vector2 cellPostionByMouse) 
+	private dynamic GetBuildingInfo(Vector2 cellPostionByMouse) 
 	{
 		foreach (var building in buildingsInfo)
 		{
@@ -306,7 +307,7 @@ public partial class TileMap : Godot.TileMap
 		return null;
 	}
 
-	public static bool GroundResourceValidate(dynamic canBePlacedOn, string groundResourceName)
+	private static bool GroundResourceValidate(dynamic canBePlacedOn, string groundResourceName)
 	{
 		foreach(string resource in canBePlacedOn)
 		{
@@ -316,6 +317,29 @@ public partial class TileMap : Godot.TileMap
 			}
 		}
 		return false;
+	}
+
+	private bool BuildingSlotValidate(dynamic building, dynamic recipe)
+	{
+		for (int i = 0; i < building.inputSlots.Count; i++)
+		{
+			string resource = building.inputSlots[i].resource.ToString();
+			if (items[resource].maxStackSize - (int)building.inputSlots[i].amount < (int)recipe[resource].input.amount)
+			{
+				return false;
+			}
+		}
+
+		for (int i = 0; i < building.outputSlots.Count; i++)
+		{
+			string resource = building.outputSlots[i].resource.ToString();
+			if (items[resource].maxStackSize - (int)building.outputSlots[i].amount < (int)recipe[resource].output.amount)
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public void RemoveItemFromSlot(Vector2I coords, string type, int slotIndex)
