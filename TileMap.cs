@@ -281,6 +281,7 @@ public partial class TileMap : Godot.TileMap
 					}
 				}
 
+				GD.Print(building);
 				buildingsInfo.Add(building);
 				buildings = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
 			}
@@ -340,9 +341,9 @@ public partial class TileMap : Godot.TileMap
 	{
 		for (int i = 0; i < buildingsInfo.Count; i++)
 		{
-			if(buildingsInfo[i].buildingType.ToString() != "machine" || buildingsInfo[i].recipe.ToString == "none") { return; }
+			if(buildingsInfo[i].buildingType.ToString() != "machine" || buildingsInfo[i].recipe.ToString() == "none") { continue; }
 
-			dynamic recipe = recipes[buildingsInfo[i].recipe.ToString];
+			dynamic recipe = recipes[buildingsInfo[i].recipe.ToString()];
 
 			for (int j = 0; j < recipe.output.Count; j++)
 			{
