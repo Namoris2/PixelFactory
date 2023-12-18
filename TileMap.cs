@@ -282,7 +282,6 @@ public partial class TileMap : Godot.TileMap
 					}
 				}
 
-				GD.Print(building);
 				buildingsInfo.Add(building);
 				buildings = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
 			}
@@ -323,8 +322,7 @@ public partial class TileMap : Godot.TileMap
 	{
 		for (int i = 0; i < building.inputSlots.Count; i++)
 		{
-			string resource = building.inputSlots[i].resource.ToString();
-			if (items[resource].maxStackSize - (int)building.inputSlots[i].amount < (int)recipe[resource].input.amount)
+			if ((int)building.inputSlots[i].amount < (int)recipe.input[i].amount)
 			{
 				return false;
 			}
@@ -333,7 +331,7 @@ public partial class TileMap : Godot.TileMap
 		for (int i = 0; i < building.outputSlots.Count; i++)
 		{
 			string resource = building.outputSlots[i].resource.ToString();
-			if (items[resource].maxStackSize - (int)building.outputSlots[i].amount < (int)recipe[resource].output.amount)
+			if (items[resource].maxStackSize - (int)building.outputSlots[i].amount < (int)recipe.output[i].amount)
 			{
 				return false;
 			}
@@ -369,20 +367,24 @@ public partial class TileMap : Godot.TileMap
 
 			dynamic recipe = recipes[buildingsInfo[i].recipe.ToString()];
 
-			for (int j = 0; j < recipe.output.Count; j++)
+			if (BuildingSlotValidate(buildingsInfo[i], recipe))
 			{
-				
-			}
-
-			string resource = buildingsInfo[i].outputSlots[0].resource;
-			if (buildingsInfo[i].outputSlots[0].amount < items[resource].maxStackSize) {
 				buildingsInfo[i].productionProgress += (float)buildingsInfo[i].productionRate / 60 / 20;
-			}
 
-			if (buildingsInfo[i].productionProgress >= 1)
-			{
-				buildingsInfo[i].productionProgress = 0;
-				buildingsInfo[i].outputSlots[0].amount += 1;
+				if (buildingsInfo[i].productionProgress >= 1)
+				{
+					buildingsInfo[i].productionProgress = 0;
+
+					for (int j = 0; j < recipe.input.Count; j++)
+					{
+						buildingsInfo[i].inputSlots[j].amount -= recipe.input[j].amount;
+					}	
+
+					for (int j = 0; j < recipe.output.Count; j++)
+					{
+						buildingsInfo[i].outputSlots[j].amount += recipe.output[j].amount;
+					}
+				}
 			}
 
 			// if inventory is oppened, data will be sent to the inventory to show on screeen
