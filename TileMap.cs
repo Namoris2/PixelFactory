@@ -45,6 +45,7 @@ public partial class TileMap : Godot.TileMap
 	dynamic buildings;
 	dynamic items;
 	dynamic groundResources;
+	dynamic recipes;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -63,6 +64,8 @@ public partial class TileMap : Godot.TileMap
 
 		items = load.LoadJson("items.json");
 		groundResources = load.LoadJson("groundResources.json");
+
+		recipes = load.LoadJson("recipes.json");
 
 		// gets TickRate node and every time its reset, 'OnTickUpdate' function is called
 		Timer tickUpdate =  GetNode<Timer>("/root/main/TickRate");
@@ -250,10 +253,12 @@ public partial class TileMap : Godot.TileMap
 				building = building[selectedBuilding];
 				building.coords[0] = cellPostionByMouse[0];
 				building.coords[1] = cellPostionByMouse[1];
+				
 				if (building.type.ToString() == "drill")
 				{
 					building.production = items[groundResourceName].name;
 					building.outputSlots[0].resource = groundResourceName;
+					building.recipe = groundResourceName;
 				}
 
 				if((bool)building.hasAdditionalAtlasPosition)
@@ -335,7 +340,14 @@ public partial class TileMap : Godot.TileMap
 	{
 		for (int i = 0; i < buildingsInfo.Count; i++)
 		{
-			if(buildingsInfo[i].buildingType.ToString() != "machine") { return; }
+			if(buildingsInfo[i].buildingType.ToString() != "machine" || buildingsInfo[i].recipe.ToString == "none") { return; }
+
+			dynamic recipe = recipes[buildingsInfo[i].recipe.ToString];
+
+			for (int j = 0; j < recipe.output.Count; j++)
+			{
+				
+			}
 
 			string resource = buildingsInfo[i].outputSlots[0].resource;
 			if (buildingsInfo[i].outputSlots[0].amount < items[resource].maxStackSize) {

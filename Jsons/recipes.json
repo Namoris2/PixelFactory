@@ -1,0 +1,32 @@
+{
+    "IronOre" : {
+        "productionPerMinute" : 30,
+        "input" : [],
+        "output" : [
+            {
+                "name" : "IronOre",
+                "amount" : 1
+            }
+        ]
+    },
+    "CopperOre" : {
+        "productionPerMinute" : 30,
+        "input" : [],
+        "output" : [
+            {
+                "name" : "CopperOre",
+                "amount" : 1
+            }
+        ]
+    },
+    "CoalOre" : {
+        "productionPerMinute" : 30,
+        "input" : [],
+        "output" : [
+            {
+                "name" : "CoalOre",
+                "amount" : 1
+            }
+        ]
+    }
+}

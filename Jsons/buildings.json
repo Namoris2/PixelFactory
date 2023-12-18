@@ -22,6 +22,7 @@
         "rotation" : 0,
         "hasAdditionalAtlasPosition" : false,
         "additionalAtlasPosition" : [],
+        "recipe" : "none",
         "production" : "",
         "productionRate" : 30,
         "productionProgress" : 0,
