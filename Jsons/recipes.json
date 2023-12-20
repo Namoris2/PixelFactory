@@ -1,6 +1,7 @@
 {
     "IronOre" : {
-        "productionPerMinute" : 30,
+        "name" : "Iron Ore",
+        "cyclesPerMinute" : 30,
         "input" : [],
         "output" : [
             {
@@ -10,7 +11,8 @@
         ]
     },
     "CopperOre" : {
-        "productionPerMinute" : 30,
+        "name" : "Copper Ore",
+        "cyclesPerMinute" : 30,
         "input" : [],
         "output" : [
             {
@@ -20,7 +22,8 @@
         ]
     },
     "CoalOre" : {
-        "productionPerMinute" : 30,
+        "name" : "Coal Ore",
+        "cyclesPerMinute" : 30,
         "input" : [],
         "output" : [
             {

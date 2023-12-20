@@ -24,14 +24,30 @@ metadata/_edit_use_anchors_ = true
 texture_filter = 1
 texture_repeat = 2
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_left = 0.00580645
+anchor_right = 0.996773
+anchor_bottom = 0.996925
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CompressedTexture2D_pm715")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="FlowContainer" type="FlowContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 27.0
+offset_top = 24.0
+offset_right = -25.6672
+offset_bottom = -25.135
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Slot0" parent="FlowContainer" instance=ExtResource("3_lhqkw")]
+layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 clip_contents = false
@@ -50,6 +66,3 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 7
 metadata/_edit_use_anchors_ = true
-
-[node name="Slot0" parent="ScrollContainer/InventoryGrid" instance=ExtResource("3_lhqkw")]
-layout_mode = 2

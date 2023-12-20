@@ -257,7 +257,6 @@ public partial class TileMap : Godot.TileMap
 				
 				if (building.type.ToString() == "drill")
 				{
-					building.production = items[groundResourceName].name;
 					building.outputSlots[0].resource = groundResourceName;
 					building.recipe = groundResourceName;
 				}
@@ -369,7 +368,7 @@ public partial class TileMap : Godot.TileMap
 
 			if (BuildingSlotValidate(buildingsInfo[i], recipe))
 			{
-				buildingsInfo[i].productionProgress += (float)buildingsInfo[i].productionRate / 60 / 20;
+				buildingsInfo[i].productionProgress += (float)recipe.cyclesPerMinute / 60 / 20;
 
 				if (buildingsInfo[i].productionProgress >= 1)
 				{

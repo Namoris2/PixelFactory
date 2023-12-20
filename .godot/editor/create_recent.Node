@@ -1,3 +1,5 @@
+FlowContainer
+Container
 ColorRect
 TextureRect
 Button
@@ -7,8 +9,6 @@ Node2D
 Node
 TileMap
 CenterContainer
-FlowContainer
-Container
 CanvasLayer
 Panel
 AspectRatioContainer

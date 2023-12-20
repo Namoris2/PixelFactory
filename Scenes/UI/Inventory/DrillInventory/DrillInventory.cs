@@ -8,12 +8,16 @@ public partial class DrillInventory : Control
 	public delegate void DisableInventoryEventHandler();
 
 	private bool INVENTORYOPPENED = true;
+	private dynamic recipes;
 	public string INVENTORYTYPE = "machine";
 
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		LoadFile load = new();
+		recipes = load.LoadJson("recipes.json");
+
 		TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
 		tileMap.ToggleInventory += ToggleInventory;
 		tileMap.UpdateBuildingProgress += UpdateInventory;
@@ -54,7 +58,7 @@ public partial class DrillInventory : Control
 			Label resourceProduction = GetNode<Label>("Production");
 			
 			buildingName.Text = buildingInfo.name;
-			resourceProduction.Text = buildingInfo.production;
+			resourceProduction.Text = recipes[buildingInfo.recipe.ToString()].name.ToString();
 			
 			Vector2I coordinates = new ((int)buildingInfo.coords[0], (int)buildingInfo.coords[1]);
 

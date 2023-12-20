@@ -24,10 +24,8 @@ bg_color = Color(0.447059, 0.427451, 0.411765, 1)
 
 [node name="DrillInventory" type="Control"]
 layout_mode = 3
-anchor_left = 0.340278
-anchor_top = 0.209877
-anchor_right = 0.659722
-anchor_bottom = 0.67284
+anchor_right = 0.479167
+anchor_bottom = 0.923077
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4

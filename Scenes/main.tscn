@@ -223,11 +223,11 @@ columns = 2
 
 [node name="DrillInventory" parent="UI/Inventories/InventoryGrid" instance=ExtResource("13_dtspo")]
 visible = false
-custom_minimum_size = Vector2(400, 300)
+custom_minimum_size = Vector2(575, 600)
 layout_mode = 2
 
 [node name="PlayerInventory" parent="UI/Inventories/InventoryGrid" instance=ExtResource("9_a0ikk")]
-custom_minimum_size = Vector2(400, 300)
+custom_minimum_size = Vector2(575, 600)
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 4

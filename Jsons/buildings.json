@@ -23,7 +23,7 @@
         "hasAdditionalAtlasPosition" : false,
         "additionalAtlasPosition" : [],
         "recipe" : "none",
-        "production" : "",
+        "canChooseRecipe" : false,
         "productionRate" : 30,
         "productionProgress" : 0,
         "canBePlacedOn" : ["CoalOre", "CopperOre", "IronOre"],
