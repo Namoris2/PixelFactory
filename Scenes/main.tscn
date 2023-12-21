@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bbqmsnkmc3pac"]
+[gd_scene load_steps=25 format=3 uid="uid://bbqmsnkmc3pac"]
 
 [ext_resource type="Script" path="res://Scenes/Game/World/GenerateWorld.cs" id="1_fr7ss"]
 [ext_resource type="Script" path="res://Scenes/main.cs" id="1_qhp31"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://ck712pm16mpkt" path="res://Gimp/Cussor/cursor_tile_hover.png" id="3_jwn2t"]
 [ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="3_pfvbk"]
 [ext_resource type="Script" path="res://TileMap.cs" id="4_doi5u"]
-[ext_resource type="Texture2D" uid="uid://jjyqs45dvxbr" path="res://Gimp/backround2_large.png" id="5_d1jrb"]
 [ext_resource type="PackedScene" uid="uid://i4r6u351cl60" path="res://Scenes/Player/player.tscn" id="6_dnyod"]
 [ext_resource type="Script" path="res://Scenes/UI/HUD/ResourceAmount.cs" id="8_2nicb"]
 [ext_resource type="PackedScene" uid="uid://crq7hbeb86rlt" path="res://Scenes/UI/Inventory/HoldingItem.tscn" id="8_capta"]
@@ -15,9 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://brtiqnhheuky7" path="res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn" id="9_a0ikk"]
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/HoldingItem.cs" id="9_otqso"]
 [ext_resource type="Script" path="res://Scenes/UI/HUD/FPSCounter.cs" id="10_fkqdi"]
-[ext_resource type="Script" path="res://Scenes/UI/HUD/TestLabel.cs" id="11_bqjwt"]
-[ext_resource type="PackedScene" uid="uid://dyxbbw8tmug2l" path="res://Scenes/UI/Inventory/DrillInventory/DrillInventory.tscn" id="13_dtspo"]
-[ext_resource type="Script" path="res://Scenes/UI/HUD/TestSprite.cs" id="13_m0xvw"]
+[ext_resource type="PackedScene" uid="uid://dyxbbw8tmug2l" path="res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn" id="13_dtspo"]
 [ext_resource type="PackedScene" uid="uid://bsymbesh48kwd" path="res://Scenes/UI/BuildMenu/BuildMenu.tscn" id="15_14qvx"]
 [ext_resource type="Script" path="res://Scenes/UI/BuildMenu/BuildMenu.cs" id="15_v7e3e"]
 [ext_resource type="Script" path="res://Scenes/UI/UIToggle.cs" id="16_pxye0"]
@@ -163,29 +160,8 @@ layer_3/z_index = 100
 layer_3/tile_data = PackedInt32Array()
 script = ExtResource("4_doi5u")
 
-[node name="Background" type="ParallaxBackground" parent="World"]
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="World/Background"]
-visible = false
-position = Vector2(0, -1)
-motion_mirroring = Vector2(2048, 512)
-
-[node name="BackrgourTexture" type="Sprite2D" parent="World/Background/ParallaxLayer"]
-texture_filter = 3
-texture_repeat = 2
-position = Vector2(1112, 689)
-scale = Vector2(16, 16)
-texture = ExtResource("5_d1jrb")
-
 [node name="Player" parent="World" instance=ExtResource("6_dnyod")]
 position = Vector2(-1920, 356)
-
-[node name="TestSprite" type="Sprite2D" parent="World"]
-visible = false
-texture_filter = 1
-position = Vector2(32, 32)
-scale = Vector2(4, 4)
-script = ExtResource("13_m0xvw")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -221,7 +197,7 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 2
 
-[node name="DrillInventory" parent="UI/Inventories/InventoryGrid" instance=ExtResource("13_dtspo")]
+[node name="BuildingInventory" parent="UI/Inventories/InventoryGrid" instance=ExtResource("13_dtspo")]
 visible = false
 custom_minimum_size = Vector2(575, 600)
 layout_mode = 2
@@ -276,41 +252,5 @@ text = "FPS: 0"
 horizontal_alignment = 2
 script = ExtResource("10_fkqdi")
 
-[node name="TestButton" type="Button" parent="UI"]
-visible = false
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -368.0
-offset_top = -72.0
-offset_right = -200.0
-offset_bottom = -16.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_font_sizes/font_size = 20
-text = "Test Button"
-
-[node name="TestLabel" type="Label" parent="UI"]
-visible = false
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -160.0
-offset_top = -56.0
-offset_right = -62.0
-offset_bottom = -16.0
-grow_horizontal = 0
-grow_vertical = 0
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 20
-text = "Test Label"
-script = ExtResource("11_bqjwt")
-
 [connection signal="ResourcesUpdated" from="World/TileMap" to="UI/ResourceAmount" method="UpdateResources"]
 [connection signal="UpdateResourceInfo" from="World/TileMap" to="UI/WolrdInfo" method="ShowResourceInfo"]
-[connection signal="pressed" from="UI/TestButton" to="UI/TestLabel" method="HideToggle"]

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\FactoryBuilder\\FactoryBuilder.csproj": {}
+    "C:\\Users\\roman.lauko\\Documents\\Godot\\FactoryBuilder\\FactoryBuilder.csproj": {}
   },
   "projects": {
-    "C:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\FactoryBuilder\\FactoryBuilder.csproj": {
+    "C:\\Users\\roman.lauko\\Documents\\Godot\\FactoryBuilder\\FactoryBuilder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\FactoryBuilder\\FactoryBuilder.csproj",
+        "projectUniqueName": "C:\\Users\\roman.lauko\\Documents\\Godot\\FactoryBuilder\\FactoryBuilder.csproj",
         "projectName": "FactoryBuilder",
-        "projectPath": "C:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\FactoryBuilder\\FactoryBuilder.csproj",
-        "packagesPath": "C:\\Users\\namor\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\FactoryBuilder\\.godot\\mono\\temp\\obj\\",
+        "projectPath": "C:\\Users\\roman.lauko\\Documents\\Godot\\FactoryBuilder\\FactoryBuilder.csproj",
+        "packagesPath": "C:\\Users\\roman.lauko\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\roman.lauko\\Documents\\Godot\\FactoryBuilder\\.godot\\mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\namor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\roman.lauko\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

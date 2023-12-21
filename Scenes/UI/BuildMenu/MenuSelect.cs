@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class BuildSelect : Button
+public partial class MenuSelect : Button
 {
 [Export]
 public string BuildingName = "";
@@ -14,7 +14,7 @@ dynamic buildings;
 		// loads 'buildigns.json' file and parses in to dynamic object
 		buildings = load.LoadJson("buildings.json");
 		
-		GetNode<Label>("BuildingName").Text = buildings[BuildingName].name;
+		GetNode<Label>("Name").Text = buildings[BuildingName].name;
 		this.Pressed += Build;
 
 		Vector2I atlasCoords = new Vector2I((int)buildings[BuildingName].atlasCoords[0], (int)buildings[BuildingName].atlasCoords[1]);
@@ -22,8 +22,7 @@ dynamic buildings;
 		AtlasTexture texture = new ();
 		texture.Atlas = GD.Load<Texture2D>("res://Gimp/buildings/buildings.png");
 		texture.Region = new Rect2I(atlasCoords[0] * 16, atlasCoords[1] * 16, (int)buildings[BuildingName].width * 16, (int)buildings[BuildingName].height * 16);
-		GetNode<TextureRect>("BuildingTexture").Texture = texture;
-
+		GetNode<TextureRect>("Texture").Texture = texture;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

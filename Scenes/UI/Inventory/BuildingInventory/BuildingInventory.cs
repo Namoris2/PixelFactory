@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Diagnostics.SymbolStore;
 
-public partial class DrillInventory : Control
+public partial class BuildingInventory : Control
 {
 	[Signal]
 	public delegate void DisableInventoryEventHandler();
