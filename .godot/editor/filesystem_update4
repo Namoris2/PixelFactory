@@ -1,18 +1,18 @@
-res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
+res://Scenes/Tests/Generation/GanerationTest.tscn
 res://Scenes/main.tscn
 res://Scenes/UI/Pause Menu/PauseMenu.tscn
+res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
 res://Scenes/UI/Inventory/DrillInventory/DrillInventory.tscn
 res://Scenes/UI/BuildMenu/BuildSelect.tscn
-res://Scenes/Game/World/GanerationTest.tscn
 res://Scenes/Player/player.tscn
 res://Scenes/Game/World/Item.tscn
 res://Scenes/UI/BuildMenu/BuildMenu.tscn
 res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/World/GenerateWorld.cs
-res://Scenes/Game/World/GenerationTest.cs
 res://Scenes/main.cs
 res://Scenes/Player/Player.cs
 res://Scenes/Player/PlayerCamera.cs
+res://Scenes/Tests/Generation/GenerationTest.cs
 res://Scenes/UI/BuildMenu/BuildMenu.cs
 res://Scenes/UI/BuildMenu/BuildSelect.cs
 res://Scenes/UI/HUD/FPSCounter.cs
@@ -31,3 +31,4 @@ res://Scenes/UI/Pause Menu/PauseMenu.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/UIToggle.cs
 res://TileMap.cs
+res://Scenes/Tests/Tabs/Tabs.tscn
