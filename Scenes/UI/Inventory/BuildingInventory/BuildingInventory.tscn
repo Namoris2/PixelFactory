@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dyxbbw8tmug2l"]
 
 [ext_resource type="Texture2D" uid="uid://cwfyipj0juac5" path="res://Gimp/Ground Materials/DirtOld/Dirt_old.png" id="1_4vbnj"]
-[ext_resource type="Script" path="res://Scenes/UI/Inventory/DrillInventory/DrillInventory.cs" id="1_10j8y"]
+[ext_resource type="Script" path="res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.cs" id="1_10j8y"]
 [ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="2_e53n2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hor1q"]
@@ -22,7 +22,7 @@ expand_margin_bottom = 2.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v35wg"]
 bg_color = Color(0.447059, 0.427451, 0.411765, 1)
 
-[node name="DrillInventory" type="Control"]
+[node name="BuildingInventory" type="Control"]
 layout_mode = 3
 anchor_right = 0.479167
 anchor_bottom = 0.923077

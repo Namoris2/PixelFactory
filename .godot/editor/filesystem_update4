@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 res://Scenes/Tests/Generation/GanerationTest.tscn
 res://Scenes/main.tscn
 res://Scenes/UI/Pause Menu/PauseMenu.tscn
@@ -5,6 +6,13 @@ res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
 res://Scenes/UI/Inventory/DrillInventory/DrillInventory.tscn
 res://Scenes/UI/BuildMenu/BuildSelect.tscn
 res://Scenes/Player/player.tscn
+=======
+res://Scenes/main.tscn
+res://Scenes/UI/Pause Menu/PauseMenu.tscn
+res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
+res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
+res://Scenes/UI/BuildMenu/MenuSelect.tscn
+>>>>>>> 649a72ef6ceea1385318c8c9fd1e1c20521abd35
 res://Scenes/Game/World/Item.tscn
 res://Scenes/UI/BuildMenu/BuildMenu.tscn
 res://Scenes/Game/LoadFile.cs
@@ -14,13 +22,13 @@ res://Scenes/Player/Player.cs
 res://Scenes/Player/PlayerCamera.cs
 res://Scenes/Tests/Generation/GenerationTest.cs
 res://Scenes/UI/BuildMenu/BuildMenu.cs
-res://Scenes/UI/BuildMenu/BuildSelect.cs
+res://Scenes/UI/BuildMenu/MenuSelect.cs
 res://Scenes/UI/HUD/FPSCounter.cs
 res://Scenes/UI/HUD/ResourceAmount.cs
 res://Scenes/UI/HUD/TestLabel.cs
 res://Scenes/UI/HUD/TestSprite.cs
 res://Scenes/UI/HUD/WolrdInfo.cs
-res://Scenes/UI/Inventory/DrillInventory/DrillInventory.cs
+res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.cs
 res://Scenes/UI/Inventory/HoldingItem.cs
 res://Scenes/UI/Inventory/Inventories.cs
 res://Scenes/UI/Inventory/InventorySlot.cs

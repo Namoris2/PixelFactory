@@ -16,7 +16,7 @@ public partial class PauseMenu : Control
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
+		//TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
 		//GD.Print($"UI: {tileMap.UITOGGLE} BUILDINGMODE: {tileMap.BUILDINGMODE}");
 
 		if(Input.IsActionJustPressed("Back") && CanPause)
