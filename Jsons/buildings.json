@@ -24,7 +24,6 @@
         "additionalAtlasPosition" : [],
         "recipe" : "none",
         "canChooseRecipe" : false,
-        "productionRate" : 30,
         "productionProgress" : 0,
         "canBePlacedOn" : ["CoalOre", "CopperOre", "IronOre"],
         "inputSlots" : [],
@@ -36,6 +35,42 @@
                 "connection" : []
             }
         ] 
+    },
+    "smelter" : {
+        "buildingType" : "machine",
+        "type" : "smelter",
+        "name" : "Smelter",
+        "cost" : 50,
+        "coords" : [0, 0],
+        "atlasCoords" : [4, 0],
+        "height" : 2,
+        "width" : 2,
+        "canRotate" : false,
+        "rotationAmount" : 0,
+        "rotation" : 0,
+        "hasAdditionalAtlasPosition" : true,
+        "additionalAtlasPosition" : [        [1, 0],
+                                     [0, 1], [1, 1]],
+        "recipe" : "none",
+        "canChooseRecipe" : true,
+        "productionProgress" : 0,
+        "canBePlacedOn" : ["Grass"],
+        "inputSlots" : [
+            {
+                "resource" : "",
+                "amount" : 0,
+                "canConnectToBelts" : true,
+                "connection" : []
+            }
+        ],
+        "outputSlots" :  [
+            {
+                "resource" : "",
+                "amount" : 0,
+                "canConnectToBelts" : true,
+                "connection" : []
+            }
+        ]
     },
     "belt1" : {
         "buildingType" : "belt",

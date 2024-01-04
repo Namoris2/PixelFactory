@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxmvcd6tq4wnp"]
+
+[ext_resource type="Texture2D" uid="uid://bxi2smg4lvdt8" path="res://Gimp/placeholder.png" id="2_vqmxh"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchor_right = 0.08
+anchor_bottom = 0.147692
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_left = 0.166667
+anchor_right = 0.833333
+anchor_bottom = 0.666667
+texture = ExtResource("2_vqmxh")
+metadata/_edit_use_anchors_ = true

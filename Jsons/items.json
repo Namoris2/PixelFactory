@@ -16,5 +16,17 @@
 		"name" : "Coal Ore",
 		"maxStackSize" : 100,
 		"atlasCoords" : [0, 0]
+	},
+	"IronIngot" : {
+		"type" : "IronIngot",
+		"name" : "Iron Ingot",
+		"maxStackSize" : 100,
+		"atlasCoords" : [1, 1]
+	},
+	"CopperIngot" : {
+		"type" : "CopperIngot",
+		"name" : "Copper Ingot",
+		"maxStackSize" : 100,
+		"atlasCoords" : [2, 1]
 	}
 }

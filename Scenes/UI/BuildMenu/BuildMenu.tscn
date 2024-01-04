@@ -31,21 +31,26 @@ alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="drill" parent="FlowContainer" instance=ExtResource("1_oydjw")]
-custom_minimum_size = Vector2(192, 192)
 layout_mode = 2
-BuildingName = "drill"
+DisplayName = "drill"
+Type = "building"
+
+[node name="smelter" parent="FlowContainer" instance=ExtResource("1_oydjw")]
+layout_mode = 2
+DisplayName = "smelter"
+Type = "building"
 
 [node name="belt1" parent="FlowContainer" instance=ExtResource("1_oydjw")]
-custom_minimum_size = Vector2(192, 192)
 layout_mode = 2
-BuildingName = "belt1"
+DisplayName = "belt1"
+Type = "building"
 
 [node name="test" parent="FlowContainer" instance=ExtResource("1_oydjw")]
-custom_minimum_size = Vector2(192, 192)
 layout_mode = 2
-BuildingName = "test"
+DisplayName = "test"
+Type = "building"
 
 [node name="test2" parent="FlowContainer" instance=ExtResource("1_oydjw")]
-custom_minimum_size = Vector2(192, 192)
 layout_mode = 2
-BuildingName = "test2"
+DisplayName = "test2"
+Type = "building"

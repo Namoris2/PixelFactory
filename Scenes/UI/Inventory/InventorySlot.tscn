@@ -4,14 +4,17 @@
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/ItemName.cs" id="2_yibj1"]
 
 [node name="Slot" type="Button"]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(60, 60)
 layout_direction = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.493827
-anchor_right = 0.534722
-anchor_bottom = 0.555556
-offset_bottom = -3.05176e-05
+anchor_left = 0.492361
+anchor_top = 0.478538
+anchor_right = 0.542361
+anchor_bottom = 0.570845
+offset_left = 9.16681
+offset_top = 9.93811
+offset_right = -9.16687
+offset_bottom = -9.93808
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_focus_color = Color(0, 0, 0, 0)

@@ -5,7 +5,6 @@ public partial class ItemName : Label
 {
 	Vector2 position;
 	Vector2 slotPosition;
-	bool nodeHidden = true;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -28,7 +27,7 @@ public partial class ItemName : Label
 			position = GlobalPosition - new Vector2(20, 20);
 		}
 		
-		if (!nodeHidden)
+		if (Visible)
 		{
 			this.Position = GetGlobalMousePosition() - position;
 		}
@@ -45,17 +44,14 @@ public partial class ItemName : Label
 		
 		if (slot.itemType == "") { return; }
 
-		nodeHidden = false;
 
 		LoadFile load = new();
 		dynamic items = load.LoadJson("items.json");
 		this.Text = items[slot.itemType].name.ToString();
-
 		this.Show();
 	}
 	private void HideItemName()
 	{
-		nodeHidden = true;
 		this.Hide();
 	}
 }

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bxi2smg4lvdt8" path="res://Gimp/placeholder.png" id="2_qdwc8"]
 
 [node name="MenuSelect" type="Button"]
+custom_minimum_size = Vector2(192, 192)
 anchors_preset = -1
 anchor_right = 0.166667
 anchor_bottom = 0.296296

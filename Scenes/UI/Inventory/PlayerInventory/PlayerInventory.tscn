@@ -24,10 +24,9 @@ metadata/_edit_use_anchors_ = true
 texture_filter = 1
 texture_repeat = 2
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.00580645
-anchor_right = 0.996773
-anchor_bottom = 0.996925
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CompressedTexture2D_pm715")
@@ -36,20 +35,20 @@ metadata/_edit_use_anchors_ = true
 
 [node name="FlowContainer" type="FlowContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 27.0
-offset_top = 24.0
-offset_right = -25.6672
-offset_bottom = -25.135
+anchors_preset = -1
+anchor_left = 0.052258
+anchor_top = 0.0650169
+anchor_right = 0.950322
+anchor_bottom = 0.931908
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="Slot0" parent="FlowContainer" instance=ExtResource("3_lhqkw")]
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+visible = false
 clip_contents = false
 layout_mode = 1
 anchors_preset = -1

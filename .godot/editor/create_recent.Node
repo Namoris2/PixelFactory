@@ -1,18 +1,15 @@
-<<<<<<< HEAD
-Label
-TabContainer
-TabBar
-=======
-TabContainer
->>>>>>> 649a72ef6ceea1385318c8c9fd1e1c20521abd35
+VFlowContainer
 FlowContainer
+Panel
+TabContainer
+Sprite2D
+TextureRect
+TabBar
+Label
 Container
 ColorRect
-TextureRect
 Button
 RichTextLabel
 Node2D
 Node
 TileMap
-CenterContainer
-CanvasLayer

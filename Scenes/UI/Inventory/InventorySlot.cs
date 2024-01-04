@@ -5,7 +5,10 @@ using System.Dynamic;
 public partial class InventorySlot : Button
 {
 	[Signal]
-	public delegate void SlotClickedEventHandler(Vector2I coords, string type, int slotIndex);
+	public delegate void RemoveItemEventHandler(Vector2I coords, string slotType, int slotIndex);
+	
+	[Signal]
+	public delegate void PutItemEventHandler(Vector2I coords, int itemAmount, int slotIndex, string slotType);
 	[Signal]
 	public delegate void ShowHoldingItemEventHandler(string name, string amount);	
 	[Signal]
@@ -57,6 +60,11 @@ public partial class InventorySlot : Button
 			slotType = "Slot";
 		}
 
+		if (IsInGroup("SingleSlots"))
+		{
+			inventorySlotIndex = 0;
+		}
+
 		this.Pressed += PressedSlot;
 	}
 
@@ -89,24 +97,43 @@ public partial class InventorySlot : Button
 		this.ShowHoldingItem += holdingItem.ShowHoldingItem;
 		this.HideHoldingItem += holdingItem.HideHoldingItem;
 
-		if (!holdingItem.ISHOLDINGITEM)
+		// taking item from slot
+		if (!holdingItem.ISHOLDINGITEM && UserExport)
 		{
-			if (inventoryType == "machine" && UserExport)
+			if (resourceAmount.Text == "") { return; };
+
+			if (inventoryType == "machine")
 			{
 				TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
-				this.SlotClicked += tileMap.RemoveItemFromSlot;
+				this.RemoveItem += tileMap.RemoveItemFromSlot;
 
-				EmitSignal(SignalName.SlotClicked, buildingCoordinates, slotType, inventorySlotIndex);
+				EmitSignal(SignalName.RemoveItem, buildingCoordinates, slotType, inventorySlotIndex);
+				this.RemoveItem -= tileMap.RemoveItemFromSlot;
 			}
 			EmitSignal(SignalName.ShowHoldingItem, itemType, resourceAmount.Text);
 			
-			itemType = "";
+			if (inventoryType != "machine")
+			{
+				itemType = "";
+			}
+
 			resourceAmount.Text = "";
 			itemTexture.Texture = null;
 		}
 
+		// putting item to slot
 		else if (holdingItem.ISHOLDINGITEM && UserImport)
 		{
+			if (inventoryType == "machine" && holdingItem.itemName == itemType)
+			{
+				TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
+				this.PutItem += tileMap.PutItemToSlot;
+
+				EmitSignal(SignalName.PutItem, buildingCoordinates, int.Parse(holdingItem.itemAmount), inventorySlotIndex, slotType);
+				this.PutItem -= tileMap.PutItemToSlot;
+			}
+
+			// putting item to slot (if slot is empty)
 			if (itemType == "")
 			{
 				itemType = holdingItem.itemName;
@@ -117,22 +144,34 @@ public partial class InventorySlot : Button
 				EmitSignal(SignalName.HideHoldingItem);
 			}
 
+			// putting item to slot (if slot is not empty)
 			else if (itemType == holdingItem.itemName)
 			{
-				if ((int.Parse(resourceAmount.Text) + int.Parse(holdingItem.itemAmount)) <= (int)items[itemType].maxStackSize)
+				int amount = 0;
+				if (resourceAmount.Text != "")
 				{
-					resourceAmount.Text = (int.Parse(resourceAmount.Text) + int.Parse(holdingItem.itemAmount)).ToString();
+					amount = int.Parse(resourceAmount.Text);
+				}
+				// putting item to slot (if sum of amount of item in slot and amount of holding item is less or equal to its 'maxStackSize')
+				if ((amount + int.Parse(holdingItem.itemAmount)) <= (int)items[itemType].maxStackSize)
+				{
+					resourceAmount.Text = (amount + int.Parse(holdingItem.itemAmount)).ToString();
 					EmitSignal(SignalName.HideHoldingItem);
 				}
+
+				// putting item to slot (if sum of amount of item in slot and amount of holding item is more or equal to its 'maxStackSize')
+				// amount of item in slot is set to its 'maxStackSize' and amount of holding item is set to new value (current amount - amount of items put to slot)
 				else
 				{
-					holdingItem.itemAmount = (int.Parse(holdingItem.itemAmount) - ((int)items[itemType].maxStackSize - int.Parse(resourceAmount.Text))).ToString();
+					holdingItem.itemAmount = (int.Parse(holdingItem.itemAmount) - ((int)items[itemType].maxStackSize - amount)).ToString();
 					resourceAmount.Text = items[itemType].maxStackSize.ToString();
 					GetNode<Label>(holdingItem.GetPath() + "/ResourceAmount").Text = holdingItem.itemAmount;
 				}
+				UpdateSlotTexture(itemType);
 			}
 
-			else
+			// switching item in slot and holding item (if item in slot is different from holding item)
+			else if (inventoryType != "machine")
 			{
 				string helperItemType;
 				string helperResourceAmount;

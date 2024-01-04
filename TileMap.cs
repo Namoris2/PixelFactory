@@ -25,7 +25,7 @@ public partial class TileMap : Godot.TileMap
 	public delegate void ToggleInventoryEventHandler(bool InvenotryToggle, string info);
 
 	[Signal]
-	public delegate void UpdateBuildingProgressEventHandler(double progress, int amount, string name, string type, Vector2I coords);
+	public delegate void UpdateBuildingProgressEventHandler(string info);
 
 	public bool BUILDINGMODE = false;
 	public bool UITOGGLE = false;
@@ -106,7 +106,7 @@ public partial class TileMap : Godot.TileMap
 
 			if (!UITOGGLE && buildingsData != null)
 			{
-				UITOGGLE = true;				
+				UITOGGLE = true;	
 			}
 			else
 			{
@@ -129,7 +129,7 @@ public partial class TileMap : Godot.TileMap
 		{
 			dynamic buildingDisplayInfo = GetBuildingInfo(cellPostionByMouse);
 
-			wolrdInfo = $"Building: {buildingDisplayInfo.name} \nHarvesting: {groundResources[buildingDisplayInfo.outputSlots[0].resource.ToString()].name}\nProgress: {(int)(buildingDisplayInfo.productionProgress * 100)}% \nResource Amount: {buildingDisplayInfo.outputSlots[0].amount}";	
+			wolrdInfo = $"Building: {buildingDisplayInfo.name} \nProgress: {(int)(buildingDisplayInfo.productionProgress * 100)}%";	
 		}
 		else
 		{
@@ -321,7 +321,9 @@ public partial class TileMap : Godot.TileMap
 	{
 		for (int i = 0; i < building.inputSlots.Count; i++)
 		{
-			if ((int)building.inputSlots[i].amount < (int)recipe.input[i].amount)
+			// checks if in 'inputSlot' is right item and its amout required to crafting
+			if ((int)building.inputSlots[i].amount < (int)recipe.input[i].amount || 
+				building.inputSlots[i].resource.ToString() != recipe.input[i].name.ToString())
 			{
 				return false;
 			}
@@ -329,8 +331,10 @@ public partial class TileMap : Godot.TileMap
 
 		for (int i = 0; i < building.outputSlots.Count; i++)
 		{
+			// checks if in 'outputSlot' is right item and is enough space required to crafting
 			string resource = building.outputSlots[i].resource.ToString();
-			if (items[resource].maxStackSize - (int)building.outputSlots[i].amount < (int)recipe.output[i].amount)
+			if (items[resource].maxStackSize - (int)building.outputSlots[i].amount < (int)recipe.output[i].amount || 
+				building.outputSlots[i].resource.ToString() != recipe.output[i].name.ToString())
 			{
 				return false;
 			}
@@ -339,21 +343,43 @@ public partial class TileMap : Godot.TileMap
 		return true;
 	}
 
-	public void RemoveItemFromSlot(Vector2I coords, string type, int slotIndex)
+	public void RemoveItemFromSlot(Vector2I coords, string slotType, int slotIndex)
 	{
 		dynamic building = GetBuildingInfo(coords);
+		slotType = slotType.ToLower();
 
-		if (type == "Input")
+		if (slotType == "input")
 		{
-			resourceAmount += (int)building.inputSlots[slotIndex].amount;
-			building.inputSlots[slotIndex].amount = 0;
-			EmitSignal(SignalName.ResourcesUpdated, resourceAmount);
+			building.productionProgress = 0;
 		}
-		else if (type == "Output")
+
+		resourceAmount += (int)building[slotType + "Slots"][slotIndex].amount;
+		building[slotType + "Slots"][slotIndex].amount = 0;
+		EmitSignal(SignalName.ResourcesUpdated, resourceAmount);
+	}
+
+	public void PutItemToSlot(Vector2I coords, int itemAmount, int slotIndex, string slotType)
+	{
+		dynamic building = GetBuildingInfo(coords);
+		slotType = slotType.ToLower();
+
+		building[slotType + "Slots"][slotIndex].amount = itemAmount;
+	}
+
+	public void ChangeRecipe(string recipe, Vector2I coords)
+	{
+		dynamic building = GetBuildingInfo(coords);
+		dynamic currentRecipe = recipes[recipe];
+		building.recipe = recipe;
+
+		for (int i = 0; i < currentRecipe.input.Count; i++)
 		{
-			resourceAmount += (int)building.outputSlots[slotIndex].amount;
-			building.outputSlots[slotIndex].amount = 0;
-			EmitSignal(SignalName.ResourcesUpdated, resourceAmount);
+			building.inputSlots[i].resource = currentRecipe.input[i].name;
+		}
+
+		for (int i = 0; i < currentRecipe.output.Count; i++)
+		{
+			building.outputSlots[i].resource = currentRecipe.output[i].name;
 		}
 	}
 
@@ -389,12 +415,8 @@ public partial class TileMap : Godot.TileMap
 			// if inventory is oppened, data will be sent to the inventory to show on screeen
 			if (UITOGGLE)
 			{
-				string itemName = items[buildingsInfo[i].outputSlots[0].resource.ToString()].name.ToString();
-				string itemType = buildingsInfo[i].outputSlots[0].resource.ToString();
-				Vector2I builduingCoordinates = new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]);
-				EmitSignal(SignalName.UpdateBuildingProgress, (double)buildingsInfo[i].productionProgress, (int)buildingsInfo[i].outputSlots[0].amount, itemName, itemType, builduingCoordinates);
+				EmitSignal(SignalName.UpdateBuildingProgress, Newtonsoft.Json.JsonConvert.SerializeObject(buildingsInfo[i]));
 			}
 		}
 	}
-
 }

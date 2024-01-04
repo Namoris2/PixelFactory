@@ -1,10 +1,6 @@
 is_global = true
 build_property.GodotDisabledSourceGenerators = 
-<<<<<<< HEAD
-build_property.GodotProjectDir = C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\
-=======
-build_property.GodotProjectDir = C:\Users\roman.lauko\Documents\Godot\FactoryBuilder\
->>>>>>> 649a72ef6ceea1385318c8c9fd1e1c20521abd35
+build_property.GodotProjectDir = c:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\
 build_property.GodotProjectDirBase64 = 
 build_property.GodotSourceGenerators = 
 build_property.IsGodotToolsProject = 
@@ -17,8 +13,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = FactoryBuilder
-<<<<<<< HEAD
-build_property.ProjectDir = C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\
-=======
-build_property.ProjectDir = C:\Users\roman.lauko\Documents\Godot\FactoryBuilder\
->>>>>>> 649a72ef6ceea1385318c8c9fd1e1c20521abd35
+build_property.ProjectDir = c:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\
