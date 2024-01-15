@@ -235,6 +235,7 @@ metadata/_edit_use_anchors_ = true
 script = ExtResource("16_pxye0")
 
 [node name="PauseMenu" parent="UI" instance=ExtResource("19_3uy5l")]
+pauseOnStart = false
 
 [node name="ResourceAmount" type="Label" parent="UI"]
 anchors_preset = 2

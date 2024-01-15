@@ -37,7 +37,7 @@ public partial class TileMap : Godot.TileMap
 	int tileMapLayer = 3;
 	Vector2I atlasPosition = new (0, 0);
 	string[] buildingsCoords = new string[] {};
-	List<dynamic> buildingsInfo = new();
+	public List<dynamic> buildingsInfo = new();
 	public string selectedBuilding;
 	int buildingRotation = 0;
 	dynamic resourcesHervestedByHand;
@@ -286,7 +286,7 @@ public partial class TileMap : Godot.TileMap
 			}
 		}
 	}
-	private dynamic GetBuildingInfo(Vector2 cellPostionByMouse) 
+	public dynamic GetBuildingInfo(Vector2 cellPostionByMouse) 
 	{
 		foreach (var building in buildingsInfo)
 		{
@@ -303,6 +303,24 @@ public partial class TileMap : Godot.TileMap
 			}
 		}
 		return null;
+	}
+	public int GetBuildingIndex(Vector2 cellPostionByMouse) 
+	{
+		for (int i = 0; i < buildingsInfo.Count; i++)
+		{
+			if (buildingsInfo[i].coords[0] == cellPostionByMouse[0] && buildingsInfo[i].coords[1] == cellPostionByMouse[1])
+			{
+				if (buildingsInfo[i].buildingType.ToString() == "buildingPart")
+				{
+					return GetBuildingIndex(new Vector2((int)buildingsInfo[i].parentBuilding[0], (int)buildingsInfo[i].parentBuilding[1]));
+				}
+				else
+				{
+					return i;
+				}
+			}
+		}
+		return -1;
 	}
 
 	private static bool GroundResourceValidate(dynamic canBePlacedOn, string groundResourceName)
@@ -370,16 +388,27 @@ public partial class TileMap : Godot.TileMap
 	{
 		dynamic building = GetBuildingInfo(coords);
 		dynamic currentRecipe = recipes[recipe];
+
+		if (building.recipe == currentRecipe) { return; }
+
 		building.recipe = recipe;
+		building.productionProgress = 0;
 
 		for (int i = 0; i < currentRecipe.input.Count; i++)
 		{
-			building.inputSlots[i].resource = currentRecipe.input[i].name;
+			if ((int)building.inputSlots[i].amount == 0)
+			{
+				building.inputSlots[i].resource = currentRecipe.input[i].name;
+			}
 		}
 
 		for (int i = 0; i < currentRecipe.output.Count; i++)
 		{
-			building.outputSlots[i].resource = currentRecipe.output[i].name;
+			if ((int)building.outputSlots[i].amount == 0)
+			{
+				building.outputSlots[i].resource = currentRecipe.output[i].name;
+			}
+
 		}
 	}
 
@@ -391,7 +420,7 @@ public partial class TileMap : Godot.TileMap
 			if(buildingsInfo[i].buildingType.ToString() != "machine" || buildingsInfo[i].recipe.ToString() == "none") { continue; }
 
 			dynamic recipe = recipes[buildingsInfo[i].recipe.ToString()];
-
+			//GD.Print(buildingsInfo[i]);
 			if (BuildingSlotValidate(buildingsInfo[i], recipe))
 			{
 				buildingsInfo[i].productionProgress += (float)recipe.cyclesPerMinute / 60 / 20;

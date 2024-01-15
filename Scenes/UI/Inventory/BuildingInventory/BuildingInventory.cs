@@ -50,18 +50,24 @@ public partial class BuildingInventory : Control
 			{
 				InventorySlot slot = (InventorySlot)inputSlots[i];
 				slot.Hide();
+				slot.UpdateSlotTexture("");
+				slot.resourceAmount.Text = "";
 			}
 
 			for (int i = 0; i < outputSlots.Count; i++)
 			{
 				InventorySlot slot = (InventorySlot)outputSlots[i];
 				slot.Hide();
+				slot.UpdateSlotTexture("");
+				slot.resourceAmount.Text = "";
 			}
 
 			for (int i = 0; i < singleOutputSlots.Count; i++)
 			{
 				InventorySlot slot = (InventorySlot)singleOutputSlots[i];
 				slot.Hide();
+				slot.UpdateSlotTexture("");
+				slot.resourceAmount.Text = "";
 			}
 			
 			productionProgress.Value = 0;

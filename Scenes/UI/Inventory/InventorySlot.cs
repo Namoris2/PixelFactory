@@ -25,7 +25,7 @@ public partial class InventorySlot : Button
 	private Item inventoryItem;
 	private AtlasTexture textureAtlas = new ();
 	private TextureRect itemTexture;
-	private Label resourceAmount;
+	public Label resourceAmount;
 	private Label resourceName;
 	public int inventorySlotIndex;
 	public string inventoryType;
@@ -82,7 +82,6 @@ public partial class InventorySlot : Button
 			textureAtlas.Region = new Rect2I(atlasCoords[0] * 16, atlasCoords[1] * 16, 16, 16);
 
 			itemTexture.Texture = textureAtlas;
-			//GD.Print(itemType);
 		}
 		else
 		{
@@ -102,15 +101,23 @@ public partial class InventorySlot : Button
 		{
 			if (resourceAmount.Text == "") { return; };
 
+			EmitSignal(SignalName.ShowHoldingItem, itemType, resourceAmount.Text);
 			if (inventoryType == "machine")
 			{
 				TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
+				LoadFile load = new ();
+				
 				this.RemoveItem += tileMap.RemoveItemFromSlot;
-
 				EmitSignal(SignalName.RemoveItem, buildingCoordinates, slotType, inventorySlotIndex);
 				this.RemoveItem -= tileMap.RemoveItemFromSlot;
+				
+				dynamic building = tileMap.GetBuildingInfo(buildingCoordinates);
+				dynamic recipe = load.LoadJson("recipes.json")[building.recipe.ToString()];
+				int buildingIndex = tileMap.GetBuildingIndex(buildingCoordinates);
+
+				itemType = recipe[slotType.ToLower()][inventorySlotIndex].name;
+				building[$"{slotType.ToLower()}Slots"][inventorySlotIndex].resource = itemType;
 			}
-			EmitSignal(SignalName.ShowHoldingItem, itemType, resourceAmount.Text);
 			
 			if (inventoryType != "machine")
 			{
@@ -127,8 +134,8 @@ public partial class InventorySlot : Button
 			if (inventoryType == "machine" && holdingItem.itemName == itemType)
 			{
 				TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
-				this.PutItem += tileMap.PutItemToSlot;
 
+				this.PutItem += tileMap.PutItemToSlot;
 				EmitSignal(SignalName.PutItem, buildingCoordinates, int.Parse(holdingItem.itemAmount), inventorySlotIndex, slotType);
 				this.PutItem -= tileMap.PutItemToSlot;
 			}
