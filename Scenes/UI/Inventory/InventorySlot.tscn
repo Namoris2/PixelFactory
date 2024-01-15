@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bx0lsoflefadc"]
+[gd_scene load_steps=4 format=3 uid="uid://bx0lsoflefadc"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/InventorySlot.cs" id="1_qn2p3"]
+[ext_resource type="Theme" uid="uid://bfqrtqjof5nbe" path="res://Themes/InventorySlot.tres" id="1_rb8qi"]
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/ItemName.cs" id="2_yibj1"]
 
 [node name="Slot" type="Button"]
@@ -17,6 +18,7 @@ offset_right = -9.16687
 offset_bottom = -9.93808
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_rb8qi")
 theme_override_colors/font_focus_color = Color(0, 0, 0, 0)
 script = ExtResource("1_qn2p3")
 metadata/_edit_use_anchors_ = true
