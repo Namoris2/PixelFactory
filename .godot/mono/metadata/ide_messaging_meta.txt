@@ -1,2 +1,0 @@
-﻿62302
-C:/Users/roman.lauko/Documents/Godot/Engine/Godot_v4.2-stable_mono_win64.exe

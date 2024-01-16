@@ -84,10 +84,34 @@
         "canRotate" : true,
         "rotationAmount" : 4,
         "rotation" : 0,
+        "nextPosition" : [0, 0],
         "hasAdditionalAtlasPosition" : false,
         "additionalAtlasPosition" : [],
         "speed" : 30,
-        "canBePlacedOn" : ["Grass", "Concrete"]
+        "moveProgress" : 0,
+        "canBePlacedOn" : ["Grass", "Concrete"],
+        "item" : ""
+    },
+    "beltArm1" : {
+        "buildingType" : "beltArm",
+        "type" : "beltArm1",
+        "name" : "Conveyor Arm MK1",
+        "cost" : 15,
+        "coords" : [0, 0],
+        "atlasCoords" : [0, 2],
+        "width" : 1,
+        "height" : 1,
+        "canRotate" : true,
+        "rotationAmount" : 4,
+        "rotation" : 0,
+        "nextPosition" : [0, 0],
+        "previousPosition" : [0, 0],
+        "hasAdditionalAtlasPosition" : false,
+        "additionalAtlasPosition" : [],
+        "speed" : 30,
+        "moveProgress" : 0,
+        "canBePlacedOn" : ["Grass", "Concrete"],
+        "item" : ""
     },
     "test" : {
         "buildingType" : "test",
@@ -119,6 +143,6 @@
         "canBePlacedOn" : ["Grass"]
     },
     "test3" : {
-        "name" :"Test Building 3"
+        "name" : "Test Building 3"
     }
 }

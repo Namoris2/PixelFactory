@@ -75,7 +75,7 @@ public partial class InventorySlot : Button
 
 	public void UpdateSlotTexture(string itemType)
 	{
-		if (resourceAmount.Text != "")
+		if (resourceAmount.Text != "" && itemType != "")
 		{
 			Vector2I atlasCoords = new Vector2I((int)items[itemType].atlasCoords[0], (int)items[itemType].atlasCoords[1]);
 

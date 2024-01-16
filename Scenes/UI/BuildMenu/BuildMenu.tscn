@@ -45,12 +45,7 @@ layout_mode = 2
 DisplayName = "belt1"
 Type = "building"
 
-[node name="test" parent="FlowContainer" instance=ExtResource("1_oydjw")]
+[node name="beltArm1" parent="FlowContainer" instance=ExtResource("1_oydjw")]
 layout_mode = 2
-DisplayName = "test"
-Type = "building"
-
-[node name="test2" parent="FlowContainer" instance=ExtResource("1_oydjw")]
-layout_mode = 2
-DisplayName = "test2"
+DisplayName = "beltArm1"
 Type = "building"
