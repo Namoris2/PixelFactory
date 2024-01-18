@@ -21,14 +21,14 @@ public partial class Player : Godot.CharacterBody2D
 		}
 	}
 	public void GetInput()
-    {
-        Vector2 inputDirection = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
-        Velocity = inputDirection * Speed;
-    }
+	{
+		Vector2 inputDirection = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
+		Velocity = inputDirection * Speed;
+	}
 
-    public override void _PhysicsProcess(double delta)
-    {
-        GetInput();
-        MoveAndSlide();
-    }
+	public override void _PhysicsProcess(double delta)
+	{
+		GetInput();
+		MoveAndSlide();
+	}
 }

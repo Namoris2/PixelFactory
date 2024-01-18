@@ -440,10 +440,10 @@ public partial class TileMap : Godot.TileMap
 		dynamic previousBuilding = GetBuildingInfo(new Vector2I((int)building.coords[0] + (int)building.previousPosition[0], (int)building.coords[1] + (int)building.previousPosition[1]));
 		dynamic nextBuilding = GetBuildingInfo(new Vector2I((int)building.coords[0] + (int)building.nextPosition[0], (int)building.coords[1] + (int)building.nextPosition[1]));
 
-		// checks if 'nextBuilding' and 'previousBuilding' exist
 		switch ((int)building.moveProgress)
 		{	
 			case 0: 
+				// checks if 'previousBuilding' exist
 				if (previousBuilding == null) { return false; }
 				
 				bool hasItem = false;
@@ -459,6 +459,7 @@ public partial class TileMap : Godot.TileMap
 				return previousBuilding.buildingType.ToString() != "beltArm" && hasItem;
 
 			case 1:
+				// checks if 'nextBuilding' exist
 				if (nextBuilding == null) { return false; }
 
 				bool hasSpace = false;
