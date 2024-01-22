@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 public partial class Player : Godot.CharacterBody2D
 {
@@ -23,12 +24,22 @@ public partial class Player : Godot.CharacterBody2D
 	public void GetInput()
 	{
 		Vector2 inputDirection = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
-		Velocity = inputDirection * Speed;
+		Velocity = inputDirection * Speed; 
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		GetInput();
 		MoveAndSlide();
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		Sprite2D playerSprite = GetNode<Sprite2D>("");
+
+		if (@event.IsActionPressed("MoveLeft"))
+		{
+
+		}
 	}
 }

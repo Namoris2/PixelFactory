@@ -28,6 +28,7 @@ public partial class TileMap : Godot.TileMap
 	[Signal]
 	public delegate void UpdateBuildingProgressEventHandler(string info);
 
+
 	public bool BUILDINGMODE = false;
 	public bool UITOGGLE = false;
 
