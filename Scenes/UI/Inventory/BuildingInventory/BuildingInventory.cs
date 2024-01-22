@@ -111,7 +111,8 @@ public partial class BuildingInventory : Control
 
 			if (buildingInfo.type.ToString() == "drill")
 			{
-				InventorySlot slot = FindSlotByNameInGroup("SingleSlots", "DrillOutputSlot");
+				main main = new();
+				InventorySlot slot = (InventorySlot)main.FindNodeByNameInGroup("SingleSlots", "DrillOutputSlot");
 				slot.buildingCoordinates = coordinates;
 				slot.itemType = buildingInfo.outputSlots[0].resource.ToString();
 				slot.inventoryType = INVENTORYTYPE;
@@ -200,20 +201,4 @@ public partial class BuildingInventory : Control
 			slot.UpdateSlotTexture("");
 		}
 	}
-
-	public InventorySlot FindSlotByNameInGroup(string groupName, string slotName)
-	{
-		Array<Node> slots = GetTree().GetNodesInGroup(groupName);
-
-		for (int i = 0; i < slots.Count; i++)
-		{
-			if (slots[i].Name ==slotName)
-			{
-				return (InventorySlot)slots[i];
-			}
-		}
-
-		GD.PrintErr($"\"{slotName}\" is not in group");
-		return new InventorySlot();
-	} 
 }

@@ -30,9 +30,7 @@
         "outputSlots" : [
             {
                 "resource" : "",
-                "amount" : 0,
-                "canConnectToBelts" : false,
-                "connection" : []
+                "amount" : 0
             }
         ] 
     },
@@ -58,17 +56,13 @@
         "inputSlots" : [
             {
                 "resource" : "",
-                "amount" : 0,
-                "canConnectToBelts" : true,
-                "connection" : []
+                "amount" : 0
             }
         ],
         "outputSlots" :  [
             {
                 "resource" : "",
-                "amount" : 0,
-                "canConnectToBelts" : true,
-                "connection" : []
+                "amount" : 0
             }
         ]
     },
@@ -89,6 +83,7 @@
         "additionalAtlasPosition" : [],
         "speed" : 30,
         "moveProgress" : 0,
+        "recivingItem" : false,
         "canBePlacedOn" : ["Grass", "Concrete"],
         "item" : ""
     },
