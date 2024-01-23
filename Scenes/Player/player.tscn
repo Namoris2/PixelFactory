@@ -5,14 +5,14 @@
 [ext_resource type="Script" path="res://Scenes/Player/PlayerCamera.cs" id="2_laqpu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6blut"]
-size = Vector2(20, 63)
+size = Vector2(40, 63)
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(0, -4)
 script = ExtResource("1_nriof")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(574, 323.5)
+position = Vector2(576, 323.5)
 shape = SubResource("RectangleShape2D_6blut")
 
 [node name="PlayerIcon" type="Sprite2D" parent="."]

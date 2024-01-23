@@ -4,16 +4,23 @@
 
 [node name="Control" type="Control"]
 layout_mode = 3
-anchor_right = 0.08
-anchor_bottom = 0.147692
+anchor_right = 0.0533333
+anchor_bottom = 0.0984615
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-anchor_left = 0.166667
-anchor_right = 0.833333
-anchor_bottom = 0.666667
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource("2_vqmxh")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.375
 metadata/_edit_use_anchors_ = true

@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Collections.Generic;
 
 public partial class main : Node2D
 {
@@ -14,15 +15,13 @@ public partial class main : Node2D
 	{		
 	}
 
-	public Node FindNodeByNameInGroup(string groupName, string nodeName)
+	static public Node FindNodeByNameInGroup(Array<Node> group, string nodeName)
 	{
-		Array<Node> nodes = GetTree().GetNodesInGroup(groupName);
-
-		for (int i = 0; i < nodes.Count; i++)
+		for (int i = 0; i < group.Count; i++)
 		{
-			if (nodes[i].Name == nodeName)
+			if (group[i].Name == nodeName)
 			{
-				return (InventorySlot)nodes[i];
+				return group[i];
 			}
 		}
 

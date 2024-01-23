@@ -112,7 +112,7 @@ public partial class BuildingInventory : Control
 			if (buildingInfo.type.ToString() == "drill")
 			{
 				main main = new();
-				InventorySlot slot = (InventorySlot)main.FindNodeByNameInGroup("SingleSlots", "DrillOutputSlot");
+				InventorySlot slot = (InventorySlot)main.FindNodeByNameInGroup(GetTree().GetNodesInGroup("SingleSlots"), "DrillOutputSlot");
 				slot.buildingCoordinates = coordinates;
 				slot.itemType = buildingInfo.outputSlots[0].resource.ToString();
 				slot.inventoryType = INVENTORYTYPE;

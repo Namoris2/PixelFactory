@@ -4,17 +4,7 @@ C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\bin\Debu
 C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\bin\Debug\FactoryBuilder.pdb
 C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\bin\Debug\GodotSharp.dll
 C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
-C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
-C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
-C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\bin\Debug\Microsoft.Extensions.Options.dll
-C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\bin\Debug\Microsoft.Extensions.Primitives.dll
 C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\bin\Debug\Newtonsoft.Json.dll
-C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\bin\Debug\System.Configuration.ConfigurationManager.dll
-C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\bin\Debug\System.Security.Cryptography.ProtectedData.dll
-C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\bin\Debug\System.Security.Permissions.dll
-C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\bin\Debug\Z.Expressions.Eval.dll
-C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\bin\Debug\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\obj\Debug\FactoryBuilder.csproj.AssemblyReference.cache
 C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\obj\Debug\FactoryBuilder.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\namor\OneDrive\Dokumenty\Godot\FactoryBuilder\.godot\mono\temp\obj\Debug\FactoryBuilder.AssemblyInfoInputs.cache

@@ -31,15 +31,29 @@ public partial class Player : Godot.CharacterBody2D
 	{
 		GetInput();
 		MoveAndSlide();
+		UpdatePlayerTexture();
 	}
 
-	public override void _Input(InputEvent @event)
+	private void UpdatePlayerTexture()
 	{
-		Sprite2D playerSprite = GetNode<Sprite2D>("");
+		Sprite2D playerSprite = GetNode<Sprite2D>("PlayerIcon");
+		string path = "res://Gimp/Player/";
 
-		if (@event.IsActionPressed("MoveLeft"))
+		if (Input.IsActionPressed("MoveLeft"))
 		{
-
+			playerSprite.Texture = GD.Load<Texture2D>(path + "playerPlaceholderLeft.png");
+		}
+		else if (Input.IsActionPressed("MoveRight"))
+		{
+			playerSprite.Texture = GD.Load<Texture2D>(path + "playerPlaceholderRight.png");
+		}
+		else if (Input.IsActionPressed("MoveUp"))
+		{
+			playerSprite.Texture = GD.Load<Texture2D>(path + "playerPlaceholderUp.png");
+		}
+		else
+		{
+			playerSprite.Texture = GD.Load<Texture2D>(path + "playerPlaceholder.png");
 		}
 	}
 }
