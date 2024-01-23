@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bsymbesh48kwd"]
 
-[ext_resource type="PackedScene" uid="uid://cycrfkkc7xrqg" path="res://Scenes/UI/BuildMenu/BuildSelect.tscn" id="1_j2t4k"]
+[ext_resource type="PackedScene" uid="uid://cycrfkkc7xrqg" path="res://Scenes/UI/BuildMenu/MenuSelect.tscn" id="1_oydjw"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ostt8"]
 
@@ -30,22 +30,22 @@ anchor_bottom = 1.0
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="drill" parent="FlowContainer" instance=ExtResource("1_j2t4k")]
-custom_minimum_size = Vector2(192, 192)
+[node name="drill" parent="FlowContainer" instance=ExtResource("1_oydjw")]
 layout_mode = 2
-BuildingName = "drill"
+DisplayName = "drill"
+Type = "building"
 
-[node name="belt1" parent="FlowContainer" instance=ExtResource("1_j2t4k")]
-custom_minimum_size = Vector2(192, 192)
+[node name="smelter" parent="FlowContainer" instance=ExtResource("1_oydjw")]
 layout_mode = 2
-BuildingName = "belt1"
+DisplayName = "smelter"
+Type = "building"
 
-[node name="test" parent="FlowContainer" instance=ExtResource("1_j2t4k")]
-custom_minimum_size = Vector2(192, 192)
+[node name="belt1" parent="FlowContainer" instance=ExtResource("1_oydjw")]
 layout_mode = 2
-BuildingName = "test"
+DisplayName = "belt1"
+Type = "building"
 
-[node name="test2" parent="FlowContainer" instance=ExtResource("1_j2t4k")]
-custom_minimum_size = Vector2(192, 192)
+[node name="beltArm1" parent="FlowContainer" instance=ExtResource("1_oydjw")]
 layout_mode = 2
-BuildingName = "test2"
+DisplayName = "beltArm1"
+Type = "building"

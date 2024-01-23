@@ -3,9 +3,21 @@ using System;
 
 public partial class PauseMenu : Control
 {
+	[Export]
+	bool pauseOnStart = true;
+	public bool CanPause = true;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		if (pauseOnStart) {
+			GetTree().Paused = true;
+			Show();
+		}
+		else
+		{
+			Hide();
+		}
+
 		Button close = GetNode<Button>("Close");
 		close.Pressed += UnpauseGame;
 	}
@@ -13,12 +25,13 @@ public partial class PauseMenu : Control
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
-		GD.Print(Visible);
+		//TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
+		//GD.Print($"UI: {tileMap.UITOGGLE} BUILDINGMODE: {tileMap.BUILDINGMODE}");
 
-		if(Input.IsActionJustPressed("Back") && !tileMap.UITOGGLE)
+		if(Input.IsActionJustPressed("Back") && CanPause)
 		{
-			//UnpauseGame();
+			Visible = !Visible;
+			GetTree().Paused = !GetTree().Paused;
 		}
 	}
 

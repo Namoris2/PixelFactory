@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 public partial class Player : Godot.CharacterBody2D
 {
@@ -21,14 +22,38 @@ public partial class Player : Godot.CharacterBody2D
 		}
 	}
 	public void GetInput()
-    {
-        Vector2 inputDirection = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
-        Velocity = inputDirection * Speed;
-    }
+	{
+		Vector2 inputDirection = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
+		Velocity = inputDirection * Speed; 
+	}
 
-    public override void _PhysicsProcess(double delta)
-    {
-        GetInput();
-        MoveAndSlide();
-    }
+	public override void _PhysicsProcess(double delta)
+	{
+		GetInput();
+		MoveAndSlide();
+		UpdatePlayerTexture();
+	}
+
+	private void UpdatePlayerTexture()
+	{
+		Sprite2D playerSprite = GetNode<Sprite2D>("PlayerIcon");
+		string path = "res://Gimp/Player/";
+
+		if (Input.IsActionPressed("MoveLeft"))
+		{
+			playerSprite.Texture = GD.Load<Texture2D>(path + "playerPlaceholderLeft.png");
+		}
+		else if (Input.IsActionPressed("MoveRight"))
+		{
+			playerSprite.Texture = GD.Load<Texture2D>(path + "playerPlaceholderRight.png");
+		}
+		else if (Input.IsActionPressed("MoveUp"))
+		{
+			playerSprite.Texture = GD.Load<Texture2D>(path + "playerPlaceholderUp.png");
+		}
+		else
+		{
+			playerSprite.Texture = GD.Load<Texture2D>(path + "playerPlaceholder.png");
+		}
+	}
 }

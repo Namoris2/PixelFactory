@@ -2,6 +2,12 @@
     "handHarvest" : {
         "canBeUsedOn" : ["CoalOre", "CopperOre", "IronOre"]
     },
+    "buildingPart" :
+    {
+        "buildingType" : "buildingPart",
+        "parentBuilding" : [0, 0],
+        "coords" : [0, 0]
+    },
     "drill" : {
         "buildingType" : "machine",
         "type" : "drill",
@@ -16,19 +22,49 @@
         "rotation" : 0,
         "hasAdditionalAtlasPosition" : false,
         "additionalAtlasPosition" : [],
-        "production" : "",
-        "productionRate" : 30,
+        "recipe" : "none",
+        "canChooseRecipe" : false,
         "productionProgress" : 0,
         "canBePlacedOn" : ["CoalOre", "CopperOre", "IronOre"],
         "inputSlots" : [],
         "outputSlots" : [
             {
                 "resource" : "",
-                "amount" : 0,
-                "canConnectToBelts" : false,
-                "connection" : []
+                "amount" : 0
             }
         ] 
+    },
+    "smelter" : {
+        "buildingType" : "machine",
+        "type" : "smelter",
+        "name" : "Smelter",
+        "cost" : 50,
+        "coords" : [0, 0],
+        "atlasCoords" : [4, 0],
+        "height" : 2,
+        "width" : 2,
+        "canRotate" : false,
+        "rotationAmount" : 0,
+        "rotation" : 0,
+        "hasAdditionalAtlasPosition" : true,
+        "additionalAtlasPosition" : [        [1, 0],
+                                     [0, 1], [1, 1]],
+        "recipe" : "none",
+        "canChooseRecipe" : true,
+        "productionProgress" : 0,
+        "canBePlacedOn" : ["Grass"],
+        "inputSlots" : [
+            {
+                "resource" : "",
+                "amount" : 0
+            }
+        ],
+        "outputSlots" :  [
+            {
+                "resource" : "",
+                "amount" : 0
+            }
+        ]
     },
     "belt1" : {
         "buildingType" : "belt",
@@ -42,10 +78,35 @@
         "canRotate" : true,
         "rotationAmount" : 4,
         "rotation" : 0,
+        "nextPosition" : [0, 0],
         "hasAdditionalAtlasPosition" : false,
         "additionalAtlasPosition" : [],
         "speed" : 30,
-        "canBePlacedOn" : ["Grass", "Concrete"]
+        "moveProgress" : 0,
+        "recivingItem" : false,
+        "canBePlacedOn" : ["Grass", "Concrete"],
+        "item" : ""
+    },
+    "beltArm1" : {
+        "buildingType" : "beltArm",
+        "type" : "beltArm1",
+        "name" : "Conveyor Arm MK1",
+        "cost" : 15,
+        "coords" : [0, 0],
+        "atlasCoords" : [0, 2],
+        "width" : 1,
+        "height" : 1,
+        "canRotate" : true,
+        "rotationAmount" : 4,
+        "rotation" : 0,
+        "nextPosition" : [0, 0],
+        "previousPosition" : [0, 0],
+        "hasAdditionalAtlasPosition" : false,
+        "additionalAtlasPosition" : [],
+        "speed" : 30,
+        "moveProgress" : 0,
+        "canBePlacedOn" : ["Grass", "Concrete"],
+        "item" : ""
     },
     "test" : {
         "buildingType" : "test",
@@ -77,6 +138,6 @@
         "canBePlacedOn" : ["Grass"]
     },
     "test3" : {
-        "name" :"Test Building 3"
+        "name" : "Test Building 3"
     }
 }

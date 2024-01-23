@@ -4,7 +4,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Z.Expressions.Eval" Version="5.0.10" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+    <PackageReference Include="Godot.SourceGenerators" Version="4.2.0"/>
   </ItemGroup>
 </Project>

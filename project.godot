@@ -23,6 +23,8 @@ LoadFile="*res://Scenes/Game/LoadFile.cs"
 
 [display]
 
+window/size/viewport_width=1200
+window/size/viewport_height=650
 window/vsync/vsync_mode=0
 mouse_cursor/tooltip_position_offset=Vector2(-22, -22)
 
@@ -109,5 +111,6 @@ Back={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
 renderer/rendering_method.mobile="gl_compatibility"

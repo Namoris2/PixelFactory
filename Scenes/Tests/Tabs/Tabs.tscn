@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://c5ohhrhbf5vx0"]
+
+[node name="Tabs" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 0.984615
+metadata/_edit_use_anchors_ = true
+
+[node name="TabBar" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="TabContainer/TabBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+metadata/_edit_use_anchors_ = true
+
+[node name="TabBar2" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="TabContainer/TabBar2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "2"
+metadata/_edit_use_anchors_ = true
+
+[node name="TabBar3" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="TabContainer/TabBar3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "3"
+metadata/_edit_use_anchors_ = true
+
+[node name="TabBar4" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="TabContainer/TabBar4"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "4"
+metadata/_edit_use_anchors_ = true
+
+[node name="TabBar5" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="TabContainer/TabBar5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "5"
+metadata/_edit_use_anchors_ = true

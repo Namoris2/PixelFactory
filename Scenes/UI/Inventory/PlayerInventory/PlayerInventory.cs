@@ -3,7 +3,7 @@ using System;
 
 public partial class PlayerInventory : Control
 {
-	GridContainer inventoryGrid;
+	FlowContainer flowContainer;
 	private InventorySlot inventorySlot;
 	
 	[Export]
@@ -12,8 +12,8 @@ public partial class PlayerInventory : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		inventoryGrid = GetNode<GridContainer>("ScrollContainer/InventoryGrid");
-		inventorySlot = GetNode<InventorySlot>("ScrollContainer/InventoryGrid/Slot0");
+		flowContainer = GetNode<FlowContainer>("FlowContainer");
+		inventorySlot = GetNode<InventorySlot>("FlowContainer/Slot0");
 		CreateInventorySlots();
 	}
 
@@ -23,7 +23,7 @@ public partial class PlayerInventory : Control
 		{
 			Node newSlot = inventorySlot.Duplicate();
 			newSlot.Name = $"Slot{i + 1}";
-			inventoryGrid.AddChild(newSlot);
+			flowContainer.AddChild(newSlot);
 		}
 	}
 

@@ -5,7 +5,10 @@ using System.Dynamic;
 public partial class InventorySlot : Button
 {
 	[Signal]
-	public delegate void SlotClickedEventHandler(Vector2I coords, string type, int slotIndex);
+	public delegate void RemoveItemEventHandler(Vector2I coords, string slotType, int slotIndex);
+	
+	[Signal]
+	public delegate void PutItemEventHandler(Vector2I coords, int itemAmount, int slotIndex, string slotType);
 	[Signal]
 	public delegate void ShowHoldingItemEventHandler(string name, string amount);	
 	[Signal]
@@ -22,7 +25,7 @@ public partial class InventorySlot : Button
 	private Item inventoryItem;
 	private AtlasTexture textureAtlas = new ();
 	private TextureRect itemTexture;
-	private Label resourceAmount;
+	public Label resourceAmount;
 	private Label resourceName;
 	public int inventorySlotIndex;
 	public string inventoryType;
@@ -32,7 +35,7 @@ public partial class InventorySlot : Button
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		LoadFile load = GetNode<LoadFile>("/root/main/LoadFile");
+		LoadFile load = new();
 		items = load.LoadJson("items.json");
 
 		itemTexture = GetNode<TextureRect>("ItemTexture");
@@ -57,6 +60,11 @@ public partial class InventorySlot : Button
 			slotType = "Slot";
 		}
 
+		if (IsInGroup("SingleSlots"))
+		{
+			inventorySlotIndex = 0;
+		}
+
 		this.Pressed += PressedSlot;
 	}
 
@@ -67,14 +75,13 @@ public partial class InventorySlot : Button
 
 	public void UpdateSlotTexture(string itemType)
 	{
-		if (resourceAmount.Text != "")
+		if (resourceAmount.Text != "" && itemType != "")
 		{
 			Vector2I atlasCoords = new Vector2I((int)items[itemType].atlasCoords[0], (int)items[itemType].atlasCoords[1]);
 
 			textureAtlas.Region = new Rect2I(atlasCoords[0] * 16, atlasCoords[1] * 16, 16, 16);
 
 			itemTexture.Texture = textureAtlas;
-			//GD.Print(itemType);
 		}
 		else
 		{
@@ -89,24 +96,51 @@ public partial class InventorySlot : Button
 		this.ShowHoldingItem += holdingItem.ShowHoldingItem;
 		this.HideHoldingItem += holdingItem.HideHoldingItem;
 
-		if (!holdingItem.ISHOLDINGITEM)
+		// taking item from slot
+		if (!holdingItem.ISHOLDINGITEM && UserExport)
 		{
-			if (inventoryType == "machine" && UserExport)
+			if (resourceAmount.Text == "") { return; };
+
+			EmitSignal(SignalName.ShowHoldingItem, itemType, resourceAmount.Text);
+			if (inventoryType == "machine")
 			{
 				TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
-				this.SlotClicked += tileMap.RemoveItemFromSlot;
+				LoadFile load = new ();
+				
+				this.RemoveItem += tileMap.RemoveItemFromSlot;
+				EmitSignal(SignalName.RemoveItem, buildingCoordinates, slotType, inventorySlotIndex);
+				this.RemoveItem -= tileMap.RemoveItemFromSlot;
+				
+				dynamic building = tileMap.GetBuildingInfo(buildingCoordinates);
+				dynamic recipe = load.LoadJson("recipes.json")[building.recipe.ToString()];
+				int buildingIndex = tileMap.GetBuildingIndex(buildingCoordinates);
 
-				EmitSignal(SignalName.SlotClicked, buildingCoordinates, slotType, inventorySlotIndex);
+				itemType = recipe[slotType.ToLower()][inventorySlotIndex].name;
+				building[$"{slotType.ToLower()}Slots"][inventorySlotIndex].resource = itemType;
 			}
-			EmitSignal(SignalName.ShowHoldingItem, itemType, resourceAmount.Text);
 			
-			itemType = "";
+			if (inventoryType != "machine")
+			{
+				itemType = "";
+			}
+
 			resourceAmount.Text = "";
 			itemTexture.Texture = null;
 		}
 
+		// putting item to slot
 		else if (holdingItem.ISHOLDINGITEM && UserImport)
 		{
+			if (inventoryType == "machine" && holdingItem.itemName == itemType)
+			{
+				TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
+
+				this.PutItem += tileMap.PutItemToSlot;
+				EmitSignal(SignalName.PutItem, buildingCoordinates, int.Parse(holdingItem.itemAmount), inventorySlotIndex, slotType);
+				this.PutItem -= tileMap.PutItemToSlot;
+			}
+
+			// putting item to slot (if slot is empty)
 			if (itemType == "")
 			{
 				itemType = holdingItem.itemName;
@@ -117,22 +151,34 @@ public partial class InventorySlot : Button
 				EmitSignal(SignalName.HideHoldingItem);
 			}
 
+			// putting item to slot (if slot is not empty)
 			else if (itemType == holdingItem.itemName)
 			{
-				if ((int.Parse(resourceAmount.Text) + int.Parse(holdingItem.itemAmount)) <= (int)items[itemType].maxStackSize)
+				int amount = 0;
+				if (resourceAmount.Text != "")
 				{
-					resourceAmount.Text = (int.Parse(resourceAmount.Text) + int.Parse(holdingItem.itemAmount)).ToString();
+					amount = int.Parse(resourceAmount.Text);
+				}
+				// putting item to slot (if sum of amount of item in slot and amount of holding item is less or equal to its 'maxStackSize')
+				if ((amount + int.Parse(holdingItem.itemAmount)) <= (int)items[itemType].maxStackSize)
+				{
+					resourceAmount.Text = (amount + int.Parse(holdingItem.itemAmount)).ToString();
 					EmitSignal(SignalName.HideHoldingItem);
 				}
+
+				// putting item to slot (if sum of amount of item in slot and amount of holding item is more or equal to its 'maxStackSize')
+				// amount of item in slot is set to its 'maxStackSize' and amount of holding item is set to new value (current amount - amount of items put to slot)
 				else
 				{
-					holdingItem.itemAmount = (int.Parse(holdingItem.itemAmount) - ((int)items[itemType].maxStackSize - int.Parse(resourceAmount.Text))).ToString();
+					holdingItem.itemAmount = (int.Parse(holdingItem.itemAmount) - ((int)items[itemType].maxStackSize - amount)).ToString();
 					resourceAmount.Text = items[itemType].maxStackSize.ToString();
 					GetNode<Label>(holdingItem.GetPath() + "/ResourceAmount").Text = holdingItem.itemAmount;
 				}
+				UpdateSlotTexture(itemType);
 			}
 
-			else
+			// switching item in slot and holding item (if item in slot is different from holding item)
+			else if (inventoryType != "machine")
 			{
 				string helperItemType;
 				string helperResourceAmount;

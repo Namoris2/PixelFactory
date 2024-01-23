@@ -1,0 +1,67 @@
+{
+    "IronOre" : {
+        "name" : "Iron Ore",
+        "cyclesPerMinute" : 30,
+        "input" : [],
+        "output" : [
+            {
+                "name" : "IronOre",
+                "amount" : 1
+            }
+        ]
+    },
+    "CopperOre" : {
+        "name" : "Copper Ore",
+        "cyclesPerMinute" : 30,
+        "input" : [],
+        "output" : [
+            {
+                "name" : "CopperOre",
+                "amount" : 1
+            }
+        ]
+    },
+    "CoalOre" : {
+        "name" : "Coal Ore",
+        "cyclesPerMinute" : 30,
+        "input" : [],
+        "output" : [
+            {
+                "name" : "CoalOre",
+                "amount" : 1
+            }
+        ]
+    },
+    "IronIngot" : {
+        "name" : "Iron Ingot",
+        "cyclesPerMinute" : 30,
+        "input" : [
+            {
+                "name" : "IronOre",
+                "amount" : 1
+            }
+        ],
+        "output" : [
+            {
+                "name" : "IronIngot",
+                "amount" : 1
+            }
+        ]
+    },
+    "CopperIngot" : {
+        "name" : "Copper Ingot",
+        "cyclesPerMinute" : 30,
+        "input" : [
+            {
+                "name" : "CopperOre",
+                "amount" : 1
+            }
+        ],
+        "output" : [
+            {
+                "name" : "CopperIngot",
+                "amount" : 1
+            }
+        ]
+    }
+}

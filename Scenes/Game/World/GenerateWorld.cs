@@ -5,7 +5,7 @@ public partial class GenerateWorld : Node
 {
     public void GenerateResource(Vector2I mapSize, string resourceInput, bool generateWater = false)
 	{
-        LoadFile load = GetNode<LoadFile>("../LoadFile");
+        LoadFile load = new();
 		dynamic groundResources = load.LoadJson("groundResources.json");
 		
         dynamic resource = groundResources[resourceInput];

@@ -1,24 +1,31 @@
 using Godot;
+using Godot.Collections;
 using System;
+using System.Collections.Generic;
 
 public partial class main : Node2D
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GetTree().Paused = true;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{		
-		TileMap tileMap = GetNode<TileMap>("World/TileMap");
-		Control pauseMenu = GetNode<Control>("UI/PauseMenu");
+	}
 
-		if(Input.IsActionJustPressed("Back") && !tileMap.UITOGGLE)
+	static public Node FindNodeByNameInGroup(Array<Node> group, string nodeName)
+	{
+		for (int i = 0; i < group.Count; i++)
 		{
-			GetTree().Paused = !GetTree().Paused;
-			pauseMenu.Visible = !pauseMenu.Visible;
+			if (group[i].Name == nodeName)
+			{
+				return group[i];
+			}
 		}
+
+		GD.PrintErr($"\"{nodeName}\" is not in group");
+		return new Node();
 	}
 }
