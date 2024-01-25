@@ -1,13 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxmvcd6tq4wnp"]
+[gd_scene load_steps=3 format=3 uid="uid://bxmvcd6tq4wnp"]
 
+[ext_resource type="Script" path="res://Scenes/Game/World/Item/Item.cs" id="1_5j7e7"]
 [ext_resource type="Texture2D" uid="uid://bxi2smg4lvdt8" path="res://Gimp/placeholder.png" id="2_vqmxh"]
 
-[node name="Control" type="Control"]
+[node name="Item" type="Control"]
+top_level = true
+z_index = 1
 layout_mode = 3
 anchor_right = 0.0533333
 anchor_bottom = 0.0984615
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_5j7e7")
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="."]

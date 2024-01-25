@@ -13,6 +13,8 @@ using System.Diagnostics.Metrics;
 using System.Security.Cryptography;
 using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Reflection.Metadata;
 
 public partial class TileMap : Godot.TileMap
 {
@@ -161,6 +163,20 @@ public partial class TileMap : Godot.TileMap
 		// farming resources
 		FarmResources(groundResourceName, buildingsData, GetBuildingInfo(cellPostionByMouse));
 	}
+
+    public override void _PhysicsProcess(double delta)
+    {
+        Array<Node> items = GetChildren();
+		foreach (Item item in items)
+		{
+			if (!item.onGround)
+			{
+				item.Position = item.Position.MoveToward(item.destination, (float)(64 * delta));
+			}
+		}
+    }
+
+    
 
 	public Vector2I GetMousePosition()
 	{
@@ -423,6 +439,36 @@ public partial class TileMap : Godot.TileMap
 		building[slotType + "Slots"][slotIndex].amount = itemAmount;
 	}
 
+	private void CreateItem(Vector2I coords, Vector2I destination, string name = "")
+	{
+		Item item = (Item)GD.Load<PackedScene>("res://Scenes/Game/World/Item/Item.tscn").Instantiate();
+
+		if (name == "")
+		{
+			item.Name = $"{coords[0]}x{coords[1]}";
+			item.destination = destination * 64;
+		}
+		else
+		{
+			item.Name = name;
+			item.onGround = true;
+		}
+
+		item.Position = coords * 64;
+		AddChild(item); 
+		//GD.Print($"Item created, Name: {item.Name}, Position: {item.Position}");
+	}
+
+	private void MoveItem(Vector2I firstPosition, Vector2I secondPosition, string name)
+	{
+		Vector2I direction = firstPosition - secondPosition;
+		Item item = GetNode<Item>(name);
+		
+		Vector2 position = item.Position / 64; 
+		Vector2 finalPosition = (position + direction) * 64;
+		item.Position.MoveToward(secondPosition, 6); GD.Print(firstPosition, secondPosition);
+	}
+
 	private bool CanTBeltTransfer(dynamic building)
 	{
 		dynamic nextBuilding = GetBuildingInfo(new Vector2I((int)building.coords[0] + (int)building.nextPosition[0], (int)building.coords[1] + (int)building.nextPosition[1]));
@@ -517,7 +563,7 @@ public partial class TileMap : Godot.TileMap
 	}
 
 	// every game tic this is called
-	private void OnTickUpdate()
+	private void OnTickUpdate() // lots of nesting :/
 	{
 		for (int i = 0; i < buildingsInfo.Count; i++)
 		{
@@ -600,6 +646,8 @@ public partial class TileMap : Godot.TileMap
 								{
 									buildingsInfo[i].item = previousBuilding.outputSlots[0].resource;
 									previousBuilding.outputSlots[0].amount -= 1;
+									CreateItem(previousCoords, nextCoords);
+									//MoveItem(previousCoords, nextCoords, $"{previousCoords[0]}x{previousCoords[1]}");
 								}
 								else
 								{
@@ -613,6 +661,10 @@ public partial class TileMap : Godot.TileMap
 								if (nextBuilding.buildingType.ToString() == "machine")
 								{
 									nextBuilding.inputSlots[0].amount += 1;
+
+									string itemName = $"{previousCoords[0]}x{previousCoords[1]}";
+									Item item = GetNode<Item>(itemName);
+									item.QueueFree();
 								}
 								else
 								{

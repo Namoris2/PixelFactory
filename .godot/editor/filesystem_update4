@@ -1,9 +1,9 @@
-res://Scenes/Game/World/Item/Item.tscn
+res://Scenes/main.tscn
 res://Themes/InventorySlot.tres
 res://Scenes/UI/BuildMenu/MenuSelect.cs
-res://Scenes/main.tscn
 res://Scenes/UI/Pause Menu/PauseMenu.tscn
 res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
+res://Scenes/Game/World/Item/Item.tscn
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/UI/BuildMenu/MenuSelect.tscn
 res://Scenes/UI/Inventory/InventorySlot.tscn
@@ -11,6 +11,7 @@ res://Scenes/UI/BuildMenu/BuildMenu.tscn
 res://Scenes/Player/player.tscn
 res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/World/GenerateWorld.cs
+res://Scenes/Game/World/Item/Item.cs
 res://Scenes/main.cs
 res://Scenes/Player/Player.cs
 res://Scenes/Player/PlayerCamera.cs
@@ -25,7 +26,6 @@ res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.cs
 res://Scenes/UI/Inventory/HoldingItem.cs
 res://Scenes/UI/Inventory/Inventories.cs
 res://Scenes/UI/Inventory/InventorySlot.cs
-res://Scenes/UI/Inventory/Item.cs
 res://Scenes/UI/Inventory/ItemName.cs
 res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.cs
 res://Scenes/UI/Pause Menu/PauseMenu.cs
