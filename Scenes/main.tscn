@@ -20,7 +20,7 @@
 [ext_resource type="Script" path="res://Scenes/UI/UIToggle.cs" id="16_pxye0"]
 [ext_resource type="PackedScene" uid="uid://bxn21jfq72eky" path="res://Scenes/UI/Pause Menu/PauseMenu.tscn" id="19_3uy5l"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sa6ha"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x64vh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b0sgr"]
 resource_name = "Ground"
@@ -117,7 +117,7 @@ texture = ExtResource("3_jwn2t")
 
 [sub_resource type="TileSet" id="TileSet_u37wg"]
 physics_layer_0/collision_layer = 1
-physics_layer_0/physics_material = SubResource("PhysicsMaterial_sa6ha")
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_x64vh")
 custom_data_layer_0/name = "resourceName"
 custom_data_layer_0/type = 4
 custom_data_layer_1/name = "rotation"

@@ -459,16 +459,6 @@ public partial class TileMap : Godot.TileMap
 		//GD.Print($"Item created, Name: {item.Name}, Position: {item.Position}");
 	}
 
-	private void MoveItem(Vector2I firstPosition, Vector2I secondPosition, string name)
-	{
-		Vector2I direction = firstPosition - secondPosition;
-		Item item = GetNode<Item>(name);
-		
-		Vector2 position = item.Position / 64; 
-		Vector2 finalPosition = (position + direction) * 64;
-		item.Position.MoveToward(secondPosition, 6); GD.Print(firstPosition, secondPosition);
-	}
-
 	private bool CanTBeltTransfer(dynamic building)
 	{
 		dynamic nextBuilding = GetBuildingInfo(new Vector2I((int)building.coords[0] + (int)building.nextPosition[0], (int)building.coords[1] + (int)building.nextPosition[1]));
@@ -617,6 +607,11 @@ public partial class TileMap : Godot.TileMap
 						// gets the next belt
 						nextCoords = new Vector2I((int)buildingsInfo[i].coords[0] + (int)buildingsInfo[i].nextPosition[0], (int)buildingsInfo[i].coords[1] + (int)buildingsInfo[i].nextPosition[1]);
 						dynamic nextBuilding = GetBuildingInfo(nextCoords);
+						
+						string itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
+						Item item = GetNode<Item>(itemName);
+						item.destination = nextCoords * 64;
+						item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
 
 						nextBuilding.item = buildingsInfo[i].item;
 						buildingsInfo[i].item = "";
@@ -647,7 +642,6 @@ public partial class TileMap : Godot.TileMap
 									buildingsInfo[i].item = previousBuilding.outputSlots[0].resource;
 									previousBuilding.outputSlots[0].amount -= 1;
 									CreateItem(previousCoords, nextCoords);
-									//MoveItem(previousCoords, nextCoords, $"{previousCoords[0]}x{previousCoords[1]}");
 								}
 								else
 								{
@@ -658,17 +652,19 @@ public partial class TileMap : Godot.TileMap
 								break;
 
 							case 100:
+								string itemName = $"{previousCoords[0]}x{previousCoords[1]}";
+								Item item = GetNode<Item>(itemName);
+
 								if (nextBuilding.buildingType.ToString() == "machine")
 								{
 									nextBuilding.inputSlots[0].amount += 1;
 
-									string itemName = $"{previousCoords[0]}x{previousCoords[1]}";
-									Item item = GetNode<Item>(itemName);
 									item.QueueFree();
 								}
 								else
 								{
 									nextBuilding.item = buildingsInfo[i].item;
+									item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
 								}
 								buildingsInfo[i].item = "";
 								buildingsInfo[i].moveProgress = 0;
