@@ -72,10 +72,6 @@ public partial class TileMap : Godot.TileMap
 
 		recipes = load.LoadJson("recipes.json");
 
-		// gets TickRate node and every time its reset, 'OnTickUpdate' function is called
-		Timer tickUpdate =  GetNode<Timer>("/root/main/TickRate");
-		tickUpdate.Timeout += OnTickUpdate;
-
 		// this generates the world
 		GenerateWorld generateWorld = GetNode<GenerateWorld>("/root/main/GenerateWorld");
 		Vector2I mapSize = new Vector2I(500, 500);
@@ -100,6 +96,9 @@ public partial class TileMap : Godot.TileMap
 		// getting tileMap data by mouse coordinates that hovers over TileMap cell
 		TileData groundData = GetCellTileData(0, cellPostionByMouse);
 		TileData buildingsData = GetCellTileData(1, cellPostionByMouse);
+
+		if (groundData == null) { return; }
+
 		string groundResourceName = (string)groundData.GetCustomData("resourceName");
 
 		string wolrdInfo;
@@ -166,17 +165,139 @@ public partial class TileMap : Godot.TileMap
 
     public override void _PhysicsProcess(double delta)
     {
-        Array<Node> items = GetChildren();
-		foreach (Item item in items)
+        Vector2I nextCoords;
+		Vector2I previousCoords;
+		dynamic nextBuilding;
+		dynamic previousBuilding;
+		string itemName;
+		Item item;
+
+		for (int i = 0; i < buildingsInfo.Count; i++)
 		{
-			if (!item.onGround)
+			switch(buildingsInfo[i].buildingType.ToString())
 			{
-				item.Position = item.Position.MoveToward(item.destination, (float)(64 * delta));
+				case "machine":
+					if (buildingsInfo[i].recipe.ToString() == "none") { continue; } // if no recipe is selected, skips this building
+
+					dynamic recipe = recipes[buildingsInfo[i].recipe.ToString()];
+					//GD.Print(buildingsInfo[i]);
+					if (BuildingSlotValidate(buildingsInfo[i], recipe))
+					{
+						buildingsInfo[i].productionProgress += (double)recipe.cyclesPerMinute / 60 * delta;
+
+						if (buildingsInfo[i].productionProgress >= 1) // if 'productionProgress' is full items will be added and removed acording to machine's recipe
+																	  // and resets 'productionProgress' 
+						{
+							buildingsInfo[i].productionProgress = 0;
+
+							for (int j = 0; j < recipe.input.Count; j++)
+							{
+								buildingsInfo[i].inputSlots[j].amount -= recipe.input[j].amount;
+							}	
+
+							for (int j = 0; j < recipe.output.Count; j++)
+							{
+								buildingsInfo[i].outputSlots[j].amount += recipe.output[j].amount;
+							}
+						}
+					}
+
+					// if inventory is oppened, data will be sent to the inventory to show on screeen
+					if (UITOGGLE)
+					{
+						EmitSignal(SignalName.UpdateBuildingProgress, Newtonsoft.Json.JsonConvert.SerializeObject(buildingsInfo[i]));
+					}
+					break;
+				
+				case "belt":
+					// moves item on the belt
+					if (buildingsInfo[i].item.ToString() != "" && (double)buildingsInfo[i].moveProgress < 1)
+					{
+						buildingsInfo[i].moveProgress += (double)buildingsInfo[i].speed / 60 * delta;
+					}
+
+					// moves item to the next belt
+					if (CanTBeltTransfer(buildingsInfo[i]))
+					{
+						// gets the next belt
+						nextCoords = new Vector2I((int)buildingsInfo[i].coords[0] + (int)buildingsInfo[i].nextPosition[0], (int)buildingsInfo[i].coords[1] + (int)buildingsInfo[i].nextPosition[1]);
+						nextBuilding = GetBuildingInfo(nextCoords);
+						
+						itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
+						item = GetNode<Item>(itemName);
+						item.destination = nextCoords * 64;
+						item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
+						item.speed = 64 / (60 / (int)buildingsInfo[i].speed);
+
+						nextBuilding.item = buildingsInfo[i].item;
+						buildingsInfo[i].item = "";
+						buildingsInfo[i].moveProgress = 0;
+					}
+					break;
+
+				case "beltArm":
+
+					nextCoords = new Vector2I((int)buildingsInfo[i].coords[0] + (int)buildingsInfo[i].nextPosition[0], (int)buildingsInfo[i].coords[1] + (int)buildingsInfo[i].nextPosition[1]);
+					previousCoords = new Vector2I((int)buildingsInfo[i].coords[0] + (int)buildingsInfo[i].previousPosition[0], (int)buildingsInfo[i].coords[1] + (int)buildingsInfo[i].previousPosition[1]);
+
+					if (buildingsInfo[i].item.ToString() != "" && (double)buildingsInfo[i].moveProgress < 1)
+					{
+						buildingsInfo[i].moveProgress += (double)buildingsInfo[i].speed / 60 * delta;
+					}
+
+					nextBuilding = GetBuildingInfo(nextCoords);
+					previousBuilding = GetBuildingInfo(previousCoords);
+					
+					if ((double)buildingsInfo[i].moveProgress == 0 && CanArmTransfer(buildingsInfo[i]))
+					{
+						if (previousBuilding.buildingType.ToString() == "machine") // machine
+						{
+							buildingsInfo[i].item = previousBuilding.outputSlots[0].resource;
+							previousBuilding.outputSlots[0].amount -= 1;
+							CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2);
+						}
+						else // belt
+						{
+							buildingsInfo[i].item = previousBuilding.item;
+							previousBuilding.item = "";
+							previousBuilding.moveProgress = 0;
+
+							itemName = $"{previousCoords[0]}x{previousCoords[1]}";
+							item = GetNode<Item>(itemName);
+
+							item.destination = nextCoords * 64;
+							item.speed = 64 / (60 / (int)buildingsInfo[i].speed) * 2;								
+						}
+					}
+					else if ((double)buildingsInfo[i].moveProgress >= 1)
+					{
+						itemName = $"{previousCoords[0]}x{previousCoords[1]}";
+						item = GetNode<Item>(itemName);
+
+						if (nextBuilding.buildingType.ToString() == "machine") // machine
+						{
+							nextBuilding.inputSlots[0].amount += 1;
+
+							item.QueueFree();
+						}
+						else // belt
+						{
+							nextBuilding.item = buildingsInfo[i].item;
+							nextBuilding.moveProgress = 1;
+							item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
+						}
+						buildingsInfo[i].item = "";
+						buildingsInfo[i].moveProgress = 0;
+					}
+					
+				break;
 			}
 		}
-    }
+	}
+
 
     
+
 
 	public Vector2I GetMousePosition()
 	{
@@ -439,24 +560,25 @@ public partial class TileMap : Godot.TileMap
 		building[slotType + "Slots"][slotIndex].amount = itemAmount;
 	}
 
-	private void CreateItem(Vector2I coords, Vector2I destination, string name = "")
+	private void CreateItem(Vector2I coords, Vector2I destination, string name, int speed = 0, string id = "")
 	{
 		Item item = (Item)GD.Load<PackedScene>("res://Scenes/Game/World/Item/Item.tscn").Instantiate();
 
-		if (name == "")
+		if (id == "")
 		{
 			item.Name = $"{coords[0]}x{coords[1]}";
 			item.destination = destination * 64;
+			item.speed = 64 / (60 / speed);
 		}
 		else
 		{
-			item.Name = name;
+			item.Name = id;
 			item.onGround = true;
 		}
 
 		item.Position = coords * 64;
 		AddChild(item); 
-		//GD.Print($"Item created, Name: {item.Name}, Position: {item.Position}");
+		item.UpdateItem(name);
 	}
 
 	private bool CanTBeltTransfer(dynamic building)
@@ -464,12 +586,12 @@ public partial class TileMap : Godot.TileMap
 		dynamic nextBuilding = GetBuildingInfo(new Vector2I((int)building.coords[0] + (int)building.nextPosition[0], (int)building.coords[1] + (int)building.nextPosition[1]));
 
 		// checks if 'nextBuilding' exists
-		if (nextBuilding == null) { return false; }
+		if (nextBuilding == null || nextBuilding.buildingType.ToString() != "belt") { return false; }
 
 		// check if the 'nextBuilding' is rotated opposite to current one
 		bool isOpposite = (int)building.nextPosition[0] * -1 == (int)nextBuilding.nextPosition[0] && (int)building.nextPosition[1] * -1 == (int)nextBuilding.nextPosition[1];
 		
-		return nextBuilding.buildingType.ToString() == "belt" && !isOpposite && (int)((double)building.moveProgress * 100) == 100 && nextBuilding.item.ToString() == "";
+		return !isOpposite && (double)building.moveProgress >= 1 && nextBuilding.item.ToString() == "";
 	}
 
 	private bool CanArmTransfer(dynamic building)
@@ -477,52 +599,49 @@ public partial class TileMap : Godot.TileMap
 		dynamic previousBuilding = GetBuildingInfo(new Vector2I((int)building.coords[0] + (int)building.previousPosition[0], (int)building.coords[1] + (int)building.previousPosition[1]));
 		dynamic nextBuilding = GetBuildingInfo(new Vector2I((int)building.coords[0] + (int)building.nextPosition[0], (int)building.coords[1] + (int)building.nextPosition[1]));
 
-		switch ((int)building.moveProgress)
-		{	
-			case 0: 
-				// checks if 'previousBuilding' exist
-				if (previousBuilding == null) { return false; }
+		bool hasItem;
+		bool hasSpace;
+		string previousItem = null;
+
+		if ((double)building.moveProgress == 0)
+		{
+			// checks if both 'previousBuilding' and 'nextBuilding' exist
+			if (previousBuilding == null || nextBuilding == null) { return false; }
+			
+			if (previousBuilding.buildingType.ToString() == "machine") // machine
+			{
+				hasItem = (int)previousBuilding.outputSlots[0].amount != 0;
+				if (hasItem) { previousItem = previousBuilding.outputSlots[0].resource.ToString(); }
+			}
+			else // belt
+			{
+				hasItem = previousBuilding.buildingType.ToString() != "beltArm" && (double)previousBuilding.moveProgress >= 1;
+				if (hasItem) { previousItem = previousBuilding.item.ToString(); }
+			}
+
+			if (nextBuilding.buildingType.ToString() == "machine") // machine
+			{
+				if (nextBuilding.recipe.ToString() == "none") { return false; }
 				
-				bool hasItem = false;
-				if (previousBuilding.buildingType.ToString() == "machine")
+				if ((int)nextBuilding.inputSlots[0].amount == 0)
 				{
-					hasItem = (int)previousBuilding.outputSlots[0].amount != 0;
+					hasSpace = previousItem == recipes[nextBuilding.recipe.ToString()].input[0].name.ToString();
 				}
 				else
 				{
-					hasItem = previousBuilding.item.ToString() != "";
+					hasSpace = (int)nextBuilding.inputSlots[0].amount < (int)items[nextBuilding.inputSlots[0].resource.ToString()].maxStackSize && previousItem == nextBuilding.inputSlots[0].resource.ToString();
 				}
-
-				return previousBuilding.buildingType.ToString() != "beltArm" && hasItem;
-
-			case 1:
-				// checks if 'nextBuilding' exist
-				if (nextBuilding == null) { return false; }
-
-				bool hasSpace = false;
-				if (nextBuilding.buildingType.ToString() == "machine")
-				{
-					if (nextBuilding.recipe.ToString() == "none") { return false; }
-
-					if (nextBuilding.inputSlots[0].resource.ToString() == "")
-					{
-						hasSpace = building.item.ToString() == recipes[nextBuilding.recipe.ToString()].input[0].name.ToString();
-					}
-					else
-					{
-						hasSpace = (int)nextBuilding.inputSlots[0].amount < (int)items[nextBuilding.inputSlots[0].resource.ToString()].maxStackSize && building.item.ToString() == nextBuilding.inputSlots[0].resource.ToString();
-					}
-				}
-				else
-				{
-					hasSpace = nextBuilding.item.ToString() == "";
-				}
-
-				return nextBuilding.buildingType.ToString() != "beltArm" && hasSpace;
+			}
+			else // belt
+			{
+				hasSpace = nextBuilding.buildingType.ToString() != "beltArm" && nextBuilding.item.ToString() == "";
+			}
+			
+			return hasItem && hasSpace;
 		}
+
 		return false;
 	}
-
 
 	public void ChangeRecipe(string recipe, Vector2I coords)
 	{
@@ -549,132 +668,6 @@ public partial class TileMap : Godot.TileMap
 				building.outputSlots[i].resource = currentRecipe.output[i].name;
 			}
 
-		}
-	}
-
-	// every game tic this is called
-	private void OnTickUpdate() // lots of nesting :/
-	{
-		for (int i = 0; i < buildingsInfo.Count; i++)
-		{
-			switch(buildingsInfo[i].buildingType.ToString())
-			{
-				case "machine":
-					if (buildingsInfo[i].recipe.ToString() == "none") { continue; } // if no recipe is selected, skips this building
-
-					dynamic recipe = recipes[buildingsInfo[i].recipe.ToString()];
-					//GD.Print(buildingsInfo[i]);
-					if (BuildingSlotValidate(buildingsInfo[i], recipe))
-					{
-						buildingsInfo[i].productionProgress += (double)recipe.cyclesPerMinute / 60 / 20;
-
-						if (buildingsInfo[i].productionProgress >= 1) // if 'productionProgress' is full items will be added and removed acording to machine's recipe
-																	  // and resets 'productionProgress' 
-						{
-							buildingsInfo[i].productionProgress = 0;
-
-							for (int j = 0; j < recipe.input.Count; j++)
-							{
-								buildingsInfo[i].inputSlots[j].amount -= recipe.input[j].amount;
-							}	
-
-							for (int j = 0; j < recipe.output.Count; j++)
-							{
-								buildingsInfo[i].outputSlots[j].amount += recipe.output[j].amount;
-							}
-						}
-					}
-
-					// if inventory is oppened, data will be sent to the inventory to show on screeen
-					if (UITOGGLE)
-					{
-						EmitSignal(SignalName.UpdateBuildingProgress, Newtonsoft.Json.JsonConvert.SerializeObject(buildingsInfo[i]));
-					}
-					break;
-				
-				case "belt":
-					// moves item on the belt
-					if (buildingsInfo[i].item.ToString() != "" && (double)buildingsInfo[i].moveProgress < 1)
-					{
-						buildingsInfo[i].moveProgress += (double)buildingsInfo[i].speed / 60 / 20;
-					}
-					Vector2I nextCoords;
-					Vector2I previousCoords;
-
-					// moves item to the next belt
-					if (CanTBeltTransfer(buildingsInfo[i]))
-					{
-						// gets the next belt
-						nextCoords = new Vector2I((int)buildingsInfo[i].coords[0] + (int)buildingsInfo[i].nextPosition[0], (int)buildingsInfo[i].coords[1] + (int)buildingsInfo[i].nextPosition[1]);
-						dynamic nextBuilding = GetBuildingInfo(nextCoords);
-						
-						string itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
-						Item item = GetNode<Item>(itemName);
-						item.destination = nextCoords * 64;
-						item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
-
-						nextBuilding.item = buildingsInfo[i].item;
-						buildingsInfo[i].item = "";
-						buildingsInfo[i].moveProgress = 0;
-					}
-					break;
-
-				case "beltArm":
-
-					nextCoords = new Vector2I((int)buildingsInfo[i].coords[0] + (int)buildingsInfo[i].nextPosition[0], (int)buildingsInfo[i].coords[1] + (int)buildingsInfo[i].nextPosition[1]);
-					previousCoords = new Vector2I((int)buildingsInfo[i].coords[0] + (int)buildingsInfo[i].previousPosition[0], (int)buildingsInfo[i].coords[1] + (int)buildingsInfo[i].previousPosition[1]);
-
-					if (buildingsInfo[i].item.ToString() != "" && (double)buildingsInfo[i].moveProgress < 1)
-					{
-						buildingsInfo[i].moveProgress += (double)buildingsInfo[i].speed / 60 / 20;
-					}
-					
-					if (CanArmTransfer(buildingsInfo[i]))
-					{
-						dynamic nextBuilding = GetBuildingInfo(nextCoords);
-						dynamic previousBuilding = GetBuildingInfo(previousCoords);
-						
-						switch ((int)(buildingsInfo[i].moveProgress * 100))
-						{
-							case 0:
-								if (previousBuilding.buildingType.ToString() == "machine")
-								{
-									buildingsInfo[i].item = previousBuilding.outputSlots[0].resource;
-									previousBuilding.outputSlots[0].amount -= 1;
-									CreateItem(previousCoords, nextCoords);
-								}
-								else
-								{
-									buildingsInfo[i].item = previousBuilding.item;
-									previousBuilding.item = "";
-									previousBuilding.moveProgress = 0;
-								}
-								break;
-
-							case 100:
-								string itemName = $"{previousCoords[0]}x{previousCoords[1]}";
-								Item item = GetNode<Item>(itemName);
-
-								if (nextBuilding.buildingType.ToString() == "machine")
-								{
-									nextBuilding.inputSlots[0].amount += 1;
-
-									item.QueueFree();
-								}
-								else
-								{
-									nextBuilding.item = buildingsInfo[i].item;
-									item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
-								}
-								buildingsInfo[i].item = "";
-								buildingsInfo[i].moveProgress = 0;
-
-								break;
-						}
-					}
-
-					break;
-			}
 		}
 	}
 }

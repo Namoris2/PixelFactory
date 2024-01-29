@@ -132,10 +132,6 @@ script = ExtResource("1_qhp31")
 [node name="GenerateWorld" type="Node" parent="."]
 script = ExtResource("1_fr7ss")
 
-[node name="TickRate" type="Timer" parent="."]
-wait_time = 0.05
-autostart = true
-
 [node name="World" type="Node2D" parent="."]
 
 [node name="TileMap" type="TileMap" parent="World"]
