@@ -101,7 +101,7 @@ public partial class TileMap : Godot.TileMap
 
 		string groundResourceName = (string)groundData.GetCustomData("resourceName");
 
-		string wolrdInfo;
+		string worldInfo;
 
 		if (Input.IsActionJustPressed("ToggleBuildingInventory") && !BUILDINGMODE)
 		{
@@ -132,20 +132,23 @@ public partial class TileMap : Godot.TileMap
 		{
 			dynamic buildingDisplayInfo = GetBuildingInfo(cellPostionByMouse);
 
-			wolrdInfo = $"Building: {buildingDisplayInfo.name} \nProgress: {(int)(buildingDisplayInfo.productionProgress * 100)}%";	
+			worldInfo = $"Building: {buildingDisplayInfo.name} \nProgress: {(int)(buildingDisplayInfo.productionProgress * 100)}%";	
 		}
 		else if (buildingsData != null && (GetBuildingInfo(cellPostionByMouse).buildingType.ToString() == "belt" || GetBuildingInfo(cellPostionByMouse).buildingType.ToString() == "beltArm"))
 		{
 			dynamic buildingDisplayInfo = GetBuildingInfo(cellPostionByMouse);
 
-			wolrdInfo = $"Building: {buildingDisplayInfo.name} \nProgress: {(int)(buildingDisplayInfo.moveProgress * 100)}% \nItem: {buildingDisplayInfo.item}";	
+			worldInfo = $"Building: {buildingDisplayInfo.name} \nProgress: {(int)(buildingDisplayInfo.moveProgress * 100)}% \nItem: {buildingDisplayInfo.item}";	
 		}
 		else
 		{
-			wolrdInfo = $"Resource: {groundResources[groundResourceName].name}";
+			worldInfo = $"Resource: {groundResources[groundResourceName].name}";
 		}
 
-		EmitSignal(SignalName.UpdateResourceInfo, wolrdInfo);
+		worldInfo = $"Coordinates: {cellPostionByMouse[0]}, {cellPostionByMouse[1]}\n{worldInfo}";
+		
+
+		EmitSignal(SignalName.UpdateResourceInfo, worldInfo);
 
 		// if in building mode and selected building can rotate and 'Rotate' input is called, it rotates building
 		if (BUILDINGMODE && Input.IsActionJustPressed("Rotate") && (bool)buildings[selectedBuilding].canRotate)
@@ -216,6 +219,8 @@ public partial class TileMap : Godot.TileMap
 						buildingsInfo[i].moveProgress += (double)buildingsInfo[i].speed / 60 * delta;
 					}
 
+					if ((double)buildingsInfo[i].moveProgress > 1) { buildingsInfo[i].moveProgress = 1; }
+					
 					// moves item to the next belt
 					if (CanTBeltTransfer(buildingsInfo[i]))
 					{
@@ -225,6 +230,7 @@ public partial class TileMap : Godot.TileMap
 						
 						itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
 						item = GetNode<Item>(itemName);
+
 						item.destination = nextCoords * 64;
 						item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
 						item.speed = 64 / (60 / (int)buildingsInfo[i].speed);
@@ -237,16 +243,18 @@ public partial class TileMap : Godot.TileMap
 
 				case "beltArm":
 
-					nextCoords = new Vector2I((int)buildingsInfo[i].coords[0] + (int)buildingsInfo[i].nextPosition[0], (int)buildingsInfo[i].coords[1] + (int)buildingsInfo[i].nextPosition[1]);
 					previousCoords = new Vector2I((int)buildingsInfo[i].coords[0] + (int)buildingsInfo[i].previousPosition[0], (int)buildingsInfo[i].coords[1] + (int)buildingsInfo[i].previousPosition[1]);
+					nextCoords = new Vector2I((int)buildingsInfo[i].coords[0] + (int)buildingsInfo[i].nextPosition[0], (int)buildingsInfo[i].coords[1] + (int)buildingsInfo[i].nextPosition[1]);
 
 					if (buildingsInfo[i].item.ToString() != "" && (double)buildingsInfo[i].moveProgress < 1)
 					{
 						buildingsInfo[i].moveProgress += (double)buildingsInfo[i].speed / 60 * delta;
 					}
 
-					nextBuilding = GetBuildingInfo(nextCoords);
+					if ((double)buildingsInfo[i].moveProgress > 1) { buildingsInfo[i].moveProgress = 1; }
+
 					previousBuilding = GetBuildingInfo(previousCoords);
+					nextBuilding = GetBuildingInfo(nextCoords);
 					
 					if ((double)buildingsInfo[i].moveProgress == 0 && CanArmTransfer(buildingsInfo[i]))
 					{
@@ -266,26 +274,29 @@ public partial class TileMap : Godot.TileMap
 							item = GetNode<Item>(itemName);
 
 							item.destination = nextCoords * 64;
-							item.speed = 64 / (60 / (int)buildingsInfo[i].speed) * 2;								
+							item.speed = 64 / (60 / (int)buildingsInfo[i].speed) * 2;
+
+							item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
+
+						}
+
+						if (nextBuilding.buildingType.ToString() == "belt")
+						{
+							nextBuilding.item = buildingsInfo[i].item;
 						}
 					}
 					else if ((double)buildingsInfo[i].moveProgress >= 1)
 					{
-						itemName = $"{previousCoords[0]}x{previousCoords[1]}";
-						item = GetNode<Item>(itemName);
 
 						if (nextBuilding.buildingType.ToString() == "machine") // machine
 						{
+							itemName = $"{nextCoords[0]}x{nextCoords[1]}";
+							item = GetNode<Item>(itemName);
 							nextBuilding.inputSlots[0].amount += 1;
 
 							item.QueueFree();
 						}
-						else // belt
-						{
-							nextBuilding.item = buildingsInfo[i].item;
-							nextBuilding.moveProgress = 1;
-							item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
-						}
+
 						buildingsInfo[i].item = "";
 						buildingsInfo[i].moveProgress = 0;
 					}
@@ -566,7 +577,7 @@ public partial class TileMap : Godot.TileMap
 
 		if (id == "")
 		{
-			item.Name = $"{coords[0]}x{coords[1]}";
+			item.Name = $"{destination[0]}x{destination[1]}";
 			item.destination = destination * 64;
 			item.speed = 64 / (60 / speed);
 		}
@@ -585,7 +596,7 @@ public partial class TileMap : Godot.TileMap
 	{
 		dynamic nextBuilding = GetBuildingInfo(new Vector2I((int)building.coords[0] + (int)building.nextPosition[0], (int)building.coords[1] + (int)building.nextPosition[1]));
 
-		// checks if 'nextBuilding' exists
+		// checks if 'nextBuilding' exists ans that it's belt
 		if (nextBuilding == null || nextBuilding.buildingType.ToString() != "belt") { return false; }
 
 		// check if the 'nextBuilding' is rotated opposite to current one
