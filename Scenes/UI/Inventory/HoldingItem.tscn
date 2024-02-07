@@ -3,8 +3,8 @@
 [node name="HoldingItem" type="TextureRect"]
 z_index = 2
 texture_filter = 1
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 53.0
+offset_bottom = 53.0
 
 [node name="ResourceAmount" type="Label" parent="."]
 z_index = 3

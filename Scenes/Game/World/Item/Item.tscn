@@ -3,32 +3,27 @@
 [ext_resource type="Script" path="res://Scenes/Game/World/Item/Item.cs" id="1_5j7e7"]
 [ext_resource type="Texture2D" uid="uid://bxi2smg4lvdt8" path="res://Gimp/placeholder.png" id="2_vqmxh"]
 
-[node name="Item" type="Control"]
+[node name="Item" type="Node2D"]
 top_level = true
 z_index = 1
-layout_mode = 3
-anchor_right = 0.0533333
-anchor_bottom = 0.0984615
-grow_horizontal = 2
-grow_vertical = 2
 script = ExtResource("1_5j7e7")
 metadata/_edit_use_anchors_ = true
 
 [node name="Icon" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
+custom_minimum_size = Vector2(64, 64)
 texture = ExtResource("2_vqmxh")
 metadata/_edit_use_anchors_ = true
 
 [node name="Name" type="Label" parent="."]
 visible = false
 texture_filter = 2
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 1.375
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = 64.0
+offset_right = 112.0
+offset_bottom = 87.0
+grow_horizontal = 2
+grow_vertical = 2
 horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true

@@ -103,7 +103,7 @@ public partial class TileMap : Godot.TileMap
 
 		string worldInfo;
 
-		if (Input.IsActionJustPressed("ToggleBuildingInventory") && !BUILDINGMODE)
+		if (Input.IsActionJustPressed("Interact") && !BUILDINGMODE)
 		{
 			dynamic buildingDisplayInfo = GetBuildingInfo(cellPostionByMouse);
 
@@ -473,11 +473,11 @@ public partial class TileMap : Godot.TileMap
 			}
 		}
 	}
-	public dynamic GetBuildingInfo(Vector2 cellPostionByMouse) 
+	public dynamic GetBuildingInfo(Vector2 cellPostion) 
 	{
 		foreach (var building in buildingsInfo)
 		{
-			if (building.coords[0] == cellPostionByMouse[0] && building.coords[1] == cellPostionByMouse[1])
+			if (building.coords[0] == cellPostion[0] && building.coords[1] == cellPostion[1])
 			{
 				if (building.buildingType.ToString() == "buildingPart")
 				{

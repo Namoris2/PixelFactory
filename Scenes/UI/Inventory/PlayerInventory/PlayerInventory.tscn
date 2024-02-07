@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.cs" id="1_6h8xj"]
 [ext_resource type="Texture2D" uid="uid://bxi2smg4lvdt8" path="res://Gimp/placeholder.png" id="2_pe8rg"]
-[ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="3_lhqkw"]
+[ext_resource type="Script" path="res://Scenes/UI/Inventory/PlayerInventory/PrintInventory.cs" id="3_nngbd"]
 
 [node name="PlayerInventory" type="Control"]
 texture_filter = 1
@@ -16,6 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 script = ExtResource("1_6h8xj")
+inventorySize = 40
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -42,9 +43,6 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Slot0" parent="FlowContainer" instance=ExtResource("3_lhqkw")]
-layout_mode = 2
-
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 visible = false
 clip_contents = false
@@ -63,3 +61,12 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 7
 metadata/_edit_use_anchors_ = true
+
+[node name="PrintInventory" type="Button" parent="."]
+layout_mode = 0
+offset_left = 570.666
+offset_top = 167.654
+offset_right = 695.666
+offset_bottom = 198.654
+text = "Print Inventory"
+script = ExtResource("3_nngbd")

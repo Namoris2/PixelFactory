@@ -32,7 +32,7 @@ public partial class ItemName : Label
 			this.Position = GetGlobalMousePosition() - position;
 		}
 
-		if(Input.IsActionJustPressed("ToggleBuildingInventory"))
+		if(Input.IsActionJustPressed("Interact"))
 		{
 			HideItemName();
 		}
