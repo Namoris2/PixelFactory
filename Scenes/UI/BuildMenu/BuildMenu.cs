@@ -36,7 +36,6 @@ public partial class BuildMenu : CanvasLayer
 		{
 			tileMap.UITOGGLE = false;
 			Visible = false;
-
 		}
 	}
 	private void CloseBuildingMode()

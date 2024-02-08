@@ -64,8 +64,9 @@ anchor_bottom = 1.0
 theme_override_font_sizes/normal_font_size = 25
 text = "	Harvest Resource / 		LEFT MOUSE
 	Collect from building	BUTTON
-	Open Build Menu			B
+	Open Build Menu			Q
 	Rotate Building				R
+	Dismantle Building		F
 	Interact							E
 
 "

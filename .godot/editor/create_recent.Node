@@ -1,3 +1,5 @@
+Node2D
+Button
 Label
 VFlowContainer
 FlowContainer
@@ -8,7 +10,5 @@ TextureRect
 TabBar
 Container
 ColorRect
-Button
 RichTextLabel
-Node2D
 Node

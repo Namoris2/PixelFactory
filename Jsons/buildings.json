@@ -105,6 +105,7 @@
         "additionalAtlasPosition" : [],
         "speed" : 30,
         "moveProgress" : 0,
+        "canMove" : false,
         "canBePlacedOn" : ["Grass", "Concrete"],
         "item" : ""
     },

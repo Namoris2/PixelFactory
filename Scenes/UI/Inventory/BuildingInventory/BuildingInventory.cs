@@ -13,6 +13,7 @@ public partial class BuildingInventory : Control
 	private dynamic recipes;
 	public string INVENTORYTYPE = "machine";
 	public dynamic buildingInfo;
+	TileMap tileMap;
 	private Label building;
 	private Label resources;
 	public Label resourceProduction;
@@ -26,7 +27,7 @@ public partial class BuildingInventory : Control
 		LoadFile load = new();
 		recipes = load.LoadJson("recipes.json");
 
-		TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
+		tileMap = GetNode<TileMap>("/root/main/World/TileMap");
 		tileMap.ToggleInventory += ToggleInventory;
 		tileMap.UpdateBuildingProgress += UpdateInventory;
 
@@ -40,8 +41,13 @@ public partial class BuildingInventory : Control
 
 	private void ToggleInventory(bool TOGGLEINGINVENTORY, string building)
 	{
+		Inventories inventories = GetNode<Inventories>("/root/main/UI/Inventories");
+
 		if (!TOGGLEINGINVENTORY) 
 		{
+			inventories.ToggleInventory(false);
+			tileMap.UITOGGLE = false;
+
 			Array<Node> inputSlots = GetTree().GetNodesInGroup("InputSlots");
 			Array<Node> outputSlots = GetTree().GetNodesInGroup("OutputSlots");
 			Array<Node> singleOutputSlots = GetTree().GetNodesInGroup("SingleSlots");
@@ -78,8 +84,9 @@ public partial class BuildingInventory : Control
 		buildingInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(building);
 		TabContainer tabContainer = GetNode<TabContainer>("TabContainer");
 
-		if (buildingInfo.buildingType.ToString() != "machine") { return; }
+		if (buildingInfo.buildingType.ToString() != "machine") { tileMap.UITOGGLE = false; return; }
 
+		inventories.ToggleInventory(true);
 		if ((bool)buildingInfo.canChooseRecipe)
 		{
 			tabContainer.TabsVisible = true;
