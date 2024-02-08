@@ -41,11 +41,10 @@ public partial class Item : Node2D
     public override void _PhysicsProcess(double delta)
     {
         Position = Position.MoveToward(destination, speed * (float)delta);
-
     }
 
 	// removes item from world and adds it to player's inventory 
-	private void PickUpItem()
+	public bool PickUpItem()
     {
 		PlayerInventory playerInventory = GetNode<PlayerInventory>("/root/main/UI/Inventories/InventoryGrid/PlayerInventory");
 		InventorySlot[] inventorySlots = playerInventory.inventorySlots;
@@ -92,6 +91,8 @@ public partial class Item : Node2D
 				building.moveProgress = 0;
 			}
 		}
+
+		return canPutToInventory;
     }
 
 	public void UpdateItem(string itemType)
