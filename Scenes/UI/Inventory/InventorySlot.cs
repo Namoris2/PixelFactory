@@ -31,7 +31,7 @@ public partial class InventorySlot : Button
 	public string inventoryType;
 	public Vector2 buildingCoordinates;
 
-	private dynamic items;
+	public dynamic items;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -113,7 +113,6 @@ public partial class InventorySlot : Button
 				
 				dynamic building = tileMap.GetBuildingInfo(buildingCoordinates);
 				dynamic recipe = load.LoadJson("recipes.json")[building.recipe.ToString()];
-				int buildingIndex = tileMap.GetBuildingIndex(buildingCoordinates);
 
 				itemType = recipe[slotType.ToLower()][inventorySlotIndex].name;
 				building[$"{slotType.ToLower()}Slots"][inventorySlotIndex].resource = itemType;

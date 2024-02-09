@@ -1,6 +1,8 @@
 using Godot;
 using System;
+using System.Diagnostics.SymbolStore;
 using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 
 public partial class PlayerInventory : Control
 {
@@ -8,6 +10,7 @@ public partial class PlayerInventory : Control
 	private InventorySlot inventorySlot;
 	private string inventorySlotPath = "res://Scenes/UI/Inventory/InventorySlot.tscn";
 	public InventorySlot[] inventorySlots;
+	dynamic items;
 	
 	[Export]
 	private int inventorySize = 0; 
@@ -19,6 +22,7 @@ public partial class PlayerInventory : Control
 
 		flowContainer = GetNode<FlowContainer>("FlowContainer");
 		CreateInventorySlots();
+		items = inventorySlots[0].items;
 	}
 
 	private void CreateInventorySlots()
@@ -33,6 +37,38 @@ public partial class PlayerInventory : Control
 		}
 	}
 
+	public int PutToInventory(string itemType, int amount)
+	{
+		for (int i = 0; i < inventorySlots.Length; i++)
+		{
+			if (amount == 0) { break; }
+			Label amountLabel = inventorySlots[i].GetNode<Label>("ResourceAmount");
+			
+			if (inventorySlots[i].itemType == "")
+			{
+				inventorySlots[i].itemType = itemType;
+				amountLabel.Text = amount.ToString();
+				inventorySlots[i].UpdateSlotTexture(itemType);
+				amount = 0;
+			}
+			
+			if (inventorySlots[i].itemType == itemType)
+			{
+				int slotAmount = int.Parse(amountLabel.Text);
+				if (amount + slotAmount <= (int)items[itemType].maxStackSize)
+				{
+					amountLabel.Text = (amount + slotAmount).ToString();
+					amount = 0;
+				}
+				else if (slotAmount != (int)items[itemType].maxStackSize)
+				{
+					amountLabel.Text = items[itemType].maxStackSize.ToString();
+					amount = (amount + slotAmount) - (int)items[itemType].maxStackSize;
+				}
+			}
+		}
+		return amount;
+	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)

@@ -12,7 +12,16 @@
         "buildingType" : "machine",
         "type" : "drill",
         "name" : "Small Drill",
-        "cost" : 20,
+        "cost" : [
+            {
+                "resource" : "IronPlate",
+                "amount" : 15
+            },
+            {
+                "resource" : "IronRod",
+                "amount" : 5
+            }
+        ],
         "coords" : [0, 0],
         "atlasCoords" : [0, 0],
         "width" : 1,
@@ -38,7 +47,16 @@
         "buildingType" : "machine",
         "type" : "smelter",
         "name" : "Smelter",
-        "cost" : 50,
+        "cost" : [
+            {
+                "resource" : "IronRod",
+                "amount" : 15
+            },
+            {
+                "resource" : "Wire",
+                "amount" : 5
+            }
+        ],
         "coords" : [0, 0],
         "atlasCoords" : [4, 0],
         "height" : 2,
@@ -70,7 +88,12 @@
         "buildingType" : "belt",
         "type" : "belt1",
         "name" : "Conveyor Belt MK1",
-        "cost" : 5,
+        "cost" : [
+            {
+                "resource" : "IronPlate",
+                "amount" : 2
+            }
+        ],
         "coords" : [0, 0],
         "atlasCoords" : [0, 1],
         "width" : 1,
@@ -91,7 +114,12 @@
         "buildingType" : "beltArm",
         "type" : "beltArm1",
         "name" : "Conveyor Arm MK1",
-        "cost" : 15,
+        "cost" : [
+            {
+                "resource" : "IronPlate",
+                "amount" : 10
+            }
+        ],
         "coords" : [0, 0],
         "atlasCoords" : [0, 2],
         "width" : 1,
