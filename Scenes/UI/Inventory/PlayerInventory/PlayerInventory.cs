@@ -23,6 +23,10 @@ public partial class PlayerInventory : Control
 		flowContainer = GetNode<FlowContainer>("FlowContainer");
 		CreateInventorySlots();
 		items = inventorySlots[0].items;
+
+		// cheat items to inventory
+		PutToInventory("IronPlate", 400);
+		PutToInventory("IronRod", 400);
 	}
 
 	private void CreateInventorySlots()
@@ -63,11 +67,60 @@ public partial class PlayerInventory : Control
 				else if (slotAmount != (int)items[itemType].maxStackSize)
 				{
 					amountLabel.Text = items[itemType].maxStackSize.ToString();
-					amount = (amount + slotAmount) - (int)items[itemType].maxStackSize;
+					amount = amount + slotAmount - (int)items[itemType].maxStackSize;
 				}
 			}
 		}
 		return amount;
+	}
+	
+
+	public bool IsInInventory(string itemType, int amount)
+	{
+		for (int i = 0; i < inventorySlots.Length; i++)
+		{
+			if (itemType == inventorySlots[i].itemType)
+			{
+				int slotAmount = int.Parse(inventorySlots[i].GetNode<Label>("ResourceAmount").Text);
+				if (amount <= slotAmount)
+				{
+					amount = 0;
+				}
+				else if (amount > slotAmount)
+				{
+					amount -= slotAmount;
+				}
+
+				if (amount == 0) { return true; }
+			}
+		}
+		return false;
+	}
+
+	public void RemoveFromInventory(string itemType, int amount)
+	{
+		for (int i = inventorySlots.Length - 1; i >= 0; i--)
+		{
+			Label amountLabel = inventorySlots[i].GetNode<Label>("ResourceAmount");
+			
+			if (itemType == inventorySlots[i].itemType)
+			{
+				if (amount >= int.Parse(amountLabel.Text))
+				{
+					amount -= int.Parse(amountLabel.Text);
+					amountLabel.Text = "";
+					inventorySlots[i].UpdateSlotTexture("");
+					inventorySlots[i].itemType = "";
+				}
+				else 
+				{
+					amountLabel.Text = (int.Parse(amountLabel.Text) - amount).ToString();
+					amount = 0;
+				}
+			}
+
+			if (amount == 0) { return; }
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -57,6 +57,7 @@ public partial class TileMap : Godot.TileMap
 	dynamic groundResources;
 	dynamic recipes;
 
+	PlayerInventory playerInventory;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -84,6 +85,8 @@ public partial class TileMap : Godot.TileMap
 		generateWorld.GenerateResource(mapSize, "IronOre");
 		generateWorld.GenerateResource(mapSize, "CoalOre");
 		generateWorld.GenerateResource(mapSize, "CopperOre");
+
+		playerInventory = GetNode<PlayerInventory>("/root/main/UI/Inventories/InventoryGrid/PlayerInventory");
 
 		//UITOGGLE = GetNode<UIToggle>("/root/main/UI/UIToggle").toggle;
 	}
@@ -451,11 +454,9 @@ public partial class TileMap : Godot.TileMap
 
 	private void Build()
 	{
-		if (GroundResourceValidate(buildings[selectedBuilding].canBePlacedOn, groundResourceName) && buildingsData == null /*&& resourceAmount >= (int)buildings[selectedBuilding].cost*/)
+		if (GroundResourceValidate(buildings[selectedBuilding].canBePlacedOn, groundResourceName) && buildingsData == null && HasItemsToBuild(buildings[selectedBuilding].cost))
 		{
-			SetCell(1, cellPostionByMouse, 1, new((int)buildings[selectedBuilding].atlasCoords[0] + buildingRotation, (int)buildings[selectedBuilding].atlasCoords[1]));
-			/*resourceAmount -= (int)buildings[selectedBuilding].cost;
-			EmitSignal(SignalName.ResourcesUpdated, resourceAmount);*/
+			SetCell(1, cellPostionByMouse, 1, new((int)buildings[selectedBuilding].atlasCoords[0] + buildingRotation, (int)buildings[selectedBuilding].atlasCoords[1]));		
 
 			string buildingsJson = Newtonsoft.Json.JsonConvert.SerializeObject(buildings);
 			dynamic building = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
@@ -522,7 +523,23 @@ public partial class TileMap : Godot.TileMap
 
 			buildingsInfo.Add(building);
 			buildings = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
+
+			// removes cost items from inventory
+			for (int i = 0; i < building.cost.Count; i++)
+			{
+				playerInventory.RemoveFromInventory(building.cost[i].resource.ToString(), (int)building.cost[i].amount);
+			}
 		}
+	}
+
+	private bool HasItemsToBuild (dynamic items)
+	{
+		bool hasItem = true;
+		for (int i = 0; i < items.Count; i++)
+		{
+			hasItem &= playerInventory.IsInInventory(items[i].resource.ToString(), (int)items[i].amount);
+		}
+		return hasItem;
 	}
 
 	private void Dismantle()
@@ -531,10 +548,9 @@ public partial class TileMap : Godot.TileMap
 
 		dynamic building = GetBuildingInfo(cellPostionByMouse);
 		Vector2I coords = new Vector2I((int)building.coords[0], (int)building.coords[1]);
-
-		PlayerInventory playerInventory = GetNode<PlayerInventory>("/root/main/UI/Inventories/InventoryGrid/PlayerInventory");
 		List<InventorySlot> leftovers = new();		
 
+		// gives player cost items back
 		for (int i = 0; i < building.cost.Count; i++)
 		{
 			int leftover = playerInventory.PutToInventory(building.cost[i].resource.ToString(), (int)building.cost[i].amount);
@@ -547,6 +563,7 @@ public partial class TileMap : Godot.TileMap
 			}
 		}
 
+		// give player item from slots
 		if (building.buildingType.ToString() == "machine")
 		{
 			// goes through every input slot of machine
