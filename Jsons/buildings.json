@@ -84,6 +84,47 @@
             }
         ]
     },
+    "constructor" : {
+        "buildingType" : "machine",
+        "type" : "constructor",
+        "name" : "Constructor",
+        "cost" : [
+            {
+                "resource" : "IronPlate",
+                "amount" : 20
+            },
+            {
+                "resource" : "IronRod",
+                "amount" : 10
+            }
+        ],
+        "coords" : [0, 0],
+        "atlasCoords" : [6, 0],
+        "height" : 2,
+        "width" : 2,
+        "canRotate" : false,
+        "rotationAmount" : 0,
+        "rotation" : 0,
+        "hasAdditionalAtlasPosition" : true,
+        "additionalAtlasPosition" : [        [1, 0],
+                                     [0, 1], [1, 1]],
+        "recipe" : "none",
+        "canChooseRecipe" : true,
+        "productionProgress" : 0,
+        "canBePlacedOn" : ["Grass"],
+        "inputSlots" : [
+            {
+                "resource" : "",
+                "amount" : 0
+            }
+        ],
+        "outputSlots" :  [
+            {
+                "resource" : "",
+                "amount" : 0
+            }
+        ]
+    },
     "belt1" : {
         "buildingType" : "belt",
         "type" : "belt1",

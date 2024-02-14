@@ -25,6 +25,8 @@ public partial class PlayerInventory : Control
 		items = inventorySlots[0].items;
 
 		// cheat items to inventory
+		PutToInventory("IronIngot", 200);
+		PutToInventory("CopperIngot", 200);
 		PutToInventory("IronPlate", 400);
 		PutToInventory("IronRod", 400);
 	}
