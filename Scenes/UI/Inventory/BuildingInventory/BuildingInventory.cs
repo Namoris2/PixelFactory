@@ -39,7 +39,7 @@ public partial class BuildingInventory : Control
 	{
 	}
 
-	private void ToggleInventory(bool TOGGLEINGINVENTORY, string building)
+	public void ToggleInventory(bool TOGGLEINGINVENTORY, string building)
 	{
 		Inventories inventories = GetNode<Inventories>("/root/main/UI/Inventories");
 
@@ -104,21 +104,37 @@ public partial class BuildingInventory : Control
 		buildingName.Text = buildingInfo.name;
 		dynamic recipe = recipes[buildingInfo.recipe.ToString()];
 		resourceProduction.Text = "Recipe: none";
+		coordinates = new ((int)buildingInfo.coords[0], (int)buildingInfo.coords[1]);
 
 		if (buildingInfo.recipe.ToString() == "none")
 		{
 			tabContainer.CurrentTab = 0;
+			TabContainer recipesTab = GetNode<TabContainer>("TabContainer/Recipes");
+
+			switch (buildingInfo.type.ToString())
+			{
+				case "smelter":
+					recipesTab.CurrentTab = 0;
+					break;
+
+				case "constructor":
+					recipesTab.CurrentTab = 1;
+					break;
+
+				default:
+					GD.PrintErr("Unknown building");
+					break;
+			}
 		}
 		else
 		{
 			tabContainer.CurrentTab = 1;
 
 			resourceProduction.Text = "Recipe: " + recipe.name.ToString();
-			coordinates = new ((int)buildingInfo.coords[0], (int)buildingInfo.coords[1]);
 
 			if (buildingInfo.type.ToString() == "drill")
 			{
-				main main = new();
+				//main main = new();
 				InventorySlot slot = (InventorySlot)main.FindNodeByNameInGroup(GetTree().GetNodesInGroup("SingleSlots"), "DrillOutputSlot");
 				slot.buildingCoordinates = coordinates;
 				slot.itemType = buildingInfo.outputSlots[0].resource.ToString();
@@ -161,7 +177,7 @@ public partial class BuildingInventory : Control
 	{
 		dynamic building = Newtonsoft.Json.JsonConvert.DeserializeObject(info);
 		Vector2I coords = new Vector2I((int)building.coords[0], (int)building.coords[1]);
-		
+		//GD.Print(coordinates, coords);
 		if (coordinates != coords) { return; }
 		
 		productionProgress.Value = (double)building.productionProgress;

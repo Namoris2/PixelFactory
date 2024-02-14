@@ -49,11 +49,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Recipes" type="TabContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 tabs_visible = false
 metadata/_edit_use_anchors_ = true
@@ -80,7 +78,36 @@ layout_mode = 2
 DisplayName = "CopperIngot"
 Type = "recipe"
 
+[node name="Constructor" type="TabBar" parent="TabContainer/Recipes" groups=["Recipes"]]
+visible = false
+layout_mode = 2
+
+[node name="FlowContainer" type="FlowContainer" parent="TabContainer/Recipes/Constructor"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.01389
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="IronPlate" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
+layout_mode = 2
+DisplayName = "IronPlate"
+Type = "recipe"
+
+[node name="IronRod" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
+layout_mode = 2
+DisplayName = "IronRod"
+Type = "recipe"
+
+[node name="Wire" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
+layout_mode = 2
+DisplayName = "Wire"
+Type = "recipe"
+
 [node name="Building" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="TabContainer/Building"]

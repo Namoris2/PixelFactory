@@ -106,6 +106,18 @@ texture = ExtResource("3_pfvbk")
 5:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:1/0/physics_layer_0/angular_velocity = 0.0
 5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:0/0 = 0
+6:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+6:0/0/physics_layer_0/angular_velocity = 0.0
+7:0/0 = 0
+7:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+7:0/0/physics_layer_0/angular_velocity = 0.0
+7:1/0 = 0
+7:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+7:1/0/physics_layer_0/angular_velocity = 0.0
+6:1/0 = 0
+6:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+6:1/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kytue"]
 resource_name = "HoverCursor"
@@ -156,7 +168,7 @@ layer_3/tile_data = PackedInt32Array()
 script = ExtResource("4_doi5u")
 
 [node name="Player" parent="World" instance=ExtResource("6_dnyod")]
-position = Vector2(-1920, 356)
+position = Vector2(-1888, 348)
 
 [node name="UI" type="CanvasLayer" parent="."]
 

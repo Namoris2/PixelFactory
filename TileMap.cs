@@ -57,6 +57,7 @@ public partial class TileMap : Godot.TileMap
 	dynamic groundResources;
 	dynamic recipes;
 
+	PlayerInventory playerInventory;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -84,6 +85,8 @@ public partial class TileMap : Godot.TileMap
 		generateWorld.GenerateResource(mapSize, "IronOre");
 		generateWorld.GenerateResource(mapSize, "CoalOre");
 		generateWorld.GenerateResource(mapSize, "CopperOre");
+
+		playerInventory = GetNode<PlayerInventory>("/root/main/UI/Inventories/InventoryGrid/PlayerInventory");
 
 		//UITOGGLE = GetNode<UIToggle>("/root/main/UI/UIToggle").toggle;
 	}
@@ -146,7 +149,7 @@ public partial class TileMap : Godot.TileMap
 			if (Input.IsActionPressed("Use", true))
 			{
 				// builds a building
-				Build(groundResourceName, buildingsData);
+				Build();
 			}
 		}
 	}
@@ -186,7 +189,7 @@ public partial class TileMap : Godot.TileMap
 			if(Input.IsActionJustPressed("Use"))
 			{
 				// farming resources
-				FarmResources(groundResourceName, buildingsData, GetBuildingInfo(cellPostionByMouse));
+				FarmResources(GetBuildingInfo(cellPostionByMouse));
 			}
 						
 			if (Input.IsActionJustPressed("Interact"))
@@ -255,8 +258,12 @@ public partial class TileMap : Godot.TileMap
 					break;
 				
 				case "belt":
+					// gets the next belt
+					nextCoords = new Vector2I((int)buildingsInfo[i].coords[0] + (int)buildingsInfo[i].nextPosition[0], (int)buildingsInfo[i].coords[1] + (int)buildingsInfo[i].nextPosition[1]);
+					nextBuilding = GetBuildingInfo(nextCoords);
+						
 					// moves item on the belt
-					if (buildingsInfo[i].item.ToString() != "" && (double)buildingsInfo[i].moveProgress < 1)
+					if (buildingsInfo[i].item.ToString() != "" && (double)buildingsInfo[i].moveProgress < 1 && nextBuilding != null)
 					{
 						buildingsInfo[i].moveProgress += (double)buildingsInfo[i].speed / 60 * delta;
 					}
@@ -266,10 +273,6 @@ public partial class TileMap : Godot.TileMap
 					// moves item to the next belt
 					if (CanTBeltTransfer(buildingsInfo[i]))
 					{
-						// gets the next belt
-						nextCoords = new Vector2I((int)buildingsInfo[i].coords[0] + (int)buildingsInfo[i].nextPosition[0], (int)buildingsInfo[i].coords[1] + (int)buildingsInfo[i].nextPosition[1]);
-						nextBuilding = GetBuildingInfo(nextCoords);
-						
 						itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
 						item = GetNode<Item>(itemName);
 
@@ -288,15 +291,15 @@ public partial class TileMap : Godot.TileMap
 					previousCoords = new Vector2I((int)buildingsInfo[i].coords[0] + (int)buildingsInfo[i].previousPosition[0], (int)buildingsInfo[i].coords[1] + (int)buildingsInfo[i].previousPosition[1]);
 					nextCoords = new Vector2I((int)buildingsInfo[i].coords[0] + (int)buildingsInfo[i].nextPosition[0], (int)buildingsInfo[i].coords[1] + (int)buildingsInfo[i].nextPosition[1]);
 
-					if (buildingsInfo[i].item.ToString() != "" && (double)buildingsInfo[i].moveProgress < 1)
+					previousBuilding = GetBuildingInfo(previousCoords);
+					nextBuilding = GetBuildingInfo(nextCoords);
+
+					if (buildingsInfo[i].item.ToString() != "" && (double)buildingsInfo[i].moveProgress < 1 && nextBuilding != null)
 					{
 						buildingsInfo[i].moveProgress += (double)buildingsInfo[i].speed / 60 * delta;
 					}
 
 					if ((double)buildingsInfo[i].moveProgress > 1) { buildingsInfo[i].moveProgress = 1; }
-
-					previousBuilding = GetBuildingInfo(previousCoords);
-					nextBuilding = GetBuildingInfo(nextCoords);
 					
 					if ((double)buildingsInfo[i].moveProgress == 0 && CanArmTransfer(buildingsInfo[i]))
 					{
@@ -390,7 +393,7 @@ public partial class TileMap : Godot.TileMap
 
 	}
 
-	private void FarmResources(string groundResourceName, TileData buildingsData, dynamic buildingDisplayInfo)
+	private void FarmResources(dynamic buildingDisplayInfo)
 	{
 		if (GroundResourceValidate(resourcesHervestedByHand.canBeUsedOn, groundResourceName) && buildingsData == null)
 		{
@@ -449,13 +452,11 @@ public partial class TileMap : Godot.TileMap
 		}
 	}
 
-	private void Build(string groundResourceName, TileData buildingsData)
+	private void Build()
 	{
-		if (GroundResourceValidate(buildings[selectedBuilding].canBePlacedOn, groundResourceName) && buildingsData == null && resourceAmount >= (int)buildings[selectedBuilding].cost)
+		if (GroundResourceValidate(buildings[selectedBuilding].canBePlacedOn, groundResourceName) && buildingsData == null && HasItemsToBuild(buildings[selectedBuilding].cost))
 		{
-			SetCell(1, cellPostionByMouse, 1, new((int)buildings[selectedBuilding].atlasCoords[0] + buildingRotation, (int)buildings[selectedBuilding].atlasCoords[1]));
-			resourceAmount -= (int)buildings[selectedBuilding].cost;
-			EmitSignal(SignalName.ResourcesUpdated, resourceAmount);
+			SetCell(1, cellPostionByMouse, 1, new((int)buildings[selectedBuilding].atlasCoords[0] + buildingRotation, (int)buildings[selectedBuilding].atlasCoords[1]));		
 
 			string buildingsJson = Newtonsoft.Json.JsonConvert.SerializeObject(buildings);
 			dynamic building = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
@@ -522,28 +523,75 @@ public partial class TileMap : Godot.TileMap
 
 			buildingsInfo.Add(building);
 			buildings = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
+
+			// removes cost items from inventory
+			for (int i = 0; i < building.cost.Count; i++)
+			{
+				playerInventory.RemoveFromInventory(building.cost[i].resource.ToString(), (int)building.cost[i].amount);
+			}
 		}
+	}
+
+	private bool HasItemsToBuild (dynamic items)
+	{
+		bool hasItem = true;
+		for (int i = 0; i < items.Count; i++)
+		{
+			hasItem &= playerInventory.IsInInventory(items[i].resource.ToString(), (int)items[i].amount);
+		}
+		return hasItem;
 	}
 
 	private void Dismantle()
 	{
+		if (buildingsData == null) { return; }
+
 		dynamic building = GetBuildingInfo(cellPostionByMouse);
 		Vector2I coords = new Vector2I((int)building.coords[0], (int)building.coords[1]);
-		
-		buildingsInfo.Remove(building);
-		EraseCell(1, coords);
+		List<InventorySlot> leftovers = new();		
 
-		if ((bool)building.hasAdditionalAtlasPosition)
+		// gives player cost items back
+		for (int i = 0; i < building.cost.Count; i++)
 		{
-			for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
+			int leftover = playerInventory.PutToInventory(building.cost[i].resource.ToString(), (int)building.cost[i].amount);
+			if (leftover != 0)
 			{
-				coords = new Vector2I((int)building.coords[0] + (int)building.additionalAtlasPosition[i][0], (int)building.coords[1] + (int)building.additionalAtlasPosition[i][1]);
-				dynamic buildingPart = GetBuildingInfo(coords);
-				buildingsInfo.Remove(building);
-				EraseCell(1, coords);
+				InventorySlot slot = new();
+				slot.itemType = building.cost[i].resource.ToString();
+				GetNode<Label>("ResourceName").Text = leftover.ToString();
+				leftovers.Add(slot);
 			}
 		}
 
+		// give player item from slots
+		if (building.buildingType.ToString() == "machine")
+		{
+			// goes through every input slot of machine
+			for (int i = 0; i < building.inputSlots.Count; i++)
+			{
+				int leftover = playerInventory.PutToInventory(building.inputSlots[i].resource.ToString(), (int)building.inputSlots[i].amount);
+				if (leftover != 0)
+				{
+					InventorySlot slot = new();
+					slot.itemType = building.inputSlots[i].resource.ToString();
+					GetNode<Label>("ResourceName").Text = leftover.ToString();
+					leftovers.Add(slot);
+				}
+			}
+
+			// goes through every output slot of machine
+			for (int i = 0; i < building.outputSlots.Count; i++)
+			{
+				int leftover = playerInventory.PutToInventory(building.outputSlots[i].resource.ToString(), (int)building.outputSlots[i].amount);
+				if (leftover != 0)
+				{
+					InventorySlot slot = new();
+					slot.itemType = building.outputSlots[i].resource.ToString();
+					GetNode<Label>("ResourceName").Text = leftover.ToString();
+					leftovers.Add(slot);
+				}
+			}
+		}
 
 		if (building.buildingType.ToString().Contains("belt") && building.item.ToString() != "")
 		{
@@ -555,6 +603,22 @@ public partial class TileMap : Godot.TileMap
 			if (!item.PickUpItem())
 			{
 				item.destination = item.Position;
+			}
+		}
+		
+		// destroys building
+		buildingsInfo.Remove(building);
+		EraseCell(1, coords);
+
+		// ďestroys multi-tile building
+		if ((bool)building.hasAdditionalAtlasPosition)
+		{
+			for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
+			{
+				coords = new Vector2I((int)building.coords[0] + (int)building.additionalAtlasPosition[i][0], (int)building.coords[1] + (int)building.additionalAtlasPosition[i][1]);
+				dynamic buildingPart = GetBuildingInfo(coords);
+				buildingsInfo.Remove(building);
+				EraseCell(1, coords);
 			}
 		}
 	}
@@ -576,24 +640,6 @@ public partial class TileMap : Godot.TileMap
 			}
 		}
 		return null;
-	}
-	public int GetBuildingIndex(Vector2 cellPostionByMouse) 
-	{
-		for (int i = 0; i < buildingsInfo.Count; i++)
-		{
-			if (buildingsInfo[i].coords[0] == cellPostionByMouse[0] && buildingsInfo[i].coords[1] == cellPostionByMouse[1])
-			{
-				if (buildingsInfo[i].buildingType.ToString() == "buildingPart")
-				{
-					return GetBuildingIndex(new Vector2((int)buildingsInfo[i].parentBuilding[0], (int)buildingsInfo[i].parentBuilding[1]));
-				}
-				else
-				{
-					return i;
-				}
-			}
-		}
-		return -1;
 	}
 
 	private static bool GroundResourceValidate(dynamic canBePlacedOn, string groundResourceName)

@@ -50,32 +50,7 @@ public partial class Item : Node2D
 		InventorySlot[] inventorySlots = playerInventory.inventorySlots;
 
 		bool canPutToInventory = false;
-		for (int i = 0; i < inventorySlots.Length; i++)
-		{
-			InventorySlot slot = inventorySlots[i];
-			Label resourceAmount = slot.GetNode<Label>("ResourceAmount");
-
-			if (slot.itemType == "")
-			{
-				slot.itemType = itemType;
-				resourceAmount.Text = "1";
-				canPutToInventory = true;
-				slot.UpdateSlotTexture(itemType);
-				break;
-			}
-
-			if (slot.itemType == itemType)
-			{
-				int amount = int.Parse(resourceAmount.Text.ToString());
-				if (amount < (int)items[itemType].maxStackSize)
-				{
-					amount += 1;
-					resourceAmount.Text = amount.ToString();
-					canPutToInventory = true;
-					break;
-				}
-			}
-		}
+		if (playerInventory.PutToInventory(itemType, 1) == 0) { canPutToInventory = true; }
 
 		if (canPutToInventory) 
 		{ 

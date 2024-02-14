@@ -40,6 +40,11 @@ layout_mode = 2
 DisplayName = "smelter"
 Type = "building"
 
+[node name="constructor" parent="FlowContainer" instance=ExtResource("1_oydjw")]
+layout_mode = 2
+DisplayName = "constructor"
+Type = "building"
+
 [node name="belt1" parent="FlowContainer" instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "belt1"

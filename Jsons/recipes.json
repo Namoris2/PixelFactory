@@ -32,6 +32,18 @@
             }
         ]
     },
+    "Limestone" : {
+        "name" : "Limestone",
+        "cyclesPerMinute" : 30,
+        "input" : [],
+        "output" : [
+            {
+                "name" : "Limestone",
+                "amount" : 1
+            }
+        ]
+    },
+
     "IronIngot" : {
         "name" : "Iron Ingot",
         "cyclesPerMinute" : 30,
@@ -60,6 +72,71 @@
         "output" : [
             {
                 "name" : "CopperIngot",
+                "amount" : 1
+            }
+        ]
+    },
+
+    "IronRod" : {
+        "name" : "Iron Rod",
+        "cyclesPerMinute" : 15,
+        "input" : [
+            {
+                "name" : "IronIngot",
+                "amount" : 2
+            }
+        ],
+        "output" : [
+            {
+                "name" : "IronRod",
+                "amount" : 1
+            }
+        ]
+    },
+    "IronPlate" : {
+        "name" : "Iron Plate",
+        "cyclesPerMinute" : 10,
+        "input" : [
+            {
+                "name" : "IronIngot",
+                "amount" : 3
+            }
+        ],
+        "output" : [
+            {
+                "name" : "IronPlate",
+                "amount" : 2
+            }
+        ]
+    },
+    "Wire" : {
+        "name" : "Wire",
+        "cyclesPerMinute" : 15,
+        "input" : [
+            {
+                "name" : "CopperIngot",
+                "amount" : 1
+            }
+        ],
+        "output" : [
+            {
+                "name" : "Wire",
+                "amount" : 2
+            }
+        ]
+    },
+    "Concrete" : {
+        "name" : "Concrete",
+        "cyclesPerMinute" : 15,
+        "input" : [
+            {
+                "name" : "Limestone",
+                "amount" : 3
+            }
+        ],
+        "output" : [
+            {
+                "name" : "Concrete",
                 "amount" : 1
             }
         ]
