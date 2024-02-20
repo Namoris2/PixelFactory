@@ -75,5 +75,6 @@ public partial class MenuSelect : Button
 		tileMap.selectedBuilding = DisplayName;
 		tileMap.BUILDINGMODE = false;
 		tileMap.ToggleBuildMode();
+		if (!(bool)data.canRotate) { tileMap.buildingRotation = 0; }
 	}
 }

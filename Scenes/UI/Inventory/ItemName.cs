@@ -13,23 +13,23 @@ public partial class ItemName : Label
 		item.MouseEntered += ShowItemName;
 		item.MouseExited += HideItemName;
 
-		position = GlobalPosition - new Vector2(20, 20);
-		slotPosition = GetParent<Button>().GlobalPosition;
+		// GlobalPosition = GlobalPosition - new Vector2(20, 20);
+		// slotPosition = GetParent<Button>().GlobalPosition;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (slotPosition != GetParent<Button>().GlobalPosition)
+		/*if (slotPosition != GetParent<Button>().GlobalPosition)
 		{
 			//GD.Print("Window Size Changed");
 			slotPosition = GetParent<Button>().GlobalPosition;
 			position = GlobalPosition - new Vector2(20, 20);
-		}
+		}*/
 		
 		if (Visible)
 		{
-			this.Position = GetGlobalMousePosition() - position;
+			GlobalPosition = GetGlobalMousePosition() + new Vector2(20, 20);
 		}
 
 		if(Input.IsActionJustPressed("Interact"))

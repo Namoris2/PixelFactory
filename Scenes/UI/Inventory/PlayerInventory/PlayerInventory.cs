@@ -79,6 +79,8 @@ public partial class PlayerInventory : Control
 
 	public bool IsInInventory(string itemType, int amount)
 	{
+		if (itemType == "" || amount == 0) { return true; }
+
 		for (int i = 0; i < inventorySlots.Length; i++)
 		{
 			if (itemType == inventorySlots[i].itemType)
@@ -101,6 +103,8 @@ public partial class PlayerInventory : Control
 
 	public void RemoveFromInventory(string itemType, int amount)
 	{
+		if (itemType == "" || amount == 0) { return; }
+
 		for (int i = inventorySlots.Length - 1; i >= 0; i--)
 		{
 			Label amountLabel = inventorySlots[i].GetNode<Label>("ResourceAmount");

@@ -38,8 +38,8 @@ public partial class TileMap : Godot.TileMap
 	Vector2I previousCellPositon = new (0, 0);
 
 	string groundResourceName;
-	TileData buildingsData;
-	Vector2I cellPostionByMouse;
+	public TileData buildingsData;
+	public Vector2I cellPostionByMouse;
 
 	// setting default grid curor parameters
 	int tileMapId = 100;
@@ -48,7 +48,7 @@ public partial class TileMap : Godot.TileMap
 	string[] buildingsCoords = new string[] {};
 	public List<dynamic> buildingsInfo = new();
 	public string selectedBuilding;
-	int buildingRotation = 0;
+	public int buildingRotation = 0;
 	dynamic resourcesHervestedByHand;
 
 	int resourceAmount = 100000;
@@ -88,7 +88,8 @@ public partial class TileMap : Godot.TileMap
 
 		playerInventory = GetNode<PlayerInventory>("/root/main/UI/Inventories/InventoryGrid/PlayerInventory");
 
-		//UITOGGLE = GetNode<UIToggle>("/root/main/UI/UIToggle").toggle;
+		/*buildings.smelter.outputSlots.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>("{resource:\"\",amount:0}"));
+		GD.Print(buildings.smelter.outputSlots);*/
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -186,26 +187,10 @@ public partial class TileMap : Godot.TileMap
 		// only if both 'BUILDINGMODE' and 'DISMANTLEMODE' aren't toggled
 		if (!BUILDINGMODE && !DISMANTLEMODE)
 		{
-			if(Input.IsActionJustPressed("Use"))
+			if(@event.IsActionPressed("Use"))
 			{
 				// farming resources
 				FarmResources(GetBuildingInfo(cellPostionByMouse));
-			}
-						
-			if (Input.IsActionJustPressed("Interact"))
-			{
-				dynamic buildingDisplayInfo = GetBuildingInfo(cellPostionByMouse);
-
-				if (!UITOGGLE && buildingsData != null)
-				{
-					UITOGGLE = true;	
-				}
-				else
-				{
-					UITOGGLE = false;
-				}
-				
-				EmitSignal(SignalName.ToggleInventory, UITOGGLE, Newtonsoft.Json.JsonConvert.SerializeObject(buildingDisplayInfo));
 			}
 		}
 
@@ -305,7 +290,7 @@ public partial class TileMap : Godot.TileMap
 					{
 						if (previousBuilding.buildingType.ToString() == "machine") // machine
 						{
-							buildingsInfo[i].item = previousBuilding.outputSlots[0].resource;
+							buildingsInfo[i].item = previousBuilding.outputSlots[0].resource; 
 							previousBuilding.outputSlots[0].amount -= 1;
 							CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2);
 						}
@@ -456,7 +441,6 @@ public partial class TileMap : Godot.TileMap
 	{
 		if (GroundResourceValidate(buildings[selectedBuilding].canBePlacedOn, groundResourceName) && buildingsData == null && HasItemsToBuild(buildings[selectedBuilding].cost))
 		{
-			SetCell(1, cellPostionByMouse, 1, new((int)buildings[selectedBuilding].atlasCoords[0] + buildingRotation, (int)buildings[selectedBuilding].atlasCoords[1]));		
 
 			string buildingsJson = Newtonsoft.Json.JsonConvert.SerializeObject(buildings);
 			dynamic building = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
@@ -501,6 +485,15 @@ public partial class TileMap : Godot.TileMap
 				building.previousPosition[1] = -1 * (int)building.nextPosition[1];
 			}
 
+			if (building.buildingType.ToString() == "storage")
+			{
+				for (int i = 0; i < (int)building.slotsAmout; i++)
+				{
+					building.slots.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>("{resource:\"\",amount:0}"));
+				}
+				GD.Print(building.slots.Count);
+			}
+
 			if((bool)building.hasAdditionalAtlasPosition)
 			{
 				for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
@@ -523,6 +516,8 @@ public partial class TileMap : Godot.TileMap
 
 			buildingsInfo.Add(building);
 			buildings = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
+			SetCell(1, cellPostionByMouse, 1, new((int)buildings[selectedBuilding].atlasCoords[0] + buildingRotation, (int)buildings[selectedBuilding].atlasCoords[1]));		
+
 
 			// removes cost items from inventory
 			for (int i = 0; i < building.cost.Count; i++)

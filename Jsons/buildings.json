@@ -178,6 +178,33 @@
         "canBePlacedOn" : ["Grass", "Concrete"],
         "item" : ""
     },
+    "smallStorage" : {
+        "buildingType" : "storage",
+        "type" : "smallStorage",
+        "name" : "Small Storage",
+        "cost" : [
+            {
+                "resource" : "IronPlate",
+                "amount" : 15
+            },
+            {
+                "resource" : "IronRod",
+                "amount" : 10
+            }
+        ],
+        "coords" : [0, 0],
+        "atlasCoords" : [4, 2],
+        "width" : 1,
+        "height" : 1,
+        "canRotate" : false,
+        "rotationAmount" : 0,
+        "rotation" : 0,
+        "hasAdditionalAtlasPosition" : false,
+        "additionalAtlasPosition" : [],
+        "canBePlacedOn" : ["Grass", "Concrete"],
+        "slotsAmout" : 15,
+        "slots" : []
+    },
     "test" : {
         "buildingType" : "test",
         "type" : "test",
