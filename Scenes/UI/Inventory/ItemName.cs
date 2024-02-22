@@ -50,6 +50,7 @@ public partial class ItemName : Label
 		this.Text = items[slot.itemType].name.ToString();
 		this.Show();
 	}
+	
 	private void HideItemName()
 	{
 		this.Hide();

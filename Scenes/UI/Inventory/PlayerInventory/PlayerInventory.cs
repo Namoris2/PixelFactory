@@ -29,6 +29,7 @@ public partial class PlayerInventory : Control
 		PutToInventory("CopperIngot", 200);
 		PutToInventory("IronPlate", 400);
 		PutToInventory("IronRod", 400);
+		PutToInventory("Wire", 500);
 	}
 
 	private void CreateInventorySlots()

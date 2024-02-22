@@ -202,7 +202,7 @@
         "hasAdditionalAtlasPosition" : false,
         "additionalAtlasPosition" : [],
         "canBePlacedOn" : ["Grass", "Concrete"],
-        "slotsAmout" : 15,
+        "slotsAmount" : 15,
         "slots" : []
     },
     "test" : {

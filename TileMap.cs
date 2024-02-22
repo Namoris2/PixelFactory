@@ -487,11 +487,11 @@ public partial class TileMap : Godot.TileMap
 
 			if (building.buildingType.ToString() == "storage")
 			{
-				for (int i = 0; i < (int)building.slotsAmout; i++)
+				for (int i = 0; i < (int)building.slotsAmount; i++)
 				{
 					building.slots.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>("{resource:\"\",amount:0}"));
 				}
-				GD.Print(building.slots.Count);
+				//GD.Print(building.slots.Count);
 			}
 
 			if((bool)building.hasAdditionalAtlasPosition)
@@ -618,7 +618,7 @@ public partial class TileMap : Godot.TileMap
 		}
 	}
 
-	public dynamic GetBuildingInfo(Vector2 cellPostion) 
+	public dynamic GetBuildingInfo(Vector2I cellPostion) 
 	{
 		foreach (var building in buildingsInfo)
 		{
@@ -626,7 +626,7 @@ public partial class TileMap : Godot.TileMap
 			{
 				if (building.buildingType.ToString() == "buildingPart")
 				{
-					return GetBuildingInfo(new Vector2((int)building.parentBuilding[0], (int)building.parentBuilding[1]));
+					return GetBuildingInfo(new Vector2I((int)building.parentBuilding[0], (int)building.parentBuilding[1]));
 				}
 				else
 				{
@@ -678,24 +678,39 @@ public partial class TileMap : Godot.TileMap
 	public void RemoveItemFromSlot(Vector2I coords, string slotType, int slotIndex)
 	{
 		dynamic building = GetBuildingInfo(coords);
-		slotType = slotType.ToLower();
-
-		if (slotType == "input")
+		if (building.buildingType.ToString() == "machine")
 		{
-			building.productionProgress = 0;
-		}
+			slotType = slotType.ToLower();
 
-		resourceAmount += (int)building[slotType + "Slots"][slotIndex].amount;
-		building[slotType + "Slots"][slotIndex].amount = 0;
-		EmitSignal(SignalName.ResourcesUpdated, resourceAmount);
+			if (slotType == "input")
+			{
+				building.productionProgress = 0;
+			}
+
+			building[slotType + "Slots"][slotIndex].amount = 0;
+		}
+		else
+		{
+			building.slots[slotIndex].resource = "";
+			building.slots[slotIndex].amount = 0;
+		}
 	}
 
-	public void PutItemToSlot(Vector2I coords, int itemAmount, int slotIndex, string slotType)
+	public void PutItemToSlot(Vector2I coords, int itemAmount, string itemType, string slotType, int slotIndex)
 	{
-		dynamic building = GetBuildingInfo(coords);
-		slotType = slotType.ToLower();
+		dynamic building = GetBuildingInfo(coords); GD.Print(coords);
+		if (building.buildingType.ToString() == "machine")
+		{
+			slotType = slotType.ToLower();
 
-		building[slotType + "Slots"][slotIndex].amount = itemAmount;
+			building[slotType + "Slots"][slotIndex].amount = itemAmount;
+		}
+		else
+		{
+			building.slots[slotIndex].resource = itemType;
+			building.slots[slotIndex].amount = itemAmount;
+		}
+		GD.Print(building);
 	}
 
 	private void CreateItem(Vector2I coords, Vector2I destination, string name, int speed = 0, string id = "")

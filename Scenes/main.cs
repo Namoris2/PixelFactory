@@ -26,6 +26,6 @@ public partial class main : Node2D
 		}
 
 		GD.PrintErr($"\"{nodeName}\" is not in group");
-		return new Node();
+		return null;
 	}
 }

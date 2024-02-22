@@ -32,6 +32,7 @@ public partial class BuildingInventory : Control
 		tileMap.UpdateBuildingProgress += UpdateInventory;
 
 		productionProgress = GetNode<ProgressBar>("TabContainer/Building/ProductionProgress");
+		resourceProduction = GetNode<Label>("TabContainer/Building/Production");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -42,6 +43,7 @@ public partial class BuildingInventory : Control
 	public void ToggleInventory(bool TOGGLEINGINVENTORY, string building)
 	{
 		Inventories inventories = GetNode<Inventories>("/root/main/UI/Inventories");
+		InventorySlot slot;
 
 		if (!TOGGLEINGINVENTORY) 
 		{
@@ -51,10 +53,11 @@ public partial class BuildingInventory : Control
 			Array<Node> inputSlots = GetTree().GetNodesInGroup("InputSlots");
 			Array<Node> outputSlots = GetTree().GetNodesInGroup("OutputSlots");
 			Array<Node> singleOutputSlots = GetTree().GetNodesInGroup("SingleSlots");
+			Array<Node> storageSlots = GetTree().GetNodesInGroup("StorageSlots");
 
 			for (int i = 0; i < inputSlots.Count; i++)
 			{
-				InventorySlot slot = (InventorySlot)inputSlots[i];
+				slot = (InventorySlot)inputSlots[i];
 				slot.Hide();
 				slot.UpdateSlotTexture("");
 				slot.resourceAmount.Text = "";
@@ -62,7 +65,7 @@ public partial class BuildingInventory : Control
 
 			for (int i = 0; i < outputSlots.Count; i++)
 			{
-				InventorySlot slot = (InventorySlot)outputSlots[i];
+				slot = (InventorySlot)outputSlots[i];
 				slot.Hide();
 				slot.UpdateSlotTexture("");
 				slot.resourceAmount.Text = "";
@@ -70,107 +73,146 @@ public partial class BuildingInventory : Control
 
 			for (int i = 0; i < singleOutputSlots.Count; i++)
 			{
-				InventorySlot slot = (InventorySlot)singleOutputSlots[i];
+				slot = (InventorySlot)singleOutputSlots[i];
 				slot.Hide();
 				slot.UpdateSlotTexture("");
 				slot.resourceAmount.Text = "";
 			}
 			
+			for (int i = 0; i < storageSlots.Count; i++)
+			{
+				main.FindNodeByNameInGroup(storageSlots, $"StorageSlot{i}").QueueFree();
+			}
+
 			productionProgress.Value = 0;
 			this.Hide();
 			return; 
 		}
 
+
 		buildingInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(building);
 		TabContainer tabContainer = GetNode<TabContainer>("TabContainer");
-
-		if (buildingInfo.buildingType.ToString() != "machine") { tileMap.UITOGGLE = false; return; }
-
-		inventories.ToggleInventory(true);
-		if ((bool)buildingInfo.canChooseRecipe)
-		{
-			tabContainer.TabsVisible = true;
-		}
-		else
-		{
-			tabContainer.TabsVisible = false;
-		}
-
-
-
 		Label buildingName = GetNode<Label>("TabContainer/Building/Name");
-		resourceProduction = GetNode<Label>("TabContainer/Building/Production");
-			
-		buildingName.Text = buildingInfo.name;
-		dynamic recipe = recipes[buildingInfo.recipe.ToString()];
-		resourceProduction.Text = "Recipe: none";
 		coordinates = new ((int)buildingInfo.coords[0], (int)buildingInfo.coords[1]);
-
-		if (buildingInfo.recipe.ToString() == "none")
+	
+		switch (buildingInfo.buildingType.ToString())
 		{
-			tabContainer.CurrentTab = 0;
-			TabContainer recipesTab = GetNode<TabContainer>("TabContainer/Recipes");
-
-			switch (buildingInfo.type.ToString())
-			{
-				case "smelter":
-					recipesTab.CurrentTab = 0;
-					break;
-
-				case "constructor":
-					recipesTab.CurrentTab = 1;
-					break;
-
-				default:
-					GD.PrintErr("Unknown building");
-					break;
-			}
-		}
-		else
-		{
-			tabContainer.CurrentTab = 1;
-
-			resourceProduction.Text = "Recipe: " + recipe.name.ToString();
-
-			if (buildingInfo.type.ToString() == "drill")
-			{
-				//main main = new();
-				InventorySlot slot = (InventorySlot)main.FindNodeByNameInGroup(GetTree().GetNodesInGroup("SingleSlots"), "DrillOutputSlot");
-				slot.buildingCoordinates = coordinates;
-				slot.itemType = buildingInfo.outputSlots[0].resource.ToString();
-				slot.inventoryType = INVENTORYTYPE;
-				slot.UpdateSlotTexture(slot.itemType);
-				slot.Show();
-			}
-			else
-			{
-				Array<Node> inputSlots = GetTree().GetNodesInGroup("InputSlots");
-				Array<Node> outputSlots = GetTree().GetNodesInGroup("OutputSlots");
-
-				for (int i = 0; i < recipe.input.Count; i++)
+			case "machine":
+				inventories.ToggleInventory(true);
+				if ((bool)buildingInfo.canChooseRecipe)
 				{
-					InventorySlot slot = (InventorySlot)inputSlots[i];
-					slot.buildingCoordinates = coordinates;
-					slot.itemType = buildingInfo.inputSlots[i].resource.ToString();
-					slot.inventoryType = INVENTORYTYPE;
-					slot.UpdateSlotTexture(slot.itemType);
-					slot.Show();
+					tabContainer.TabsVisible = true;
+				}
+				else
+				{
+					tabContainer.TabsVisible = false;
 				}
 
-				for (int i = 0; i < recipe.output.Count; i++)
+				GetNode<ScrollContainer>("TabContainer/Building/Slots/StorageSlots").Hide();
+				productionProgress.Show();
+				resourceProduction.Show();
+					
+				buildingName.Text = buildingInfo.name;
+				dynamic recipe = recipes[buildingInfo.recipe.ToString()];
+				resourceProduction.Text = "Recipe: none";
+
+				if (buildingInfo.recipe.ToString() == "none")
 				{
-					InventorySlot slot = (InventorySlot)outputSlots[i];
-					slot.buildingCoordinates = coordinates;
-					slot.itemType = buildingInfo.outputSlots[i].resource.ToString();
-					slot.inventoryType = INVENTORYTYPE;
-					slot.UpdateSlotTexture(slot.itemType);
-					slot.Show();
+					tabContainer.CurrentTab = 0;
+					TabContainer recipesTab = GetNode<TabContainer>("TabContainer/Recipes");
+
+					switch (buildingInfo.type.ToString())
+					{
+						case "smelter":
+							recipesTab.CurrentTab = 0;
+							break;
+
+						case "constructor":
+							recipesTab.CurrentTab = 1;
+							break;
+
+						default:
+							GD.PrintErr("Unknown building");
+							break;
+					}
 				}
-			}
+				else
+				{
+					tabContainer.CurrentTab = 1;
+
+					resourceProduction.Text = "Recipe: " + recipe.name.ToString();
+
+					if (buildingInfo.type.ToString() == "drill")
+					{
+						//main main = new();
+						slot = (InventorySlot)main.FindNodeByNameInGroup(GetTree().GetNodesInGroup("SingleSlots"), "DrillOutputSlot");
+						slot.buildingCoordinates = coordinates;
+						slot.itemType = buildingInfo.outputSlots[0].resource.ToString();
+						slot.inventoryType = INVENTORYTYPE;
+						slot.UpdateSlotTexture(slot.itemType);
+						slot.Show();
+					}
+					else
+					{
+						Array<Node> inputSlots = GetTree().GetNodesInGroup("InputSlots");
+						Array<Node> outputSlots = GetTree().GetNodesInGroup("OutputSlots");
+
+						for (int i = 0; i < recipe.input.Count; i++)
+						{
+							slot = (InventorySlot)inputSlots[i];
+							slot.buildingCoordinates = coordinates;
+							slot.itemType = buildingInfo.inputSlots[i].resource.ToString();
+							slot.inventoryType = INVENTORYTYPE;
+							slot.UpdateSlotTexture(slot.itemType);
+							slot.Show();
+						}
+
+						for (int i = 0; i < recipe.output.Count; i++)
+						{
+							slot = (InventorySlot)outputSlots[i];
+							slot.buildingCoordinates = coordinates;
+							slot.itemType = buildingInfo.outputSlots[i].resource.ToString();
+							slot.inventoryType = INVENTORYTYPE;
+							slot.UpdateSlotTexture(slot.itemType);
+							slot.Show();
+						}
+					}
+				}
+
+				Show();
+				break;
+
+			case "storage":
+				inventories.ToggleInventory(true);
+				tabContainer.TabsVisible = false;
+				tabContainer.CurrentTab = 1;
+
+				buildingName.Text = buildingInfo.name.ToString();
+				productionProgress.Hide();
+				resourceProduction.Hide();
+				
+				for (int i = 0; i < (int)buildingInfo.slotsAmount; i++)
+				{
+					InventorySlot newSlot = (InventorySlot)GD.Load<PackedScene>("res://Scenes/UI/Inventory/InventorySlot.tscn").Instantiate();
+					newSlot.Name = $"StorageSlot{i}";
+					newSlot.AddToGroup("StorageSlots");
+					newSlot.inventoryType = "storage";
+					newSlot.buildingCoordinates = coordinates;
+
+					if ((int)buildingInfo.slots[i].amount != 0) { newSlot.GetNode<Label>("ResourceAmount").Text = buildingInfo.slots[i].amount.ToString(); }
+					
+					GetNode<FlowContainer>("TabContainer/Building/Slots/StorageSlots/FlowContainer").AddChild(newSlot);
+					newSlot.UpdateSlotTexture(buildingInfo.slots[i].resource.ToString());
+				}
+
+				GetNode<ScrollContainer>("TabContainer/Building/Slots/StorageSlots").Show();
+				Show();
+				break;
+
+			default:
+				tileMap.UITOGGLE = false;
+				break;
 		}
-
-		this.Show();
-
 	}
 
 	private void UpdateInventory(string info)
