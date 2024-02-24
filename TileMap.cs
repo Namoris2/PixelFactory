@@ -294,7 +294,20 @@ public partial class TileMap : Godot.TileMap
 							previousBuilding.outputSlots[0].amount -= 1;
 							CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2);
 						}
-						else // belt
+						else if (previousBuilding.buildingType.ToString() == "storage") // storage
+						{
+							for (int j = previousBuilding.slots.Count - 1; j > 0; j--)
+							{
+								if (previousBuilding.slots[j].resource != "")
+								{
+									buildingsInfo[i].item = previousBuilding.slots[j].resource;
+									previousBuilding.slots[j].amount -= 1;
+									if ((int)previousBuilding.slots[j].amount == 0) { previousBuilding.slots[j].resource = ""; }
+								}
+							}
+							CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2);
+						}
+						else if (previousBuilding.buildingType.ToString() == "belt") // belt
 						{
 							buildingsInfo[i].item = previousBuilding.item;
 							previousBuilding.item = "";
@@ -318,11 +331,30 @@ public partial class TileMap : Godot.TileMap
 					else if ((double)buildingsInfo[i].moveProgress >= 1)
 					{
 
-						if (nextBuilding.buildingType.ToString() == "machine") // machine
+						if (nextBuilding.buildingType.ToString() != "belt")
 						{
 							itemName = $"{nextCoords[0]}x{nextCoords[1]}";
 							item = GetNode<Item>(itemName);
-							nextBuilding.inputSlots[0].amount += 1;
+
+							if (nextBuilding.buildingType.ToString() == "machine") { nextBuilding.inputSlots[0].amount += 1; }
+							
+							else
+							{
+								for (int j = 0; j < nextBuilding.slots.Count; j++)
+								{
+									if (nextBuilding.slots[j].resource.ToString() == "")
+									{
+										nextBuilding.slots[j].amount = 1;
+										nextBuilding.slots[j].resource = buildingsInfo[i].item;
+										break;
+									}
+									else if  (buildingsInfo[i].item == nextBuilding.slots[j].resource.ToString() && (int)nextBuilding.slots[j].amount < (int)items[nextBuilding.slots[j].resource.ToString()].maxStackSize)
+									{
+										nextBuilding.slots[j].amount += 1;
+										break;
+									}
+								}
+							}
 
 							item.QueueFree();
 						}
@@ -752,8 +784,8 @@ public partial class TileMap : Godot.TileMap
 		dynamic previousBuilding = GetBuildingInfo(new Vector2I((int)building.coords[0] + (int)building.previousPosition[0], (int)building.coords[1] + (int)building.previousPosition[1]));
 		dynamic nextBuilding = GetBuildingInfo(new Vector2I((int)building.coords[0] + (int)building.nextPosition[0], (int)building.coords[1] + (int)building.nextPosition[1]));
 
-		bool hasItem;
-		bool hasSpace;
+		bool hasItem = false;
+		bool hasSpace = false;
 		string previousItem = null;
 
 		if ((double)building.moveProgress == 0)
@@ -761,17 +793,24 @@ public partial class TileMap : Godot.TileMap
 			// checks if both 'previousBuilding' and 'nextBuilding' exist
 			if (previousBuilding == null || nextBuilding == null) { return false; }
 			
+			// if 'previousBuilding' has any item
 			if (previousBuilding.buildingType.ToString() == "machine") // machine
 			{
 				hasItem = (int)previousBuilding.outputSlots[0].amount != 0;
 				if (hasItem) { previousItem = previousBuilding.outputSlots[0].resource.ToString(); }
 			}
-			else // belt
+			else if (previousBuilding.buildingType.ToString() == "belt") // belt
 			{
 				hasItem = previousBuilding.buildingType.ToString() != "beltArm" && (double)previousBuilding.moveProgress >= 1;
 				if (hasItem) { previousItem = previousBuilding.item.ToString(); }
 			}
+			else if (previousBuilding.buildingType.ToString() == "storage")
+			{
+				hasItem = (bool)previousBuilding.beltArmInteraction && HasStorageAnyItem(previousBuilding);
+				if (hasItem) { previousItem = FindItemInStorage(previousBuilding); }
+			}
 
+			// if 'nextBuilding' has space for item
 			if (nextBuilding.buildingType.ToString() == "machine") // machine
 			{
 				if (nextBuilding.recipe.ToString() == "none") { return false; }
@@ -785,14 +824,57 @@ public partial class TileMap : Godot.TileMap
 					hasSpace = (int)nextBuilding.inputSlots[0].amount < (int)items[nextBuilding.inputSlots[0].resource.ToString()].maxStackSize && previousItem == nextBuilding.inputSlots[0].resource.ToString();
 				}
 			}
-			else // belt
+			else if (nextBuilding.buildingType.ToString() == "belt") // belt
 			{
 				hasSpace = nextBuilding.buildingType.ToString() != "beltArm" && nextBuilding.item.ToString() == "";
+			}
+			else if (nextBuilding.buildingType.ToString() == "storage") // storage
+			{
+				hasSpace = (bool)nextBuilding.beltArmInteraction && HasStorageSpace(nextBuilding, previousItem);
 			}
 			
 			return hasItem && hasSpace;
 		}
 
+		return false;
+	}
+
+	private bool HasStorageAnyItem(dynamic building)
+	{
+		for (int i = building.slots.Count - 1; i >= 0; i--)
+		{
+			if (building.slots[i].resource.ToString() != "")
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private string FindItemInStorage(dynamic building)
+	{
+		for (int i = building.slots.Count - 1; i >= 0; i--)
+		{
+			if (building.slots[i].resource.ToString() != "")
+			{
+				return building.slots[i].resource.ToString();
+			}
+		}
+
+		return null;
+	}
+
+	private bool HasStorageSpace(dynamic building, string item)
+	{
+		for (int i = 0; i < building.slots.Count; i++)
+		{
+			// if slot is empty or resource in slot isn't at its stack size
+			if (building.slots[i].resource.ToString() == "" || item == building.slots[i].resource.ToString() && (int)building.slots[i].amount < (int)items[building.slots[i].resource.ToString()].maxStackSize)
+			{
+				return true;
+			}
+		}
 		return false;
 	}
 

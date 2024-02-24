@@ -199,6 +199,7 @@
         "canRotate" : false,
         "rotationAmount" : 0,
         "rotation" : 0,
+        "beltArmInteraction" : true,
         "hasAdditionalAtlasPosition" : false,
         "additionalAtlasPosition" : [],
         "canBePlacedOn" : ["Grass", "Concrete"],
