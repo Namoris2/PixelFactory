@@ -31,7 +31,7 @@ mouse_cursor/tooltip_position_offset=Vector2(-22, -22)
 
 [dotnet]
 
-project/assembly_name="FactoryBuilder"
+project/assembly_name="PixelFactory"
 
 [editor]
 
