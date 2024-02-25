@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactoryBuilder", "FactoryBuilder.csproj", "{F2C033EB-AEBA-459A-9734-DE5C8533E748}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelFactory", "PixelFactory.csproj", "{F2C033EB-AEBA-459A-9734-DE5C8533E748}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
