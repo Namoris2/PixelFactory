@@ -198,11 +198,12 @@ public partial class BuildingInventory : Control
 					newSlot.AddToGroup("StorageSlots");
 					newSlot.inventoryType = "storage";
 					newSlot.buildingCoordinates = coordinates;
+					newSlot.itemType = buildingInfo.slots[i].resource.ToString();
 
 					if ((int)buildingInfo.slots[i].amount != 0) { newSlot.GetNode<Label>("ResourceAmount").Text = buildingInfo.slots[i].amount.ToString(); }
 					
 					GetNode<FlowContainer>("TabContainer/Building/Slots/StorageSlots/FlowContainer").AddChild(newSlot);
-					newSlot.UpdateSlotTexture(buildingInfo.slots[i].resource.ToString());
+					newSlot.UpdateSlotTexture(newSlot.itemType);
 				}
 
 				GetNode<ScrollContainer>("TabContainer/Building/Slots/StorageSlots").Show();

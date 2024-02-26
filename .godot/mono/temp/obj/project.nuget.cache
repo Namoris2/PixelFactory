@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5IY0MxLSQgFHW3TWBHBj5iS1+g2tSoPUe309HHYoQL5JRfnMYhjKrOci6d/RbkeZmMMe/Xi74uOptQGyBwEEGw==",
+  "dgSpecHash": "2Dd/EO4LUAK+qB+FG4lS4Kwsy1Pmnzbx3rFzGjZXOZsYrTRoiof8+V7Idk+xA7O6MtEoMqlrJDmejvkIPUSTHA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\FactoryBuilder\\FactoryBuilder.csproj",
+  "projectFilePath": "C:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\PixelFactory\\PixelFactory.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\namor\\.nuget\\packages\\godot.sourcegenerators\\4.2.0\\godot.sourcegenerators.4.2.0.nupkg.sha512",
     "C:\\Users\\namor\\.nuget\\packages\\godotsharp\\4.2.0\\godotsharp.4.2.0.nupkg.sha512",

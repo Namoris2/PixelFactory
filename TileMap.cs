@@ -155,9 +155,9 @@ public partial class TileMap : Godot.TileMap
 		}
 	}
 
-    public override void _Input(InputEvent @event)
-    {
-        if (@event.IsActionPressed("ToggleDismantleMode"))
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("ToggleDismantleMode"))
 		{
 			ToggleDismantleMode();
 		}
@@ -190,15 +190,15 @@ public partial class TileMap : Godot.TileMap
 			if(@event.IsActionPressed("Use"))
 			{
 				// farming resources
-				FarmResources(GetBuildingInfo(cellPostionByMouse));
+				//FarmResources(GetBuildingInfo(cellPostionByMouse));
 			}
 		}
 
-    }
+	}
 
-    public override void _PhysicsProcess(double delta)
-    {
-        Vector2I nextCoords;
+	public override void _PhysicsProcess(double delta)
+	{
+		Vector2I nextCoords;
 		Vector2I previousCoords;
 		dynamic nextBuilding;
 		dynamic previousBuilding;
@@ -371,9 +371,9 @@ public partial class TileMap : Godot.TileMap
 	public Vector2I GetMousePosition()
 	{
 		var mousePosition = GetGlobalMousePosition();
-		Vector2I cellPostionByMouse = new ((int)(mousePosition[0] / (4 * 16)), (int)(mousePosition[1]  / (4 * 16)));
+		Vector2I cellPostionByMouse = new ((int)Math.Floor(mousePosition[0] / (4 * 16)), (int)Math.Floor(mousePosition[1]  / (4 * 16)));
 
-		if (mousePosition[0] < 0)
+		/*if (mousePosition[0] < 0)
 		{
 			cellPostionByMouse = new Vector2I((int)(cellPostionByMouse[0] - 1), (int)(cellPostionByMouse[1]));
 		}
@@ -381,7 +381,7 @@ public partial class TileMap : Godot.TileMap
 		if (mousePosition[1] < 0)
 		{
 			cellPostionByMouse = new Vector2I((int)(cellPostionByMouse[0]), (int)(cellPostionByMouse[1] - 1));
-		}
+		}*/
 
 		return cellPostionByMouse;
 	}
@@ -730,7 +730,7 @@ public partial class TileMap : Godot.TileMap
 
 	public void PutItemToSlot(Vector2I coords, int itemAmount, string itemType, string slotType, int slotIndex)
 	{
-		dynamic building = GetBuildingInfo(coords); GD.Print(coords);
+		dynamic building = GetBuildingInfo(coords);
 		if (building.buildingType.ToString() == "machine")
 		{
 			slotType = slotType.ToLower();
@@ -742,7 +742,7 @@ public partial class TileMap : Godot.TileMap
 			building.slots[slotIndex].resource = itemType;
 			building.slots[slotIndex].amount = itemAmount;
 		}
-		GD.Print(building);
+		//GD.Print(building);
 	}
 
 	private void CreateItem(Vector2I coords, Vector2I destination, string name, int speed = 0, string id = "")
