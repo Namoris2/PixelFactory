@@ -30,6 +30,9 @@ public partial class TileMap : Godot.TileMap
 	[Signal]
 	public delegate void UpdateBuildingProgressEventHandler(string info);
 
+	[Export]
+	private bool worldGeneration = true;
+
 
 	public bool BUILDINGMODE = false;
 	public bool DISMANTLEMODE = false;
@@ -79,12 +82,15 @@ public partial class TileMap : Godot.TileMap
 		recipes = load.LoadJson("recipes.json");
 
 		// this generates the world
-		GenerateWorld generateWorld = GetNode<GenerateWorld>("/root/main/GenerateWorld");
-		Vector2I mapSize = new Vector2I(500, 500);
-		generateWorld.GenerateResource(mapSize, "Grass", true);
-		generateWorld.GenerateResource(mapSize, "IronOre");
-		generateWorld.GenerateResource(mapSize, "CoalOre");
-		generateWorld.GenerateResource(mapSize, "CopperOre");
+		if (worldGeneration)
+		{
+			GenerateWorld generateWorld = GetNode<GenerateWorld>("/root/main/GenerateWorld");
+			int mapRadius = 250;
+			generateWorld.GenerateResource(mapRadius, "Grass", true);
+			generateWorld.GenerateResource(mapRadius, "IronOre");
+			//generateWorld.GenerateResource(mapRadius, "CoalOre"); // temporarly removed
+			generateWorld.GenerateResource(mapRadius, "CopperOre");
+		}
 
 		playerInventory = GetNode<PlayerInventory>("/root/main/UI/Inventories/InventoryGrid/PlayerInventory");
 
