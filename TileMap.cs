@@ -159,6 +159,14 @@ public partial class TileMap : Godot.TileMap
 				Build();
 			}
 		}
+		if (!BUILDINGMODE && !DISMANTLEMODE && !UITOGGLE)
+		{
+			if(Input.IsActionPressed("Use"))
+			{
+				// farming resources
+				FarmResources(GetBuildingInfo(cellPostionByMouse));
+			}
+		}
 	}
 
 	public override void _Input(InputEvent @event)
@@ -193,11 +201,6 @@ public partial class TileMap : Godot.TileMap
 		// only if both 'BUILDINGMODE' and 'DISMANTLEMODE' aren't toggled
 		if (!BUILDINGMODE && !DISMANTLEMODE)
 		{
-			if(@event.IsActionPressed("Use"))
-			{
-				// farming resources
-				//FarmResources(GetBuildingInfo(cellPostionByMouse));
-			}
 		}
 
 	}
@@ -416,18 +419,16 @@ public partial class TileMap : Godot.TileMap
 
 	}
 
-	private void FarmResources(dynamic buildingDisplayInfo)
+	private void FarmResources(dynamic building)
 	{
-		if (GroundResourceValidate(resourcesHervestedByHand.canBeUsedOn, groundResourceName) && buildingsData == null)
+		if (GroundResourceValidate(resourcesHervestedByHand.canBeUsedOn, groundResourceName) && Input.IsActionJustPressed("Use") && buildingsData == null)
 		{
-			resourceAmount++;
-			EmitSignal(SignalName.ResourcesUpdated, resourceAmount);
+			playerInventory.PutToInventory(groundResourceName, 1);
 		}
 
-		if (buildingsData != null && (Input.IsActionPressed("TakeAll") || Input.IsActionJustPressed("Use"))) {
-			resourceAmount += (int)buildingDisplayInfo.outputSlots[0].amount;
-			buildingDisplayInfo.outputSlots[0].amount = 0;
-			EmitSignal(SignalName.ResourcesUpdated, resourceAmount);
+		if (buildingsData != null && building.buildingType.ToString() == "machine" && (Input.IsActionPressed("TakeAll") || Input.IsActionJustPressed("Use")) ) 
+		{
+			building.outputSlots[0].amount = playerInventory.PutToInventory(building.outputSlots[0].resource.ToString(), (int)building.outputSlots[0].amount);
 		}
 			
 	}
