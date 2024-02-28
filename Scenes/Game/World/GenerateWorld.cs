@@ -56,9 +56,10 @@ public partial class GenerateWorld : Node
 			}
 		}
 
-		GD.Print(resourceCells.Count);
+		//GD.Print(resourceCells.Count);
 		Array<Vector2I> resourceCellsArray = new (resourceCells);
 		Array<Vector2I> waterCellsArray = new (waterCells);
+		
 		tileMap.SetCellsTerrainConnect(0, resourceCellsArray, 0, System.Array.IndexOf(groundTerrains, resourceInput));
 		if (generateWater)
 		{
