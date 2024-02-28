@@ -39,7 +39,11 @@ naming/scene_name_casing=1
 
 [gui]
 
-theme/default_font_antialiasing=2
+theme/custom_font="res://Font/PixelFactoryFont.ttf"
+theme/default_font_antialiasing=0
+theme/default_font_subpixel_positioning=0
+theme/default_font_multichannel_signed_distance_field=true
+theme/default_font_generate_mipmaps=true
 
 [input]
 
