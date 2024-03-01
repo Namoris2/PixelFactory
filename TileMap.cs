@@ -33,10 +33,13 @@ public partial class TileMap : Godot.TileMap
 	[Export]
 	private bool worldGeneration = true;
 
+	[Export]
+	int mapRadius = 250;
 
+	public bool UITOGGLE = false;
 	public bool BUILDINGMODE = false;
 	public bool DISMANTLEMODE = false;
-	public bool UITOGGLE = false;
+	private bool HASFINISHEDGENERATING = false;
 
 	Vector2I previousCellPositon = new (0, 0);
 
@@ -84,12 +87,12 @@ public partial class TileMap : Godot.TileMap
 		// this generates the world
 		if (worldGeneration)
 		{
-			GenerateWorld generateWorld = GetNode<GenerateWorld>("/root/main/GenerateWorld");
-			int mapRadius = 250;
-			generateWorld.GenerateResource(mapRadius, "Grass", true);
-			generateWorld.GenerateResource(mapRadius, "IronOre");
-			//generateWorld.GenerateResource(mapRadius, "CoalOre"); // temporarly removed
-			generateWorld.GenerateResource(mapRadius, "CopperOre");
+			GenerateWorld generateWorld = GetNode<GenerateWorld>("/root/GenerateWorld");
+
+			generateWorld.GenerateResource(this, mapRadius, "Grass", true);
+			generateWorld.GenerateResource(this, mapRadius, "IronOre");
+			//generateWorld.GenerateResource(this, mapRadius, "CoalOre"); // temporarly removed
+			generateWorld.GenerateResource(this, mapRadius, "CopperOre");
 		}
 
 		playerInventory = GetNode<PlayerInventory>("/root/main/UI/Inventories/InventoryGrid/PlayerInventory");
@@ -101,6 +104,9 @@ public partial class TileMap : Godot.TileMap
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		// if any inventory is oppend any of the actions bellow won't work
+		if (UITOGGLE) { return; }
+		
 		PauseMenu pauseMenu = GetNode<PauseMenu>("/root/main/UI/PauseMenu");
 		pauseMenu.CanPause = !UITOGGLE && !BUILDINGMODE;
 
@@ -123,9 +129,6 @@ public partial class TileMap : Godot.TileMap
 			ToggleBuildMode();
 		}*/
 
-		
-		// if any inventory is oppend any of the actions bellow won't work
-		if (UITOGGLE) { return; }
 		
 		if (buildingsData != null && GetBuildingInfo(cellPostionByMouse).buildingType.ToString() == "machine")
 		{

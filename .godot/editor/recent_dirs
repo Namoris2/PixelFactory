@@ -1,9 +1,11 @@
+res://Scenes/UI/MainMenu
+res://Scenes/UI/Menu
+res://Scenes/Game/World
 res://Font
 res://
 res://Scenes/UI/Inventory
 res://Scenes/UI/BuildMenu
 res://Scenes/UI/Inventory/BuildingInventory
-res://Scenes/Game/World
 res://Scenes/UI/Pause Menu
 res://Scenes/UI
 res://scenes/UI/Inventory

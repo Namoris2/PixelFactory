@@ -20,6 +20,7 @@ config/icon="res://icon.png"
 [autoload]
 
 LoadFile="*res://Scenes/Game/LoadFile.cs"
+GenerateWorld="*res://Scenes/Game/World/GenerateWorld.cs"
 
 [display]
 

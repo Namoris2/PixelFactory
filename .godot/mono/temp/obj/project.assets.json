@@ -137,11 +137,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\PixelFactory\\PixelFactory.csproj",
+      "projectUniqueName": "c:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\PixelFactory\\PixelFactory.csproj",
       "projectName": "PixelFactory",
-      "projectPath": "C:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\PixelFactory\\PixelFactory.csproj",
+      "projectPath": "c:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\PixelFactory\\PixelFactory.csproj",
       "packagesPath": "C:\\Users\\namor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\PixelFactory\\.godot\\mono\\temp\\obj\\",
+      "outputPath": "c:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\PixelFactory\\.godot\\mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\namor\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -164,6 +164,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -198,12 +203,26 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.27, 6.0.27]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.27, 6.0.27]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[6.0.27, 6.0.27]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bsymbesh48kwd"]
 
-[ext_resource type="PackedScene" uid="uid://cycrfkkc7xrqg" path="res://Scenes/UI/BuildMenu/MenuSelect.tscn" id="1_oydjw"]
-[ext_resource type="Script" path="res://Scenes/UI/BuildMenu/TabSelect.cs" id="1_p827v"]
+[ext_resource type="Script" path="res://Scenes/UI/BuildMenu/TabSelect.cs" id="1_jxuxl"]
+[ext_resource type="PackedScene" uid="uid://cycrfkkc7xrqg" path="res://Scenes/UI/Menu/MenuSelect.tscn" id="1_oydjw"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ostt8"]
 
@@ -39,23 +39,23 @@ custom_minimum_size = Vector2(170, 170)
 layout_mode = 2
 disabled = true
 text = "MANUFACTURING"
-script = ExtResource("1_p827v")
+script = ExtResource("1_jxuxl")
 
 [node name="Transport" type="Button" parent="VFlowContainer"]
 custom_minimum_size = Vector2(170, 170)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TRANSPORT"
-script = ExtResource("1_p827v")
+script = ExtResource("1_jxuxl")
 
 [node name="Organization" type="Button" parent="VFlowContainer"]
 custom_minimum_size = Vector2(170, 170)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "ORGANIZATION"
-script = ExtResource("1_p827v")
+script = ExtResource("1_jxuxl")
 
-[node name="TabContainer" type="TabContainer" parent="."]
+[node name="TabContainer" type="TabContainer" parent="." groups=["TabContainer"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0885417

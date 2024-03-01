@@ -1,17 +1,21 @@
 using Godot;
 using System;
-using System.Security;
 
-public partial class TabSelect : Button
+public partial class ChangeMenu : Button
 {
-	private Node partent;
+	[Export] 
+	int HomeIndex = 0;
+	[Export] 
+	int IndexOffset = 0;
+	[Export] 
+	bool GoHome = false;
+
 	private TabContainer tabContainer;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		Pressed += ChangeTab;
 
-		partent = GetParent();
 		tabContainer = (TabContainer)GetTree().GetNodesInGroup("TabContainer")[0];
 	}
 
@@ -22,12 +26,14 @@ public partial class TabSelect : Button
 
 	private void ChangeTab()
 	{
-		for (int i = 0; i < partent.GetChildCount(); i++)
+		if (GoHome)
 		{
-			Button tab = (Button)partent.GetChild(i);
-			tab.Disabled = false;
-			Disabled = true;
+			tabContainer.CurrentTab = HomeIndex;
 		}
-		tabContainer.CurrentTab = GetIndex();
+		else
+		{
+			tabContainer.CurrentTab = GetIndex() + IndexOffset;
+		}
+		GD.Print(tabContainer.CurrentTab, tabContainer.GetChild(tabContainer.CurrentTab).Name);
 	}
 }

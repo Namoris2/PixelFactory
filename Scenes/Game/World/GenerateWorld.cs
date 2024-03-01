@@ -8,8 +8,10 @@ public partial class GenerateWorld : Node
 {
 	string[] groundTerrains = { "Grass", "Water", "IronOre", "CopperOre" };
 
-    public void GenerateResource(int mapRadius, string resourceInput, bool generateWater = false)
+    public void GenerateResource(TileMap tileMap, int mapRadius, string resourceInput, bool generateWater = false)
 	{
+
+		GD.Print(tileMap.GetPath());
         LoadFile load = new();
 		dynamic groundResources = load.LoadJson("groundResources.json");
 		
@@ -21,8 +23,6 @@ public partial class GenerateWorld : Node
 		Random rnd = new Random();
 		noise.Seed = rnd.Next() + (int)resource.addedSeed;
 		noise.Frequency = (float)resource.frequency;
-
-		TileMap tileMap = GetNode<TileMap>("../World/TileMap");
 
 		List<Vector2I> resourceCells = new();
 		List<Vector2I> waterCells = new();

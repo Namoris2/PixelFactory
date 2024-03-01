@@ -10,9 +10,10 @@ C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\obj\Debug\
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\obj\Debug\PixelFactory.AssemblyInfoInputs.cache
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\obj\Debug\PixelFactory.AssemblyInfo.cs
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\obj\Debug\PixelFactory.csproj.CoreCompileInputs.cache
-C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\obj\Debug\PixelFactory.csproj.CopyComplete
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\obj\Debug\PixelFactory.dll
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\obj\Debug\refint\PixelFactory.dll
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\obj\Debug\PixelFactory.pdb
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\obj\Debug\PixelFactory.genruntimeconfig.cache
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\obj\Debug\ref\PixelFactory.dll
+C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\obj\Debug\PixelFactory.sourcelink.json
+C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\obj\Debug\PixelFac.EBBF5D96.Up2Date

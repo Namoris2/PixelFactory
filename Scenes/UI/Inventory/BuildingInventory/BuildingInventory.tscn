@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cwfyipj0juac5" path="res://Gimp/Ground Materials/DirtOld/Dirt_old.png" id="1_4vbnj"]
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.cs" id="1_10j8y"]
-[ext_resource type="PackedScene" uid="uid://cycrfkkc7xrqg" path="res://Scenes/UI/BuildMenu/MenuSelect.tscn" id="2_amxgm"]
+[ext_resource type="PackedScene" uid="uid://cycrfkkc7xrqg" path="res://Scenes/UI/Menu/MenuSelect.tscn" id="2_amxgm"]
 [ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="2_e53n2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hor1q"]
