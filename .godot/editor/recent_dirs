@@ -1,9 +1,10 @@
-res://Scenes/UI/MainMenu
+res://Scenes/UI/Inventory
 res://Scenes/UI/Menu
+res://Scenes/UI/LoadingScreen
+res://Scenes/UI/MainMenu
 res://Scenes/Game/World
 res://Font
 res://
-res://Scenes/UI/Inventory
 res://Scenes/UI/BuildMenu
 res://Scenes/UI/Inventory/BuildingInventory
 res://Scenes/UI/Pause Menu

@@ -27,6 +27,8 @@ GenerateWorld="*res://Scenes/Game/World/GenerateWorld.cs"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=3
+window/size/borderless=true
+window/stretch/aspect="expand"
 window/vsync/vsync_mode=0
 mouse_cursor/tooltip_position_offset=Vector2(-22, -22)
 

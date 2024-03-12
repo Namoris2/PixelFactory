@@ -1,6 +1,14 @@
-res://Scenes/UI/MainMenu/MainMenu.tscn
+res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
+res://Scenes/UI/Menu/ChangeMenu.cs
 res://Themes/InventorySlot.tres
+res://Scenes/UI/MainMenu/MainMenu.tscn
+res://Scenes/main.tscn
+res://Scenes/UI/Pause Menu/PauseMenu.tscn
+res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
 res://Scenes/UI/BuildMenu/BuildMenu.tscn
+res://Scenes/UI/Menu/MenuSelect.tscn
+res://Scenes/UI/LoadingScreen/LoadingScreen.tscn
+res://Scenes/UI/Menu/ExitGame.tscn
 res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/World/GenerateWorld.cs
 res://Scenes/Game/World/Item/Item.cs
@@ -22,17 +30,13 @@ res://Scenes/UI/Inventory/InventorySlot.cs
 res://Scenes/UI/Inventory/ItemName.cs
 res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.cs
 res://Scenes/UI/Inventory/PlayerInventory/PrintInventory.cs
+res://Scenes/UI/LoadingScreen/LoadingScreen.cs
+res://Scenes/UI/MainMenu/ButtonInfo.cs
 res://Scenes/UI/MainMenu/World.cs
+res://Scenes/UI/Menu/ExitGame.cs
 res://Scenes/UI/Menu/MenuSelect.cs
 res://Scenes/UI/Pause Menu/PauseMenu.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/UIToggle.cs
 res://TileMap.cs
-res://Scenes/main.tscn
-res://Scenes/UI/Pause Menu/PauseMenu.tscn
-res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
-res://Scenes/Game/World/Item/Item.tscn
-res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/UI/Inventory/InventorySlot.tscn
-res://Scenes/UI/Menu/MenuSelect.tscn
-res://Scenes/UI/Menu/ChangeMenu.cs

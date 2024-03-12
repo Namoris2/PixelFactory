@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ealmg15lgtr5"]
+
+[ext_resource type="Script" path="res://Scenes/UI/Menu/ExitGame.cs" id="1_tvdh1"]
+
+[node name="ExitGame" type="Button"]
+custom_minimum_size = Vector2(500, 100)
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 50
+text = "Exit Game"
+script = ExtResource("1_tvdh1")

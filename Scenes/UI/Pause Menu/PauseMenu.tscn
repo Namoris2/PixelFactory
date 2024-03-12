@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxn21jfq72eky"]
+[gd_scene load_steps=3 format=3 uid="uid://bxn21jfq72eky"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Pause Menu/PauseMenu.cs" id="1_e0k0e"]
+[ext_resource type="PackedScene" uid="uid://ealmg15lgtr5" path="res://Scenes/UI/Menu/ExitGame.tscn" id="2_66bva"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -81,3 +82,12 @@ anchor_bottom = 0.82716
 offset_top = 3.05176e-05
 theme_override_font_sizes/font_size = 30
 text = "CLOSE"
+
+[node name="ExitGame" parent="." instance=ExtResource("2_66bva")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 0
+offset_left = 827.0
+offset_top = 914.0
+offset_right = 1093.0
+offset_bottom = 1014.0
+theme_override_font_sizes/font_size = 30

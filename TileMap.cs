@@ -130,7 +130,7 @@ public partial class TileMap : Godot.TileMap
 		}*/
 
 		
-		if (buildingsData != null && GetBuildingInfo(cellPostionByMouse).buildingType.ToString() == "machine")
+		/*if (buildingsData != null && GetBuildingInfo(cellPostionByMouse).buildingType.ToString() == "machine")
 		{
 			dynamic buildingDisplayInfo = GetBuildingInfo(cellPostionByMouse);
 
@@ -141,6 +141,11 @@ public partial class TileMap : Godot.TileMap
 			dynamic buildingDisplayInfo = GetBuildingInfo(cellPostionByMouse);
 
 			worldInfo = $"Building: {buildingDisplayInfo.name} \nProgress: {(int)(buildingDisplayInfo.moveProgress * 100)}% \nItem: {buildingDisplayInfo.item}";	
+		}*/
+
+		if (buildingsData != null)
+		{
+			worldInfo = $"Building: {GetBuildingInfo(cellPostionByMouse).name}";
 		}
 		else
 		{
@@ -383,9 +388,10 @@ public partial class TileMap : Godot.TileMap
 	public Vector2I GetMousePosition()
 	{
 		var mousePosition = GetGlobalMousePosition();
-		Vector2I cellPostionByMouse = new ((int)Math.Floor(mousePosition[0] / (4 * 16)), (int)Math.Floor(mousePosition[1]  / (4 * 16)));
+		//Vector2I cellPostionByMouse = new ((int)Math.Floor(mousePosition[0] / (4 * 16)), (int)Math.Floor(mousePosition[1]  / (4 * 16)));
+		Vector2I cellPostionByMouse = new ((int)mousePosition[0] / (4 * 16), (int)mousePosition[1]  / (4 * 16));
 
-		/*if (mousePosition[0] < 0)
+		if (mousePosition[0] < 0)
 		{
 			cellPostionByMouse = new Vector2I((int)(cellPostionByMouse[0] - 1), (int)(cellPostionByMouse[1]));
 		}
@@ -393,7 +399,7 @@ public partial class TileMap : Godot.TileMap
 		if (mousePosition[1] < 0)
 		{
 			cellPostionByMouse = new Vector2I((int)(cellPostionByMouse[0]), (int)(cellPostionByMouse[1] - 1));
-		}*/
+		}
 
 		return cellPostionByMouse;
 	}

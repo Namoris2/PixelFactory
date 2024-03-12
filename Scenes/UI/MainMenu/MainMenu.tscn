@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cca243qeuh2c5"]
+[gd_scene load_steps=10 format=3 uid="uid://cca243qeuh2c5"]
 
 [ext_resource type="Texture2D" uid="uid://cakt6ts1d5n8k" path="res://Gimp/Ground Materials/ground.png" id="2_6d34b"]
 [ext_resource type="Script" path="res://Scenes/UI/MainMenu/World.cs" id="2_xkp41"]
+[ext_resource type="PackedScene" uid="uid://ealmg15lgtr5" path="res://Scenes/UI/Menu/ExitGame.tscn" id="4_6yric"]
+[ext_resource type="Script" path="res://Scenes/UI/MainMenu/ButtonInfo.cs" id="4_ufcr7"]
 [ext_resource type="Script" path="res://Scenes/UI/Menu/ChangeMenu.cs" id="4_x2mx5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5bhl0"]
@@ -1077,7 +1079,7 @@ anchor_right = 0.630208
 anchor_bottom = 0.871296
 grow_horizontal = 2
 
-[node name="NewGame" type="Button" parent="UI/TabContainer/MainMenu/FlowContainer2"]
+[node name="NewGame" type="Button" parent="UI/TabContainer/MainMenu/FlowContainer2" groups=["MenuButton"]]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
@@ -1086,23 +1088,28 @@ text = "New Game
 script = ExtResource("4_x2mx5")
 IndexOffset = 1
 
-[node name="LoadGame" type="Button" parent="UI/TabContainer/MainMenu/FlowContainer2"]
+[node name="LoadGame" type="Button" parent="UI/TabContainer/MainMenu/FlowContainer2" groups=["MenuButton"]]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
+disabled = true
 text = "Load Game
 "
 script = ExtResource("4_x2mx5")
 IndexOffset = 1
 
-[node name="Settings" type="Button" parent="UI/TabContainer/MainMenu/FlowContainer2"]
+[node name="Settings" type="Button" parent="UI/TabContainer/MainMenu/FlowContainer2" groups=["MenuButton"]]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
+disabled = true
 text = "Settings
 "
 script = ExtResource("4_x2mx5")
 IndexOffset = 1
+
+[node name="ExitGame" parent="UI/TabContainer/MainMenu/FlowContainer2" instance=ExtResource("4_6yric")]
+layout_mode = 2
 
 [node name="NewGame" type="TabBar" parent="UI/TabContainer"]
 visible = false
@@ -1169,3 +1176,12 @@ script = ExtResource("4_x2mx5")
 IndexOffset = 1
 GoHome = true
 metadata/_edit_use_anchors_ = true
+
+[node name="ButtonInfo" type="Label" parent="UI"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 30
+text = "This option is not available"
+script = ExtResource("4_ufcr7")

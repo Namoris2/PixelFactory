@@ -1,34 +1,21 @@
 [gd_scene load_steps=7 format=3 uid="uid://dyxbbw8tmug2l"]
 
-[ext_resource type="Texture2D" uid="uid://cwfyipj0juac5" path="res://Gimp/Ground Materials/DirtOld/Dirt_old.png" id="1_4vbnj"]
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.cs" id="1_10j8y"]
 [ext_resource type="PackedScene" uid="uid://cycrfkkc7xrqg" path="res://Scenes/UI/Menu/MenuSelect.tscn" id="2_amxgm"]
 [ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="2_e53n2"]
+[ext_resource type="Texture2D" uid="uid://5676axmk8hit" path="res://Gimp/UI/Inventory/BuildingInventory.png" id="3_xg42y"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hor1q"]
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0f5jq"]
+bg_color = Color(0.027451, 0.0156863, 0.0745098, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v35wg"]
-bg_color = Color(0.447059, 0.427451, 0.411765, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6dtkl"]
+bg_color = Color(0.0627451, 0.0431373, 0.164706, 1)
 
 [node name="BuildingInventory" type="Control"]
-custom_minimum_size = Vector2(579, 600)
+custom_minimum_size = Vector2(910, 980)
 layout_mode = 3
-anchor_left = 0.233333
-anchor_right = 0.733333
-anchor_bottom = 0.923077
+anchor_right = 0.473958
+anchor_bottom = 0.942593
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -37,9 +24,10 @@ script = ExtResource("1_10j8y")
 metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-anchor_right = 0.999999
-anchor_bottom = 0.0533333
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.0373281
 metadata/_edit_use_anchors_ = true
 
 [node name="TabContainer" type="TabContainer" parent="."]
@@ -49,6 +37,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 30
 current_tab = 1
 metadata/_edit_use_anchors_ = true
 
@@ -115,15 +104,13 @@ layout_mode = 2
 texture_filter = 1
 texture_repeat = 2
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.00207056
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 1.00207
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_4vbnj")
+texture = ExtResource("3_xg42y")
 expand_mode = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="Slots" type="Control" parent="TabContainer/Building"]
 layout_mode = 1
@@ -137,25 +124,24 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="DrillOutputSlot" parent="TabContainer/Building/Slots" groups=["SingleSlots"] instance=ExtResource("2_e53n2")]
-visible = false
 layout_mode = 1
-anchor_left = -0.399999
-anchor_top = -1.35
-anchor_right = 1.10002
-anchor_bottom = 0.149998
+anchor_left = -0.357151
+anchor_top = -1.35397
+anchor_right = 1.14287
+anchor_bottom = 0.146026
 offset_left = 0.0
-offset_top = 3.8147e-06
-offset_right = 0.0
-offset_bottom = 0.0
+offset_top = 7.62939e-06
+offset_right = -1.00022
+offset_bottom = -10.8086
 UserImport = false
 
 [node name="InputSlots" type="VFlowContainer" parent="TabContainer/Building/Slots"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -5.40005
-anchor_top = -2.19999
-anchor_right = -3.90004
-anchor_bottom = 4.24999
+anchor_left = -6.00006
+anchor_top = -2.19313
+anchor_right = -5.06255
+anchor_bottom = 4.25466
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
@@ -163,47 +149,247 @@ metadata/_edit_use_anchors_ = true
 visible = false
 layout_mode = 2
 
+[node name="Need" type="Label" parent="TabContainer/Building/Slots/InputSlots/InputSlot0"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.07222
+anchor_top = 0.1566
+anchor_right = 1.90555
+anchor_bottom = 0.489934
+offset_right = -10.0
+offset_bottom = -4.0
+theme_override_font_sizes/font_size = 15
+text = "need"
+metadata/_edit_use_anchors_ = true
+
+[node name="Rate" type="Label" parent="TabContainer/Building/Slots/InputSlots/InputSlot0"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.06667
+anchor_top = 0.560982
+anchor_right = 2.78334
+anchor_bottom = 0.894316
+offset_right = -53.0
+theme_override_font_sizes/font_size = 15
+text = "per minute"
+metadata/_edit_use_anchors_ = true
+
 [node name="InputSlot1" parent="TabContainer/Building/Slots/InputSlots" groups=["InputSlots"] instance=ExtResource("2_e53n2")]
 visible = false
 layout_mode = 2
+
+[node name="Need" type="Label" parent="TabContainer/Building/Slots/InputSlots/InputSlot1"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.07222
+anchor_top = 0.1566
+anchor_right = 1.90555
+anchor_bottom = 0.489934
+offset_right = -10.0
+offset_bottom = -4.0
+theme_override_font_sizes/font_size = 15
+text = "need"
+metadata/_edit_use_anchors_ = true
+
+[node name="Rate" type="Label" parent="TabContainer/Building/Slots/InputSlots/InputSlot1"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.06667
+anchor_top = 0.560982
+anchor_right = 2.78334
+anchor_bottom = 0.894316
+offset_right = -53.0
+theme_override_font_sizes/font_size = 15
+text = "per minute"
+metadata/_edit_use_anchors_ = true
 
 [node name="InputSlot2" parent="TabContainer/Building/Slots/InputSlots" groups=["InputSlots"] instance=ExtResource("2_e53n2")]
 visible = false
 layout_mode = 2
 
+[node name="Need" type="Label" parent="TabContainer/Building/Slots/InputSlots/InputSlot2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.07222
+anchor_top = 0.1566
+anchor_right = 1.90555
+anchor_bottom = 0.489934
+offset_right = -10.0
+offset_bottom = -4.0
+theme_override_font_sizes/font_size = 15
+text = "need"
+metadata/_edit_use_anchors_ = true
+
+[node name="Rate" type="Label" parent="TabContainer/Building/Slots/InputSlots/InputSlot2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.06667
+anchor_top = 0.560982
+anchor_right = 2.78334
+anchor_bottom = 0.894316
+offset_right = -53.0
+theme_override_font_sizes/font_size = 15
+text = "per minute"
+metadata/_edit_use_anchors_ = true
+
 [node name="InputSlot3" parent="TabContainer/Building/Slots/InputSlots" groups=["InputSlots"] instance=ExtResource("2_e53n2")]
 visible = false
 layout_mode = 2
 
+[node name="Need" type="Label" parent="TabContainer/Building/Slots/InputSlots/InputSlot3"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.07222
+anchor_top = 0.1566
+anchor_right = 1.90555
+anchor_bottom = 0.489934
+offset_right = -10.0
+offset_bottom = -4.0
+theme_override_font_sizes/font_size = 15
+text = "need"
+metadata/_edit_use_anchors_ = true
+
+[node name="Rate" type="Label" parent="TabContainer/Building/Slots/InputSlots/InputSlot3"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.06667
+anchor_top = 0.560982
+anchor_right = 2.78334
+anchor_bottom = 0.894316
+offset_right = -53.0
+theme_override_font_sizes/font_size = 15
+text = "per minute"
+metadata/_edit_use_anchors_ = true
+
 [node name="OutputSlots" type="VFlowContainer" parent="TabContainer/Building/Slots"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 5.40005
-anchor_top = -2.19999
-anchor_right = 6.90007
-anchor_bottom = 4.24999
+anchor_left = 6.06256
+anchor_top = -2.19313
+anchor_right = 7.00007
+anchor_bottom = 4.25466
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="OutputSlot0" parent="TabContainer/Building/Slots/OutputSlots" groups=["OutputSlots"] instance=ExtResource("2_e53n2")]
 visible = false
+layout_direction = 0
 layout_mode = 2
+size_flags_horizontal = 8
 UserImport = false
+
+[node name="Produce" type="Label" parent="TabContainer/Building/Slots/OutputSlots/OutputSlot0"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.667
+anchor_bottom = 0.267
+offset_left = -196.0
+offset_top = 9.65894
+offset_right = -45.0196
+offset_bottom = 13.6389
+theme_override_font_sizes/font_size = 15
+text = "produce"
+horizontal_alignment = 2
+
+[node name="Rate" type="Label" parent="TabContainer/Building/Slots/OutputSlots/OutputSlot0"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -3.26667
+anchor_top = 0.566667
+anchor_right = -0.0833333
+anchor_bottom = 0.9
+theme_override_font_sizes/font_size = 15
+text = "per minute"
+horizontal_alignment = 2
 
 [node name="OutputSlot1" parent="TabContainer/Building/Slots/OutputSlots" groups=["OutputSlots"] instance=ExtResource("2_e53n2")]
 visible = false
 layout_mode = 2
 UserImport = false
 
+[node name="Produce" type="Label" parent="TabContainer/Building/Slots/OutputSlots/OutputSlot1"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.667
+anchor_bottom = 0.267
+offset_left = -196.0
+offset_top = 9.65894
+offset_right = -45.0196
+offset_bottom = 13.6389
+theme_override_font_sizes/font_size = 15
+text = "produce"
+horizontal_alignment = 2
+
+[node name="Rate" type="Label" parent="TabContainer/Building/Slots/OutputSlots/OutputSlot1"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -3.26667
+anchor_top = 0.566667
+anchor_right = -0.0833333
+anchor_bottom = 0.9
+theme_override_font_sizes/font_size = 15
+text = "per minute"
+horizontal_alignment = 2
+
 [node name="OutputSlot2" parent="TabContainer/Building/Slots/OutputSlots" groups=["OutputSlots"] instance=ExtResource("2_e53n2")]
 visible = false
+layout_direction = 0
 layout_mode = 2
 UserImport = false
 
+[node name="Produce" type="Label" parent="TabContainer/Building/Slots/OutputSlots/OutputSlot2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.667
+anchor_bottom = 0.267
+offset_left = -196.0
+offset_top = 9.65894
+offset_right = -45.0196
+offset_bottom = 13.6389
+theme_override_font_sizes/font_size = 15
+text = "produce"
+horizontal_alignment = 2
+
+[node name="Rate" type="Label" parent="TabContainer/Building/Slots/OutputSlots/OutputSlot2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -3.26667
+anchor_top = 0.566667
+anchor_right = -0.0833333
+anchor_bottom = 0.9
+theme_override_font_sizes/font_size = 15
+text = "per minute"
+horizontal_alignment = 2
+
 [node name="OutputSlot3" parent="TabContainer/Building/Slots/OutputSlots" groups=["OutputSlots"] instance=ExtResource("2_e53n2")]
 visible = false
+layout_direction = 0
 layout_mode = 2
 UserImport = false
+
+[node name="Produce" type="Label" parent="TabContainer/Building/Slots/OutputSlots/OutputSlot3"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.667
+anchor_bottom = 0.267
+offset_left = -196.0
+offset_top = 9.65894
+offset_right = -45.0196
+offset_bottom = 13.6389
+theme_override_font_sizes/font_size = 15
+text = "produce"
+horizontal_alignment = 2
+
+[node name="Rate" type="Label" parent="TabContainer/Building/Slots/OutputSlots/OutputSlot3"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -3.26667
+anchor_top = 0.566667
+anchor_right = -0.0833333
+anchor_bottom = 0.9
+theme_override_font_sizes/font_size = 15
+text = "per minute"
+horizontal_alignment = 2
 
 [node name="StorageSlots" type="ScrollContainer" parent="TabContainer/Building/Slots"]
 layout_mode = 1
@@ -222,14 +408,16 @@ size_flags_horizontal = 3
 [node name="Name" type="Label" parent="TabContainer/Building"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.222609
-anchor_top = 0.00175747
-anchor_right = 0.77913
-anchor_bottom = 0.0579965
+anchor_left = 0.194505
+anchor_top = 0.0244898
+anchor_right = 0.805494
+anchor_bottom = 0.0857143
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 50
 text = "name"
 horizontal_alignment = 1
+vertical_alignment = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Production" type="Label" parent="TabContainer/Building"]
@@ -241,6 +429,7 @@ anchor_right = 0.765217
 anchor_bottom = 0.282953
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 30
 text = "production"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
@@ -248,14 +437,14 @@ metadata/_edit_use_anchors_ = true
 [node name="ProductionProgress" type="ProgressBar" parent="TabContainer/Building"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.306667
-anchor_top = 0.465729
-anchor_right = 0.71
-anchor_bottom = 0.539543
+anchor_left = 0.291209
+anchor_top = 0.467573
+anchor_right = 0.694542
+anchor_bottom = 0.541387
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_styles/background = SubResource("StyleBoxFlat_hor1q")
-theme_override_styles/fill = SubResource("StyleBoxFlat_v35wg")
+theme_override_colors/font_color = Color(0.792157, 0.792157, 0.792157, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_0f5jq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6dtkl")
 max_value = 1.0
 metadata/_edit_use_anchors_ = true

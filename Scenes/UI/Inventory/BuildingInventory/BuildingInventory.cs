@@ -19,13 +19,15 @@ public partial class BuildingInventory : Control
 	public Label resourceProduction;
 	ProgressBar productionProgress;
 	Vector2I coordinates;
+	LoadFile load = new();
+	dynamic items;
 
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		LoadFile load = new();
 		recipes = load.LoadJson("recipes.json");
+		items = load.LoadJson("items.json");
 
 		tileMap = GetNode<TileMap>("/root/main/World/TileMap");
 		tileMap.ToggleInventory += ToggleInventory;
@@ -116,11 +118,9 @@ public partial class BuildingInventory : Control
 				dynamic recipe = recipes[buildingInfo.recipe.ToString()];
 				resourceProduction.Text = "Recipe: none";
 
-				if (buildingInfo.recipe.ToString() == "none")
+				if (buildingInfo.type.ToString() != "drill")
 				{
-					tabContainer.CurrentTab = 0;
 					TabContainer recipesTab = GetNode<TabContainer>("TabContainer/Recipes");
-
 					switch (buildingInfo.type.ToString())
 					{
 						case "smelter":
@@ -135,6 +135,11 @@ public partial class BuildingInventory : Control
 							GD.PrintErr("Unknown building");
 							break;
 					}
+				}
+
+				if (buildingInfo.recipe.ToString() == "none")
+				{
+					tabContainer.CurrentTab = 0;
 				}
 				else
 				{
@@ -163,6 +168,8 @@ public partial class BuildingInventory : Control
 							slot.buildingCoordinates = coordinates;
 							slot.itemType = buildingInfo.inputSlots[i].resource.ToString();
 							slot.inventoryType = INVENTORYTYPE;
+							slot.GetNode<Label>("Need").Text = $"{recipe.input[i].amount}x {items[recipe.input[i].name.ToString()].name}";
+							slot.GetNode<Label>("Rate").Text = $"{recipe.cyclesPerMinute * recipe.input[i].amount} / min";
 							slot.UpdateSlotTexture(slot.itemType);
 							slot.Show();
 						}
@@ -173,6 +180,8 @@ public partial class BuildingInventory : Control
 							slot.buildingCoordinates = coordinates;
 							slot.itemType = buildingInfo.outputSlots[i].resource.ToString();
 							slot.inventoryType = INVENTORYTYPE;
+							slot.GetNode<Label>("Produce").Text = $"{recipe.output[i].amount.ToString()}x {items[recipe.output[i].name.ToString()].name.ToString()}";
+							slot.GetNode<Label>("Rate").Text = $"{recipe.cyclesPerMinute * recipe.output[i].amount} / min";
 							slot.UpdateSlotTexture(slot.itemType);
 							slot.Show();
 						}
