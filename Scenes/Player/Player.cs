@@ -4,27 +4,30 @@ using System.Runtime.CompilerServices;
 
 public partial class Player : Godot.CharacterBody2D
 {
-	public int Speed { get; set; } = 400;
+	public int defaultSpeed = 400;
+	int actualSpeed;
+	int speed;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		actualSpeed = defaultSpeed;
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionPressed("Sprint"))
 		{
-			Speed = 700;
+			speed = (int)(actualSpeed * 1.5f);
 		}
 		else 
 		{
-			Speed = 400;
+			speed = actualSpeed;
 		}
 	}
 	public void GetInput()
 	{
 		Vector2 inputDirection = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
-		Velocity = inputDirection * Speed; 
+		Velocity = inputDirection * speed; 
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -55,5 +58,15 @@ public partial class Player : Godot.CharacterBody2D
 		{
 			playerSprite.Texture = GD.Load<Texture2D>(path + "playerPlaceholder.png");
 		}
+	}
+
+	private void CollidedWithWater(Node2D node)
+	{
+		actualSpeed = 150;
+	}
+
+	private void ExitedFromWater(Node2D node)
+	{
+		actualSpeed = defaultSpeed;
 	}
 }

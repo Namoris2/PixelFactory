@@ -52,6 +52,7 @@ Move DOWN				    S
 Move LEFT					A
 Move RIGHT				D
 Sprint							SHIFT
+Open Inventory		TAB
 Zoom							    MOUSE WHEEL"
 metadata/_edit_use_anchors_ = true
 
@@ -63,12 +64,12 @@ anchor_top = 0.283951
 anchor_right = 0.993056
 anchor_bottom = 1.0
 theme_override_font_sizes/normal_font_size = 25
-text = "	Harvest Resource / 		LEFT MOUSE
-	Collect from building	BUTTON
-	Open Build Menu			Q
-	Rotate Building				R
-	Dismantle Building		F
-	Interact							E
+text = "	Harvest Resource / 			LEFT MOUSE
+	Collect from building			BUTTON
+	Open Build Menu					Q
+	Rotate Building						R
+	Dismantle Building				F
+	Interact									E
 
 "
 metadata/_edit_use_anchors_ = true

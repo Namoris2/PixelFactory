@@ -25,11 +25,9 @@ public partial class PlayerInventory : Control
 		items = inventorySlots[0].items;
 
 		// cheat items to inventory
-		PutToInventory("IronIngot", 200);
-		PutToInventory("CopperIngot", 200);
-		PutToInventory("IronPlate", 400);
-		PutToInventory("IronRod", 400);
-		PutToInventory("Wire", 500);
+		PutToInventory("IronPlate", 20);
+		PutToInventory("IronRod", 20);
+		PutToInventory("Wire", 10);
 	}
 
 	private void CreateInventorySlots()
@@ -77,7 +75,6 @@ public partial class PlayerInventory : Control
 		return amount;
 	}
 	
-
 	public bool IsInInventory(string itemType, int amount)
 	{
 		if (itemType == "" || amount == 0) { return true; }

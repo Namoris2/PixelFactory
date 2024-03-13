@@ -9,11 +9,11 @@ public partial class GenerationTest : TileMap
 	{
 		GenerateWorld generateWorld = GetNode<GenerateWorld>("/root/main/GenerateWorld");
 
-		int mapRadius = 250;
+		/*int mapRadius = 250;
 		generateWorld.GenerateResource(this, mapRadius, "Grass", true);
 		generateWorld.GenerateResource(this, mapRadius, "IronOre");
 		generateWorld.GenerateResource(this, mapRadius, "CoalOre");
-		generateWorld.GenerateResource(this, mapRadius, "CopperOre");
+		generateWorld.GenerateResource(this, mapRadius, "CopperOre");*/
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

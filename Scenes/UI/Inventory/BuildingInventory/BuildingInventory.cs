@@ -13,7 +13,7 @@ public partial class BuildingInventory : Control
 	private dynamic recipes;
 	public string INVENTORYTYPE = "machine";
 	public dynamic buildingInfo;
-	TileMap tileMap;
+	World tileMap;
 	private Label building;
 	private Label resources;
 	public Label resourceProduction;
@@ -29,7 +29,7 @@ public partial class BuildingInventory : Control
 		recipes = load.LoadJson("recipes.json");
 		items = load.LoadJson("items.json");
 
-		tileMap = GetNode<TileMap>("/root/main/World/TileMap");
+		tileMap = GetNode<World>("/root/main/World/TileMap");
 		tileMap.ToggleInventory += ToggleInventory;
 		tileMap.UpdateBuildingProgress += UpdateInventory;
 

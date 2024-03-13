@@ -25,7 +25,7 @@ public partial class InventorySlot : Button
 	public int inventorySlotIndex;
 	public string inventoryType;
 	public Vector2I buildingCoordinates;
-	private TileMap tileMap;
+	private World tileMap;
 
 	public dynamic items;
 	// Called when the node enters the scene tree for the first time.
@@ -40,8 +40,8 @@ public partial class InventorySlot : Button
 		
 		inventorySlotIndex = this.GetIndex();
 
-		textureAtlas.Atlas = GD.Load<Texture2D>("res://Gimp/items/items.png");
-		tileMap = GetNode<TileMap>("/root/main/World/TileMap");
+		textureAtlas.Atlas = GD.Load<Texture2D>("res://Gimp/Items/items.png");
+		tileMap = GetNode<World>("/root/main/World/TileMap");
 
 		string name = this.Name;
 		if(name.Contains("Input"))
@@ -102,7 +102,7 @@ public partial class InventorySlot : Button
 			EmitSignal(SignalName.ShowHoldingItem, itemType, resourceAmount.Text);
 			if (inventoryType == "machine")
 			{
-				TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
+				World tileMap = GetNode<World>("/root/main/World/TileMap");
 				LoadFile load = new ();
 				
 				tileMap.RemoveItemFromSlot(buildingCoordinates, slotType, inventorySlotIndex);
@@ -133,7 +133,7 @@ public partial class InventorySlot : Button
 		{
 			if (inventoryType == "machine" && holdingItem.itemName == itemType)
 			{
-				TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
+				World tileMap = GetNode<World>("/root/main/World/TileMap");
 
 				tileMap.PutItemToSlot(buildingCoordinates, int.Parse(holdingItem.itemAmount), itemType, slotType, inventorySlotIndex);
 			}

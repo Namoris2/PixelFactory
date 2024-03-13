@@ -3,12 +3,12 @@ using System;
 
 public partial class Inventories : CanvasLayer
 {
-	TileMap tileMap;
+	World tileMap;
 	dynamic buildingDisplayInfo;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		tileMap = GetNode<TileMap>("/root/main/World/TileMap");
+		tileMap = GetNode<World>("/root/main/World/TileMap");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

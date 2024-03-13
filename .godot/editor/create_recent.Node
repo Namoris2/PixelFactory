@@ -1,3 +1,4 @@
+Area2D
 Label
 Panel
 VFlowContainer
@@ -11,4 +12,3 @@ TabContainer
 VBoxContainer
 CenterContainer
 Control
-TileMap

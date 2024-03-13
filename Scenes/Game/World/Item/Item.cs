@@ -57,7 +57,7 @@ public partial class Item : Node2D
 			QueueFree(); 
 			if (!onGround)
 			{
-				TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
+				World tileMap = GetNode<World>("/root/main/World/TileMap");
 				string[] coordsArr = Name.ToString().Split('x');
 				Vector2I coords = new Vector2I(int.Parse(coordsArr[0]), int.Parse(coordsArr[1]));
 

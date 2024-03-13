@@ -8,7 +8,7 @@ public partial class GenerateWorld : Node
 {
 	string[] groundTerrains = { "Grass", "Water", "IronOre", "CopperOre" };
 
-    public void GenerateResource(TileMap tileMap, int mapRadius, string resourceInput, bool generateWater = false)
+    public void GenerateResource(World tileMap, int mapRadius, string resourceInput, bool generateWater = false)
 	{
 
 		GD.Print(tileMap.GetPath());

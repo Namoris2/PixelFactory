@@ -48,7 +48,7 @@ public partial class MenuSelect : Button
 		
 		Vector2I atlasCoords = new Vector2I((int)data.atlasCoords[0], (int)data.atlasCoords[1]);
 
-		texture.Atlas = GD.Load<Texture2D>($"res://Gimp/{Type}s/{Type}s.png");
+		texture.Atlas = GD.Load<Texture2D>($"res://Gimp/{char.ToUpper(Type[0]) + Type.Substring(1)}s/{Type}s.png");
 		texture.Region = new Rect2I(atlasCoords[0] * 16, atlasCoords[1] * 16, size.X * 16, size.Y * 16);
 		GetNode<TextureRect>("Texture").Texture = texture;
 	}
@@ -60,7 +60,7 @@ public partial class MenuSelect : Button
 
 	private void SelectRecipe()
 	{
-		TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
+		World tileMap = GetNode<World>("/root/main/World/TileMap");
 		BuildingInventory buildingInventory = GetNode<BuildingInventory>("/root/main/UI/Inventories/InventoryGrid/BuildingInventory");
 		
 		Vector2I coords = new Vector2I((int)buildingInventory.buildingInfo.coords[0], (int)buildingInventory.buildingInfo.coords[1]);
@@ -75,7 +75,7 @@ public partial class MenuSelect : Button
 		BuildMenu buildMenu = GetNode<BuildMenu>("/root/main/UI/BuildMenu");
 		buildMenu.ToggleBuildMode();
 
-		TileMap tileMap = GetNode<TileMap>("/root/main/World/TileMap");
+		World tileMap = GetNode<World>("/root/main/World/TileMap");
 		tileMap.selectedBuilding = DisplayName;
 		tileMap.BUILDINGMODE = false;
 		tileMap.ToggleBuildMode();
