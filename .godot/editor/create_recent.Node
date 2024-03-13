@@ -1,5 +1,6 @@
-VFlowContainer
 Label
+Panel
+VFlowContainer
 FlowContainer
 HFlowContainer
 Button
@@ -11,4 +12,3 @@ VBoxContainer
 CenterContainer
 Control
 TileMap
-Node2D

@@ -2,6 +2,7 @@ using Godot;
 using Godot.Collections;
 using System;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 public partial class MenuSelect : Button
 {
@@ -29,6 +30,9 @@ public partial class MenuSelect : Button
 			case "building":
 				this.Pressed += Build;
 				size = new ((int)data.width, (int)data.height);
+
+				MouseEntered += ShowBuildingInfo;
+				MouseExited += HideBuildingInfo;
 				break;
 
 			case "recipe":
@@ -76,5 +80,17 @@ public partial class MenuSelect : Button
 		tileMap.BUILDINGMODE = false;
 		tileMap.ToggleBuildMode();
 		if (!(bool)data.canRotate) { tileMap.buildingRotation = 0; }
+	}
+
+	private void ShowBuildingInfo()
+	{
+		BuildingInfo buildingInfo = (BuildingInfo)GetTree().GetNodesInGroup("BuildingInfo")[0];
+		buildingInfo.ShowBuildingInfo(DisplayName);
+	}
+	
+	private void HideBuildingInfo()
+	{
+		BuildingInfo buildingInfo = (BuildingInfo)GetTree().GetNodesInGroup("BuildingInfo")[0];
+		buildingInfo.HideBuildingInfo();
 	}
 }

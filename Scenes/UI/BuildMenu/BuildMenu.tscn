@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bsymbesh48kwd"]
+[gd_scene load_steps=5 format=3 uid="uid://bsymbesh48kwd"]
 
 [ext_resource type="Script" path="res://Scenes/UI/BuildMenu/TabSelect.cs" id="1_jxuxl"]
 [ext_resource type="PackedScene" uid="uid://cycrfkkc7xrqg" path="res://Scenes/UI/Menu/MenuSelect.tscn" id="1_oydjw"]
+[ext_resource type="Script" path="res://Scenes/UI/BuildMenu/BuildingInfo.cs" id="3_ss521"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ostt8"]
 
@@ -28,7 +29,7 @@ metadata/_edit_use_anchors_ = true
 [node name="VFlowContainer" type="VFlowContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 0.0934066
+anchor_right = 0.0885417
 anchor_bottom = 1.0
 theme_override_constants/v_separation = 0
 alignment = 1
@@ -59,7 +60,7 @@ script = ExtResource("1_jxuxl")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0885417
-anchor_right = 1.0
+anchor_right = 0.816667
 anchor_bottom = 1.0
 tabs_visible = false
 metadata/_edit_use_anchors_ = true
@@ -110,3 +111,67 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 DisplayName = "smallStorage"
 Type = "building"
+
+[node name="BuildingInfo" type="Panel" parent="." groups=["BuildingInfo"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.816667
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("3_ss521")
+metadata/_edit_use_anchors_ = true
+
+[node name="Name" type="Label" parent="BuildingInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.136364
+anchor_top = 0.0444444
+anchor_right = 0.863636
+anchor_bottom = 0.0888889
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
+text = "name"
+horizontal_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Description" type="Label" parent="BuildingInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0227273
+anchor_top = 0.118519
+anchor_right = 0.977273
+anchor_bottom = 0.622222
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "description"
+horizontal_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="NeedsHeader" type="Label" parent="BuildingInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0227273
+anchor_top = 0.659259
+anchor_right = 0.977273
+anchor_bottom = 0.681481
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "Needed resources"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Needs" type="Label" parent="BuildingInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0227273
+anchor_top = 0.696296
+anchor_right = 0.977273
+anchor_bottom = 0.903704
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "needs"
+horizontal_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
