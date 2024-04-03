@@ -1,27 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cca243qeuh2c5"]
+[gd_scene load_steps=11 format=3 uid="uid://cca243qeuh2c5"]
 
+[ext_resource type="Script" path="res://Scenes/UI/MainMenu/MainMenu.cs" id="1_k8ci2"]
 [ext_resource type="Texture2D" uid="uid://cakt6ts1d5n8k" path="res://Gimp/Ground Materials/ground.png" id="2_6d34b"]
 [ext_resource type="PackedScene" uid="uid://ealmg15lgtr5" path="res://Scenes/UI/Menu/ExitGame.tscn" id="4_6yric"]
 [ext_resource type="Script" path="res://Scenes/UI/MainMenu/ButtonInfo.cs" id="4_ufcr7"]
 [ext_resource type="Script" path="res://Scenes/UI/Menu/ChangeMenu.cs" id="4_x2mx5"]
-
-[sub_resource type="CSharpScript" id="CSharpScript_1abju"]
-script/source = "using Godot;
-using System;
-
-public partial class World : Node2D
-{
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-}
-"
+[ext_resource type="Script" path="res://Scenes/UI/Save and Load/LoadGame.cs" id="5_x4nho"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5bhl0"]
 texture = ExtResource("2_6d34b")
@@ -1037,10 +1021,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_k8ci2")
 metadata/_edit_use_anchors_ = true
 
 [node name="World" type="Node2D" parent="."]
-script = SubResource("CSharpScript_1abju")
 
 [node name="TileMap" type="TileMap" parent="World"]
 tile_set = SubResource("TileSet_tg2ci")
@@ -1109,7 +1093,6 @@ IndexOffset = 1
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-disabled = true
 text = "Load Game
 "
 script = ExtResource("4_x2mx5")
@@ -1132,6 +1115,97 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
+[node name="Background" type="Panel" parent="UI/TabContainer/NewGame"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0182292
+anchor_top = 0.0185185
+anchor_right = 0.981771
+anchor_bottom = 0.722222
+offset_top = 85.0
+offset_bottom = 85.0
+
+[node name="Label" type="Label" parent="UI/TabContainer/NewGame"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -476.0
+offset_top = 20.0
+offset_right = 476.0
+offset_bottom = 90.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 70
+text = "New Game"
+horizontal_alignment = 1
+
+[node name="SaveNameInput" type="LineEdit" parent="UI/TabContainer/NewGame"]
+layout_mode = 0
+offset_left = 413.0
+offset_top = 188.0
+offset_right = 1613.0
+offset_bottom = 260.0
+theme_override_font_sizes/font_size = 40
+placeholder_text = "Game Name"
+max_length = 200
+caret_blink = true
+
+[node name="Label" type="Label" parent="UI/TabContainer/NewGame/SaveNameInput"]
+layout_mode = 0
+offset_top = -48.0
+offset_right = 282.0
+offset_bottom = 2.0
+theme_override_font_sizes/font_size = 50
+text = "Game Name"
+
+[node name="ErrorMessage" type="Label" parent="UI/TabContainer/NewGame"]
+layout_mode = 0
+offset_left = 413.0
+offset_top = 264.0
+offset_right = 453.0
+offset_bottom = 280.0
+theme_override_colors/font_color = Color(0.760784, 0, 0.00392157, 1)
+theme_override_font_sizes/font_size = 30
+
+[node name="SeedInput" type="LineEdit" parent="UI/TabContainer/NewGame"]
+layout_mode = 0
+offset_left = 413.0
+offset_top = 363.0
+offset_right = 1613.0
+offset_bottom = 435.0
+theme_override_font_sizes/font_size = 40
+placeholder_text = "Seed (optional)"
+max_length = 10
+caret_blink = true
+
+[node name="Label" type="Label" parent="UI/TabContainer/NewGame/SeedInput"]
+layout_mode = 0
+offset_top = -48.0
+offset_right = 282.0
+offset_bottom = 2.0
+theme_override_font_sizes/font_size = 50
+text = "Seed"
+
+[node name="CreateGame" type="Button" parent="UI/TabContainer/NewGame"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.369792
+anchor_top = 0.48112
+anchor_right = 0.630208
+anchor_bottom = 0.573713
+offset_left = -0.000671387
+offset_top = 160.39
+offset_right = 0.000610352
+offset_bottom = 160.39
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 50
+text = "Create Game"
+script = ExtResource("5_x4nho")
+loadSave = false
+metadata/_edit_use_anchors_ = true
+
 [node name="Back" type="Button" parent="UI/TabContainer/NewGame"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 1
@@ -1140,7 +1214,10 @@ anchor_left = 0.369792
 anchor_top = 0.771296
 anchor_right = 0.630208
 anchor_bottom = 0.863889
-offset_bottom = 6.10352e-05
+offset_left = -0.000671387
+offset_top = 87.0003
+offset_right = 0.000610352
+offset_bottom = 87.0004
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 50
@@ -1154,14 +1231,50 @@ metadata/_edit_use_anchors_ = true
 visible = false
 layout_mode = 2
 
+[node name="Label" type="Label" parent="UI/TabContainer/LoadGame"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -476.0
+offset_top = 20.0
+offset_right = 476.0
+offset_bottom = 90.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 70
+text = "Load Game"
+horizontal_alignment = 1
+
+[node name="LoadedSaves" type="ScrollContainer" parent="UI/TabContainer/LoadGame"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0182292
+anchor_top = 0.0185185
+anchor_right = 0.981771
+anchor_bottom = 0.722222
+offset_left = -6.48499e-05
+offset_top = 85.0
+offset_right = -0.00012207
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TabContainer/LoadGame/LoadedSaves" groups=["LoadedSaves"]]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="Back" type="Button" parent="UI/TabContainer/LoadGame"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.369792
-anchor_top = 0.771296
+anchor_top = 0.851852
 anchor_right = 0.630208
-anchor_bottom = 0.863889
+anchor_bottom = 0.944445
+offset_left = -0.000671387
+offset_right = 0.000610352
 offset_bottom = 6.10352e-05
 grow_horizontal = 2
 grow_vertical = 0

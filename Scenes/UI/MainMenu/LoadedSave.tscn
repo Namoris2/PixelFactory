@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=3 uid="uid://isno1ke6mjop"]
+
+[ext_resource type="Script" path="res://Scenes/UI/Save and Load/LoadGame.cs" id="1_pikq7"]
+
+[node name="Save" type="Panel"]
+custom_minimum_size = Vector2(0, 150)
+anchors_preset = -1
+anchor_right = 0.8625
+anchor_bottom = 0.138889
+size_flags_horizontal = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="SaveName" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0156757
+anchor_top = 0.133333
+anchor_right = 0.30973
+anchor_bottom = 0.56
+theme_override_font_sizes/font_size = 50
+text = "save name"
+metadata/_edit_use_anchors_ = true
+
+[node name="LastPlayed" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0157005
+anchor_top = 0.533333
+anchor_right = 0.309755
+anchor_bottom = 0.96
+theme_override_font_sizes/font_size = 30
+text = "last played"
+metadata/_edit_use_anchors_ = true
+
+[node name="LoadGame" type="Button" parent="."]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -328.0
+offset_top = -62.0
+offset_right = -178.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(75, 25)
+theme_override_font_sizes/font_size = 30
+text = "LOAD"
+script = ExtResource("1_pikq7")
+
+[node name="Delete" type="Button" parent="."]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -168.0
+offset_top = -62.0
+offset_right = -18.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(75.1514, 25)
+theme_override_font_sizes/font_size = 30
+text = "DELETE"

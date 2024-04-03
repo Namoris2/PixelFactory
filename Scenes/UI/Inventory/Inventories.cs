@@ -26,7 +26,7 @@ public partial class Inventories : CanvasLayer
         
 		if (@event.IsActionPressed("Interact"))
 		{
-			buildingDisplayInfo = tileMap.GetBuildingInfo(tileMap.cellPostionByMouse);
+			buildingDisplayInfo = tileMap.GetBuildingInfo(tileMap.cellPositionByMouse);
 			
 			if (!Visible && tileMap.buildingsData != null)
 			{

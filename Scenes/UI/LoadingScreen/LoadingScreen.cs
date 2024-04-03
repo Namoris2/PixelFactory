@@ -1,11 +1,14 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Runtime.CompilerServices;
 
 public partial class LoadingScreen : Control
 {
 	public string scenePath;
+	string savePath;
 	private bool loading = false;
+	public bool loadingSave = false;
 	ResourceLoader.ThreadLoadStatus loadStatus = 0;
 	Godot.Collections.Array progress = new() {};
 
@@ -31,8 +34,27 @@ public partial class LoadingScreen : Control
 
 			if (loadStatus == ResourceLoader.ThreadLoadStatus.Loaded)
 			{
-				PackedScene newScene = (PackedScene)ResourceLoader.LoadThreadedGet(scenePath);
-				GetTree().ChangeSceneToPacked(newScene);
+				GD.Print("Game Loaded");
+				PackedScene newScene = (PackedScene)ResourceLoader.LoadThreadedGet("res://Scenes/main.tscn");
+				Node sceneInstantiated = newScene.Instantiate();
+				GetTree().Root.AddChild(sceneInstantiated);
+				
+				if (loadingSave)
+				{
+					string savedGame = FileAccess.Open(savePath, FileAccess.ModeFlags.Read).GetAsText();
+					Array<Node> nodes = GetTree().GetNodesInGroup("CanSave");
+
+					if (!Godot.FileAccess.FileExists(savePath)) { return; }
+				
+					string[] savedGameList = savedGame.Split("\n");
+
+					foreach (Node node in nodes)
+					{
+						string data = savedGameList[nodes.IndexOf(node)];
+						node.Call("Load", data);
+					}
+					GD.Print("Save Loaded");
+				}
 				QueueFree();
 			}
 		}
@@ -43,6 +65,7 @@ public partial class LoadingScreen : Control
 		if (scenePath == null) { GD.PrintErr("Scene Path not set"); return; }
 
 		loading = true;
+		savePath = GetNode<main>("/root/GameInfo").savePath;
 		ResourceLoader.LoadThreadedRequest(scenePath);
 	}
 }

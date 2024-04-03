@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Dynamic;
 using System.Runtime.CompilerServices;
 
 public partial class Player : Godot.CharacterBody2D
@@ -58,6 +59,21 @@ public partial class Player : Godot.CharacterBody2D
 		{
 			playerSprite.Texture = GD.Load<Texture2D>(path + "playerPlaceholder.png");
 		}
+	}
+
+	public string Save()
+	{
+		string X = Position.X.ToString().Replace(',', '.');
+		string Y = Position.Y.ToString().Replace(',', '.');
+
+		return $"[{X}, {Y}]";
+	}
+	
+	public void Load(string data)
+	{
+		dynamic parsedData = Newtonsoft.Json.JsonConvert.DeserializeObject(data);
+		Position = new ((float)parsedData[0], (float)parsedData[1]);
+		GD.Print("Player Loaded");
 	}
 
 	private void CollidedWithWater(Node2D node)

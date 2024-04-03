@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="PixelFactory"
-run/main_scene="res://Scenes/UI/MainMenu/MainMenu.tscn"
+run/main_scene="res://Scenes/main.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 run/max_fps=60
 boot_splash/show_image=false
@@ -22,6 +22,7 @@ config/windows_native_icon="res://Gimp/GameIcon.ico"
 
 LoadFile="*res://Scenes/Game/LoadFile.cs"
 GenerateWorld="*res://Scenes/Game/World/GenerateWorld.cs"
+GameInfo="*res://Scenes/main.cs"
 
 [display]
 

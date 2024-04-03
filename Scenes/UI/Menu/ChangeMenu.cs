@@ -36,20 +36,6 @@ public partial class ChangeMenu : Button
 
 	private void ChangeTab()
 	{
-		if (Name == "NewGame")
-		{
-			LoadingScreen loadingScreen = (LoadingScreen)GD.Load<PackedScene>("res://Scenes/UI/LoadingScreen/LoadingScreen.tscn").Instantiate();
-			
-			loadingScreen.scenePath = "res://Scenes/main.tscn";
-			loadingScreen.StartLoading();
-
-			GetTree().Root.AddChild(loadingScreen);
-			QueueFree();
-
-			GD.Print("scene changed");
-			return;
-		}
-
 		if (GoHome)
 		{
 			tabContainer.CurrentTab = HomeIndex;
@@ -58,7 +44,14 @@ public partial class ChangeMenu : Button
 		{
 			tabContainer.CurrentTab = GetIndex() + IndexOffset;
 		}
-		GD.Print(tabContainer.CurrentTab, tabContainer.GetChild(tabContainer.CurrentTab).Name);
+
+		if (GetParent().Name == "NewGame")
+		{
+			GetNode<LineEdit>("../SaveNameInput").Text = "";
+			GetNode<LineEdit>("../SeedInput").Text = "";
+			GetNode<Label>("../ErrorMessage").Text = "";
+		}
+		//GD.Print(tabContainer.CurrentTab, tabContainer.GetChild(tabContainer.CurrentTab).Name);
 	}
 
 	private void ShowButtonInfo()

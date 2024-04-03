@@ -3,8 +3,10 @@ using Godot.Collections;
 using System;
 using System.Collections.Generic;
 
-public partial class main : Node2D
+public partial class main : Node
 {
+	public string savePath;
+	public int seed;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

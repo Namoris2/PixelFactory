@@ -1,12 +1,16 @@
 using Godot;
+using Godot.Collections;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.SymbolStore;
+using System.Dynamic;
 using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 
 public partial class PlayerInventory : Control
 {
-	FlowContainer flowContainer;
+    private const int V = 10;
+    FlowContainer flowContainer;
 	private InventorySlot inventorySlot;
 	private string inventorySlotPath = "res://Scenes/UI/Inventory/InventorySlot.tscn";
 	public InventorySlot[] inventorySlots;
@@ -24,10 +28,17 @@ public partial class PlayerInventory : Control
 		CreateInventorySlots();
 		items = inventorySlots[0].items;
 
-		// cheat items to inventory
-		PutToInventory("IronPlate", 20);
-		PutToInventory("IronRod", 20);
-		PutToInventory("Wire", 10);
+		LoadingScreen loadingScreen = GetNodeOrNull<LoadingScreen>("/root/LoadingScreen");
+
+		if (loadingScreen == null || !loadingScreen.loadingSave)
+		{
+			// cheat items to inventory
+			PutToInventory("IronIngot", 100);
+			PutToInventory("CopperIngot", 100);
+			PutToInventory("IronPlate", 200);
+			PutToInventory("IronRod", 200);
+			PutToInventory("Wire", 500);
+		}
 	}
 
 	private void CreateInventorySlots()
@@ -130,5 +141,57 @@ public partial class PlayerInventory : Control
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+	}
+
+	public string Save()
+	{
+		List<System.Collections.Generic.Dictionary<string, dynamic>> slots = new();
+		foreach (InventorySlot slot in inventorySlots)
+		{
+			System.Collections.Generic.Dictionary<string, dynamic> slotInfo = new();
+			string itemType = slot.itemType;
+			string amountString = slot.GetNode<Label>("ResourceAmount").Text;
+
+			int amount = 0;
+			if (itemType != "")
+			{
+				if (amountString != "")
+				{
+					amount = int.Parse(amountString);
+				}
+				else
+				{
+					amount = 1;
+				}
+			}
+
+			slotInfo.Add("resource", itemType);
+			slotInfo.Add("amount", amount);
+			slots.Add(slotInfo);
+		}
+		return Newtonsoft.Json.JsonConvert.SerializeObject(slots);
+	}
+
+	public void Load(string data)
+	{
+		dynamic parsedData = Newtonsoft.Json.JsonConvert.DeserializeObject(data);
+		for (int i = 0; i < parsedData.Count; i++)
+		{
+			string itemType = parsedData[i].resource.ToString();
+			int amount = (int)parsedData[i].amount;
+			InventorySlot slot = inventorySlots[i];
+
+			if (itemType != "")
+			{
+				slot.itemType = itemType;
+				if (amount > 0)
+				{
+					slot.GetNode<Label>("ResourceAmount").Text = amount.ToString();
+				}
+				slot.UpdateSlotTexture(itemType);
+			}
+		}
+
+		GD.Print("Inventory Loaded");
 	}
 }

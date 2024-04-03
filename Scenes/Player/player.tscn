@@ -5,14 +5,14 @@
 [ext_resource type="Script" path="res://Scenes/Player/PlayerCamera.cs" id="2_laqpu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6blut"]
-size = Vector2(40, 63)
+size = Vector2(40, 64)
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(0, -4)
 safe_margin = 0.001
 script = ExtResource("1_nriof")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="BuildingCollision" type="CollisionShape2D" parent="."]
 position = Vector2(576, 324)
 shape = SubResource("RectangleShape2D_6blut")
 
@@ -20,8 +20,8 @@ shape = SubResource("RectangleShape2D_6blut")
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(576, 323.5)
+[node name="WaterCollision" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(576, 324)
 shape = SubResource("RectangleShape2D_6blut")
 
 [node name="PlayerIcon" type="Sprite2D" parent="."]

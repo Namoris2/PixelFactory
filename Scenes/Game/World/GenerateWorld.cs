@@ -8,10 +8,9 @@ public partial class GenerateWorld : Node
 {
 	string[] groundTerrains = { "Grass", "Water", "IronOre", "CopperOre" };
 
-    public void GenerateResource(World tileMap, int mapRadius, string resourceInput, bool generateWater = false)
+    public int GenerateResource(World tileMap, int mapRadius, int seed, string resourceInput ,bool generateWater = false)
 	{
-
-		GD.Print(tileMap.GetPath());
+		//GD.Print(tileMap.GetPath());
         LoadFile load = new();
 		dynamic groundResources = load.LoadJson("groundResources.json");
 		
@@ -19,12 +18,13 @@ public partial class GenerateWorld : Node
 		float generationCap = (float)resource.generationCap;
 		//Vector2I atlasCoords = new Vector2I((int)resource.atlasCoords[0], (int)resource.atlasCoords[1]);
 
-		FastNoiseLite noise = new FastNoiseLite();
-		Random rnd = new Random();
-		noise.Seed = rnd.Next() + (int)resource.addedSeed;
-		noise.Frequency = (float)resource.frequency;
+        FastNoiseLite noise = new()
+        {
+            Seed = seed + (int)resource.addedSeed,
+            Frequency = (float)resource.frequency
+        };
 
-		List<Vector2I> resourceCells = new();
+        List<Vector2I> resourceCells = new();
 		List<Vector2I> waterCells = new();
 
 		for (int x = mapRadius * -1; x < mapRadius; x++)
@@ -65,5 +65,6 @@ public partial class GenerateWorld : Node
 		{
             tileMap.SetCellsTerrainConnect(0, waterCellsArray, 0, 1);
 		}
+		return seed;
 	}
 }

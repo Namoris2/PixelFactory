@@ -15,6 +15,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Reflection.Metadata;
+using Newtonsoft.Json.Linq;
 
 public partial class World : Godot.TileMap
 {
@@ -35,17 +36,17 @@ public partial class World : Godot.TileMap
 
 	[Export]
 	int mapRadius = 250;
+	int seed;
 
 	public bool UITOGGLE = false;
 	public bool BUILDINGMODE = false;
 	public bool DISMANTLEMODE = false;
-	private bool HASFINISHEDGENERATING = false;
 
-	Vector2I previousCellPositon = new (0, 0);
+	Vector2I previousCellPosition = new (0, 0);
 
 	string groundResourceName;
 	public TileData buildingsData;
-	public Vector2I cellPostionByMouse;
+	public Vector2I cellPositionByMouse;
 
 	// setting default grid cursor parameters
 	int tileMapId = 100;
@@ -55,7 +56,7 @@ public partial class World : Godot.TileMap
 	public List<dynamic> buildingsInfo = new();
 	public string selectedBuilding;
 	public int buildingRotation = 0;
-	dynamic resourcesHervestedByHand;
+	dynamic resourcesHarvestedByHand;
 
 	int resourceAmount = 100000;
 	dynamic buildings;
@@ -75,27 +76,19 @@ public partial class World : Godot.TileMap
 
 		LoadFile load = new();
 
-		// loads 'buildigns.json' file and parses in to dynamic object
+		// loads 'buildings.json' file and parses in to dynamic object
 		buildings = load.LoadJson("buildings.json");
-		resourcesHervestedByHand = buildings.handHarvest;
+		resourcesHarvestedByHand = buildings.handHarvest;
 
 		items = load.LoadJson("items.json");
 		groundResources = load.LoadJson("groundResources.json");
 
 		recipes = load.LoadJson("recipes.json");
 
-		// this generates the world
-		if (worldGeneration)
-		{
-			GenerateWorld generateWorld = GetNode<GenerateWorld>("/root/GenerateWorld");
-
-			generateWorld.GenerateResource(this, mapRadius, "Grass", true);
-			generateWorld.GenerateResource(this, mapRadius, "IronOre");
-			//generateWorld.GenerateResource(this, mapRadius, "CoalOre"); // temporarily removed
-			generateWorld.GenerateResource(this, mapRadius, "CopperOre");
-		}
-
 		playerInventory = GetNode<PlayerInventory>("/root/main/UI/Inventories/InventoryGrid/PlayerInventory");
+
+		seed = GetNode<main>("/root/GameInfo").seed;
+		Load();
 
 		/*buildings.smelter.outputSlots.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>("{resource:\"\",amount:0}"));
 		GD.Print(buildings.smelter.outputSlots);*/
@@ -112,11 +105,11 @@ public partial class World : Godot.TileMap
 
 
 		// getting mouse position with TileMap coordinates
-		cellPostionByMouse = GetMousePosition();
+		cellPositionByMouse = GetMousePosition();
 
 		// getting tileMap data by mouse coordinates that hovers over TileMap cell
-		TileData groundData = GetCellTileData(0, cellPostionByMouse);
-		buildingsData = GetCellTileData(1, cellPostionByMouse);
+		TileData groundData = GetCellTileData(0, cellPositionByMouse);
+		buildingsData = GetCellTileData(1, cellPositionByMouse);
 
 		if (groundData == null) { return; }
 
@@ -130,29 +123,29 @@ public partial class World : Godot.TileMap
 		}*/
 
 		
-		/*if (buildingsData != null && GetBuildingInfo(cellPostionByMouse).buildingType.ToString() == "machine")
+		/*if (buildingsData != null && GetBuildingInfo(cellPositionByMouse).buildingType.ToString() == "machine")
 		{
-			dynamic buildingDisplayInfo = GetBuildingInfo(cellPostionByMouse);
+			dynamic buildingDisplayInfo = GetBuildingInfo(cellPositionByMouse);
 
 			worldInfo = $"Building: {buildingDisplayInfo.name} \nProgress: {(int)(buildingDisplayInfo.productionProgress * 100)}%";	
 		}
-		else if (buildingsData != null && (GetBuildingInfo(cellPostionByMouse).buildingType.ToString() == "belt" || GetBuildingInfo(cellPostionByMouse).buildingType.ToString() == "beltArm"))
+		else if (buildingsData != null && (GetBuildingInfo(cellPositionByMouse).buildingType.ToString() == "belt" || GetBuildingInfo(cellPositionByMouse).buildingType.ToString() == "beltArm"))
 		{
-			dynamic buildingDisplayInfo = GetBuildingInfo(cellPostionByMouse);
+			dynamic buildingDisplayInfo = GetBuildingInfo(cellPositionByMouse);
 
 			worldInfo = $"Building: {buildingDisplayInfo.name} \nProgress: {(int)(buildingDisplayInfo.moveProgress * 100)}% \nItem: {buildingDisplayInfo.item}";	
 		}*/
 
 		if (buildingsData != null)
 		{
-			worldInfo = $"Building: {GetBuildingInfo(cellPostionByMouse).name}";
+			worldInfo = $"Building: {GetBuildingInfo(cellPositionByMouse).name}";
 		}
 		else
 		{
 			worldInfo = $"Resource: {groundResources[groundResourceName].name}";
 		}
 
-		worldInfo = $"Coordinates: {cellPostionByMouse[0]}, {cellPostionByMouse[1]}\n{worldInfo}";
+		worldInfo = $"Coordinates: {cellPositionByMouse[0]}, {cellPositionByMouse[1]}\n{worldInfo}";
 		
 		EmitSignal(SignalName.UpdateResourceInfo, worldInfo);
 		
@@ -172,7 +165,7 @@ public partial class World : Godot.TileMap
 			if(Input.IsActionPressed("Use"))
 			{
 				// farming resources
-				FarmResources(GetBuildingInfo(cellPostionByMouse));
+				FarmResources(GetBuildingInfo(cellPositionByMouse));
 			}
 		}
 	}
@@ -257,7 +250,7 @@ public partial class World : Godot.TileMap
 						}
 					}
 
-					// if inventory is oppened, data will be sent to the inventory to show on screeen
+					// if inventory is opened, data will be sent to the inventory to show on screen
 					if (UITOGGLE)
 					{
 						EmitSignal(SignalName.UpdateBuildingProgress, Newtonsoft.Json.JsonConvert.SerializeObject(buildingsInfo[i]));
@@ -390,23 +383,77 @@ public partial class World : Godot.TileMap
 		}
 	}
 
+	public string Save()
+    {
+        List<dynamic> savedData = new();
+		List<dynamic> savedBuildings = new();
+		savedData.Add(seed);
+
+		foreach (dynamic building in buildingsInfo)
+		{
+			if (building.buildingType != "buildingPart")
+			{
+				savedBuildings.Add(building);
+			}
+		}
+		savedData.Add(savedBuildings);
+
+		return Newtonsoft.Json.JsonConvert.SerializeObject(savedData);
+	}
+
+	private void Load()
+	{
+        LoadingScreen loadingScreen = GetNodeOrNull<LoadingScreen>("/root/LoadingScreen");
+		string savePath = GetNode<main>("/root/GameInfo").savePath;
+        if (loadingScreen != null && loadingScreen.loadingSave && Godot.FileAccess.FileExists(savePath))
+		{
+			string savedGame = Godot.FileAccess.Open(savePath, Godot.FileAccess.ModeFlags.Read).GetAsText();
+			string[] savedGameList = savedGame.Split("\n");
+			Array<Node> nodes = GetTree().GetNodesInGroup("CanSave");
+			int index = nodes.IndexOf(this);
+
+			dynamic savedData = Newtonsoft.Json.JsonConvert.DeserializeObject(savedGameList[index]);
+			seed = (int)savedData[0];
+
+			dynamic loadedBuildings = savedData[1];
+			foreach (dynamic building in loadedBuildings)
+			{
+				buildingsInfo.Add(building);
+				Vector2I position = new ((int)building.coords[0], (int)building.coords[1]);
+				CreateBuilding(building, position);
+			}
+			
+			//buildingsInfo = loadedBuildings.ToObject<List<dynamic>>();
+		}
+
+		GenerateWorld generateWorld = GetNode<GenerateWorld>("/root/GenerateWorld");
+
+		generateWorld.GenerateResource(this, mapRadius, seed, "Grass", true);
+		generateWorld.GenerateResource(this, mapRadius, seed, "IronOre");
+		//generateWorld.GenerateResource(this, mapRadius, seed, "CoalOre"); // temporarily removed
+		generateWorld.GenerateResource(this, mapRadius, seed, "CopperOre");
+		GD.Print("World Generated");
+	}
+
+	public void Load(string data) {} // does nothing, just so 'Call' method does't have error
+
 	public Vector2I GetMousePosition()
 	{
 		var mousePosition = GetGlobalMousePosition();
-		//Vector2I cellPostionByMouse = new ((int)Math.Floor(mousePosition[0] / (4 * 16)), (int)Math.Floor(mousePosition[1]  / (4 * 16)));
-		Vector2I cellPostionByMouse = new ((int)mousePosition[0] / (4 * 16), (int)mousePosition[1]  / (4 * 16));
+		//Vector2I cellPositionByMouse = new ((int)Math.Floor(mousePosition[0] / (4 * 16)), (int)Math.Floor(mousePosition[1]  / (4 * 16)));
+		Vector2I cellPositionByMouse = new ((int)mousePosition[0] / (4 * 16), (int)mousePosition[1]  / (4 * 16));
 
 		if (mousePosition[0] < 0)
 		{
-			cellPostionByMouse = new Vector2I((int)(cellPostionByMouse[0] - 1), (int)(cellPostionByMouse[1]));
+			cellPositionByMouse = new Vector2I((int)(cellPositionByMouse[0] - 1), (int)(cellPositionByMouse[1]));
 		}
 
 		if (mousePosition[1] < 0)
 		{
-			cellPostionByMouse = new Vector2I((int)(cellPostionByMouse[0]), (int)(cellPostionByMouse[1] - 1));
+			cellPositionByMouse = new Vector2I((int)(cellPositionByMouse[0]), (int)(cellPositionByMouse[1] - 1));
 		}
 
-		return cellPostionByMouse;
+		return cellPositionByMouse;
 	}
 
 	private void CursorTexture()
@@ -416,26 +463,26 @@ public partial class World : Godot.TileMap
 		if (BUILDINGMODE)
 		{
 			Vector2I atlasCoords = new Vector2I((int)buildings[selectedBuilding].atlasCoords[0] + buildingRotation, (int)buildings[selectedBuilding].atlasCoords[1]);
-			SetCell(tileMapLayer, cellPostionByMouse, tileMapId, atlasCoords);
+			SetCell(tileMapLayer, cellPositionByMouse, tileMapId, atlasCoords);
 
 			if ((bool)buildings[selectedBuilding].hasAdditionalAtlasPosition)
 			{
 				for (int i = 0; i < buildings[selectedBuilding].additionalAtlasPosition.Count; i++)
 					{
 						Vector2I additionalAtlasPosition = new Vector2I((int)buildings[selectedBuilding].additionalAtlasPosition[i][0], (int)buildings[selectedBuilding].additionalAtlasPosition[i][1]);
-						SetCell(tileMapLayer, cellPostionByMouse + additionalAtlasPosition, tileMapId, atlasCoords + additionalAtlasPosition);
+						SetCell(tileMapLayer, cellPositionByMouse + additionalAtlasPosition, tileMapId, atlasCoords + additionalAtlasPosition);
 					}
 			}
 		}
 		else {
-			SetCell(tileMapLayer, cellPostionByMouse, tileMapId, atlasPosition);
+			SetCell(tileMapLayer, cellPositionByMouse, tileMapId, atlasPosition);
 		}
 
 	}
 
 	private void FarmResources(dynamic building)
 	{
-		if (GroundResourceValidate(resourcesHervestedByHand.canBeUsedOn, groundResourceName) && Input.IsActionJustPressed("Use") && buildingsData == null)
+		if (GroundResourceValidate(resourcesHarvestedByHand.canBeUsedOn, groundResourceName) && Input.IsActionJustPressed("Use") && buildingsData == null)
 		{
 			playerInventory.PutToInventory(groundResourceName, 1);
 		}
@@ -493,20 +540,19 @@ public partial class World : Godot.TileMap
 	private void TogglePlayerInventory()
 	{
 		UITOGGLE = !UITOGGLE;
-		CanvasLayer buildmenu = GetNode<CanvasLayer>("/root/main/UI/BuildMenu");
+		CanvasLayer buildMenu = GetNode<CanvasLayer>("/root/main/UI/BuildMenu");
 		CanvasLayer inventories = GetNode<CanvasLayer>("/root/main/UI/Inventories");
 		inventories.Visible = !inventories.Visible;
 		inventories.GetNode<Control>("InventoryGrid/BuildingInventory").Hide();
 
-		if (buildmenu.Visible)
+		if (buildMenu.Visible)
 		{
 			UITOGGLE = true;
 		}
 
-		buildmenu.Hide();
+		buildMenu.Hide();
 		BUILDINGMODE = true;
 		ToggleBuildMode();
-		GD.Print(BUILDINGMODE);
 	}
 
 	private void Build()
@@ -517,8 +563,8 @@ public partial class World : Godot.TileMap
 			string buildingsJson = Newtonsoft.Json.JsonConvert.SerializeObject(buildings);
 			dynamic building = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
 			building = building[selectedBuilding];
-			building.coords[0] = cellPostionByMouse[0];
-			building.coords[1] = cellPostionByMouse[1];
+			building.coords[0] = cellPositionByMouse[0];
+			building.coords[1] = cellPositionByMouse[1];
 			
 			if  (building.type.ToString() == "drill")
 			{
@@ -566,35 +612,48 @@ public partial class World : Godot.TileMap
 				//GD.Print(building.slots.Count);
 			}
 
-			if((bool)building.hasAdditionalAtlasPosition)
-			{
-				for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
-				{
-					Vector2I atlasCoords = new ((int)building.atlasCoords[0], (int)building.atlasCoords[1]);
-					Vector2I additionalAtlasPosition = new ((int)building.additionalAtlasPosition[i][0], (int)building.additionalAtlasPosition[i][1]);
-					
-					dynamic buildingPart = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);;
-					buildingPart = buildingPart.buildingPart;
 
-					buildingPart.coords[0] = cellPostionByMouse[0] + additionalAtlasPosition[0];
-					buildingPart.coords[1] = cellPostionByMouse[1] + additionalAtlasPosition[1];
-					buildingPart.parentBuilding[0] = building.coords[0];
-					buildingPart.parentBuilding[1] = building.coords[1];
+			CreateBuilding(building, cellPositionByMouse);
 
-					SetCell(1, cellPostionByMouse + additionalAtlasPosition, 1, atlasCoords + additionalAtlasPosition);
-					buildingsInfo.Add(buildingPart);
-				}
-			}
-
+			JObject buildingObject = building as JObject;
+			buildingObject.Remove("description");
+			building = buildingObject as dynamic;
+			
 			buildingsInfo.Add(building);
-			buildings = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
-			SetCell(1, cellPostionByMouse, 1, new((int)buildings[selectedBuilding].atlasCoords[0] + buildingRotation, (int)buildings[selectedBuilding].atlasCoords[1]));		
 
+			buildings = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
 
 			// removes cost items from inventory
 			for (int i = 0; i < building.cost.Count; i++)
 			{
 				playerInventory.RemoveFromInventory(building.cost[i].resource.ToString(), (int)building.cost[i].amount);
+			}
+			//GD.Print(building);
+		}
+	}
+
+	private void CreateBuilding(dynamic building, Vector2I cellPosition)
+	{
+		string buildingsJson = Newtonsoft.Json.JsonConvert.SerializeObject(buildings);
+		SetCell(1, cellPosition, 1, new((int)building.atlasCoords[0] + buildingRotation, (int)building.atlasCoords[1]));	
+		
+		if((bool)building.hasAdditionalAtlasPosition)
+		{
+			for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
+			{
+				Vector2I atlasCoords = new ((int)building.atlasCoords[0], (int)building.atlasCoords[1]);
+				Vector2I additionalAtlasPosition = new ((int)building.additionalAtlasPosition[i][0], (int)building.additionalAtlasPosition[i][1]);
+				
+				dynamic buildingPart = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);;
+				buildingPart = buildingPart.buildingPart;
+
+				buildingPart.coords[0] = cellPosition[0] + additionalAtlasPosition[0];
+				buildingPart.coords[1] = cellPosition[1] + additionalAtlasPosition[1];
+				buildingPart.parentBuilding[0] = building.coords[0];
+				buildingPart.parentBuilding[1] = building.coords[1];
+
+				SetCell(1, cellPosition + additionalAtlasPosition, 1, atlasCoords + additionalAtlasPosition);
+				buildingsInfo.Add(buildingPart);
 			}
 		}
 	}
@@ -613,7 +672,7 @@ public partial class World : Godot.TileMap
 	{
 		if (buildingsData == null) { return; }
 
-		dynamic building = GetBuildingInfo(cellPostionByMouse);
+		dynamic building = GetBuildingInfo(cellPositionByMouse);
 		Vector2I coords = new Vector2I((int)building.coords[0], (int)building.coords[1]);
 		List<InventorySlot> leftovers = new();		
 
