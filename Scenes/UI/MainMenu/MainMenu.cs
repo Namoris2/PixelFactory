@@ -26,7 +26,9 @@ public partial class MainMenu : Control
 			if (fileName.GetExtension() == "save")
 			{
 				saves.Add(fileName);
-				string savePath = FileAccess.Open(saveFolderPath + saves[^1], FileAccess.ModeFlags.Read).GetPathAbsolute();
+				FileAccess file = FileAccess.Open(saveFolderPath + saves[^1], FileAccess.ModeFlags.Read);
+				string savePath = file.GetPathAbsolute();
+				file.Close();
 				DateTime lastPlayed = System.IO.File.GetLastWriteTime(savePath);
 				savesDictionary.Add(fileName.GetBaseName(), lastPlayed);
 				//GD.Print($"Save Name: {fileName.GetBaseName()} Last Played: {lastPlayed}");
@@ -43,6 +45,7 @@ public partial class MainMenu : Control
 			loadedSave.GetNode<Label>("LastPlayed").Text = "Last Played: " + save.Value.ToString();
 			savesContainer.AddChild(loadedSave);
 		}
+		dir = null;
 
 	}
 
