@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/UI/Pause Menu/PauseMenu.cs" id="1_e0k0e"]
 [ext_resource type="Script" path="res://Scenes/UI/Save and Load/SaveGame.cs" id="2_13ohj"]
-[ext_resource type="PackedScene" uid="uid://ealmg15lgtr5" path="res://Scenes/UI/Menu/ExitGame.tscn" id="2_66bva"]
+[ext_resource type="Script" path="res://Scenes/UI/Pause Menu/SaveQuit.cs" id="3_evhqq"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -78,16 +78,13 @@ metadata/_edit_use_anchors_ = true
 [node name="Close" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.430556
-anchor_top = 0.740741
-anchor_right = 0.569444
-anchor_bottom = 0.82716
-offset_left = 0.332458
-offset_top = -112.0
-offset_right = 0.33252
-offset_bottom = -112.0
+anchor_left = 0.430729
+anchor_top = 0.637037
+anchor_right = 0.569617
+anchor_bottom = 0.723456
 theme_override_font_sizes/font_size = 30
 text = "Back to Game"
+metadata/_edit_use_anchors_ = true
 
 [node name="SaveGame" type="Button" parent="."]
 layout_mode = 1
@@ -103,11 +100,16 @@ text = "Save Game"
 script = ExtResource("2_13ohj")
 metadata/_edit_use_anchors_ = true
 
-[node name="ExitGame" parent="." instance=ExtResource("2_66bva")]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 0
-offset_left = 827.0
-offset_top = 914.0
-offset_right = 1093.0
-offset_bottom = 1014.0
+[node name="Save&Quit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.430729
+anchor_top = 0.837037
+anchor_right = 0.569617
+anchor_bottom = 0.923456
+offset_right = -0.665039
+offset_bottom = 6.66754
 theme_override_font_sizes/font_size = 30
+text = "Save & Quit"
+script = ExtResource("3_evhqq")
+metadata/_edit_use_anchors_ = true

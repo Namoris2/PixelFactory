@@ -23,7 +23,7 @@ public partial class ChangeMenu : Button
 	{
 		Pressed += ChangeTab;
 
-		tabContainer = (TabContainer)GetTree().GetNodesInGroup("TabContainer")[0];
+		tabContainer = (TabContainer)GetTree().GetNodesInGroup("MainMenuTabs")[0];
 
 		MouseEntered += ShowButtonInfo;
 		MouseExited += HideButtonInfo;
@@ -36,6 +36,7 @@ public partial class ChangeMenu : Button
 
 	private void ChangeTab()
 	{
+		//GD.Print("Clicked");
 		if (GoHome)
 		{
 			tabContainer.CurrentTab = HomeIndex;
@@ -51,7 +52,7 @@ public partial class ChangeMenu : Button
 			GetNode<LineEdit>("../SeedInput").Text = "";
 			GetNode<Label>("../ErrorMessage").Text = "";
 		}
-		//GD.Print(tabContainer.CurrentTab, tabContainer.GetChild(tabContainer.CurrentTab).Name);
+		GD.Print(tabContainer.CurrentTab, tabContainer.GetChild(tabContainer.CurrentTab).Name);
 	}
 
 	private void ShowButtonInfo()

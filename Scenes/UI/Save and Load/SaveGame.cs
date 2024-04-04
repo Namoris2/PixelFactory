@@ -15,7 +15,7 @@ public partial class SaveGame : Button
 	{
 	}
 
-	private void Save()
+	public void Save()
 	{
 		FileAccess savedGame = FileAccess.Open(GetNode<main>("/root/GameInfo").savePath, FileAccess.ModeFlags.Write);
 		Array<Node> nodes = GetTree().GetNodesInGroup("CanSave");

@@ -1040,7 +1040,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="TabContainer" type="TabContainer" parent="UI" groups=["TabContainer"]]
+[node name="TabContainer" type="TabContainer" parent="UI" groups=["MainMenuTabs"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

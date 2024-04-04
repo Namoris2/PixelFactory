@@ -1,6 +1,5 @@
-[gd_scene load_steps=24 format=3 uid="uid://bbqmsnkmc3pac"]
+[gd_scene load_steps=23 format=3 uid="uid://bbqmsnkmc3pac"]
 
-[ext_resource type="Script" path="res://Scenes/main.cs" id="1_qhp31"]
 [ext_resource type="Texture2D" uid="uid://cakt6ts1d5n8k" path="res://Gimp/Ground Materials/ground.png" id="3_cesio"]
 [ext_resource type="Script" path="res://Scenes/Game/World/World.cs" id="4_doi5u"]
 [ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="4_r6w7n"]
@@ -1275,7 +1274,7 @@ texture = ExtResource("3_cesio")
 0:4/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 0:4/0/physics_layer_1/angular_velocity = 0.0
 0:4/0/terrains_peering_bit/bottom_side = 3
-0:4/0/custom_data_0 = "Water"
+0:4/0/custom_data_0 = "CopperOre"
 1:4/0 = 0
 1:4/0/terrain_set = 0
 1:4/0/terrain = 3
@@ -1939,7 +1938,6 @@ sources/100 = SubResource("TileSetAtlasSource_kytue")
 sources/1 = SubResource("TileSetAtlasSource_7gb0d")
 
 [node name="main" type="Node2D"]
-script = ExtResource("1_qhp31")
 
 [node name="World" type="Node2D" parent="."]
 
