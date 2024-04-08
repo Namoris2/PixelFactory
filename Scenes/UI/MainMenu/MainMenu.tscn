@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cca243qeuh2c5"]
+[gd_scene load_steps=13 format=3 uid="uid://cca243qeuh2c5"]
 
 [ext_resource type="Script" path="res://Scenes/UI/MainMenu/MainMenu.cs" id="1_k8ci2"]
 [ext_resource type="Texture2D" uid="uid://cakt6ts1d5n8k" path="res://Gimp/Ground Materials/ground.png" id="2_6d34b"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://Scenes/UI/MainMenu/ButtonInfo.cs" id="4_ufcr7"]
 [ext_resource type="Script" path="res://Scenes/UI/Menu/ChangeMenu.cs" id="4_x2mx5"]
 [ext_resource type="Script" path="res://Scenes/UI/Save and Load/LoadGame.cs" id="5_x4nho"]
+[ext_resource type="Script" path="res://Scenes/UI/MainMenu/DeleteSaveDialog/DeleteSaveDialog.cs" id="6_hu7yu"]
+[ext_resource type="Script" path="res://Scenes/UI/Save and Load/DeleteSave.cs" id="7_8do3p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5bhl0"]
 texture = ExtResource("2_6d34b")
@@ -1284,6 +1286,46 @@ script = ExtResource("4_x2mx5")
 IndexOffset = 1
 GoHome = true
 metadata/_edit_use_anchors_ = true
+
+[node name="DeleteSaveDialog" type="Panel" parent="UI/TabContainer/LoadGame" groups=["DeleteSaveDialog"]]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.233333
+anchor_top = 0.237963
+anchor_right = 0.766667
+anchor_bottom = 0.571296
+grow_horizontal = 2
+script = ExtResource("6_hu7yu")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="UI/TabContainer/LoadGame/DeleteSaveDialog"]
+layout_mode = 0
+offset_top = 31.0
+offset_right = 1024.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 30
+text = "Are you sure you want do delete save?"
+horizontal_alignment = 1
+
+[node name="Delete" type="Button" parent="UI/TabContainer/LoadGame/DeleteSaveDialog"]
+layout_mode = 0
+offset_left = 810.0
+offset_top = 255.0
+offset_right = 960.0
+offset_bottom = 305.0
+theme_override_font_sizes/font_size = 30
+text = "DELETE"
+script = ExtResource("7_8do3p")
+
+[node name="Cancel" type="Button" parent="UI/TabContainer/LoadGame/DeleteSaveDialog"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 256.0
+offset_right = 214.0
+offset_bottom = 306.0
+theme_override_font_sizes/font_size = 30
+text = "CANCEL"
 
 [node name="Settings" type="TabBar" parent="UI/TabContainer"]
 visible = false

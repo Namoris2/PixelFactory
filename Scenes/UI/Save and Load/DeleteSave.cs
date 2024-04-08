@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.IO;
-//using System.IO;
 
 public partial class DeleteSave : Button
 {
@@ -18,15 +17,19 @@ public partial class DeleteSave : Button
 
 	private void Delete()
 	{
-		string saveName = GetNode<Label>("../SaveName").Text;
-		string savePath = $"user://saves/{saveName}.save";
+		DeleteSaveDialog parent = (DeleteSaveDialog)GetParent();
+		string savePath = parent.savePath;
 
 		Godot.FileAccess file = Godot.FileAccess.Open(savePath, Godot.FileAccess.ModeFlags.Read);
 		string absoluteSavePath = file.GetPathAbsolute();
 		file.Close();
 		File.Delete(absoluteSavePath);
 
-		GetParent().QueueFree();
-		GetNode<MainMenu>("/root/MainMenu").saves.Remove(saveName + ".save");
+		parent.Hide();
+		GetNode<MainMenu>("/root/MainMenu").saves.Remove(parent.saveName + ".save");
+		GetTree().GetNodesInGroup("LoadedSave")[parent.index].QueueFree();
+
+		GD.Print(parent.index);
+		GD.Print("Save Deleted");
 	}
 }

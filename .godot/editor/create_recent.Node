@@ -1,10 +1,10 @@
+Button
 Label
-LineEdit
 Panel
+LineEdit
 VBoxContainer
 ScrollContainer
 FlowContainer
-Button
 VScrollBar
 RichTextLabel
 Area2D

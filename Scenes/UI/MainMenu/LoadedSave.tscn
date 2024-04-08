@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://isno1ke6mjop"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Save and Load/LoadGame.cs" id="1_pikq7"]
-[ext_resource type="Script" path="res://Scenes/UI/Save and Load/DeleteSave.cs" id="2_p2bwg"]
+[ext_resource type="Script" path="res://Scenes/UI/MainMenu/DeleteSaveDialog/ShowDialog.cs" id="2_pqsu1"]
 
-[node name="Save" type="Panel"]
+[node name="Save" type="Panel" groups=["LoadedSave"]]
 custom_minimum_size = Vector2(0, 150)
 anchors_preset = -1
 anchor_right = 0.8625
@@ -69,4 +69,4 @@ grow_vertical = 0
 pivot_offset = Vector2(75.1514, 25)
 theme_override_font_sizes/font_size = 30
 text = "DELETE"
-script = ExtResource("2_p2bwg")
+script = ExtResource("2_pqsu1")

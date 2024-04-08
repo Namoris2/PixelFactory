@@ -1,9 +1,9 @@
-res://Scenes/UI/MainMenu/MainMenu.tscn
+res://Scenes/UI/MainMenu/LoadedSave.tscn
 res://Scenes/UI/Menu/ChangeMenu.cs
 res://Scenes/UI/Save and Load/LoadGame.cs
 res://Themes/InventorySlot.tres
+res://Scenes/UI/MainMenu/MainMenu.tscn
 res://Scenes/main.tscn
-res://Scenes/UI/MainMenu/LoadedSave.tscn
 res://Scenes/UI/Pause Menu/PauseMenu.tscn
 res://Scenes/UI/BuildMenu/BuildMenu.tscn
 res://Scenes/UI/Menu/MenuSelect.tscn
@@ -35,6 +35,8 @@ res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.cs
 res://Scenes/UI/Inventory/PlayerInventory/PrintInventory.cs
 res://Scenes/UI/LoadingScreen/LoadingScreen.cs
 res://Scenes/UI/MainMenu/ButtonInfo.cs
+res://Scenes/UI/MainMenu/DeleteSaveDialog/DeleteSaveDialog.cs
+res://Scenes/UI/MainMenu/DeleteSaveDialog/ShowDialog.cs
 res://Scenes/UI/MainMenu/MainMenu.cs
 res://Scenes/UI/Menu/ExitGame.cs
 res://Scenes/UI/Menu/MenuSelect.cs

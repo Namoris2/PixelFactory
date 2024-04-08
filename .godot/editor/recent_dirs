@@ -1,4 +1,5 @@
 res://Scenes/UI/Save and Load
+res://Scenes/UI/MainMenu/DeleteSaveDialog
 res://Scenes
 res://Scenes/UI/MainMenu
 res://Scenes/UI/Inventory
@@ -19,5 +20,4 @@ res://Scenes/UI/Inventory/PlayerInventory
 res://scenes/UI/Inventory/PlayerInventory
 res://scenes/Game
 res://scenes
-res://Gimp/Items
 C:/Users/namor/AppData/Local/Programs/Microsoft VS Code
