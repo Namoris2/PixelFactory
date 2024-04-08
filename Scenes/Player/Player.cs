@@ -73,7 +73,7 @@ public partial class Player : Godot.CharacterBody2D
 	{
 		dynamic parsedData = Newtonsoft.Json.JsonConvert.DeserializeObject(data);
 		Position = new ((float)parsedData[0], (float)parsedData[1]);
-		GD.Print("Player Loaded");
+		//GD.Print("Player Loaded");
 	}
 
 	private void CollidedWithWater(Node2D node)

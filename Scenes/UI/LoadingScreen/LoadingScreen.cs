@@ -34,14 +34,16 @@ public partial class LoadingScreen : Control
 
 			if (loadStatus == ResourceLoader.ThreadLoadStatus.Loaded)
 			{
-				GD.Print("Game Loaded");
+				//GD.Print("Game Loaded");
 				PackedScene newScene = (PackedScene)ResourceLoader.LoadThreadedGet("res://Scenes/main.tscn");
 				Node sceneInstantiated = newScene.Instantiate();
 				GetTree().Root.AddChild(sceneInstantiated);
 				
 				if (loadingSave)
 				{
-					string savedGame = FileAccess.Open(savePath, FileAccess.ModeFlags.Read).GetAsText();
+					FileAccess saveFile = FileAccess.Open(savePath, FileAccess.ModeFlags.Read);
+					string savedGame = saveFile.GetAsText();
+					saveFile.Close();
 					Array<Node> nodes = GetTree().GetNodesInGroup("CanSave");
 
 					if (!Godot.FileAccess.FileExists(savePath)) { return; }
@@ -53,7 +55,7 @@ public partial class LoadingScreen : Control
 						string data = savedGameList[nodes.IndexOf(node)];
 						node.Call("Load", data);
 					}
-					GD.Print("Save Loaded");
+					//GD.Print("Save Loaded");
 				}
 				QueueFree();
 			}

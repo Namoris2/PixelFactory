@@ -52,7 +52,7 @@ public partial class ChangeMenu : Button
 			GetNode<LineEdit>("../SeedInput").Text = "";
 			GetNode<Label>("../ErrorMessage").Text = "";
 		}
-		GD.Print(tabContainer.CurrentTab, tabContainer.GetChild(tabContainer.CurrentTab).Name);
+		//GD.Print(tabContainer.CurrentTab, tabContainer.GetChild(tabContainer.CurrentTab).Name);
 	}
 
 	private void ShowButtonInfo()

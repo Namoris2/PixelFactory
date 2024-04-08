@@ -89,7 +89,7 @@ public partial class LoadGame : Button
 		loadingScreen.StartLoading();
 		GetNode<Node>("/root/MainMenu").QueueFree();
 
-		GD.Print("scene changed");
+		//GD.Print("scene changed");
 		return;
 	}
 }

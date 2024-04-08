@@ -192,6 +192,6 @@ public partial class PlayerInventory : Control
 			}
 		}
 
-		GD.Print("Inventory Loaded");
+		//GD.Print("Inventory Loaded");
 	}
 }

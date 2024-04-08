@@ -407,7 +407,10 @@ public partial class World : Godot.TileMap
 		string savePath = GetNode<main>("/root/GameInfo").savePath;
         if (loadingScreen != null && loadingScreen.loadingSave && Godot.FileAccess.FileExists(savePath))
 		{
-			string savedGame = Godot.FileAccess.Open(savePath, Godot.FileAccess.ModeFlags.Read).GetAsText();
+			Godot.FileAccess saveFile = Godot.FileAccess.Open(savePath, Godot.FileAccess.ModeFlags.Read);
+			string savedGame = saveFile.GetAsText();
+			saveFile.Close();
+
 			string[] savedGameList = savedGame.Split("\n");
 			Array<Node> nodes = GetTree().GetNodesInGroup("CanSave");
 			int index = nodes.IndexOf(this);
@@ -432,7 +435,7 @@ public partial class World : Godot.TileMap
 		generateWorld.GenerateResource(this, mapRadius, seed, "IronOre");
 		//generateWorld.GenerateResource(this, mapRadius, seed, "CoalOre"); // temporarily removed
 		generateWorld.GenerateResource(this, mapRadius, seed, "CopperOre");
-		GD.Print("World Generated");
+		//GD.Print("World Generated");
 	}
 
 	public void Load(string data) {} // does nothing, just so 'Call' method does't have error
