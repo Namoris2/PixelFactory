@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxn21jfq72eky"]
+[gd_scene load_steps=4 format=3 uid="uid://bxn21jfq72eky"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Pause Menu/PauseMenu.cs" id="1_e0k0e"]
+[ext_resource type="Script" path="res://Scenes/UI/Save and Load/SaveGame.cs" id="2_13ohj"]
+[ext_resource type="Script" path="res://Scenes/UI/Pause Menu/SaveQuit.cs" id="3_evhqq"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -14,7 +16,7 @@ script = ExtResource("1_e0k0e")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -41,17 +43,18 @@ metadata/_edit_use_anchors_ = true
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.111111
-anchor_top = 0.283951
-anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_left = 0.25
+anchor_top = 0.284259
+anchor_right = 0.638889
+anchor_bottom = 1.00031
 theme_override_font_sizes/normal_font_size = 25
 text = "Move UP						W
-Move DOWN				S
+Move DOWN				    S
 Move LEFT					A
 Move RIGHT				D
 Sprint							SHIFT
-Zoom							MOUSE WHEEL"
+Open Inventory		TAB
+Zoom							    MOUSE WHEEL"
 metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="."]
@@ -62,22 +65,51 @@ anchor_top = 0.283951
 anchor_right = 0.993056
 anchor_bottom = 1.0
 theme_override_font_sizes/normal_font_size = 25
-text = "	Harvest Resource / 		LEFT MOUSE
-	Collect from building	BUTTON
-	Open Build Menu			Q
-	Rotate Building				R
-	Dismantle Building		F
-	Interact							E
+text = "	Harvest Resource / 			LEFT MOUSE
+	Collect from building			BUTTON
+	Open Build Menu					Q
+	Rotate Building						R
+	Dismantle Building				F
+	Interact									E
 
 "
 metadata/_edit_use_anchors_ = true
 
 [node name="Close" type="Button" parent="."]
-layout_mode = 0
-anchor_left = 0.430556
-anchor_top = 0.740741
-anchor_right = 0.569444
-anchor_bottom = 0.82716
-offset_top = 3.05176e-05
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.430729
+anchor_top = 0.637037
+anchor_right = 0.569617
+anchor_bottom = 0.723456
 theme_override_font_sizes/font_size = 30
-text = "CLOSE"
+text = "Back to Game"
+metadata/_edit_use_anchors_ = true
+
+[node name="SaveGame" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.430729
+anchor_top = 0.733333
+anchor_right = 0.569617
+anchor_bottom = 0.819752
+offset_right = -0.665039
+offset_bottom = 6.66754
+theme_override_font_sizes/font_size = 30
+text = "Save Game"
+script = ExtResource("2_13ohj")
+metadata/_edit_use_anchors_ = true
+
+[node name="Save&Quit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.430729
+anchor_top = 0.837037
+anchor_right = 0.569617
+anchor_bottom = 0.923456
+offset_right = -0.665039
+offset_bottom = 6.66754
+theme_override_font_sizes/font_size = 30
+text = "Save & Quit"
+script = ExtResource("3_evhqq")
+metadata/_edit_use_anchors_ = true

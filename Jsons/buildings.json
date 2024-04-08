@@ -12,6 +12,7 @@
         "buildingType" : "machine",
         "type" : "drill",
         "name" : "Small Drill",
+        "description" : "Allows to automatically extract ground resources\n\nExtracts 30 resources per minute\n\nSize: 1x1",
         "cost" : [
             {
                 "resource" : "IronPlate",
@@ -47,6 +48,7 @@
         "buildingType" : "machine",
         "type" : "smelter",
         "name" : "Smelter",
+        "description" : "Smelts ores to ingots\n\nSize: 2x2",
         "cost" : [
             {
                 "resource" : "IronRod",
@@ -88,6 +90,7 @@
         "buildingType" : "machine",
         "type" : "constructor",
         "name" : "Constructor",
+        "description" : "Processes one resource as input into one resource as output\n\nSize: 2x2",
         "cost" : [
             {
                 "resource" : "IronPlate",
@@ -129,6 +132,7 @@
         "buildingType" : "belt",
         "type" : "belt1",
         "name" : "Conveyor Belt MK1",
+        "description" : "Moves items from one place to another\n\nCan transport 30 items per minute\n\nSize: 1x1",
         "cost" : [
             {
                 "resource" : "IronPlate",
@@ -155,6 +159,7 @@
         "buildingType" : "beltArm",
         "type" : "beltArm1",
         "name" : "Conveyor Arm MK1",
+        "description" : "Moves items between building and Conveyor Belt or between two different Conveyor Belts\n\nCan transfer 30 item per minute\n\nSize: 1x1",
         "cost" : [
             {
                 "resource" : "IronPlate",
@@ -177,6 +182,35 @@
         "canMove" : false,
         "canBePlacedOn" : ["Grass", "Concrete"],
         "item" : ""
+    },
+    "smallStorage" : {
+        "buildingType" : "storage",
+        "type" : "smallStorage",
+        "name" : "Small Storage",
+        "description" : "Can store items\n\nHas 15 item slots\n\nSize: 1x1",
+        "cost" : [
+            {
+                "resource" : "IronPlate",
+                "amount" : 15
+            },
+            {
+                "resource" : "IronRod",
+                "amount" : 10
+            }
+        ],
+        "coords" : [0, 0],
+        "atlasCoords" : [4, 2],
+        "width" : 1,
+        "height" : 1,
+        "canRotate" : false,
+        "rotationAmount" : 0,
+        "rotation" : 0,
+        "beltArmInteraction" : true,
+        "hasAdditionalAtlasPosition" : false,
+        "additionalAtlasPosition" : [],
+        "canBePlacedOn" : ["Grass", "Concrete"],
+        "slotsAmount" : 15,
+        "slots" : []
     },
     "test" : {
         "buildingType" : "test",

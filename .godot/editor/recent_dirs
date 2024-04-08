@@ -1,8 +1,18 @@
-res://
+res://Scenes/UI/Save and Load
+res://Scenes/UI/MainMenu/DeleteSaveDialog
+res://Scenes
+res://Scenes/UI/MainMenu
 res://Scenes/UI/Inventory
+C:/Users/namor/OneDrive/Dokumenty/Godot/PixelFactoryBuilds
+C:/Users/namor/OneDrive/Dokumenty/Godot
+res://Gimp
+res://Scenes/UI/Menu
+res://Scenes/UI/LoadingScreen
+res://Scenes/Game/World
+res://Font
+res://
 res://Scenes/UI/BuildMenu
 res://Scenes/UI/Inventory/BuildingInventory
-res://Scenes/Game/World
 res://Scenes/UI/Pause Menu
 res://Scenes/UI
 res://scenes/UI/Inventory
@@ -10,6 +20,4 @@ res://Scenes/UI/Inventory/PlayerInventory
 res://scenes/UI/Inventory/PlayerInventory
 res://scenes/Game
 res://scenes
-res://Gimp/Items
 C:/Users/namor/AppData/Local/Programs/Microsoft VS Code
-res://Gimp/Cussor

@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bx0lsoflefadc"]
+[gd_scene load_steps=5 format=3 uid="uid://bx0lsoflefadc"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/InventorySlot.cs" id="1_qn2p3"]
 [ext_resource type="Theme" uid="uid://bfqrtqjof5nbe" path="res://Themes/InventorySlot.tres" id="1_rb8qi"]
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/ItemName.cs" id="2_yibj1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_y8p7l"]
+line_spacing = 0.0
+font_color = Color(0.741176, 0.658824, 0.145098, 1)
+outline_size = 8
+outline_color = Color(0.0627451, 0.0431373, 0.164706, 1)
 
 [node name="Slot" type="Button"]
 custom_minimum_size = Vector2(60, 60)
@@ -12,10 +18,10 @@ anchor_left = 0.492361
 anchor_top = 0.478538
 anchor_right = 0.542361
 anchor_bottom = 0.570845
-offset_left = -590.833
-offset_top = -311.05
-offset_right = -590.833
-offset_bottom = -311.049
+offset_left = -561.333
+offset_top = -292.821
+offset_right = -561.333
+offset_bottom = -296.513
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_rb8qi")
@@ -34,18 +40,23 @@ script = ExtResource("2_yibj1")
 
 [node name="ItemTexture" type="TextureRect" parent="."]
 texture_filter = 1
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="ResourceAmount" type="Label" parent="."]
-z_index = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.449996
+anchor_left = 0.364583
+anchor_top = 0.739583
 anchor_right = 1.0
-anchor_bottom = 1.14999
+anchor_bottom = 1.0
 theme_override_font_sizes/font_size = 20
+label_settings = SubResource("LabelSettings_y8p7l")
 horizontal_alignment = 2
+vertical_alignment = 1
 metadata/_edit_use_anchors_ = true

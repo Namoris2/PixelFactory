@@ -3,7 +3,7 @@
     "tasks": [
       {
         "label": "build",
-        "command": "\"C:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\Engine\\Godot_v4.1.1-stable_mono_win64.exe\"",
+        "command": "\"C:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\Engine\\Godot_v4.2.0-stable_mono_win64.exe\"",
         "type": "process",
         "args": [
             "--build-solutions",
