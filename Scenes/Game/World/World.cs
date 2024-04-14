@@ -16,6 +16,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Reflection.Metadata;
 using Newtonsoft.Json.Linq;
+using System.Collections;
 
 public partial class World : Godot.TileMap
 {
@@ -301,6 +302,7 @@ public partial class World : Godot.TileMap
 
 					if ((double)buildingsInfo[i].moveProgress > 1) { buildingsInfo[i].moveProgress = 1; }
 					
+					//taking item from building
 					if ((double)buildingsInfo[i].moveProgress == 0 && CanArmTransfer(buildingsInfo[i]))
 					{
 						if (previousBuilding.buildingType.ToString() == "machine") // machine
@@ -333,7 +335,6 @@ public partial class World : Godot.TileMap
 
 							item.destination = nextCoords * 64;
 							item.speed = 64 / (60 / (int)buildingsInfo[i].speed) * 2;
-
 							item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
 
 						}
@@ -343,6 +344,7 @@ public partial class World : Godot.TileMap
 							nextBuilding.item = buildingsInfo[i].item;
 						}
 					}
+					// putting item to building/belt
 					else if ((double)buildingsInfo[i].moveProgress >= 1)
 					{
 
@@ -385,9 +387,8 @@ public partial class World : Godot.TileMap
 
 	public string Save()
     {
-        List<dynamic> savedData = new();
 		List<dynamic> savedBuildings = new();
-		savedData.Add(seed);
+		List<dynamic> savedItems  = new();
 
 		foreach (dynamic building in buildingsInfo)
 		{
@@ -396,9 +397,28 @@ public partial class World : Godot.TileMap
 				savedBuildings.Add(building);
 			}
 		}
-		savedData.Add(savedBuildings);
 
-		return Newtonsoft.Json.JsonConvert.SerializeObject(savedData);
+		for (int i = 0; i < GetChildCount(); i++)
+		{
+			Item item = (Item)GetChildren()[i];
+			System.Collections.Generic.Dictionary<string, dynamic> savedItem = new()
+            {
+                { "name", item.itemType },
+				{ "position", new Array<float>() {item.Position.X / 64, item.Position.Y / 64} },
+                { "destination", new Array<float>() {item.destination.X / 64 , item.destination.Y / 64} },
+                { "speed", 60 * (item.speed / 64) }
+            };
+			savedItems.Add(savedItem);
+
+        }
+        System.Collections.Generic.Dictionary<string, dynamic> savedData = new()
+        {
+            { "seed", seed },
+            { "buildings", savedBuildings },
+			{ "items", savedItems }
+        };
+
+		return JsonConvert.SerializeObject(savedData);
 	}
 
 	private void Load()
@@ -415,15 +435,28 @@ public partial class World : Godot.TileMap
 			Array<Node> nodes = GetTree().GetNodesInGroup("CanSave");
 			int index = nodes.IndexOf(this);
 
-			dynamic savedData = Newtonsoft.Json.JsonConvert.DeserializeObject(savedGameList[index]);
-			seed = (int)savedData[0];
+			dynamic savedData = JsonConvert.DeserializeObject(savedGameList[index]);
+			seed = (int)savedData.seed;
 
-			dynamic loadedBuildings = savedData[1];
+			dynamic loadedBuildings = savedData.buildings;
 			foreach (dynamic building in loadedBuildings)
 			{
 				buildingsInfo.Add(building);
 				Vector2I position = new ((int)building.coords[0], (int)building.coords[1]);
+				if ((bool)building.canRotate)
+				{
+					buildingRotation = (int)building.rotation;
+				}
 				CreateBuilding(building, position);
+			}
+			buildingRotation = 0;
+
+			dynamic savedItems = savedData.items;
+			foreach (dynamic item in savedItems)
+			{
+				Vector2 coords = new((float)item.position[0], (float)item.position[1]);
+				Vector2I destination = new((int)item.destination[0], (int)item.destination[1]);
+				CreateItem(coords, destination, item.name.ToString(), (int)item.speed);
 			}
 			
 			//buildingsInfo = loadedBuildings.ToObject<List<dynamic>>();
@@ -847,7 +880,7 @@ public partial class World : Godot.TileMap
 		//GD.Print(building);
 	}
 
-	private void CreateItem(Vector2I coords, Vector2I destination, string name, int speed = 0, string id = "")
+	private void CreateItem(Vector2 coords, Vector2I destination, string name, int speed = 0, string id = "")
 	{
 		Item item = (Item)GD.Load<PackedScene>("res://Scenes/Game/World/Item/Item.tscn").Instantiate();
 

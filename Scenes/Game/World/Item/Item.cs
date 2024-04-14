@@ -8,7 +8,7 @@ public partial class Item : Node2D
 	public Vector2 destination = new (0, 0);
 	public bool onGround = false;
 	public float speed = 0;
-	private string itemType;
+	public string itemType;
 
 	private Label name;
 	private AtlasTexture textureAtlas = new ();
