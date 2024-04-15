@@ -19,6 +19,15 @@ public partial class PlayerCamera : Camera2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if (Input.IsActionPressed("ZoomIn") && this.Zoom[0] < maxZoom[0])
+		{
+			this.Zoom += zoomSpeed / 4;
+		}
+
+		if (Input.IsActionPressed("ZoomOut") && this.Zoom[0] > minZoom[0])
+		{
+			this.Zoom -= zoomSpeed / 4;
+		}
 	}
 
 	public override void _Input(InputEvent @event)
