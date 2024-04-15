@@ -251,11 +251,6 @@ public partial class World : Godot.TileMap
 						}
 					}
 
-					// if inventory is opened, data will be sent to the inventory to show on screen
-					if (UITOGGLE)
-					{
-						EmitSignal(SignalName.UpdateBuildingProgress, Newtonsoft.Json.JsonConvert.SerializeObject(buildingsInfo[i]));
-					}
 					break;
 				
 				case "belt":
@@ -380,7 +375,13 @@ public partial class World : Godot.TileMap
 						buildingsInfo[i].moveProgress = 0;
 					}
 					
-				break;
+				break;					
+			}
+
+			// if inventory is opened, data will be sent to the inventory to show on screen
+			if (UITOGGLE && (buildingsInfo[i].buildingType.ToString() == "machine" || buildingsInfo[i].buildingType.ToString() == "storage"))
+			{
+				EmitSignal(SignalName.UpdateBuildingProgress, Newtonsoft.Json.JsonConvert.SerializeObject(buildingsInfo[i]));
 			}
 		}
 	}
@@ -446,6 +447,10 @@ public partial class World : Godot.TileMap
 				if ((bool)building.canRotate)
 				{
 					buildingRotation = (int)building.rotation;
+				}
+				else
+				{
+					buildingRotation = 0;
 				}
 				CreateBuilding(building, position);
 			}

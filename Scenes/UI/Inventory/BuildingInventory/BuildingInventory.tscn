@@ -124,6 +124,7 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="DrillOutputSlot" parent="TabContainer/Building/Slots" groups=["SingleSlots"] instance=ExtResource("2_e53n2")]
+visible = false
 layout_mode = 1
 anchor_left = -0.357151
 anchor_top = -1.35397
