@@ -234,7 +234,7 @@ public partial class World : Godot.TileMap
 					{
 						buildingsInfo[i].productionProgress += (double)recipe.cyclesPerMinute / 60 * delta;
 
-						if (buildingsInfo[i].productionProgress >= 1) // if 'productionProgress' is full items will be added and removed acording to machine's recipe
+						if (buildingsInfo[i].productionProgress >= 1) // if 'productionProgress' is full items will be added and removed according to machine's recipe
 																	  // and resets 'productionProgress' 
 						{
 							buildingsInfo[i].productionProgress = 0;
@@ -262,6 +262,10 @@ public partial class World : Godot.TileMap
 					if (buildingsInfo[i].item.ToString() != "" && (double)buildingsInfo[i].moveProgress < 1 && nextBuilding != null)
 					{
 						buildingsInfo[i].moveProgress += (double)buildingsInfo[i].speed / 60 * delta;
+
+						itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
+						item = GetNode<Item>(itemName);
+						if (item.parentBuilding != null) { item.parentBuilding = null; }
 					}
 
 					if ((double)buildingsInfo[i].moveProgress > 1) { buildingsInfo[i].moveProgress = 1; }
@@ -304,7 +308,7 @@ public partial class World : Godot.TileMap
 						{
 							buildingsInfo[i].item = previousBuilding.outputSlots[0].resource; 
 							previousBuilding.outputSlots[0].amount -= 1;
-							CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2);
+							CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2, parentBuilding: new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]));
 						}
 						else if (previousBuilding.buildingType.ToString() == "storage") // storage
 						{
@@ -317,7 +321,7 @@ public partial class World : Godot.TileMap
 									if ((int)previousBuilding.slots[j].amount == 0) { previousBuilding.slots[j].resource = ""; }
 								}
 							}
-							CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2);
+							CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2, parentBuilding: new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]));
 						}
 						else if (previousBuilding.buildingType.ToString() == "belt") // belt
 						{
@@ -331,7 +335,7 @@ public partial class World : Godot.TileMap
 							item.destination = nextCoords * 64;
 							item.speed = 64 / (60 / (int)buildingsInfo[i].speed) * 2;
 							item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
-
+							item.parentBuilding = new ((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]);
 						}
 
 						if (nextBuilding.buildingType.ToString() == "belt")
@@ -407,7 +411,8 @@ public partial class World : Godot.TileMap
                 { "name", item.itemType },
 				{ "position", new Array<float>() {item.Position.X / 64, item.Position.Y / 64} },
                 { "destination", new Array<float>() {item.destination.X / 64 , item.destination.Y / 64} },
-                { "speed", 60 * (item.speed / 64) }
+                { "speed", 60 * (item.speed / 64) },
+				{ "parentBuilding", item.parentBuilding }
             };
 			savedItems.Add(savedItem);
 
@@ -416,7 +421,7 @@ public partial class World : Godot.TileMap
         {
             { "seed", seed },
             { "buildings", savedBuildings },
-			{ "items", savedItems }
+			{ "items", savedItems },
         };
 
 		return JsonConvert.SerializeObject(savedData);
@@ -777,7 +782,7 @@ public partial class World : Godot.TileMap
 		buildingsInfo.Remove(building);
 		EraseCell(1, coords);
 
-		// ďestroys multi-tile building
+		// destroys multi-tile building
 		if ((bool)building.hasAdditionalAtlasPosition)
 		{
 			for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
@@ -790,11 +795,11 @@ public partial class World : Godot.TileMap
 		}
 	}
 
-	public dynamic GetBuildingInfo(Vector2I cellPostion) 
+	public dynamic GetBuildingInfo(Vector2I cellPosition) 
 	{
 		foreach (var building in buildingsInfo)
 		{
-			if (building.coords[0] == cellPostion[0] && building.coords[1] == cellPostion[1])
+			if (building.coords[0] == cellPosition[0] && building.coords[1] == cellPosition[1])
 			{
 				if (building.buildingType.ToString() == "buildingPart")
 				{
@@ -825,7 +830,7 @@ public partial class World : Godot.TileMap
 	{
 		for (int i = 0; i < building.inputSlots.Count; i++)
 		{
-			// checks if in 'inputSlot' is right item and its amout required to crafting
+			// checks if in 'inputSlot' is right item and its amount required to crafting
 			if ((int)building.inputSlots[i].amount < (int)recipe.input[i].amount || 
 				building.inputSlots[i].resource.ToString() != recipe.input[i].name.ToString())
 			{
@@ -885,7 +890,7 @@ public partial class World : Godot.TileMap
 		//GD.Print(building);
 	}
 
-	private void CreateItem(Vector2 coords, Vector2I destination, string name, int speed = 0, string id = "")
+	private void CreateItem(Vector2 coords, Vector2I destination, string name, int speed = 0, string id = "", Vector2I? parentBuilding = null)
 	{
 		Item item = (Item)GD.Load<PackedScene>("res://Scenes/Game/World/Item/Item.tscn").Instantiate();
 
@@ -894,6 +899,11 @@ public partial class World : Godot.TileMap
 			item.Name = $"{destination[0]}x{destination[1]}";
 			item.destination = destination * 64;
 			item.speed = 64 / (60 / speed);
+
+			if (parentBuilding != null)
+			{
+				item.parentBuilding = parentBuilding;
+			}
 		}
 		else
 		{

@@ -6,6 +6,7 @@ using System.Reflection.Metadata;
 public partial class Item : Node2D
 {
 	public Vector2 destination = new (0, 0);
+	public Vector2I? parentBuilding;
 	public bool onGround = false;
 	public float speed = 0;
 	public string itemType;
@@ -58,10 +59,19 @@ public partial class Item : Node2D
 			if (!onGround)
 			{
 				World tileMap = GetNode<World>("/root/main/World/TileMap");
-				string[] coordsArr = Name.ToString().Split('x');
-				Vector2I coords = new Vector2I(int.Parse(coordsArr[0]), int.Parse(coordsArr[1]));
 
-				dynamic building = tileMap.GetBuildingInfo(coords);
+				dynamic building;
+				if (parentBuilding == null)
+				{
+					string[] coordsArr = Name.ToString().Split('x');
+					Vector2I coords = new (int.Parse(coordsArr[0]), int.Parse(coordsArr[1]));
+
+					building = tileMap.GetBuildingInfo(coords);
+				}
+				else
+				{
+					building = tileMap.GetBuildingInfo((Vector2I)parentBuilding);
+				}
 				building.item = "";
 				building.moveProgress = 0;
 			}
