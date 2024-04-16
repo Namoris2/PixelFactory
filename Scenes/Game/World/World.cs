@@ -466,6 +466,13 @@ public partial class World : Godot.TileMap
 			{
 				Vector2 coords = new((float)item.position[0], (float)item.position[1]);
 				Vector2I destination = new((int)item.destination[0], (int)item.destination[1]);
+
+				if (item.parentBuilding != null)
+				{
+					Vector2I? parentBuilding = new((int)item.parentBuilding.X, (int)item.parentBuilding.Y);
+					CreateItem(coords, destination, item.name.ToString(), (int)item.speed, parentBuilding: parentBuilding);
+					continue;
+				}
 				CreateItem(coords, destination, item.name.ToString(), (int)item.speed);
 			}
 			
