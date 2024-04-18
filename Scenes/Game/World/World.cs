@@ -259,7 +259,7 @@ public partial class World : Godot.TileMap
 					nextBuilding = GetBuildingInfo(nextCoords);
 						
 					// moves item on the belt
-					if (buildingsInfo[i].item.ToString() != "" && (double)buildingsInfo[i].moveProgress < 1 && nextBuilding != null)
+					if (buildingsInfo[i].item.ToString() != "" && (double)buildingsInfo[i].moveProgress < 1)
 					{
 						buildingsInfo[i].moveProgress += (double)buildingsInfo[i].speed / 60 * delta;
 
