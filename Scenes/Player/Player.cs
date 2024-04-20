@@ -53,11 +53,11 @@ public partial class Player : Godot.CharacterBody2D
 		}
 		else if (Input.IsActionPressed("MoveUp"))
 		{
-			playerSprite.Texture = GD.Load<Texture2D>(path + "playerPlaceholderUp.png");
+			playerSprite.Texture = GD.Load<Texture2D>(path + "playerUp.png");
 		}
 		else
 		{
-			playerSprite.Texture = GD.Load<Texture2D>(path + "playerPlaceholder.png");
+			playerSprite.Texture = GD.Load<Texture2D>(path + "player.png");
 		}
 	}
 

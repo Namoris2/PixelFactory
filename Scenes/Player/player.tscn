@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://i4r6u351cl60"]
 
 [ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="1_nriof"]
-[ext_resource type="Texture2D" uid="uid://dmylqa8qorhbi" path="res://Gimp/Player/playerPlaceholder.png" id="2_c7iuj"]
 [ext_resource type="Script" path="res://Scenes/Player/PlayerCamera.cs" id="2_laqpu"]
+[ext_resource type="Texture2D" uid="uid://i6lhdkbgu66k" path="res://Gimp/Player/player.png" id="2_w674l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6blut"]
 size = Vector2(40, 64)
@@ -28,7 +28,7 @@ shape = SubResource("RectangleShape2D_6blut")
 z_index = 2
 position = Vector2(576, 324)
 scale = Vector2(4, 4)
-texture = ExtResource("2_c7iuj")
+texture = ExtResource("2_w674l")
 
 [node name="PlayerCamera" type="Camera2D" parent="PlayerIcon"]
 script = ExtResource("2_laqpu")

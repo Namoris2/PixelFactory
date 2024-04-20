@@ -9,6 +9,7 @@ res://Scenes/UI/Menu/MenuSelect.tscn
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/UI/Inventory/InventorySlot.tscn
 res://Scenes/Game/World/Item/Item.tscn
+res://Scenes/Player/player.tscn
 res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/World/GenerateWorld.cs
 res://Scenes/Game/World/Item/Item.cs
