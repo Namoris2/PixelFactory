@@ -1,3 +1,5 @@
+CPUParticles2D
+GPUParticles2D
 Button
 Label
 Panel
@@ -11,4 +13,3 @@ Area2D
 VFlowContainer
 HFlowContainer
 ProgressBar
-ColorRect

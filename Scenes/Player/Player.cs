@@ -45,11 +45,11 @@ public partial class Player : Godot.CharacterBody2D
 
 		if (Input.IsActionPressed("MoveLeft"))
 		{
-			playerSprite.Texture = GD.Load<Texture2D>(path + "playerPlaceholderLeft.png");
+			playerSprite.Texture = GD.Load<Texture2D>(path + "playerLeft.png");
 		}
 		else if (Input.IsActionPressed("MoveRight"))
 		{
-			playerSprite.Texture = GD.Load<Texture2D>(path + "playerPlaceholderRight.png");
+			playerSprite.Texture = GD.Load<Texture2D>(path + "playerRight.png");
 		}
 		else if (Input.IsActionPressed("MoveUp"))
 		{
