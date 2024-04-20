@@ -8,10 +8,18 @@ public partial class Player : Godot.CharacterBody2D
 	public int defaultSpeed = 400;
 	int actualSpeed;
 	int speed;
+
+	Sprite2D playerSprite;
+	GpuParticles2D particlesStationary;
+	GpuParticles2D particlesMoving;
+	private string path = "res://Gimp/Player/";
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		actualSpeed = defaultSpeed;
+		playerSprite = GetNode<Sprite2D>("PlayerIcon");
+		particlesStationary = GetNode<GpuParticles2D>("ParticlesStationary");
+		particlesMoving = GetNode<GpuParticles2D>("ParticlesMoving");
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -40,24 +48,40 @@ public partial class Player : Godot.CharacterBody2D
 
 	private void UpdatePlayerTexture()
 	{
-		Sprite2D playerSprite = GetNode<Sprite2D>("PlayerIcon");
-		string path = "res://Gimp/Player/";
-
 		if (Input.IsActionPressed("MoveLeft"))
 		{
 			playerSprite.Texture = GD.Load<Texture2D>(path + "playerLeft.png");
+			playerSprite.RotationDegrees = -15;
+			particlesStationary.Emitting = false;
+			particlesMoving.Emitting = true;
 		}
 		else if (Input.IsActionPressed("MoveRight"))
 		{
 			playerSprite.Texture = GD.Load<Texture2D>(path + "playerRight.png");
+			playerSprite.RotationDegrees = 15;
+			particlesStationary.Emitting = false;
+			particlesMoving.Emitting = true;
 		}
 		else if (Input.IsActionPressed("MoveUp"))
 		{
 			playerSprite.Texture = GD.Load<Texture2D>(path + "playerUp.png");
+			playerSprite.RotationDegrees = 0;
+			particlesStationary.Emitting = false;
+			particlesMoving.Emitting = true;
+		}
+		else if (Input.IsActionPressed("MoveDown"))
+		{
+			playerSprite.Texture = GD.Load<Texture2D>(path + "player.png");
+			playerSprite.RotationDegrees = 0;
+			particlesStationary.Emitting = false;
+			particlesMoving.Emitting = true;
 		}
 		else
 		{
 			playerSprite.Texture = GD.Load<Texture2D>(path + "player.png");
+			playerSprite.RotationDegrees = 0;
+			particlesStationary.Emitting = true;
+			particlesMoving.Emitting = false;
 		}
 	}
 

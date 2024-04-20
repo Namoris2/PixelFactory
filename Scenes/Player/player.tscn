@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://i4r6u351cl60"]
+[gd_scene load_steps=14 format=3 uid="uid://i4r6u351cl60"]
 
 [ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="1_nriof"]
 [ext_resource type="Texture2D" uid="uid://c2liy4ptpmr6h" path="res://Gimp/Player/player.png" id="2_b3ijg"]
@@ -8,13 +8,42 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6blut"]
 size = Vector2(56, 52)
 
+[sub_resource type="Gradient" id="Gradient_4xvfl"]
+offsets = PackedFloat32Array(0, 0.441948, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.860377, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_31tds"]
+gradient = SubResource("Gradient_4xvfl")
+
 [sub_resource type="Curve" id="Curve_p3ohd"]
 _data = [Vector2(0.00651466, 1), 0.0, 0.0, 0, 0, Vector2(0.410169, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.483051), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="Gradient" id="Gradient_4xvfl"]
-offsets = PackedFloat32Array(0, 0.441948, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.860377, 1, 1, 1, 0)
+[sub_resource type="CurveTexture" id="CurveTexture_85o16"]
+curve = SubResource("Curve_p3ohd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_turrx"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 200, 0)
+scale_min = 6.0
+scale_max = 6.0
+scale_curve = SubResource("CurveTexture_85o16")
+color_ramp = SubResource("GradientTexture1D_31tds")
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0rsup"]
+gradient = SubResource("Gradient_4xvfl")
+
+[sub_resource type="CurveTexture" id="CurveTexture_hphuw"]
+curve = SubResource("Curve_p3ohd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1utkc"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+scale_min = 6.0
+scale_max = 6.0
+scale_curve = SubResource("CurveTexture_hphuw")
+color_ramp = SubResource("GradientTexture1D_0rsup")
 
 [node name="Player" type="CharacterBody2D"]
 safe_margin = 0.001
@@ -32,26 +61,37 @@ collision_mask = 2
 [node name="WaterCollision" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_6blut")
 
+[node name="PlayerCamera" type="Camera2D" parent="."]
+scale = Vector2(4, 4)
+script = ExtResource("2_laqpu")
+
 [node name="PlayerIcon" type="Sprite2D" parent="."]
 z_index = 2
 scale = Vector2(4, 4)
 texture = ExtResource("2_b3ijg")
 
-[node name="PlayerCamera" type="Camera2D" parent="PlayerIcon"]
-script = ExtResource("2_laqpu")
-
-[node name="GPUParticles2D" type="CPUParticles2D" parent="."]
+[node name="ParticlesStationary" type="GPUParticles2D" parent="."]
+z_index = 1
 z_as_relative = false
 position = Vector2(0, 10)
 amount = 5
-lifetime = 0.85
-preprocess = 1.0
+process_material = SubResource("ParticleProcessMaterial_turrx")
 texture = ExtResource("4_jhl5s")
-gravity = Vector2(0, 200)
-scale_amount_min = 6.0
-scale_amount_max = 6.0
-scale_amount_curve = SubResource("Curve_p3ohd")
-color_ramp = SubResource("Gradient_4xvfl")
+lifetime = 0.85
+fixed_fps = 0
+draw_order = 0
+
+[node name="ParticlesMoving" type="GPUParticles2D" parent="."]
+z_index = 1
+z_as_relative = false
+position = Vector2(0, 10)
+emitting = false
+amount = 7
+process_material = SubResource("ParticleProcessMaterial_1utkc")
+texture = ExtResource("4_jhl5s")
+lifetime = 0.85
+fixed_fps = 0
+draw_order = 0
 
 [connection signal="body_entered" from="Area2D" to="." method="CollidedWithWater"]
 [connection signal="body_exited" from="Area2D" to="." method="ExitedFromWater"]

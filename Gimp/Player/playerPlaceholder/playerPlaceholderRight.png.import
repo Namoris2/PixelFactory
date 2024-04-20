@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmylqa8qorhbi"
-path="res://.godot/imported/playerPlaceholder.png-df3e19138ff87b2727439fe37f876b55.ctex"
+uid="uid://31sh0ftr7fv5"
+path="res://.godot/imported/playerPlaceholderRight.png-fc38255eec0f1d9ab0d1932aafc29b34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Gimp/Player/playerPlaceholder.png"
-dest_files=["res://.godot/imported/playerPlaceholder.png-df3e19138ff87b2727439fe37f876b55.ctex"]
+source_file="res://Gimp/Player/playerPlaceholder/playerPlaceholderRight.png"
+dest_files=["res://.godot/imported/playerPlaceholderRight.png-fc38255eec0f1d9ab0d1932aafc29b34.ctex"]
 
 [params]
 

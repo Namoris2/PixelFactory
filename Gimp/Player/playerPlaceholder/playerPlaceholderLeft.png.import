@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c56jkxvcjc3mn"
-path="res://.godot/imported/playerPlaceholderLeft.png-ed05b39b648ce338d1ba7ad6b6373aa4.ctex"
+path="res://.godot/imported/playerPlaceholderLeft.png-436ed075d1e787fd084718e46b0a7dac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Gimp/Player/playerPlaceholderLeft.png"
-dest_files=["res://.godot/imported/playerPlaceholderLeft.png-ed05b39b648ce338d1ba7ad6b6373aa4.ctex"]
+source_file="res://Gimp/Player/playerPlaceholder/playerPlaceholderLeft.png"
+dest_files=["res://.godot/imported/playerPlaceholderLeft.png-436ed075d1e787fd084718e46b0a7dac.ctex"]
 
 [params]
 

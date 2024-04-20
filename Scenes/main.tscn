@@ -1960,6 +1960,9 @@ sources/1 = SubResource("TileSetAtlasSource_7gb0d")
 
 [node name="World" type="Node2D" parent="."]
 
+[node name="Player" parent="World" groups=["CanSave"] instance=ExtResource("6_dnyod")]
+position = Vector2(-1312, 672)
+
 [node name="TileMap" type="TileMap" parent="World" groups=["CanSave"]]
 texture_filter = 1
 scale = Vector2(4, 4)
@@ -1979,9 +1982,6 @@ layer_3/tile_data = PackedInt32Array()
 script = ExtResource("4_doi5u")
 worldGeneration = false
 mapRadius = 30
-
-[node name="Player" parent="World" groups=["CanSave"] instance=ExtResource("6_dnyod")]
-position = Vector2(-1312, 672)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
