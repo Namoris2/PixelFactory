@@ -886,8 +886,17 @@ public partial class World : Godot.TileMap
 		if (building.buildingType.ToString() == "machine")
 		{
 			slotType = slotType.ToLower();
+			dynamic slot = building[slotType + "Slots"][slotIndex];
+			dynamic item = items[slot.resource.ToString()];
 
-			building[slotType + "Slots"][slotIndex].amount = itemAmount;
+			if (slot.amount + itemAmount > item.maxStackSize)
+			{
+				slot.amount = item.maxStackSize;
+			}
+			else
+			{
+				slot.amount += itemAmount;
+			}	
 		}
 		else
 		{
