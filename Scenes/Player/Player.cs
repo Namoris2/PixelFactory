@@ -53,28 +53,40 @@ public partial class Player : Godot.CharacterBody2D
 			playerSprite.Texture = GD.Load<Texture2D>(path + "playerLeft.png");
 			playerSprite.RotationDegrees = -15;
 			particlesStationary.Emitting = false;
+
 			particlesMoving.Emitting = true;
+			particlesMoving.ProcessMaterial.Set("angle_max", 15);
+			particlesMoving.ProcessMaterial.Set("angle_min", 15);
 		}
 		else if (Input.IsActionPressed("MoveRight"))
 		{
 			playerSprite.Texture = GD.Load<Texture2D>(path + "playerRight.png");
 			playerSprite.RotationDegrees = 15;
 			particlesStationary.Emitting = false;
+
 			particlesMoving.Emitting = true;
+			particlesMoving.ProcessMaterial.Set("angle_max", -15);
+			particlesMoving.ProcessMaterial.Set("angle_min", -15);
 		}
 		else if (Input.IsActionPressed("MoveUp"))
 		{
 			playerSprite.Texture = GD.Load<Texture2D>(path + "playerUp.png");
 			playerSprite.RotationDegrees = 0;
 			particlesStationary.Emitting = false;
-			particlesMoving.Emitting = true;
+
+			particlesMoving.Emitting = true;			
+			particlesMoving.ProcessMaterial.Set("angle_max", 0);
+			particlesMoving.ProcessMaterial.Set("angle_min", 0);
 		}
 		else if (Input.IsActionPressed("MoveDown"))
 		{
 			playerSprite.Texture = GD.Load<Texture2D>(path + "player.png");
 			playerSprite.RotationDegrees = 0;
 			particlesStationary.Emitting = false;
+
 			particlesMoving.Emitting = true;
+			particlesMoving.ProcessMaterial.Set("angle_max", 0);
+			particlesMoving.ProcessMaterial.Set("angle_min", 0);
 		}
 		else
 		{
