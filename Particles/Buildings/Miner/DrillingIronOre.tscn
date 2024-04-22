@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjgflbu4g5kxp"]
+
+[ext_resource type="PackedScene" uid="uid://606jj7dg53sk" path="res://Particles/Buildings/Miner/Drilling.tscn" id="1_sfnkq"]
+
+[node name="IronOreParticles" instance=ExtResource("1_sfnkq")]

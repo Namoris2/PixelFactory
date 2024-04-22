@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://cgckafhm8cnhu"]
+
+[ext_resource type="Texture2D" uid="uid://2tdwgee2d5c3" path="res://Gimp/Player/PlayerHoverParticle.png" id="1_b6gwv"]
+
+[sub_resource type="Gradient" id="Gradient_4xvfl"]
+offsets = PackedFloat32Array(0, 0.441948, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.860377, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_31tds"]
+gradient = SubResource("Gradient_4xvfl")
+
+[sub_resource type="Curve" id="Curve_p3ohd"]
+_data = [Vector2(0.00651466, 1), 0.0, 0.0, 0, 0, Vector2(0.410169, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.483051), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_85o16"]
+curve = SubResource("Curve_p3ohd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_turrx"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 200, 0)
+scale_min = 6.0
+scale_max = 6.0
+scale_curve = SubResource("CurveTexture_85o16")
+color_ramp = SubResource("GradientTexture1D_31tds")
+
+[node name="ParticlesStationary" type="GPUParticles2D"]
+z_index = 1
+z_as_relative = false
+position = Vector2(0, 10)
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_turrx")
+texture = ExtResource("1_b6gwv")
+lifetime = 0.85
+fixed_fps = 0
+draw_order = 0

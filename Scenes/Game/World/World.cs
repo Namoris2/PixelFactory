@@ -709,6 +709,14 @@ public partial class World : Godot.TileMap
 				buildingsInfo.Add(buildingPart);
 			}
 		}
+
+		if (building.type.ToString() == "drill")
+		{
+			Node2D particle = (Node2D)GD.Load<PackedScene>($"res://Particles/Buildings/Miner/Drilling{building.recipe}.tscn").Instantiate();
+			Vector2 particlePosition = cellPosition + new Vector2(0.5f, 10f / 16);
+			particle.Position = particlePosition * 64;
+			GetParent().CallDeferred("add_child", particle);
+		}
 	}
 
 	private bool HasItemsToBuild (dynamic items)

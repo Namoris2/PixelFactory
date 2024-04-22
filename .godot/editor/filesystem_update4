@@ -46,3 +46,8 @@ res://Scenes/UI/Save and Load/DeleteSave.cs
 res://Scenes/UI/Save and Load/SaveGame.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/UIToggle.cs
+res://Particles/Buildings/Miner/Drilling.tscn
+res://Particles/Buildings/Miner/DrillingCopper.tscn
+res://Particles/Buildings/Miner/Drilling.tres
+res://Particles/Buildings/Miner/DrillingIronOre.tscn
+res://Particles/Buildings/Miner/DrillingCopperOre.tscn

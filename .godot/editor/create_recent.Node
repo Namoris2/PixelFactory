@@ -1,5 +1,5 @@
-CPUParticles2D
 GPUParticles2D
+CPUParticles2D
 Button
 Label
 Panel
@@ -12,4 +12,3 @@ RichTextLabel
 Area2D
 VFlowContainer
 HFlowContainer
-ProgressBar
