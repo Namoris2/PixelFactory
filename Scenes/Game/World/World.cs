@@ -715,6 +715,7 @@ public partial class World : Godot.TileMap
 			Node2D particle = (Node2D)GD.Load<PackedScene>($"res://Particles/Buildings/Miner/Drilling{building.recipe}.tscn").Instantiate();
 			Vector2 particlePosition = cellPosition + new Vector2(0.5f, 10f / 16);
 			particle.Position = particlePosition * 64;
+			particle.Name = $"DrillParticles{cellPosition[0]}x{cellPosition[1]}";
 			GetParent().CallDeferred("add_child", particle);
 		}
 	}
@@ -791,6 +792,11 @@ public partial class World : Godot.TileMap
 			{
 				item.destination = item.Position;
 			}
+		}
+
+		if (building.type.ToString() == "drill")
+		{
+			GetParent().GetNode<Node>($"DrillParticles{coords[0]}x{coords[1]}").QueueFree();
 		}
 		
 		// destroys building
