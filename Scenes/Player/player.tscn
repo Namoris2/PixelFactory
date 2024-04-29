@@ -1,37 +1,42 @@
-[gd_scene load_steps=5 format=3 uid="uid://i4r6u351cl60"]
+[gd_scene load_steps=7 format=3 uid="uid://i4r6u351cl60"]
 
 [ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="1_nriof"]
-[ext_resource type="Texture2D" uid="uid://dmylqa8qorhbi" path="res://Gimp/Player/playerPlaceholder.png" id="2_c7iuj"]
+[ext_resource type="Texture2D" uid="uid://c2liy4ptpmr6h" path="res://Gimp/Player/player.png" id="2_b3ijg"]
 [ext_resource type="Script" path="res://Scenes/Player/PlayerCamera.cs" id="2_laqpu"]
+[ext_resource type="PackedScene" uid="uid://cgckafhm8cnhu" path="res://Particles/Player/ParticlesStationary.tscn" id="4_jttik"]
+[ext_resource type="PackedScene" uid="uid://bef21wdbhc87x" path="res://Particles/Player/ParticlesMoving.tscn" id="5_lal68"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6blut"]
-size = Vector2(40, 64)
+size = Vector2(56, 52)
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(0, -4)
 safe_margin = 0.001
 script = ExtResource("1_nriof")
 
 [node name="BuildingCollision" type="CollisionShape2D" parent="."]
-position = Vector2(576, 324)
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_6blut")
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -2)
 collision_layer = 0
 collision_mask = 2
 
 [node name="WaterCollision" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(576, 324)
 shape = SubResource("RectangleShape2D_6blut")
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+scale = Vector2(4, 4)
+script = ExtResource("2_laqpu")
 
 [node name="PlayerIcon" type="Sprite2D" parent="."]
 z_index = 2
-position = Vector2(576, 324)
 scale = Vector2(4, 4)
-texture = ExtResource("2_c7iuj")
+texture = ExtResource("2_b3ijg")
 
-[node name="PlayerCamera" type="Camera2D" parent="PlayerIcon"]
-script = ExtResource("2_laqpu")
+[node name="ParticlesStationary" parent="." instance=ExtResource("4_jttik")]
+
+[node name="ParticlesMoving" parent="." instance=ExtResource("5_lal68")]
 
 [connection signal="body_entered" from="Area2D" to="." method="CollidedWithWater"]
 [connection signal="body_exited" from="Area2D" to="." method="ExitedFromWater"]

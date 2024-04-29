@@ -16,6 +16,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Reflection.Metadata;
 using Newtonsoft.Json.Linq;
+using System.Collections;
 
 public partial class World : Godot.TileMap
 {
@@ -233,7 +234,7 @@ public partial class World : Godot.TileMap
 					{
 						buildingsInfo[i].productionProgress += (double)recipe.cyclesPerMinute / 60 * delta;
 
-						if (buildingsInfo[i].productionProgress >= 1) // if 'productionProgress' is full items will be added and removed acording to machine's recipe
+						if (buildingsInfo[i].productionProgress >= 1) // if 'productionProgress' is full items will be added and removed according to machine's recipe
 																	  // and resets 'productionProgress' 
 						{
 							buildingsInfo[i].productionProgress = 0;
@@ -250,11 +251,6 @@ public partial class World : Godot.TileMap
 						}
 					}
 
-					// if inventory is opened, data will be sent to the inventory to show on screen
-					if (UITOGGLE)
-					{
-						EmitSignal(SignalName.UpdateBuildingProgress, Newtonsoft.Json.JsonConvert.SerializeObject(buildingsInfo[i]));
-					}
 					break;
 				
 				case "belt":
@@ -263,9 +259,13 @@ public partial class World : Godot.TileMap
 					nextBuilding = GetBuildingInfo(nextCoords);
 						
 					// moves item on the belt
-					if (buildingsInfo[i].item.ToString() != "" && (double)buildingsInfo[i].moveProgress < 1 && nextBuilding != null)
+					if (buildingsInfo[i].item.ToString() != "" && (double)buildingsInfo[i].moveProgress < 1)
 					{
 						buildingsInfo[i].moveProgress += (double)buildingsInfo[i].speed / 60 * delta;
+
+						itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
+						item = GetNode<Item>(itemName);
+						if (item.parentBuilding != null) { item.parentBuilding = null; }
 					}
 
 					if ((double)buildingsInfo[i].moveProgress > 1) { buildingsInfo[i].moveProgress = 1; }
@@ -301,13 +301,14 @@ public partial class World : Godot.TileMap
 
 					if ((double)buildingsInfo[i].moveProgress > 1) { buildingsInfo[i].moveProgress = 1; }
 					
+					//taking item from building
 					if ((double)buildingsInfo[i].moveProgress == 0 && CanArmTransfer(buildingsInfo[i]))
 					{
 						if (previousBuilding.buildingType.ToString() == "machine") // machine
 						{
 							buildingsInfo[i].item = previousBuilding.outputSlots[0].resource; 
 							previousBuilding.outputSlots[0].amount -= 1;
-							CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2);
+							CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2, parentBuilding: new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]));
 						}
 						else if (previousBuilding.buildingType.ToString() == "storage") // storage
 						{
@@ -320,7 +321,7 @@ public partial class World : Godot.TileMap
 									if ((int)previousBuilding.slots[j].amount == 0) { previousBuilding.slots[j].resource = ""; }
 								}
 							}
-							CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2);
+							CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2, parentBuilding: new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]));
 						}
 						else if (previousBuilding.buildingType.ToString() == "belt") // belt
 						{
@@ -333,9 +334,8 @@ public partial class World : Godot.TileMap
 
 							item.destination = nextCoords * 64;
 							item.speed = 64 / (60 / (int)buildingsInfo[i].speed) * 2;
-
 							item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
-
+							item.parentBuilding = new ((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]);
 						}
 
 						if (nextBuilding.buildingType.ToString() == "belt")
@@ -343,6 +343,7 @@ public partial class World : Godot.TileMap
 							nextBuilding.item = buildingsInfo[i].item;
 						}
 					}
+					// putting item to building/belt
 					else if ((double)buildingsInfo[i].moveProgress >= 1)
 					{
 
@@ -378,16 +379,21 @@ public partial class World : Godot.TileMap
 						buildingsInfo[i].moveProgress = 0;
 					}
 					
-				break;
+				break;					
+			}
+
+			// if inventory is opened, data will be sent to the inventory to show on screen
+			if (UITOGGLE && (buildingsInfo[i].buildingType.ToString() == "machine" || buildingsInfo[i].buildingType.ToString() == "storage"))
+			{
+				EmitSignal(SignalName.UpdateBuildingProgress, Newtonsoft.Json.JsonConvert.SerializeObject(buildingsInfo[i]));
 			}
 		}
 	}
 
 	public string Save()
     {
-        List<dynamic> savedData = new();
 		List<dynamic> savedBuildings = new();
-		savedData.Add(seed);
+		List<dynamic> savedItems  = new();
 
 		foreach (dynamic building in buildingsInfo)
 		{
@@ -396,9 +402,29 @@ public partial class World : Godot.TileMap
 				savedBuildings.Add(building);
 			}
 		}
-		savedData.Add(savedBuildings);
 
-		return Newtonsoft.Json.JsonConvert.SerializeObject(savedData);
+		for (int i = 0; i < GetChildCount(); i++)
+		{
+			Item item = (Item)GetChildren()[i];
+			System.Collections.Generic.Dictionary<string, dynamic> savedItem = new()
+            {
+                { "name", item.itemType },
+				{ "position", new Array<float>() {item.Position.X / 64, item.Position.Y / 64} },
+                { "destination", new Array<float>() {item.destination.X / 64 , item.destination.Y / 64} },
+                { "speed", 60 * (item.speed / 64) },
+				{ "parentBuilding", item.parentBuilding }
+            };
+			savedItems.Add(savedItem);
+
+        }
+        System.Collections.Generic.Dictionary<string, dynamic> savedData = new()
+        {
+            { "seed", seed },
+            { "buildings", savedBuildings },
+			{ "items", savedItems },
+        };
+
+		return JsonConvert.SerializeObject(savedData);
 	}
 
 	private void Load()
@@ -415,15 +441,55 @@ public partial class World : Godot.TileMap
 			Array<Node> nodes = GetTree().GetNodesInGroup("CanSave");
 			int index = nodes.IndexOf(this);
 
-			dynamic savedData = Newtonsoft.Json.JsonConvert.DeserializeObject(savedGameList[index]);
-			seed = (int)savedData[0];
+			dynamic savedData = JsonConvert.DeserializeObject(savedGameList[index]);
+			seed = (int)savedData.seed;
 
-			dynamic loadedBuildings = savedData[1];
+			dynamic loadedBuildings = savedData.buildings;
 			foreach (dynamic building in loadedBuildings)
 			{
 				buildingsInfo.Add(building);
 				Vector2I position = new ((int)building.coords[0], (int)building.coords[1]);
+				if ((bool)building.canRotate)
+				{
+					buildingRotation = (int)building.rotation;
+
+				}
+				else
+				{
+					buildingRotation = 0;
+				}
+
+
+				Vector2I buildingAtlasCoords = new ((int)building.atlasCoords[0], (int)building.atlasCoords[1]);
+				Vector2I originalAtlasCoords = new ((int)buildings[building.type.ToString()].atlasCoords[0], (int)buildings[building.type.ToString()].atlasCoords[1]);
+				if (buildingAtlasCoords != originalAtlasCoords)
+				{
+					building.atlasCoords[0] = originalAtlasCoords[0];
+					building.atlasCoords[1] = originalAtlasCoords[1];
+				}
+
+				if (building.buildingType.ToString() == "beltArm")
+				{
+					GD.Print(buildingAtlasCoords != originalAtlasCoords, buildingAtlasCoords, originalAtlasCoords, building.atlasCoords[0], building.atlasCoords[1]);
+				}
+
 				CreateBuilding(building, position);
+			}
+			buildingRotation = 0;
+
+			dynamic savedItems = savedData.items;
+			foreach (dynamic item in savedItems)
+			{
+				Vector2 coords = new((float)item.position[0], (float)item.position[1]);
+				Vector2I destination = new((int)item.destination[0], (int)item.destination[1]);
+
+				if (item.parentBuilding != null)
+				{
+					Vector2I? parentBuilding = new((int)item.parentBuilding.X, (int)item.parentBuilding.Y);
+					CreateItem(coords, destination, item.name.ToString(), (int)item.speed, parentBuilding: parentBuilding);
+					continue;
+				}
+				CreateItem(coords, destination, item.name.ToString(), (int)item.speed);
 			}
 			
 			//buildingsInfo = loadedBuildings.ToObject<List<dynamic>>();
@@ -659,6 +725,15 @@ public partial class World : Godot.TileMap
 				buildingsInfo.Add(buildingPart);
 			}
 		}
+
+		if (building.type.ToString() == "drill")
+		{
+			Node2D particle = (Node2D)GD.Load<PackedScene>($"res://Particles/Buildings/Miner/Drilling{building.recipe}.tscn").Instantiate();
+			Vector2 particlePosition = cellPosition + new Vector2(0.5f, 10f / 16);
+			particle.Position = particlePosition * 64;
+			particle.Name = $"DrillParticles{cellPosition[0]}x{cellPosition[1]}";
+			GetParent().CallDeferred("add_child", particle);
+		}
 	}
 
 	private bool HasItemsToBuild (dynamic items)
@@ -734,12 +809,17 @@ public partial class World : Godot.TileMap
 				item.destination = item.Position;
 			}
 		}
+
+		if (building.type.ToString() == "drill")
+		{
+			GetParent().GetNode<Node>($"DrillParticles{coords[0]}x{coords[1]}").QueueFree();
+		}
 		
 		// destroys building
 		buildingsInfo.Remove(building);
 		EraseCell(1, coords);
 
-		// ďestroys multi-tile building
+		// destroys multi-tile building
 		if ((bool)building.hasAdditionalAtlasPosition)
 		{
 			for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
@@ -752,11 +832,11 @@ public partial class World : Godot.TileMap
 		}
 	}
 
-	public dynamic GetBuildingInfo(Vector2I cellPostion) 
+	public dynamic GetBuildingInfo(Vector2I cellPosition) 
 	{
 		foreach (var building in buildingsInfo)
 		{
-			if (building.coords[0] == cellPostion[0] && building.coords[1] == cellPostion[1])
+			if (building.coords[0] == cellPosition[0] && building.coords[1] == cellPosition[1])
 			{
 				if (building.buildingType.ToString() == "buildingPart")
 				{
@@ -787,7 +867,7 @@ public partial class World : Godot.TileMap
 	{
 		for (int i = 0; i < building.inputSlots.Count; i++)
 		{
-			// checks if in 'inputSlot' is right item and its amout required to crafting
+			// checks if in 'inputSlot' is right item and its amount required to crafting
 			if ((int)building.inputSlots[i].amount < (int)recipe.input[i].amount || 
 				building.inputSlots[i].resource.ToString() != recipe.input[i].name.ToString())
 			{
@@ -836,8 +916,17 @@ public partial class World : Godot.TileMap
 		if (building.buildingType.ToString() == "machine")
 		{
 			slotType = slotType.ToLower();
+			dynamic slot = building[slotType + "Slots"][slotIndex];
+			dynamic item = items[slot.resource.ToString()];
 
-			building[slotType + "Slots"][slotIndex].amount = itemAmount;
+			if (slot.amount + itemAmount > item.maxStackSize)
+			{
+				slot.amount = item.maxStackSize;
+			}
+			else
+			{
+				slot.amount += itemAmount;
+			}	
 		}
 		else
 		{
@@ -847,7 +936,7 @@ public partial class World : Godot.TileMap
 		//GD.Print(building);
 	}
 
-	private void CreateItem(Vector2I coords, Vector2I destination, string name, int speed = 0, string id = "")
+	private void CreateItem(Vector2 coords, Vector2I destination, string name, int speed = 0, string id = "", Vector2I? parentBuilding = null)
 	{
 		Item item = (Item)GD.Load<PackedScene>("res://Scenes/Game/World/Item/Item.tscn").Instantiate();
 
@@ -856,6 +945,11 @@ public partial class World : Godot.TileMap
 			item.Name = $"{destination[0]}x{destination[1]}";
 			item.destination = destination * 64;
 			item.speed = 64 / (60 / speed);
+
+			if (parentBuilding != null)
+			{
+				item.parentBuilding = parentBuilding;
+			}
 		}
 		else
 		{

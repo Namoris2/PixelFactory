@@ -232,14 +232,14 @@ public partial class BuildingInventory : Control
 		//GD.Print(coordinates, coords);
 		if (coordinates != coords) { return; }
 		
-		productionProgress.Value = (double)building.productionProgress;
+		if (building.buildingType.ToString() == "machine") { productionProgress.Value = (double)building.productionProgress; }
 
 		if (building.type.ToString() == "drill")
 		{	
 			InventorySlot slot = GetNode<InventorySlot>("TabContainer/Building/Slots/DrillOutputSlot");
 			UpdateSlot(slot, building.outputSlots[0].resource.ToString(), (int)building.outputSlots[0].amount);
 		}
-		else
+		else if (building.buildingType.ToString() == "machine")
 		{
 			Array<Node> inputSlots = GetTree().GetNodesInGroup("InputSlots");
 			Array<Node> outputSlots = GetTree().GetNodesInGroup("OutputSlots");
@@ -254,6 +254,15 @@ public partial class BuildingInventory : Control
 			{
 				InventorySlot slot = (InventorySlot)outputSlots[i];
 				UpdateSlot(slot, building.outputSlots[i].resource.ToString(), (int)building.outputSlots[i].amount);
+			}
+		}
+		else
+		{
+			Array<Node> storageSlots = GetTree().GetNodesInGroup("StorageSlots");
+			for (int i = 0; i < (int)building.slotsAmount; i++)
+			{
+				InventorySlot slot = (InventorySlot)storageSlots[i];
+				UpdateSlot(slot, building.slots[i].resource.ToString(), (int)building.slots[i].amount);
 			}
 		}
 

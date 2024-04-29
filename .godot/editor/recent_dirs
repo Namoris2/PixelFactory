@@ -1,7 +1,12 @@
+C:/Users/namor/OneDrive/Dokumenty/Godot/PixelFactoryBuilds/v0.2
+res://Particles/Buildings/Miner
+res://Particles/Player
+res://Gimp/Cussor
+res://Scenes/Player
+res://Scenes/UI/MainMenu
 res://Scenes/UI/Save and Load
 res://Scenes/UI/MainMenu/DeleteSaveDialog
 res://Scenes
-res://Scenes/UI/MainMenu
 res://Scenes/UI/Inventory
 C:/Users/namor/OneDrive/Dokumenty/Godot/PixelFactoryBuilds
 C:/Users/namor/OneDrive/Dokumenty/Godot
@@ -16,8 +21,3 @@ res://Scenes/UI/Inventory/BuildingInventory
 res://Scenes/UI/Pause Menu
 res://Scenes/UI
 res://scenes/UI/Inventory
-res://Scenes/UI/Inventory/PlayerInventory
-res://scenes/UI/Inventory/PlayerInventory
-res://scenes/Game
-res://scenes
-C:/Users/namor/AppData/Local/Programs/Microsoft VS Code

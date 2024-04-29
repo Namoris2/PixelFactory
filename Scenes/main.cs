@@ -3,7 +3,7 @@ using Godot.Collections;
 using System;
 using System.Collections.Generic;
 
-public partial class main : Node
+public partial class main : Node2D
 {
 	public string savePath;
 	public int seed;
@@ -29,5 +29,15 @@ public partial class main : Node
 
 		GD.PrintErr($"\"{nodeName}\" is not in group");
 		return null;
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		if (Input.IsActionPressed("CursorLeft") || Input.IsActionPressed("CursorRight") || Input.IsActionPressed("CursorUp") || Input.IsActionPressed("CursorDown"))
+		{
+			Vector2 inputDirection = Input.GetVector("CursorLeft", "CursorRight", "CursorUp", "CursorDown");
+			//GD.Print(GetViewport().GetMousePosition(), inputDirection * 3);
+			Input.WarpMouse(GetViewport().GetMousePosition() + inputDirection * 10);
+		}
 	}
 }

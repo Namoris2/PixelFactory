@@ -176,7 +176,7 @@ public partial class InventorySlot : Button
 			}
 
 			// switching item in slot and holding item (if item in slot is different from holding item)
-			else
+			else if (slotType != "Input")
 			{
 				string helperItemType;
 				string helperResourceAmount;

@@ -1,15 +1,11 @@
-res://Scenes/UI/MainMenu/LoadedSave.tscn
-res://Scenes/UI/Menu/ChangeMenu.cs
-res://Scenes/UI/Save and Load/LoadGame.cs
-res://Themes/InventorySlot.tres
-res://Scenes/UI/MainMenu/MainMenu.tscn
 res://Scenes/main.tscn
+res://Themes/InventorySlot.tres
+res://Particles/Buildings/Miner/Drilling.tres
+res://Scenes/UI/Save and Load/LoadGame.cs
+res://Scenes/UI/Menu/ChangeMenu.cs
 res://Scenes/UI/Pause Menu/PauseMenu.tscn
-res://Scenes/UI/BuildMenu/BuildMenu.tscn
-res://Scenes/UI/Menu/MenuSelect.tscn
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
-res://Scenes/UI/LoadingScreen/LoadingScreen.tscn
-res://Scenes/UI/Inventory/InventorySlot.tscn
+res://Scenes/Player/player.tscn
 res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/World/GenerateWorld.cs
 res://Scenes/Game/World/Item/Item.cs
