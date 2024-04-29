@@ -452,11 +452,27 @@ public partial class World : Godot.TileMap
 				if ((bool)building.canRotate)
 				{
 					buildingRotation = (int)building.rotation;
+
 				}
 				else
 				{
 					buildingRotation = 0;
 				}
+
+
+				Vector2I buildingAtlasCoords = new ((int)building.atlasCoords[0], (int)building.atlasCoords[1]);
+				Vector2I originalAtlasCoords = new ((int)buildings[building.type.ToString()].atlasCoords[0], (int)buildings[building.type.ToString()].atlasCoords[1]);
+				if (buildingAtlasCoords != originalAtlasCoords)
+				{
+					building.atlasCoords[0] = originalAtlasCoords[0];
+					building.atlasCoords[1] = originalAtlasCoords[1];
+				}
+
+				if (building.buildingType.ToString() == "beltArm")
+				{
+					GD.Print(buildingAtlasCoords != originalAtlasCoords, buildingAtlasCoords, originalAtlasCoords, building.atlasCoords[0], building.atlasCoords[1]);
+				}
+
 				CreateBuilding(building, position);
 			}
 			buildingRotation = 0;
