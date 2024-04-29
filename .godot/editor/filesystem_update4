@@ -1,5 +1,8 @@
 res://Scenes/main.tscn
 res://Themes/InventorySlot.tres
+res://Particles/Buildings/Miner/Drilling.tres
+res://Scenes/UI/Save and Load/LoadGame.cs
+res://Scenes/UI/Menu/ChangeMenu.cs
 res://Scenes/UI/Pause Menu/PauseMenu.tscn
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/Player/player.tscn
@@ -31,13 +34,11 @@ res://Scenes/UI/MainMenu/ButtonInfo.cs
 res://Scenes/UI/MainMenu/DeleteSaveDialog/DeleteSaveDialog.cs
 res://Scenes/UI/MainMenu/DeleteSaveDialog/ShowDialog.cs
 res://Scenes/UI/MainMenu/MainMenu.cs
-res://Scenes/UI/Menu/ChangeMenu.cs
 res://Scenes/UI/Menu/ExitGame.cs
 res://Scenes/UI/Menu/MenuSelect.cs
 res://Scenes/UI/Pause Menu/PauseMenu.cs
 res://Scenes/UI/Pause Menu/SaveQuit.cs
 res://Scenes/UI/Save and Load/DeleteSave.cs
-res://Scenes/UI/Save and Load/LoadGame.cs
 res://Scenes/UI/Save and Load/SaveGame.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/UIToggle.cs

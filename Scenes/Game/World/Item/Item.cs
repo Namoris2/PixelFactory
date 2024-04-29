@@ -27,7 +27,7 @@ public partial class Item : Node2D
 		icon = GetNode<TextureRect>("Icon");
 		name = GetNode<Label>("Name");
 
-		textureAtlas.Atlas = GD.Load<Texture2D>("res://Gimp/items/items.png");
+		textureAtlas.Atlas = GD.Load<Texture2D>("res://Gimp/Items/items.png");
 
 		icon.MouseEntered +=  OnMouseEnter;
 		icon.MouseExited += OnMouseExit;
