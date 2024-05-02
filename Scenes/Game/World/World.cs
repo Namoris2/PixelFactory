@@ -799,8 +799,17 @@ public partial class World : Godot.TileMap
 
 		if (building.buildingType.ToString().Contains("belt") && building.item.ToString() != "")
 		{
-			string itemName = $"{building.coords[0]}x{building.coords[1]}";
-			Item item = GetNode<Item>(itemName);
+			Item item;
+			string itemName = "";
+			if (building.buildingType.ToString() == "belt")
+			{
+				itemName = $"{building.coords[0]}x{building.coords[1]}";
+			}
+			else if (building.buildingType.ToString() == "beltArm")
+			{
+				itemName = $"{building.coords[0] + building.nextPosition[0]}x{building.coords[1] + building.nextPosition[1]}";
+			}
+			item = GetNode<Item>(itemName);
 
 			item.PickUpItem();
 
@@ -826,7 +835,7 @@ public partial class World : Godot.TileMap
 			{
 				coords = new Vector2I((int)building.coords[0] + (int)building.additionalAtlasPosition[i][0], (int)building.coords[1] + (int)building.additionalAtlasPosition[i][1]);
 				dynamic buildingPart = GetBuildingInfo(coords);
-				buildingsInfo.Remove(building);
+				buildingsInfo.Remove(buildingPart);
 				EraseCell(1, coords);
 			}
 		}
