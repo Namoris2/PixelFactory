@@ -797,6 +797,21 @@ public partial class World : Godot.TileMap
 			}
 		}
 
+		if (building.buildingType.ToString() == "storage")
+		{
+			for (int i = 0; i < (int)building.slotsAmount; i++)
+			{
+				int leftover = playerInventory.PutToInventory(building.slots[i].resource.ToString(), (int)building.slots[i].amount);
+				if (leftover != 0)
+				{
+					InventorySlot slot = new();
+					slot.itemType = building.slots[i].resource.ToString();
+					GetNode<Label>("ResourceName").Text = leftover.ToString();
+					leftovers.Add(slot);
+				}
+			}
+		}
+
 		if (building.buildingType.ToString().Contains("belt") && building.item.ToString() != "")
 		{
 			Item item;
