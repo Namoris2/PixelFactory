@@ -10,6 +10,7 @@ public partial class Item : Node2D
 	public bool onGround = false;
 	public float speed = 0;
 	public string itemType;
+	public bool parentLocation = false;
 
 	private Label name;
 	private AtlasTexture textureAtlas = new ();
