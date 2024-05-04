@@ -274,7 +274,7 @@ public partial class World : Godot.TileMap
 					if (CanTBeltTransfer(buildingsInfo[i]))
 					{
 						itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
-						item = GetNode<Item>(itemName);
+						item = GetNodeOrNull<Item>(itemName);
 
 						item.destination = nextCoords * 64;
 						item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
@@ -308,15 +308,7 @@ public partial class World : Godot.TileMap
 						{
 							buildingsInfo[i].item = previousBuilding.outputSlots[0].resource; 
 							previousBuilding.outputSlots[0].amount -= 1;
-
-							if (nextBuilding.buildingType.ToString() != "belt")
-							{
-								CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2, parentBuilding: new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]), parentLocation: true);
-							}
-							else
-							{
-								CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2, parentBuilding: new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]));
-							}
+							CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2, parentBuilding: new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]));
 						}
 						else if (previousBuilding.buildingType.ToString() == "storage") // storage
 						{
@@ -329,15 +321,7 @@ public partial class World : Godot.TileMap
 									if ((int)previousBuilding.slots[j].amount == 0) { previousBuilding.slots[j].resource = ""; }
 								}
 							}
-							
-							if (nextBuilding.buildingType.ToString() != "belt")
-							{
-								CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2, parentBuilding: new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]), parentLocation: true);
-							}
-							else
-							{
-								CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2, parentBuilding: new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]));
-							}
+							CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2, parentBuilding: new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]));
 						}
 						else if (previousBuilding.buildingType.ToString() == "belt") // belt
 						{
@@ -350,22 +334,15 @@ public partial class World : Godot.TileMap
 
 							item.destination = nextCoords * 64;
 							item.speed = 64 / (60 / (int)buildingsInfo[i].speed) * 2;
-							if (nextBuilding.buildingType.ToString() != "belt")
-							{
-								item.Name = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
-								item.parentLocation = true;
-							}
-							else
-							{
-								item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
-								item.parentLocation = false;
-							}
+							item.Name = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
 							item.parentBuilding = new ((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]);
 						}
 
 						if (nextBuilding.buildingType.ToString() == "belt")
 						{
 							nextBuilding.item = buildingsInfo[i].item;
+							item = GetNode<Item>($"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}");
+							item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
 						}
 					}
 					// putting item to building/belt
@@ -375,7 +352,6 @@ public partial class World : Godot.TileMap
 						if (nextBuilding.buildingType.ToString() != "belt")
 						{
 							itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
-
 							item = GetNode<Item>(itemName);
 							Vector2I coords = new ((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]);
 
@@ -441,7 +417,6 @@ public partial class World : Godot.TileMap
                 { "destination", new Array<float>() {item.destination.X / 64 , item.destination.Y / 64} },
                 { "speed", 60 * (item.speed / 64) },
 				{ "parentBuilding", item.parentBuilding },
-				{ "parentLocation", item.parentLocation }
             };
 			savedItems.Add(savedItem);
 
@@ -515,7 +490,7 @@ public partial class World : Godot.TileMap
 				if (item.parentBuilding != null)
 				{
 					Vector2I? parentBuilding = new((int)item.parentBuilding.X, (int)item.parentBuilding.Y);
-					CreateItem(coords, destination, item.name.ToString(), (int)item.speed, parentBuilding: parentBuilding, parentLocation: (bool)item.parentLocation);
+					CreateItem(coords, destination, item.name.ToString(), (int)item.speed, parentBuilding: parentBuilding);
 					continue;
 				}
 				CreateItem(coords, destination, item.name.ToString(), (int)item.speed);
@@ -993,7 +968,7 @@ public partial class World : Godot.TileMap
 		//GD.Print(building);
 	}
 
-	private void CreateItem(Vector2 coords, Vector2I destination, string name, int speed = 0, string id = "", Vector2I? parentBuilding = null, bool parentLocation = false)
+	private void CreateItem(Vector2 coords, Vector2I destination, string name, int speed = 0, string id = "", Vector2I? parentBuilding = null)
 	{
 		Item item = (Item)GD.Load<PackedScene>("res://Scenes/Game/World/Item/Item.tscn").Instantiate();
 
@@ -1005,12 +980,8 @@ public partial class World : Godot.TileMap
 			if (parentBuilding != null)
 			{
 				item.parentBuilding = parentBuilding;
-			}
-			if (parentLocation)
-			{
 				Vector2I parentCoords = (Vector2I)parentBuilding;
 				item.Name = $"{parentCoords[0]}x{parentCoords[1]}";
-				item.parentLocation = true;
 			}
 			else
 			{
