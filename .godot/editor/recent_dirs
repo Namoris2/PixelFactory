@@ -1,3 +1,4 @@
+res://Scenes/Game
 C:/Users/namor/OneDrive/Dokumenty/Godot/PixelFactoryBuilds/v0.2
 res://Particles/Buildings/Miner
 res://Particles/Player
@@ -19,5 +20,3 @@ res://
 res://Scenes/UI/BuildMenu
 res://Scenes/UI/Inventory/BuildingInventory
 res://Scenes/UI/Pause Menu
-res://Scenes/UI
-res://scenes/UI/Inventory

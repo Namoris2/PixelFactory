@@ -42,14 +42,12 @@ public partial class BuildingInventory : Control
 	{
 	}
 
-	public void ToggleInventory(bool TOGGLEINGINVENTORY, string building)
+	public void ToggleInventory(bool TOGGLEINGINVENTORY, dynamic buildingData)
 	{
-		Inventories inventories = GetNode<Inventories>("/root/main/UI/Inventories");
 		InventorySlot slot;
 
 		if (!TOGGLEINGINVENTORY) 
 		{
-			inventories.ToggleInventory(false);
 			tileMap.UITOGGLE = false;
 
 			Array<Node> inputSlots = GetTree().GetNodesInGroup("InputSlots");
@@ -91,8 +89,7 @@ public partial class BuildingInventory : Control
 			return; 
 		}
 
-
-		buildingInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(building);
+		buildingInfo = buildingData;
 		TabContainer tabContainer = GetNode<TabContainer>("TabContainer");
 		Label buildingName = GetNode<Label>("TabContainer/Building/Name");
 		coordinates = new ((int)buildingInfo.coords[0], (int)buildingInfo.coords[1]);
@@ -100,7 +97,6 @@ public partial class BuildingInventory : Control
 		switch (buildingInfo.buildingType.ToString())
 		{
 			case "machine":
-				inventories.ToggleInventory(true);
 				if ((bool)buildingInfo.canChooseRecipe)
 				{
 					tabContainer.TabsVisible = true;
@@ -192,7 +188,6 @@ public partial class BuildingInventory : Control
 				break;
 
 			case "storage":
-				inventories.ToggleInventory(true);
 				tabContainer.TabsVisible = false;
 				tabContainer.CurrentTab = 1;
 

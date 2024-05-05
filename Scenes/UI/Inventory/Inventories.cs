@@ -14,44 +14,32 @@ public partial class Inventories : CanvasLayer
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed("Back") && Visible)
-		{
-			tileMap.UITOGGLE = false;
-			tileMap.EmitSignal("ToggleInventory", tileMap.UITOGGLE, Newtonsoft.Json.JsonConvert.SerializeObject(buildingDisplayInfo));
-		}
 	}
-
-    public override void _Input(InputEvent @event)
-    {
-        
-		if (@event.IsActionPressed("Interact"))
-		{
-			buildingDisplayInfo = tileMap.GetBuildingInfo(tileMap.cellPositionByMouse);
-			
-			if (!Visible && tileMap.buildingsData != null)
-			{
-				tileMap.UITOGGLE = true;
-			}
-			else if (Visible)
-			{
-				tileMap.UITOGGLE = false;
-			}
-
-			tileMap.EmitSignal("ToggleInventory", tileMap.UITOGGLE, Newtonsoft.Json.JsonConvert.SerializeObject(buildingDisplayInfo));
-		}
-
-    }
-    
-
-	public void ToggleInventory(bool TOGGLEINGINVENTORY)
+  
+	public void ToggleInventory(bool toggle)
 	{
-		if (TOGGLEINGINVENTORY)
+		if (toggle)
 		{
 			this.Show();
 		}
 		else
 		{
 			this.Hide();
+			GetNode<Control>("InventoryGrid/BuildingInventory").Hide();
+		}
+	}
+
+	public void ToggleBuildingInventory(bool toggle, dynamic buildingData)
+	{
+		if (buildingData != null && (buildingData.buildingType.ToString() == "machine" || buildingData.buildingType.ToString() == "storage"))
+		{
+			ToggleInventory(toggle);
+			GetNode<BuildingInventory>("InventoryGrid/BuildingInventory").ToggleInventory(toggle, buildingData);
+		}
+		else if (Visible)
+		{
+			ToggleInventory(false);
+			GetNode<BuildingInventory>("InventoryGrid/BuildingInventory").ToggleInventory(false, "");
 		}
 	}
 }

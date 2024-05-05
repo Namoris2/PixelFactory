@@ -117,12 +117,6 @@ public partial class World : Godot.TileMap
 		groundResourceName = (string)groundData.GetCustomData("resourceName");
 
 		string worldInfo;
-
-		/*if (BUILDINGMODE && Input.IsActionJustPressed("Back"))
-		{
-			ToggleBuildMode();
-		}*/
-
 		
 		/*if (buildingsData != null && GetBuildingInfo(cellPositionByMouse).buildingType.ToString() == "machine")
 		{
@@ -176,11 +170,6 @@ public partial class World : Godot.TileMap
 		if (@event.IsActionPressed("ToggleDismantleMode"))
 		{
 			ToggleDismantleMode();
-		}
-
-		if (@event.IsActionPressed("ToggleInventory"))
-		{
-			TogglePlayerInventory();
 		}
 
 		// only if is 'BUILDINGMODE' toggled
@@ -573,9 +562,16 @@ public partial class World : Godot.TileMap
 		//GD.Print(buildingRotation);
 	}
 
-	public void ToggleBuildMode()
+	public void ToggleBuildMode(bool? toggle = null)
 	{
-		BUILDINGMODE = !BUILDINGMODE;
+		if (toggle == null)
+		{
+			BUILDINGMODE = !BUILDINGMODE;
+		}
+		else
+		{
+			BUILDINGMODE = (bool)toggle;
+		}
 		DISMANTLEMODE = false;
 		
 		ClearLayer(tileMapLayer);
@@ -593,9 +589,16 @@ public partial class World : Godot.TileMap
 		}
 	}
 
-	private void ToggleDismantleMode()
+	public void ToggleDismantleMode(bool? toggle = null)
 	{
-		DISMANTLEMODE = !DISMANTLEMODE;
+		if (toggle == null)
+		{
+			DISMANTLEMODE = !DISMANTLEMODE;
+		}
+		else
+		{
+			DISMANTLEMODE = (bool)toggle;
+		}
 		BUILDINGMODE = false;
 
 		ClearLayer(tileMapLayer);
@@ -608,24 +611,6 @@ public partial class World : Godot.TileMap
 			// draws cross crosshair to TileMap
 			atlasPosition = new (1, 0);
 		}
-	}
-
-	private void TogglePlayerInventory()
-	{
-		UITOGGLE = !UITOGGLE;
-		CanvasLayer buildMenu = GetNode<CanvasLayer>("/root/main/UI/BuildMenu");
-		CanvasLayer inventories = GetNode<CanvasLayer>("/root/main/UI/Inventories");
-		inventories.Visible = !inventories.Visible;
-		inventories.GetNode<Control>("InventoryGrid/BuildingInventory").Hide();
-
-		if (buildMenu.Visible)
-		{
-			UITOGGLE = true;
-		}
-
-		buildMenu.Hide();
-		BUILDINGMODE = true;
-		ToggleBuildMode();
 	}
 
 	private void Build()
