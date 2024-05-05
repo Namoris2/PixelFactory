@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1714919074
+::res://::1714932242
 export_presets.cfg::TextFile::-1::1714410394::0::1::::<><>::
 icon.png::CompressedTexture2D::8638131494384726703::1707214603::1707214603::1::::<><>::
 icon.svg::CompressedTexture2D::99270527002907611::1694630141::1706218672::1::::<><>::
@@ -7,7 +7,7 @@ icon.svg::CompressedTexture2D::99270527002907611::1694630141::1706218672::1::::<
 font.png::CompressedTexture2D::7866269573803107187::1712556560::1712556586::1::::<><>::
 PixelFactoryFont.json::JSON::-1::1709148708::0::1::::<><>::
 PixelFactoryFont.ttf::FontFile::4539902458291036080::1712557142::1712557146::1::::<><>::
-::res://Gimp/::1710349347
+::res://Gimp/::1714929836
 backround2_large.png::CompressedTexture2D::651765764645257319::1694702923::1694702925::1::::<><>::
 GameIcon512.png::CompressedTexture2D::670616727504486874::1710349277::1710349284::1::::<><>::
 placeholder.png::CompressedTexture2D::4018951253377491499::1701891136::1701891144::1::::<><>::
@@ -47,14 +47,14 @@ Grass_old.png::CompressedTexture2D::6939543570107117499::1695567261::1701352588:
 IronOre.png::CompressedTexture2D::2176229140125160903::1696083034::1701350172::1::::<><>::
 ::res://Gimp/Ground Materials/Water/::1705957084
 Water.png::CompressedTexture2D::6093387018804479258::1705957084::1705957084::1::::<><>::
-::res://Gimp/Items/::1707474487
-items.png::CompressedTexture2D::6904434550548872743::1707474086::1707474094::1::::<><>::
+::res://Gimp/Items/::1714932195
+items.png::CompressedTexture2D::6904434550548872743::1714932201::1714932244::1::::<><>::
 ::res://Gimp/Items/Coal/::1705957084
 Coal.png::CompressedTexture2D::4100528739090829500::1705957084::1705957084::1::::<><>::
-::res://Gimp/Items/CopperIngot/::1705957084
-CopperIngot.png::CompressedTexture2D::4422495201685171049::1705957084::1705957084::1::::<><>::
-::res://Gimp/Items/CopperOre/::1707474489
-CopperOre.png::CompressedTexture2D::6510731980381627593::1705957084::1705957084::1::::<><>::
+::res://Gimp/Items/CopperIngot/::1714932165
+CopperIngot.png::CompressedTexture2D::4422495201685171049::1714932173::1714932244::1::::<><>::
+::res://Gimp/Items/CopperOre/::1714931702
+CopperOre.png::CompressedTexture2D::6510731980381627593::1714931710::1714932244::1::::<><>::
 ::res://Gimp/Items/IronIngot/::1705957084
 IronIngot.png::CompressedTexture2D::8760700864740514625::1705957084::1705957084::1::::<><>::
 ::res://Gimp/Items/IronOre/::1705957084
@@ -87,31 +87,31 @@ items.json::JSON::-1::1707475286::0::1::::<><>::
 recipes.json::JSON::-1::1707426302::0::1::::<><>::
 ::res://Particles/::1713768311
 ::res://Particles/Buildings/::1713768320
-::res://Particles/Buildings/Miner/::1714409793
-Drilling.tres::ParticleProcessMaterial::4463530776085521552::1714409793::0::1::::<><>::
+::res://Particles/Buildings/Miner/::1714929232
+Drilling.tres::ParticleProcessMaterial::4463530776085521552::1714929232::0::1::::<><>::
 Drilling.tscn::PackedScene::2229362417840831758::1714045163::0::1::::<><>::uid://b4ufx16b7kh3m::::res://Particles/Buildings/Miner/Drilling.tres
-DrillingCopperOre.tscn::PackedScene::3961969583465009194::1714045163::0::1::::<><>::uid://606jj7dg53sk::::res://Particles/Buildings/Miner/Drilling.tscn
+DrillingCopperOre.tscn::PackedScene::3961969583465009194::1714929232::0::1::::<><>::uid://606jj7dg53sk::::res://Particles/Buildings/Miner/Drilling.tscn
 DrillingIronOre.tscn::PackedScene::5417250540095913653::1714045115::0::1::::<><>::uid://606jj7dg53sk::::res://Particles/Buildings/Miner/Drilling.tscn
 ::res://Particles/Player/::1713767931
 ParticlesMoving.tscn::PackedScene::2679184896664775355::1713767931::0::1::::<><>::uid://2tdwgee2d5c3::::res://Gimp/Player/PlayerHoverParticle.png
 ParticlesStationary.tscn::PackedScene::5198710628669980310::1713767926::0::1::::<><>::uid://2tdwgee2d5c3::::res://Gimp/Player/PlayerHoverParticle.png
-::res://Scenes/::1714914141
+::res://Scenes/::1714921423
 main.cs::CSharpScript::-1::1714912189::0::1::::<>Node2D<>::
-main.tscn::PackedScene::2490401018400187198::1714914141::0::1::::<><>::res://Scenes/Game/GameEvents.cs<>uid://cakt6ts1d5n8k::::res://Gimp/Ground Materials/ground.png<>res://Scenes/Game/World/World.cs<>uid://yralji1bj15x::::res://Gimp/Buildings/buildings.png<>uid://ck712pm16mpkt::::res://Gimp/Cussor/cursor_tile_hover.png<>uid://i4r6u351cl60::::res://Scenes/Player/player.tscn<>res://Scenes/UI/HUD/ResourceAmount.cs<>uid://crq7hbeb86rlt::::res://Scenes/UI/Inventory/HoldingItem.tscn<>res://Scenes/UI/Inventory/Inventories.cs<>res://Scenes/UI/HUD/WolrdInfo.cs<>uid://brtiqnhheuky7::::res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn<>res://Scenes/UI/Inventory/HoldingItem.cs<>res://Scenes/UI/HUD/FPSCounter.cs<>uid://dyxbbw8tmug2l::::res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn<>uid://bsymbesh48kwd::::res://Scenes/UI/BuildMenu/BuildMenu.tscn<>res://Scenes/UI/BuildMenu/BuildMenu.cs<>res://Scenes/UI/UIToggle.cs<>uid://bxn21jfq72eky::::res://Scenes/UI/Pause Menu/PauseMenu.tscn
+main.tscn::PackedScene::2490401018400187198::1714921423::0::1::::<><>::res://Scenes/Game/GameEvents.cs<>uid://cakt6ts1d5n8k::::res://Gimp/Ground Materials/ground.png<>res://Scenes/Game/World/World.cs<>uid://yralji1bj15x::::res://Gimp/Buildings/buildings.png<>uid://ck712pm16mpkt::::res://Gimp/Cussor/cursor_tile_hover.png<>uid://i4r6u351cl60::::res://Scenes/Player/player.tscn<>res://Scenes/UI/HUD/ResourceAmount.cs<>uid://crq7hbeb86rlt::::res://Scenes/UI/Inventory/HoldingItem.tscn<>res://Scenes/UI/Inventory/Inventories.cs<>res://Scenes/UI/HUD/WolrdInfo.cs<>uid://brtiqnhheuky7::::res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn<>res://Scenes/UI/Inventory/HoldingItem.cs<>res://Scenes/UI/HUD/FPSCounter.cs<>uid://dyxbbw8tmug2l::::res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn<>uid://bsymbesh48kwd::::res://Scenes/UI/BuildMenu/BuildMenu.tscn<>res://Scenes/UI/BuildMenu/BuildMenu.cs<>res://Scenes/UI/UIToggle.cs<>uid://bxn21jfq72eky::::res://Scenes/UI/Pause Menu/PauseMenu.tscn
 ::res://Scenes/Game/::1714912132
-GameEvents.cs::CSharpScript::-1::1714919030::0::1::::<>Node<>::
+GameEvents.cs::CSharpScript::-1::1714921420::0::1::::<>Node<>::
 LoadFile.cs::CSharpScript::-1::1710361623::0::1::::<>Node<>::
 ::res://Scenes/Game/Main/::1702835597
 ::res://Scenes/Game/World/::1714045194
 GenerateWorld.cs::CSharpScript::-1::1712161874::0::1::::<>Node<>::
 TileMap.cs::CSharpScript::-1::1710360040::0::1::::<><>::
-World.cs::CSharpScript::-1::1714918861::0::1::::<>TileMap<>::
+World.cs::CSharpScript::-1::1714921405::0::1::::<>TileMap<>::
 ::res://Scenes/Game/World/Item/::1713807993
 Item.cs::CSharpScript::-1::1714855111::0::1::::<>Node2D<>::
 Item.tscn::PackedScene::4026815455197276201::1713807993::0::1::::<><>::res://Scenes/Game/World/Item/Item.cs<>uid://bxi2smg4lvdt8::::res://Gimp/placeholder.png
-::res://Scenes/Player/::1714914141
+::res://Scenes/Player/::1714921424
 Player.cs::CSharpScript::-1::1713687814::0::1::::<>CharacterBody2D<>::
-player.tscn::PackedScene::622466347579500627::1714914141::0::1::::<><>::res://Scenes/Player/Player.cs<>uid://c2liy4ptpmr6h::::res://Gimp/Player/player.png<>res://Scenes/Player/PlayerCamera.cs<>uid://cgckafhm8cnhu::::res://Particles/Player/ParticlesStationary.tscn<>uid://bef21wdbhc87x::::res://Particles/Player/ParticlesMoving.tscn
+player.tscn::PackedScene::622466347579500627::1714921424::0::1::::<><>::res://Scenes/Player/Player.cs<>uid://c2liy4ptpmr6h::::res://Gimp/Player/player.png<>res://Scenes/Player/PlayerCamera.cs<>uid://cgckafhm8cnhu::::res://Particles/Player/ParticlesStationary.tscn<>uid://bef21wdbhc87x::::res://Particles/Player/ParticlesMoving.tscn
 PlayerCamera.cs::CSharpScript::-1::1713190638::0::1::::<>Camera2D<>::
 ::res://Scenes/Tests/::1705957084
 ::res://Scenes/Tests/Generation/::1705957084
@@ -136,13 +136,13 @@ WolrdInfo.cs::CSharpScript::-1::1710360167::0::1::::<>Label<>::
 ::res://Scenes/UI/Inventory/::1713767649
 HoldingItem.cs::CSharpScript::-1::1710362374::0::1::::<>TextureRect<>::
 HoldingItem.tscn::PackedScene::6001037256416910965::1708376215::0::1::::<><>::
-Inventories.cs::CSharpScript::-1::1714919058::0::1::::<>CanvasLayer<>::
+Inventories.cs::CSharpScript::-1::1714921575::0::1::::<>CanvasLayer<>::
 InventorySlot.cs::CSharpScript::-1::1713712502::0::1::::<>Button<>::
 InventorySlot.tscn::PackedScene::4053074305986315248::1713767649::0::1::::<><>::res://Scenes/UI/Inventory/InventorySlot.cs<>uid://bfqrtqjof5nbe::::res://Themes/InventorySlot.tres<>res://Scenes/UI/Inventory/ItemName.cs
 ItemName.cs::CSharpScript::-1::1708616907::0::1::::<>Label<>::
-::res://Scenes/UI/Inventory/BuildingInventory/::1714914141
-BuildingInventory.cs::CSharpScript::-1::1713189398::0::1::::<>Control<>::
-BuildingInventory.tscn::PackedScene::8891338696894478521::1714914141::0::1::::<><>::res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.cs<>uid://cycrfkkc7xrqg::::res://Scenes/UI/Menu/MenuSelect.tscn<>uid://bx0lsoflefadc::::res://Scenes/UI/Inventory/InventorySlot.tscn<>uid://5676axmk8hit::::res://Gimp/UI/Inventory/BuildingInventory.png
+::res://Scenes/UI/Inventory/BuildingInventory/::1714921424
+BuildingInventory.cs::CSharpScript::-1::1714920930::0::1::::<>Control<>::
+BuildingInventory.tscn::PackedScene::8891338696894478521::1714921424::0::1::::<><>::res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.cs<>uid://cycrfkkc7xrqg::::res://Scenes/UI/Menu/MenuSelect.tscn<>uid://bx0lsoflefadc::::res://Scenes/UI/Inventory/InventorySlot.tscn<>uid://5676axmk8hit::::res://Gimp/UI/Inventory/BuildingInventory.png
 ::res://Scenes/UI/Inventory/PlayerInventory/::1711492366
 PlayerInventory.cs::CSharpScript::-1::1712556017::0::1::::<>Control<>::
 PlayerInventory.tscn::PackedScene::3619369205452771960::1711492366::0::1::::<><>::res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.cs<>uid://bxi2smg4lvdt8::::res://Gimp/placeholder.png<>res://Scenes/UI/Inventory/PlayerInventory/PrintInventory.cs
@@ -164,13 +164,13 @@ ExitGame.cs::CSharpScript::-1::1710258112::0::1::::<>Button<>::
 ExitGame.tscn::PackedScene::281445047682455884::1710260747::0::1::::<><>::res://Scenes/UI/Menu/ExitGame.cs
 MenuSelect.cs::CSharpScript::-1::1710362341::0::1::::<>Button<>::
 MenuSelect.tscn::PackedScene::6462544028869756642::1713767649::0::1::::<><>::res://Scenes/UI/Menu/MenuSelect.cs<>uid://bxi2smg4lvdt8::::res://Gimp/placeholder.png
-::res://Scenes/UI/Pause Menu/::1714914141
+::res://Scenes/UI/Pause Menu/::1714921424
 PauseMenu.cs::CSharpScript::-1::1714913118::0::1::::<>Control<>::
-PauseMenu.tscn::PackedScene::4029287268821813908::1714914141::0::1::::<><>::res://Scenes/UI/Pause Menu/PauseMenu.cs<>res://Scenes/UI/Save and Load/SaveGame.cs<>res://Scenes/UI/Pause Menu/SaveQuit.cs
+PauseMenu.tscn::PackedScene::4029287268821813908::1714921423::0::1::::<><>::res://Scenes/UI/Pause Menu/PauseMenu.cs<>res://Scenes/UI/Save and Load/SaveGame.cs<>res://Scenes/UI/Pause Menu/SaveQuit.cs
 SaveQuit.cs::CSharpScript::-1::1712555715::0::1::::<>Button<>::
 ::res://Scenes/UI/Save and Load/::1714409793
 DeleteSave.cs::CSharpScript::-1::1712560506::0::1::::<>Button<>::
 LoadGame.cs::CSharpScript::-1::1714409793::0::1::::<>Button<>::
 SaveGame.cs::CSharpScript::-1::1712244272::0::1::::<>Button<>::
-::res://Themes/::1714912065
-InventorySlot.tres::Theme::2771461919830256154::1714912065::0::1::::<><>::
+::res://Themes/::1714929232
+InventorySlot.tres::Theme::2771461919830256154::1714929232::0::1::::<><>::
