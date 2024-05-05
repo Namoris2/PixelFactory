@@ -66,6 +66,7 @@ public partial class World : Godot.TileMap
 	dynamic recipes;
 
 	PlayerInventory playerInventory;
+	BuildingInventory buildingInventory;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -87,6 +88,7 @@ public partial class World : Godot.TileMap
 		recipes = load.LoadJson("recipes.json");
 
 		playerInventory = GetNode<PlayerInventory>("/root/main/UI/Inventories/InventoryGrid/PlayerInventory");
+		buildingInventory = playerInventory.GetNode<BuildingInventory>("../BuildingInventory");
 
 		seed = GetNode<main>("/root/GameInfo").seed;
 		Load();
@@ -376,9 +378,9 @@ public partial class World : Godot.TileMap
 			}
 
 			// if inventory is opened, data will be sent to the inventory to show on screen
-			if (UITOGGLE && (buildingsInfo[i].buildingType.ToString() == "machine" || buildingsInfo[i].buildingType.ToString() == "storage"))
+			if (buildingInventory.Visible)
 			{
-				EmitSignal(SignalName.UpdateBuildingProgress, Newtonsoft.Json.JsonConvert.SerializeObject(buildingsInfo[i]));
+				buildingInventory.UpdateInventory(buildingsInfo[i]);
 			}
 		}
 	}

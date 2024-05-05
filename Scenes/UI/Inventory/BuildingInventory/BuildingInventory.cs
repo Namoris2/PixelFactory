@@ -31,7 +31,6 @@ public partial class BuildingInventory : Control
 
 		tileMap = GetNode<World>("/root/main/World/TileMap");
 		tileMap.ToggleInventory += ToggleInventory;
-		tileMap.UpdateBuildingProgress += UpdateInventory;
 
 		productionProgress = GetNode<ProgressBar>("TabContainer/Building/ProductionProgress");
 		resourceProduction = GetNode<Label>("TabContainer/Building/Production");
@@ -220,9 +219,8 @@ public partial class BuildingInventory : Control
 		}
 	}
 
-	private void UpdateInventory(string info)
+	public void UpdateInventory(dynamic building)
 	{
-		dynamic building = Newtonsoft.Json.JsonConvert.DeserializeObject(info);
 		Vector2I coords = new Vector2I((int)building.coords[0], (int)building.coords[1]);
 		//GD.Print(coordinates, coords);
 		if (coordinates != coords) { return; }
