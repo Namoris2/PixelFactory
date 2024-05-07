@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bbqmsnkmc3pac"]
+[gd_scene load_steps=25 format=3 uid="uid://bbqmsnkmc3pac"]
 
 [ext_resource type="Script" path="res://Scenes/Game/GameEvents.cs" id="1_st43b"]
 [ext_resource type="Texture2D" uid="uid://cakt6ts1d5n8k" path="res://Gimp/Ground Materials/ground.png" id="3_cesio"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://brtiqnhheuky7" path="res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn" id="9_a0ikk"]
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/HoldingItem.cs" id="9_otqso"]
 [ext_resource type="Script" path="res://Scenes/UI/HUD/FPSCounter.cs" id="10_fkqdi"]
+[ext_resource type="PackedScene" uid="uid://blfbemcfo20kf" path="res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn" id="12_rkc5s"]
 [ext_resource type="PackedScene" uid="uid://dyxbbw8tmug2l" path="res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn" id="13_dtspo"]
 [ext_resource type="PackedScene" uid="uid://bsymbesh48kwd" path="res://Scenes/UI/BuildMenu/BuildMenu.tscn" id="15_14qvx"]
 [ext_resource type="Script" path="res://Scenes/UI/BuildMenu/BuildMenu.cs" id="15_v7e3e"]
@@ -2054,6 +2055,10 @@ theme_override_constants/v_separation = 0
 [node name="BuildingInventory" parent="UI/Inventories/InventoryGrid" instance=ExtResource("13_dtspo")]
 visible = false
 custom_minimum_size = Vector2(910, 1018)
+layout_mode = 2
+
+[node name="CraftingMenu" parent="UI/Inventories/InventoryGrid" instance=ExtResource("12_rkc5s")]
+visible = false
 layout_mode = 2
 
 [node name="PlayerInventory" parent="UI/Inventories/InventoryGrid" groups=["CanSave"] instance=ExtResource("9_a0ikk")]

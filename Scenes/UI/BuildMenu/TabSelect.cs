@@ -4,14 +4,14 @@ using System.Security;
 
 public partial class TabSelect : Button
 {
-	private Node partent;
+	private Node parent;
 	private TabContainer tabContainer;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		Pressed += ChangeTab;
 
-		partent = GetParent();
+		parent = GetParent();
 		tabContainer = (TabContainer)GetTree().GetNodesInGroup("TabContainer")[0];
 	}
 
@@ -22,12 +22,12 @@ public partial class TabSelect : Button
 
 	private void ChangeTab()
 	{
-		for (int i = 0; i < partent.GetChildCount(); i++)
+		for (int i = 0; i < parent.GetChildCount(); i++)
 		{
-			Button tab = (Button)partent.GetChild(i);
+			Button tab = (Button)parent.GetChild(i);
 			tab.Disabled = false;
-			Disabled = true;
 		}
+		Disabled = true;
 		tabContainer.CurrentTab = GetIndex();
 	}
 }

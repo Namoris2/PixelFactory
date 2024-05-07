@@ -40,6 +40,7 @@ public partial class GameEvents : Node
             else if (inventories.Visible)
             {
                 inventories.ToggleInventory(false);
+                tileMap.UITOGGLE = false;
             }
         }
 
@@ -50,6 +51,7 @@ public partial class GameEvents : Node
                 if (!buildMenu.Visible)
                 {
                     inventories.ToggleInventory(!inventories.Visible);
+                    tileMap.UITOGGLE = inventories.Visible;
                 }
             }
             if (@event.IsActionPressed("Interact"))

@@ -1,0 +1,140 @@
+[gd_scene load_steps=4 format=3 uid="uid://blfbemcfo20kf"]
+
+[ext_resource type="PackedScene" uid="uid://j4ti07wdyqt0" path="res://Scenes/UI/Inventory/CraftingMenu/CraftingItemSelect.tscn" id="1_caiuq"]
+[ext_resource type="Script" path="res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.cs" id="1_daig4"]
+[ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="2_7x8p6"]
+
+[node name="CraftingMenu" type="Control" groups=["CraftingMenu"]]
+custom_minimum_size = Vector2(910, 1018)
+layout_mode = 3
+anchor_right = 0.473958
+anchor_bottom = 0.942593
+offset_right = 0.000671387
+offset_bottom = -0.000427246
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_daig4")
+metadata/_edit_use_anchors_ = true
+
+[node name="CraftingBackground" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Craft" type="Button" parent="CraftingBackground"]
+layout_mode = 0
+offset_left = 548.0
+offset_top = 380.0
+offset_right = 662.0
+offset_bottom = 434.0
+theme_override_font_sizes/font_size = 30
+text = "Craft"
+
+[node name="CraftingInputItems" type="HFlowContainer" parent="CraftingBackground"]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 285.0
+offset_right = 910.0
+offset_bottom = 385.0
+alignment = 1
+
+[node name="InputSlot0" parent="CraftingBackground/CraftingInputItems" groups=["CraftingInputItems"] instance=ExtResource("2_7x8p6")]
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="InputSlot1" parent="CraftingBackground/CraftingInputItems" groups=["CraftingInputItems"] instance=ExtResource("2_7x8p6")]
+visible = false
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="InputSlot2" parent="CraftingBackground/CraftingInputItems" groups=["CraftingInputItems"] instance=ExtResource("2_7x8p6")]
+visible = false
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="InputSlot3" parent="CraftingBackground/CraftingInputItems" groups=["CraftingInputItems"] instance=ExtResource("2_7x8p6")]
+visible = false
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="CraftingOutputItems" type="HFlowContainer" parent="CraftingBackground"]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 473.0
+offset_right = 910.0
+offset_bottom = 573.0
+alignment = 1
+
+[node name="InputSlot0" parent="CraftingBackground/CraftingOutputItems" groups=["CraftingOutputItems"] instance=ExtResource("2_7x8p6")]
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="InputSlot1" parent="CraftingBackground/CraftingOutputItems" groups=["CraftingOutputItems"] instance=ExtResource("2_7x8p6")]
+visible = false
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="InputSlot2" parent="CraftingBackground/CraftingOutputItems" groups=["CraftingOutputItems"] instance=ExtResource("2_7x8p6")]
+visible = false
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="InputSlot3" parent="CraftingBackground/CraftingOutputItems" groups=["CraftingOutputItems"] instance=ExtResource("2_7x8p6")]
+visible = false
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.329671
+anchor_bottom = 1.0
+grow_vertical = 2
+color = Color(0.223529, 0.223529, 0.223529, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ItemsScrollContainer" type="ScrollContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="ItemsContainer" type="VBoxContainer" parent="ColorRect/ItemsScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="IronIngot" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+disabled = true
+itemType = "IronIngot"
+
+[node name="CopperIngot" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "CopperIngot"
+
+[node name="IronPlate" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "IronPlate"
+
+[node name="IronRod" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "IronRod"
+
+[node name="Wire" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "Wire"

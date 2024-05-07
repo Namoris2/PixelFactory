@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.SymbolStore;
 using System.Dynamic;
+using System.Linq;
 using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 
@@ -136,6 +137,42 @@ public partial class PlayerInventory : Control
 
 			if (amount == 0) { return; }
 		}
+	}
+
+	public int GetItemAmount(string itemType)
+	{
+		int amount = 0;
+		for (int i = 0; i < inventorySlots.Length; i++)
+		{
+			Label amountLabel = inventorySlots[i].GetNode<Label>("ResourceAmount");
+			
+			if (itemType == inventorySlots[i].itemType)
+			{
+				amount += int.Parse(amountLabel.Text);
+			}
+		}
+		return amount;
+	}
+
+	public bool HasSpace(string itemType, int amount)
+	{
+		if (itemType == "" || amount == 0) { return true; }
+		for (int i = 0; i < inventorySlots.Length; i++)
+		{
+			if (inventorySlots[i].itemType == "")
+			{
+				amount -= (int)items[itemType].maxStackSize;
+			}
+			else if (inventorySlots[i].itemType == itemType)
+			{
+				amount -= (int)items[itemType].maxStackSize - int.Parse(inventorySlots[i].resourceAmount.Text);
+			}
+			if (amount <= 0)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

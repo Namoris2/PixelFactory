@@ -16,16 +16,23 @@ public partial class Inventories : CanvasLayer
 	{
 	}
   
-	public void ToggleInventory(bool toggle)
+	public void ToggleInventory(bool toggle, bool showCraftingMenu = true)
 	{
 		if (toggle)
 		{
-			this.Show();
+			if (showCraftingMenu)
+			{
+				CraftingMenu craftingMenu = GetNode<CraftingMenu>("InventoryGrid/CraftingMenu");
+				craftingMenu.ChangeRecipe(craftingMenu.selectedRecipe);
+				craftingMenu.Show();
+			}
+			Show();
 		}
 		else
 		{
-			this.Hide();
+			Hide();
 			GetNode<Control>("InventoryGrid/BuildingInventory").Hide();
+			GetNode<Control>("InventoryGrid/CraftingMenu").Hide();
 		}
 	}
 
@@ -33,7 +40,7 @@ public partial class Inventories : CanvasLayer
 	{
 		if (buildingData != null && (buildingData.buildingType.ToString() == "machine" || buildingData.buildingType.ToString() == "storage"))
 		{
-			ToggleInventory(toggle);
+			ToggleInventory(toggle, false);
 			GetNode<BuildingInventory>("InventoryGrid/BuildingInventory").ToggleInventory(toggle, buildingData);
 		}
 		else if (Visible)
