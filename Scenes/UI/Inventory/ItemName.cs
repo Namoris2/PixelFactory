@@ -6,6 +6,7 @@ public partial class ItemName : Label
 	Vector2 position;
 	Vector2 slotPosition;
 
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -48,6 +49,7 @@ public partial class ItemName : Label
 		LoadFile load = new();
 		dynamic items = load.LoadJson("items.json");
 		this.Text = items[slot.itemType].name.ToString();
+		Size = new (0, 0);
 		this.Show();
 	}
 	

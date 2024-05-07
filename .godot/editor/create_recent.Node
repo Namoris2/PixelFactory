@@ -1,8 +1,9 @@
+Label
+RichTextLabel
+ColorRect
 Button
 HFlowContainer
-ColorRect
 Panel
-Label
 TextureRect
 ScrollContainer
 VScrollBar
@@ -11,4 +12,3 @@ Node
 GPUParticles2D
 CPUParticles2D
 LineEdit
-FlowContainer

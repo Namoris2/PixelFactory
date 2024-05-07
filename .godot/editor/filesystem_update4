@@ -1,9 +1,9 @@
-res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn
-res://Themes/InventorySlot.tres
 res://Scenes/main.tscn
+res://Themes/InventorySlot.tres
 res://Scenes/UI/Pause Menu/PauseMenu.tscn
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/Player/player.tscn
+res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn
 res://Scenes/UI/Inventory/CraftingMenu/CraftingItemSelect.tscn
 res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
 res://Scenes/Game/GameEvents.cs
@@ -47,3 +47,4 @@ res://Scenes/UI/Save and Load/LoadGame.cs
 res://Scenes/UI/Save and Load/SaveGame.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/UIToggle.cs
+res://Scenes/UI/Inventory/InventorySlot.tscn
