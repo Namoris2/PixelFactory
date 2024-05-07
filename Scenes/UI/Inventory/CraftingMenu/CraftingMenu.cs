@@ -55,7 +55,7 @@ public partial class CraftingMenu : Control
 			InventorySlot slot = (InventorySlot)inputItems[i];
 			int amount = playerInventory.GetItemAmount(recipe.input[i].name.ToString());
 			slot.resourceAmount.Text = $"{amount}/{recipe.input[i].amount}";
-			slot.itemType = itemType;
+			slot.itemType = recipe.input[i].name.ToString();
 			slot.UpdateSlotTexture(recipe.input[i].name.ToString());
 			slot.Show();
 		}
@@ -64,7 +64,7 @@ public partial class CraftingMenu : Control
 		{
 			InventorySlot slot = (InventorySlot)outputItems[i];
 			slot.resourceAmount.Text = recipe.output[i].amount.ToString();
-			slot.itemType = itemType;
+			slot.itemType = recipe.output[i].name.ToString();
 			slot.UpdateSlotTexture(recipe.output[i].name.ToString());
 			slot.Show();
 		}
