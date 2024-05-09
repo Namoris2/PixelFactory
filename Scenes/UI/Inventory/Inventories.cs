@@ -4,11 +4,15 @@ using System;
 public partial class Inventories : CanvasLayer
 {
 	World tileMap;
+	HoldingItem holdingItem;
+	PlayerInventory playerInventory;
 	dynamic buildingDisplayInfo;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		tileMap = GetNode<World>("/root/main/World/TileMap");
+		holdingItem = GetNode<HoldingItem>("HoldingItem");
+		playerInventory = GetNode<PlayerInventory>("InventoryGrid/PlayerInventory");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,6 +37,17 @@ public partial class Inventories : CanvasLayer
 			Hide();
 			GetNode<Control>("InventoryGrid/BuildingInventory").Hide();
 			GetNode<Control>("InventoryGrid/CraftingMenu").Hide();
+
+			if (holdingItem.Visible)
+			{
+				int amount = playerInventory.PutToInventory(holdingItem.itemName, int.Parse(holdingItem.itemAmount));
+				holdingItem.HideHoldingItem();
+
+				if (amount != 0)
+				{
+					
+				}
+			}
 		}
 	}
 
