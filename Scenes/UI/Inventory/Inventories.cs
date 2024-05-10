@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Inventories : CanvasLayer
 {
@@ -38,25 +39,27 @@ public partial class Inventories : CanvasLayer
 			GetNode<Control>("InventoryGrid/BuildingInventory").Hide();
 			GetNode<Control>("InventoryGrid/CraftingMenu").Hide();
 
-			if (holdingItem.Visible)
+			if (holdingItem.ISHOLDINGITEM)
 			{
 				int amount = playerInventory.PutToInventory(holdingItem.itemName, int.Parse(holdingItem.itemAmount));
-				holdingItem.HideHoldingItem();
-
 				if (amount != 0)
 				{
-					
+					Dictionary<string, int> item = new(){ { holdingItem.itemName, int.Parse(holdingItem.itemAmount) } };
+					tileMap.CreateRemainsBox(item);
 				}
+				
+				holdingItem.HideHoldingItem();
 			}
 		}
 	}
 
-	public void ToggleBuildingInventory(bool toggle, dynamic buildingData)
+	public void ToggleBuildingInventory(bool toggle, dynamic buildingData, Leftovers leftovers = null)
 	{
-		if (buildingData != null && (buildingData.buildingType.ToString() == "machine" || buildingData.buildingType.ToString() == "storage"))
+		// GD.Print("RemainsBox null: ", remainsBox == null);
+		if (leftovers != null || (buildingData != null && (buildingData.buildingType.ToString() == "machine" || buildingData.buildingType.ToString() == "storage")))
 		{
 			ToggleInventory(toggle, false);
-			GetNode<BuildingInventory>("InventoryGrid/BuildingInventory").ToggleInventory(toggle, buildingData);
+			GetNode<BuildingInventory>("InventoryGrid/BuildingInventory").ToggleInventory(toggle, buildingData, leftovers);
 		}
 		else if (Visible)
 		{

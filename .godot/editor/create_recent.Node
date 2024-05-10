@@ -1,10 +1,10 @@
 Label
+TextureRect
 RichTextLabel
 ColorRect
 Button
 HFlowContainer
 Panel
-TextureRect
 ScrollContainer
 VScrollBar
 VBoxContainer

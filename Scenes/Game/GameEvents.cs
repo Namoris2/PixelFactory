@@ -7,6 +7,7 @@ public partial class GameEvents : Node
     private Inventories inventories;
     private BuildMenu buildMenu;
     private PauseMenu pauseMenu;
+    public Leftovers leftovers;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -56,7 +57,14 @@ public partial class GameEvents : Node
             }
             if (@event.IsActionPressed("Interact"))
             {
-                inventories.ToggleBuildingInventory(!inventories.Visible, tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
+                if (leftovers != null)
+                {
+                    inventories.ToggleBuildingInventory(!inventories.Visible, "", leftovers);
+                }
+                else
+                {
+                    inventories.ToggleBuildingInventory(!inventories.Visible, tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
+                }
             }
         }
     }

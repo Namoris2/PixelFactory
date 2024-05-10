@@ -10,7 +10,6 @@ using System.Runtime.CompilerServices;
 
 public partial class PlayerInventory : Control
 {
-    private const int V = 10;
     FlowContainer flowContainer;
 	private InventorySlot inventorySlot;
 	private string inventorySlotPath = "res://Scenes/UI/Inventory/InventorySlot.tscn";
@@ -34,11 +33,12 @@ public partial class PlayerInventory : Control
 		if (loadingScreen == null || !loadingScreen.loadingSave)
 		{
 			// cheat items to inventory
-			PutToInventory("IronIngot", 100);
+			PutToInventory("CopperIngot", 2000);
+			/*PutToInventory("IronIngot", 100);
 			PutToInventory("CopperIngot", 100);
 			PutToInventory("IronPlate", 200);
 			PutToInventory("IronRod", 200);
-			PutToInventory("Wire", 500);
+			PutToInventory("Wire", 500);*/
 		}
 	}
 
@@ -59,7 +59,7 @@ public partial class PlayerInventory : Control
 		for (int i = 0; i < inventorySlots.Length; i++)
 		{
 			if (amount == 0) { break; }
-			Label amountLabel = inventorySlots[i].GetNode<Label>("ResourceAmount");
+			Label amountLabel = inventorySlots[i].resourceAmount;
 			
 			if (inventorySlots[i].itemType == "")
 			{
