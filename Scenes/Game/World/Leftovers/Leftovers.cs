@@ -46,7 +46,7 @@ public partial class Leftovers : Node2D
 			if (items[i].itemType == "") { items.Remove(items[i]); i--; }
 		}
 
-		GD.Print(items.Count);
+		//GD.Print(items.Count);
 
 		if (items.Count == 0)
 		{

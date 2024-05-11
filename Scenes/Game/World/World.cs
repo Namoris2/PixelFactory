@@ -845,7 +845,15 @@ public partial class World : Godot.TileMap
 
 			if (!item.PickUpItem())
 			{
-				item.destination = item.Position;
+				if (leftovers.ContainsKey(item.itemType))
+				{
+					leftovers[item.itemType] += 1;
+				}
+				else
+				{
+					leftovers.Add(item.itemType, 1);
+				}
+				item.QueueFree();
 			}
 		}
 
