@@ -57,6 +57,7 @@ public partial class GameEvents : Node
             }
             if (@event.IsActionPressed("Interact"))
             {
+                tileMap.UITOGGLE = !tileMap.UITOGGLE;
                 if (leftovers != null)
                 {
                     inventories.ToggleBuildingInventory(!inventories.Visible, "", leftovers);

@@ -33,8 +33,8 @@ public partial class PlayerInventory : Control
 		if (loadingScreen == null || !loadingScreen.loadingSave)
 		{
 			// cheat items to inventory
-			//PutToInventory("CopperIngot", 2000);
-			/*PutToInventory("IronIngot", 100);
+			/*PutToInventory("CopperIngot", 2000);
+			PutToInventory("IronIngot", 100);
 			PutToInventory("CopperIngot", 100);
 			PutToInventory("IronPlate", 200);
 			PutToInventory("IronRod", 200);

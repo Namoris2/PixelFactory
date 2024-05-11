@@ -41,7 +41,7 @@ public partial class BuildingInventory : Control
 	{
 	}
 
-	public void ToggleInventory(bool TOGGLEINGINVENTORY, dynamic buildingData, Leftovers leftovers = null)
+	public void ToggleInventory(bool TOGGLEINGINVENTORY, dynamic _buildingInfo, Leftovers leftovers = null)
 	{
 		InventorySlot slot;
 
@@ -108,8 +108,7 @@ public partial class BuildingInventory : Control
 			return; 
 		}
 
-
-		buildingInfo = buildingData;
+		buildingInfo = _buildingInfo;
 		TabContainer tabContainer = GetNode<TabContainer>("TabContainer");
 		Label buildingName = GetNode<Label>("TabContainer/Building/Name");
 		
@@ -139,6 +138,7 @@ public partial class BuildingInventory : Control
 			Show();
 			return;
 		}
+		//GD.Print(buildingInfo);
 
 		coordinates = new ((int)buildingInfo.coords[0], (int)buildingInfo.coords[1]);
 		switch (buildingInfo.buildingType.ToString())
