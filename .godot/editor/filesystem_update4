@@ -5,12 +5,12 @@ res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn
 res://Scenes/UI/Inventory/CraftingMenu/CraftingItemSelect.tscn
 res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
 res://Scenes/UI/Inventory/InventorySlot.tscn
-res://Scenes/Game/World/RemainsBox/RemainsBox.tscn
+res://Scenes/Game/World/Leftovers/Leftovers.tscn
 res://Scenes/Game/GameEvents.cs
 res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/World/GenerateWorld.cs
 res://Scenes/Game/World/Item/Item.cs
-res://Scenes/Game/World/RemainsBox/RemainsBox.cs
+res://Scenes/Game/World/Leftovers/Leftovers.cs
 res://Scenes/Game/World/World.cs
 res://Scenes/main.cs
 res://Scenes/Player/Player.cs
@@ -48,5 +48,3 @@ res://Scenes/UI/Save and Load/LoadGame.cs
 res://Scenes/UI/Save and Load/SaveGame.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/UIToggle.cs
-res://Scenes/Game/World/Leftovers/Leftovers.tscn
-res://Scenes/Game/World/Leftovers/Leftovers.cs

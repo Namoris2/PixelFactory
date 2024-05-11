@@ -749,7 +749,7 @@ public partial class World : Godot.TileMap
 		for (int i = 0; i < building.cost.Count; i++)
 		{
 			int leftover = playerInventory.PutToInventory(building.cost[i].resource.ToString(), (int)building.cost[i].amount);
-			GD.Print(building.cost[i].resource, leftover);
+			//GD.Print(building.cost[i].resource, leftover);
 			if (leftover != 0)
 			{
 				if (leftovers.ContainsKey(building.cost[i].resource.ToString()))
@@ -770,7 +770,7 @@ public partial class World : Godot.TileMap
 			for (int i = 0; i < building.inputSlots.Count; i++)
 			{
 				int leftover = playerInventory.PutToInventory(building.inputSlots[i].resource.ToString(), (int)building.inputSlots[i].amount);			
-				GD.Print(building.inputSlots[i].resource, leftover);
+				//GD.Print(building.inputSlots[i].resource, leftover);
 				if (leftover != 0)
 				{
 					if (leftovers.ContainsKey(building.inputSlots[i].resource.ToString()))
@@ -788,7 +788,7 @@ public partial class World : Godot.TileMap
 			for (int i = 0; i < building.outputSlots.Count; i++)
 			{
 				int leftover = playerInventory.PutToInventory(building.outputSlots[i].resource.ToString(), (int)building.outputSlots[i].amount);
-				GD.Print(building.outputSlots[i].resource, leftover);
+				//GD.Print(building.outputSlots[i].resource, leftover);
 				if (leftover != 0)
 				{
 					if (leftovers.ContainsKey(building.outputSlots[i].resource.ToString()))
@@ -808,7 +808,7 @@ public partial class World : Godot.TileMap
 			for (int i = 0; i < (int)building.slotsAmount; i++)
 			{
 				int leftover = playerInventory.PutToInventory(building.slots[i].resource.ToString(), (int)building.slots[i].amount);
-				GD.Print(building.slots[i].resource, leftover);
+				//GD.Print(building.slots[i].resource, leftover);
 				if (leftover != 0)
 				{
 					if (leftovers.ContainsKey(building.slots[i].resource.ToString()))
@@ -1033,14 +1033,14 @@ public partial class World : Godot.TileMap
 			slots.Add(slot);
 		}
 
-		for (int i = 0; i < slots.Count; i++)
+		/*for (int i = 0; i < slots.Count; i++)
 		{
 			GD.Print("itemType: ", slots[i].itemType, " amount: ", slots[i].itemAmount);
-		}
+		}*/
 
 		leftovers.items = slots;
 		AddChild(leftovers);
-		GD.Print("Created Remains Box");
+		//GD.Print("Created Remains Box");
 	}
 
 	private bool CanTBeltTransfer(dynamic building)

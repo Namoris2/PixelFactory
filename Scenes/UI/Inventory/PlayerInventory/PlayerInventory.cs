@@ -48,6 +48,7 @@ public partial class PlayerInventory : Control
 		{
 			inventorySlot = (InventorySlot)GD.Load<PackedScene>(inventorySlotPath).Instantiate();
 			inventorySlot.Name = $"Slot{i}";
+			inventorySlot.inventoryType = "inventory";
 			flowContainer.AddChild(inventorySlot);
 
 			inventorySlots[i] = inventorySlot;
