@@ -385,7 +385,7 @@ public partial class World : Godot.TileMap
 		}
 	}
 
-	public string Save()
+	public System.Collections.Generic.Dictionary<string, dynamic> Save()
     {
 		List<dynamic> savedBuildings = new();
 		List<dynamic> savedItems  = new();
@@ -419,7 +419,8 @@ public partial class World : Godot.TileMap
 			{ "items", savedItems },
         };
 
-		return JsonConvert.SerializeObject(savedData);
+		GD.Print("World saved");
+		return savedData;
 	}
 
 	private void Load()
@@ -432,14 +433,16 @@ public partial class World : Godot.TileMap
 			string savedGame = saveFile.GetAsText();
 			saveFile.Close();
 
-			string[] savedGameList = savedGame.Split("\n");
+			dynamic savedData = JsonConvert.DeserializeObject(savedGame);
+			dynamic worldData = savedData[Name];
+			/*string[] savedGameList = savedGame.Split("\n");
 			Array<Node> nodes = GetTree().GetNodesInGroup("CanSave");
-			int index = nodes.IndexOf(this);
+			int index = nodes.IndexOf(this);*/
 
-			dynamic savedData = JsonConvert.DeserializeObject(savedGameList[index]);
-			seed = (int)savedData.seed;
+			//dynamic savedData = JsonConvert.DeserializeObject(savedGameList[index]);
+			seed = (int)worldData.seed;
 
-			dynamic loadedBuildings = savedData.buildings;
+			dynamic loadedBuildings = worldData.buildings;
 			foreach (dynamic building in loadedBuildings)
 			{
 				buildingsInfo.Add(building);
@@ -472,7 +475,8 @@ public partial class World : Godot.TileMap
 			}
 			buildingRotation = 0;
 
-			dynamic savedItems = savedData.items;
+			dynamic savedItems = worldData.items;
+			//GD.Print(savedItems.ToString());
 			foreach (dynamic item in savedItems)
 			{
 				Vector2 coords = new((float)item.position[0], (float)item.position[1]);
@@ -499,7 +503,7 @@ public partial class World : Godot.TileMap
 		//GD.Print("World Generated");
 	}
 
-	public void Load(string data) {} // does nothing, just so 'Call' method does't have error
+	public void Load(dynamic data) {} // does nothing, just so 'Call' method does't have error
 
 	public Vector2I GetMousePosition()
 	{

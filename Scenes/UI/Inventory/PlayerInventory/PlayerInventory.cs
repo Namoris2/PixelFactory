@@ -181,7 +181,7 @@ public partial class PlayerInventory : Control
 	{
 	}
 
-	public string Save()
+	public List<System.Collections.Generic.Dictionary<string, dynamic>> Save()
 	{
 		List<System.Collections.Generic.Dictionary<string, dynamic>> slots = new();
 		foreach (InventorySlot slot in inventorySlots)
@@ -207,16 +207,17 @@ public partial class PlayerInventory : Control
 			slotInfo.Add("amount", amount);
 			slots.Add(slotInfo);
 		}
-		return Newtonsoft.Json.JsonConvert.SerializeObject(slots);
+		return slots;
 	}
 
-	public void Load(string data)
+	public void Load(dynamic data)
 	{
-		dynamic parsedData = Newtonsoft.Json.JsonConvert.DeserializeObject(data);
-		for (int i = 0; i < parsedData.Count; i++)
+		dynamic loadedData = data[Name];
+		//GD.Print(loadedData);
+		for (int i = 0; i < loadedData.Count; i++)
 		{
-			string itemType = parsedData[i].resource.ToString();
-			int amount = (int)parsedData[i].amount;
+			string itemType = loadedData[i].resource.ToString();
+			int amount = (int)loadedData[i].amount;
 			InventorySlot slot = inventorySlots[i];
 
 			if (itemType != "")

@@ -48,12 +48,14 @@ public partial class LoadingScreen : Control
 
 					if (!Godot.FileAccess.FileExists(savePath)) { return; }
 				
-					string[] savedGameList = savedGame.Split("\n");
+					//string[] savedGameList = savedGame.Split("\n");
 
-					foreach (Node node in nodes)
+					//int i = 0;
+					foreach (dynamic node in nodes)
 					{
-						string data = savedGameList[nodes.IndexOf(node)];
-						node.Call("Load", data);
+						dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject(savedGame);
+						node.Load(data);
+						//i++;
 					}
 					//GD.Print("Save Loaded");
 				}
