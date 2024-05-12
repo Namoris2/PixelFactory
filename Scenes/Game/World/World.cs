@@ -303,7 +303,7 @@ public partial class World : Godot.TileMap
 						}
 						else if (previousBuilding.buildingType.ToString() == "storage") // storage
 						{
-							for (int j = previousBuilding.slots.Count - 1; j > 0; j--)
+							for (int j = previousBuilding.slots.Count - 1; j >= 0; j--)
 							{
 								GD.Print(previousBuilding.slots[j].resource, previousBuilding.slots[j].amount); 
 								if (previousBuilding.slots[j].resource.ToString() != "")
