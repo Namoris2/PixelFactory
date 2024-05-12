@@ -57,7 +57,6 @@ public partial class GameEvents : Node
             }
             if (@event.IsActionPressed("Interact"))
             {
-                tileMap.UITOGGLE = !tileMap.UITOGGLE;
                 if (leftovers != null)
                 {
                     inventories.ToggleBuildingInventory(!inventories.Visible, "", leftovers);
@@ -65,6 +64,7 @@ public partial class GameEvents : Node
                 else
                 {
                     inventories.ToggleBuildingInventory(!inventories.Visible, tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
+                    tileMap.UITOGGLE = inventories.Visible;
                 }
             }
         }
