@@ -25,7 +25,7 @@ public partial class SaveGame : Button
 		foreach (dynamic node in nodes)
 		{
 			dynamic savedNode = node.Save();
-			GD.Print(savedNode);
+			//GD.Print(savedNode);
 			savedData.Add(node.Name, savedNode);
 		}
 

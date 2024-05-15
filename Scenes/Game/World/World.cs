@@ -391,6 +391,7 @@ public partial class World : Godot.TileMap
     {
 		List<dynamic> savedBuildings = new();
 		List<dynamic> savedItems  = new();
+		List<dynamic> savedLeftovers  = new();
 
 		foreach (dynamic building in buildingsInfo)
 		{
@@ -400,9 +401,10 @@ public partial class World : Godot.TileMap
 			}
 		}
 
-		for (int i = 0; i < GetChildCount(); i++)
+		Array<Node> items = GetTree().GetNodesInGroup("Items");
+		for (int i = 0; i < items.Count; i++)
 		{
-			Item item = (Item)GetChildren()[i];
+			Item item = (Item)items[i];
 			System.Collections.Generic.Dictionary<string, dynamic> savedItem = new()
             {
                 { "name", item.itemType },
@@ -412,13 +414,27 @@ public partial class World : Godot.TileMap
 				{ "parentBuilding", item.parentBuilding },
             };
 			savedItems.Add(savedItem);
-
         }
+
+		Array<Node> leftovers = GetTree().GetNodesInGroup("Leftovers");
+		for (int i = 0; i < leftovers.Count; i++)
+		{
+			Leftovers box = (Leftovers)leftovers[i];
+			System.Collections.Generic.Dictionary<string, dynamic> savedLeftoverBox = new()
+            {
+				{ "position", new Array<float>() {box.Position.X, box.Position.Y} },
+				{ "items", box.items },
+            };
+			savedLeftovers.Add(savedLeftoverBox);
+		}
+
+
         System.Collections.Generic.Dictionary<string, dynamic> savedData = new()
         {
             { "seed", seed },
             { "buildings", savedBuildings },
 			{ "items", savedItems },
+			{ "leftovers", savedLeftovers }
         };
 
 		GD.Print("World saved");
@@ -491,6 +507,16 @@ public partial class World : Godot.TileMap
 					continue;
 				}
 				CreateItem(coords, destination, item.name.ToString(), (int)item.speed);
+			}
+
+			dynamic savedLeftovers = worldData.leftovers;
+			foreach (var leftovers in savedLeftovers)
+			{
+				Leftovers instantiatedLeftovers = (Leftovers)GD.Load<PackedScene>("res://Scenes/Game/World/Leftovers/Leftovers.tscn").Instantiate();
+				Vector2 position = new ((int)leftovers.position[0], (int)leftovers.position[1]);
+				instantiatedLeftovers.GlobalPosition = position;
+				instantiatedLeftovers.items = leftovers.items.ToObject<List<LeftoversSlot>>();
+				AddChild(instantiatedLeftovers);
 			}
 			
 			//buildingsInfo = loadedBuildings.ToObject<List<dynamic>>();
@@ -1031,7 +1057,7 @@ public partial class World : Godot.TileMap
 		List<LeftoversSlot> slots = new();
 		Vector2 playerPosition = GetNode<Player>("../Player").Position;
 		Leftovers leftovers = (Leftovers)GD.Load<PackedScene>("res://Scenes/Game/World/Leftovers/Leftovers.tscn").Instantiate();
-		leftovers.GlobalPosition = playerPosition;
+			leftovers.GlobalPosition = playerPosition;
 
 		foreach (var item in itemsDict)
 		{
