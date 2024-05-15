@@ -85,7 +85,7 @@ public partial class BuildingInventory : Control
 
 			if (leftovers != null)
 			{
-				Array<Node> remainsSlots = GetTree().GetNodesInGroup("RemainsSlots");
+				Array<Node> remainsSlots = GetTree().GetNodesInGroup("LeftoversSlots");
 				for (int i = 0; i < remainsSlots.Count; i++)
 				{
 					slot = (InventorySlot)remainsSlots[i];
@@ -98,7 +98,7 @@ public partial class BuildingInventory : Control
 
 					leftovers.items[i].itemType = slot.itemType;
 					leftovers.items[i].itemAmount = amount;
-					main.FindNodeByNameInGroup(remainsSlots, $"RemainsSlot{i}").QueueFree();	
+					main.FindNodeByNameInGroup(remainsSlots, $"LeftoversSlot{i}").QueueFree();	
 				}
 				leftovers.RemoveEmptySlots();
 			}
@@ -116,7 +116,7 @@ public partial class BuildingInventory : Control
 		{	
 			tabContainer.TabsVisible = false;
 			tabContainer.CurrentTab = 1;
-			buildingName.Text = "Remains";
+			buildingName.Text = "Leftovers";
 
 			productionProgress.Hide();
 			resourceProduction.Hide();
@@ -124,8 +124,8 @@ public partial class BuildingInventory : Control
 			for (int i = 0; i < leftovers.items.Count; i++)
 			{
 				InventorySlot newSlot = (InventorySlot)GD.Load<PackedScene>("res://Scenes/UI/Inventory/InventorySlot.tscn").Instantiate();
-				newSlot.Name = $"RemainsSlot{i}";
-				newSlot.AddToGroup("RemainsSlots");
+				newSlot.Name = $"LeftoversSlot{i}";
+				newSlot.AddToGroup("LeftoversSlots");
 				newSlot.itemType =  leftovers.items[i].itemType;
 
 				newSlot.GetNode<Label>("ResourceAmount").Text =  leftovers.items[i].itemAmount.ToString();
