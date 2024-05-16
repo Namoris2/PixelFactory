@@ -26,6 +26,7 @@ public partial class InventorySlot : Button
 	public string inventoryType;
 	public Vector2I buildingCoordinates;
 	private World tileMap;
+	private CraftingMenu craftingMenu;
 
 	public dynamic items;
 	// Called when the node enters the scene tree for the first time.
@@ -37,6 +38,7 @@ public partial class InventorySlot : Button
 		itemTexture = GetNode<TextureRect>("ItemTexture");
 		resourceAmount = GetNode<Label>("ResourceAmount");
 		resourceName = GetNode<Label>("ItemName");
+		craftingMenu = (CraftingMenu)GetTree().GetNodesInGroup("CraftingMenu")[0];
 		
 		inventorySlotIndex = this.GetIndex();
 
@@ -208,6 +210,11 @@ public partial class InventorySlot : Button
 
 				tileMap.PutItemToSlot(buildingCoordinates, amount, itemType, slotType, inventorySlotIndex);
 			}
+		}
+
+		if (craftingMenu.Visible)
+		{
+			craftingMenu.ChangeRecipe(craftingMenu.selectedRecipe);
 		}
 
 		this.ShowHoldingItem -= holdingItem.ShowHoldingItem;

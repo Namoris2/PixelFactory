@@ -27,7 +27,7 @@ public partial class World : Godot.TileMap
 	public delegate void UpdateResourceInfoEventHandler(string resourceName);
 
 	[Signal]
-	public delegate void ToggleInventoryEventHandler(bool InvenotryToggle, string info);
+	public delegate void ToggleInventoryEventHandler(bool InvenotryToggle, string info, Leftovers leftovers);
 
 	[Signal]
 	public delegate void UpdateBuildingProgressEventHandler(string info);
@@ -66,6 +66,7 @@ public partial class World : Godot.TileMap
 	dynamic recipes;
 
 	PlayerInventory playerInventory;
+	BuildingInventory buildingInventory;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -87,6 +88,7 @@ public partial class World : Godot.TileMap
 		recipes = load.LoadJson("recipes.json");
 
 		playerInventory = GetNode<PlayerInventory>("/root/main/UI/Inventories/InventoryGrid/PlayerInventory");
+		buildingInventory = playerInventory.GetNode<BuildingInventory>("../BuildingInventory");
 
 		seed = GetNode<main>("/root/GameInfo").seed;
 		Load();
@@ -117,12 +119,6 @@ public partial class World : Godot.TileMap
 		groundResourceName = (string)groundData.GetCustomData("resourceName");
 
 		string worldInfo;
-
-		/*if (BUILDINGMODE && Input.IsActionJustPressed("Back"))
-		{
-			ToggleBuildMode();
-		}*/
-
 		
 		/*if (buildingsData != null && GetBuildingInfo(cellPositionByMouse).buildingType.ToString() == "machine")
 		{
@@ -176,11 +172,6 @@ public partial class World : Godot.TileMap
 		if (@event.IsActionPressed("ToggleDismantleMode"))
 		{
 			ToggleDismantleMode();
-		}
-
-		if (@event.IsActionPressed("ToggleInventory"))
-		{
-			TogglePlayerInventory();
 		}
 
 		// only if is 'BUILDINGMODE' toggled
@@ -274,7 +265,7 @@ public partial class World : Godot.TileMap
 					if (CanTBeltTransfer(buildingsInfo[i]))
 					{
 						itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
-						item = GetNode<Item>(itemName);
+						item = GetNodeOrNull<Item>(itemName);
 
 						item.destination = nextCoords * 64;
 						item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
@@ -312,16 +303,18 @@ public partial class World : Godot.TileMap
 						}
 						else if (previousBuilding.buildingType.ToString() == "storage") // storage
 						{
-							for (int j = previousBuilding.slots.Count - 1; j > 0; j--)
+							for (int j = previousBuilding.slots.Count - 1; j >= 0; j--)
 							{
-								if (previousBuilding.slots[j].resource != "")
+								GD.Print(previousBuilding.slots[j].resource, previousBuilding.slots[j].amount); 
+								if (previousBuilding.slots[j].resource.ToString() != "")
 								{
-									buildingsInfo[i].item = previousBuilding.slots[j].resource;
+									buildingsInfo[i].item = previousBuilding.slots[j].resource.ToString();
 									previousBuilding.slots[j].amount -= 1;
 									if ((int)previousBuilding.slots[j].amount == 0) { previousBuilding.slots[j].resource = ""; }
+									CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2, parentBuilding: new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]));
 								}
 							}
-							CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2, parentBuilding: new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]));
+							GD.Print();
 						}
 						else if (previousBuilding.buildingType.ToString() == "belt") // belt
 						{
@@ -334,13 +327,15 @@ public partial class World : Godot.TileMap
 
 							item.destination = nextCoords * 64;
 							item.speed = 64 / (60 / (int)buildingsInfo[i].speed) * 2;
-							item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
+							item.Name = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
 							item.parentBuilding = new ((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]);
 						}
 
 						if (nextBuilding.buildingType.ToString() == "belt")
 						{
 							nextBuilding.item = buildingsInfo[i].item;
+							item = GetNode<Item>($"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}");
+							item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
 						}
 					}
 					// putting item to building/belt
@@ -349,9 +344,11 @@ public partial class World : Godot.TileMap
 
 						if (nextBuilding.buildingType.ToString() != "belt")
 						{
-							itemName = $"{nextCoords[0]}x{nextCoords[1]}";
+							itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
 							item = GetNode<Item>(itemName);
+							Vector2I coords = new ((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]);
 
+							if (coords != item.parentBuilding) { break; }
 							if (nextBuilding.buildingType.ToString() == "machine") { nextBuilding.inputSlots[0].amount += 1; }
 							
 							else
@@ -364,7 +361,7 @@ public partial class World : Godot.TileMap
 										nextBuilding.slots[j].resource = buildingsInfo[i].item;
 										break;
 									}
-									else if  (buildingsInfo[i].item == nextBuilding.slots[j].resource.ToString() && (int)nextBuilding.slots[j].amount < (int)items[nextBuilding.slots[j].resource.ToString()].maxStackSize)
+									else if (buildingsInfo[i].item.ToString() == nextBuilding.slots[j].resource.ToString() && (int)nextBuilding.slots[j].amount < (int)items[nextBuilding.slots[j].resource.ToString()].maxStackSize)
 									{
 										nextBuilding.slots[j].amount += 1;
 										break;
@@ -383,17 +380,18 @@ public partial class World : Godot.TileMap
 			}
 
 			// if inventory is opened, data will be sent to the inventory to show on screen
-			if (UITOGGLE && (buildingsInfo[i].buildingType.ToString() == "machine" || buildingsInfo[i].buildingType.ToString() == "storage"))
+			if (buildingInventory.Visible && GetBuildingInfo(cellPositionByMouse) != null)
 			{
-				EmitSignal(SignalName.UpdateBuildingProgress, Newtonsoft.Json.JsonConvert.SerializeObject(buildingsInfo[i]));
+				buildingInventory.UpdateInventory(buildingsInfo[i]);
 			}
 		}
 	}
 
-	public string Save()
+	public System.Collections.Generic.Dictionary<string, dynamic> Save()
     {
 		List<dynamic> savedBuildings = new();
 		List<dynamic> savedItems  = new();
+		List<dynamic> savedLeftovers  = new();
 
 		foreach (dynamic building in buildingsInfo)
 		{
@@ -403,28 +401,44 @@ public partial class World : Godot.TileMap
 			}
 		}
 
-		for (int i = 0; i < GetChildCount(); i++)
+		Array<Node> items = GetTree().GetNodesInGroup("Items");
+		for (int i = 0; i < items.Count; i++)
 		{
-			Item item = (Item)GetChildren()[i];
+			Item item = (Item)items[i];
 			System.Collections.Generic.Dictionary<string, dynamic> savedItem = new()
             {
                 { "name", item.itemType },
 				{ "position", new Array<float>() {item.Position.X / 64, item.Position.Y / 64} },
                 { "destination", new Array<float>() {item.destination.X / 64 , item.destination.Y / 64} },
                 { "speed", 60 * (item.speed / 64) },
-				{ "parentBuilding", item.parentBuilding }
+				{ "parentBuilding", item.parentBuilding },
             };
 			savedItems.Add(savedItem);
-
         }
+
+		Array<Node> leftovers = GetTree().GetNodesInGroup("Leftovers");
+		for (int i = 0; i < leftovers.Count; i++)
+		{
+			Leftovers box = (Leftovers)leftovers[i];
+			System.Collections.Generic.Dictionary<string, dynamic> savedLeftoverBox = new()
+            {
+				{ "position", new Array<float>() {box.Position.X, box.Position.Y} },
+				{ "items", box.items },
+            };
+			savedLeftovers.Add(savedLeftoverBox);
+		}
+
+
         System.Collections.Generic.Dictionary<string, dynamic> savedData = new()
         {
             { "seed", seed },
             { "buildings", savedBuildings },
 			{ "items", savedItems },
+			{ "leftovers", savedLeftovers }
         };
 
-		return JsonConvert.SerializeObject(savedData);
+		GD.Print("World saved");
+		return savedData;
 	}
 
 	private void Load()
@@ -437,14 +451,16 @@ public partial class World : Godot.TileMap
 			string savedGame = saveFile.GetAsText();
 			saveFile.Close();
 
-			string[] savedGameList = savedGame.Split("\n");
+			dynamic savedData = JsonConvert.DeserializeObject(savedGame);
+			dynamic worldData = savedData[Name];
+			/*string[] savedGameList = savedGame.Split("\n");
 			Array<Node> nodes = GetTree().GetNodesInGroup("CanSave");
-			int index = nodes.IndexOf(this);
+			int index = nodes.IndexOf(this);*/
 
-			dynamic savedData = JsonConvert.DeserializeObject(savedGameList[index]);
-			seed = (int)savedData.seed;
+			//dynamic savedData = JsonConvert.DeserializeObject(savedGameList[index]);
+			seed = (int)worldData.seed;
 
-			dynamic loadedBuildings = savedData.buildings;
+			dynamic loadedBuildings = worldData.buildings;
 			foreach (dynamic building in loadedBuildings)
 			{
 				buildingsInfo.Add(building);
@@ -468,16 +484,17 @@ public partial class World : Godot.TileMap
 					building.atlasCoords[1] = originalAtlasCoords[1];
 				}
 
-				if (building.buildingType.ToString() == "beltArm")
+				/*if (building.buildingType.ToString() == "beltArm")
 				{
 					GD.Print(buildingAtlasCoords != originalAtlasCoords, buildingAtlasCoords, originalAtlasCoords, building.atlasCoords[0], building.atlasCoords[1]);
-				}
+				}*/
 
 				CreateBuilding(building, position);
 			}
 			buildingRotation = 0;
 
-			dynamic savedItems = savedData.items;
+			dynamic savedItems = worldData.items;
+			//GD.Print(savedItems.ToString());
 			foreach (dynamic item in savedItems)
 			{
 				Vector2 coords = new((float)item.position[0], (float)item.position[1]);
@@ -490,6 +507,16 @@ public partial class World : Godot.TileMap
 					continue;
 				}
 				CreateItem(coords, destination, item.name.ToString(), (int)item.speed);
+			}
+
+			dynamic savedLeftovers = worldData.leftovers;
+			foreach (var leftovers in savedLeftovers)
+			{
+				Leftovers instantiatedLeftovers = (Leftovers)GD.Load<PackedScene>("res://Scenes/Game/World/Leftovers/Leftovers.tscn").Instantiate();
+				Vector2 position = new ((int)leftovers.position[0], (int)leftovers.position[1]);
+				instantiatedLeftovers.GlobalPosition = position;
+				instantiatedLeftovers.items = leftovers.items.ToObject<List<LeftoversSlot>>();
+				AddChild(instantiatedLeftovers);
 			}
 			
 			//buildingsInfo = loadedBuildings.ToObject<List<dynamic>>();
@@ -504,7 +531,7 @@ public partial class World : Godot.TileMap
 		//GD.Print("World Generated");
 	}
 
-	public void Load(string data) {} // does nothing, just so 'Call' method does't have error
+	public void Load(dynamic data) {} // does nothing, just so 'Call' method does't have error
 
 	public Vector2I GetMousePosition()
 	{
@@ -569,9 +596,16 @@ public partial class World : Godot.TileMap
 		//GD.Print(buildingRotation);
 	}
 
-	public void ToggleBuildMode()
+	public void ToggleBuildMode(bool? toggle = null)
 	{
-		BUILDINGMODE = !BUILDINGMODE;
+		if (toggle == null)
+		{
+			BUILDINGMODE = !BUILDINGMODE;
+		}
+		else
+		{
+			BUILDINGMODE = (bool)toggle;
+		}
 		DISMANTLEMODE = false;
 		
 		ClearLayer(tileMapLayer);
@@ -589,9 +623,16 @@ public partial class World : Godot.TileMap
 		}
 	}
 
-	private void ToggleDismantleMode()
+	public void ToggleDismantleMode(bool? toggle = null)
 	{
-		DISMANTLEMODE = !DISMANTLEMODE;
+		if (toggle == null)
+		{
+			DISMANTLEMODE = !DISMANTLEMODE;
+		}
+		else
+		{
+			DISMANTLEMODE = (bool)toggle;
+		}
 		BUILDINGMODE = false;
 
 		ClearLayer(tileMapLayer);
@@ -604,24 +645,6 @@ public partial class World : Godot.TileMap
 			// draws cross crosshair to TileMap
 			atlasPosition = new (1, 0);
 		}
-	}
-
-	private void TogglePlayerInventory()
-	{
-		UITOGGLE = !UITOGGLE;
-		CanvasLayer buildMenu = GetNode<CanvasLayer>("/root/main/UI/BuildMenu");
-		CanvasLayer inventories = GetNode<CanvasLayer>("/root/main/UI/Inventories");
-		inventories.Visible = !inventories.Visible;
-		inventories.GetNode<Control>("InventoryGrid/BuildingInventory").Hide();
-
-		if (buildMenu.Visible)
-		{
-			UITOGGLE = true;
-		}
-
-		buildMenu.Hide();
-		BUILDINGMODE = true;
-		ToggleBuildMode();
 	}
 
 	private void Build()
@@ -752,18 +775,23 @@ public partial class World : Godot.TileMap
 
 		dynamic building = GetBuildingInfo(cellPositionByMouse);
 		Vector2I coords = new Vector2I((int)building.coords[0], (int)building.coords[1]);
-		List<InventorySlot> leftovers = new();		
+		System.Collections.Generic.Dictionary<string, int> leftovers = new();		
 
 		// gives player cost items back
 		for (int i = 0; i < building.cost.Count; i++)
 		{
 			int leftover = playerInventory.PutToInventory(building.cost[i].resource.ToString(), (int)building.cost[i].amount);
+			//GD.Print(building.cost[i].resource, leftover);
 			if (leftover != 0)
 			{
-				InventorySlot slot = new();
-				slot.itemType = building.cost[i].resource.ToString();
-				GetNode<Label>("ResourceName").Text = leftover.ToString();
-				leftovers.Add(slot);
+				if (leftovers.ContainsKey(building.cost[i].resource.ToString()))
+				{
+					leftovers[building.cost[i].resource.ToString()] += leftover;
+				}
+				else
+				{
+					leftovers.Add(building.cost[i].resource.ToString(), leftover);
+				}
 			}
 		}
 
@@ -773,13 +801,18 @@ public partial class World : Godot.TileMap
 			// goes through every input slot of machine
 			for (int i = 0; i < building.inputSlots.Count; i++)
 			{
-				int leftover = playerInventory.PutToInventory(building.inputSlots[i].resource.ToString(), (int)building.inputSlots[i].amount);
+				int leftover = playerInventory.PutToInventory(building.inputSlots[i].resource.ToString(), (int)building.inputSlots[i].amount);			
+				//GD.Print(building.inputSlots[i].resource, leftover);
 				if (leftover != 0)
 				{
-					InventorySlot slot = new();
-					slot.itemType = building.inputSlots[i].resource.ToString();
-					GetNode<Label>("ResourceName").Text = leftover.ToString();
-					leftovers.Add(slot);
+					if (leftovers.ContainsKey(building.inputSlots[i].resource.ToString()))
+					{
+						leftovers[building.inputSlots[i].resource.ToString()] += leftover;
+					}
+					else
+					{
+						leftovers.Add(building.inputSlots[i].resource.ToString(), leftover);
+					}
 				}
 			}
 
@@ -787,27 +820,79 @@ public partial class World : Godot.TileMap
 			for (int i = 0; i < building.outputSlots.Count; i++)
 			{
 				int leftover = playerInventory.PutToInventory(building.outputSlots[i].resource.ToString(), (int)building.outputSlots[i].amount);
+				//GD.Print(building.outputSlots[i].resource, leftover);
 				if (leftover != 0)
 				{
-					InventorySlot slot = new();
-					slot.itemType = building.outputSlots[i].resource.ToString();
-					GetNode<Label>("ResourceName").Text = leftover.ToString();
-					leftovers.Add(slot);
+					if (leftovers.ContainsKey(building.outputSlots[i].resource.ToString()))
+					{
+						leftovers[building.outputSlots[i].resource.ToString()] += leftover;
+					}
+					else
+					{
+						leftovers.Add(building.outputSlots[i].resource.ToString(), leftover);
+					}
+				}
+			}
+		}
+
+		if (building.buildingType.ToString() == "storage")
+		{
+			for (int i = 0; i < (int)building.slotsAmount; i++)
+			{
+				int leftover = playerInventory.PutToInventory(building.slots[i].resource.ToString(), (int)building.slots[i].amount);
+				//GD.Print(building.slots[i].resource, leftover);
+				if (leftover != 0)
+				{
+					if (leftovers.ContainsKey(building.slots[i].resource.ToString()))
+					{
+						leftovers[building.slots[i].resource.ToString()] += (int)building.slots[i].amount;
+					}
+					else
+					{
+						leftovers.Add(building.slots[i].resource.ToString(), (int)building.slots[i].amount);
+					}
 				}
 			}
 		}
 
 		if (building.buildingType.ToString().Contains("belt") && building.item.ToString() != "")
 		{
-			string itemName = $"{building.coords[0]}x{building.coords[1]}";
-			Item item = GetNode<Item>(itemName);
+			Item item;
+			string itemName = "";
+			if (building.buildingType.ToString() == "belt")
+			{
+				itemName = $"{building.coords[0]}x{building.coords[1]}";
+			}
+			else if (building.buildingType.ToString() == "beltArm")
+			{
+				itemName = $"{building.coords[0] + building.nextPosition[0]}x{building.coords[1] + building.nextPosition[1]}";
+				if (GetNodeOrNull<Item>(itemName) == null && building.item.ToString() != "")
+				{
+					itemName = $"{building.coords[0]}x{building.coords[1]}";
+				}
+			}
+			item = GetNode<Item>(itemName);
 
 			item.PickUpItem();
 
 			if (!item.PickUpItem())
 			{
-				item.destination = item.Position;
+				if (leftovers.ContainsKey(item.itemType))
+				{
+					leftovers[item.itemType] += 1;
+				}
+				else
+				{
+					leftovers.Add(item.itemType, 1);
+				}
+				item.QueueFree();
 			}
+		}
+
+		if (leftovers.Count != 0)
+		{
+			//GD.Print(leftovers.Count);
+			CreateRemainsBox(leftovers);
 		}
 
 		if (building.type.ToString() == "drill")
@@ -826,7 +911,7 @@ public partial class World : Godot.TileMap
 			{
 				coords = new Vector2I((int)building.coords[0] + (int)building.additionalAtlasPosition[i][0], (int)building.coords[1] + (int)building.additionalAtlasPosition[i][1]);
 				dynamic buildingPart = GetBuildingInfo(coords);
-				buildingsInfo.Remove(building);
+				buildingsInfo.Remove(buildingPart);
 				EraseCell(1, coords);
 			}
 		}
@@ -942,13 +1027,18 @@ public partial class World : Godot.TileMap
 
 		if (id == "")
 		{
-			item.Name = $"{destination[0]}x{destination[1]}";
 			item.destination = destination * 64;
 			item.speed = 64 / (60 / speed);
 
 			if (parentBuilding != null)
 			{
 				item.parentBuilding = parentBuilding;
+				Vector2I parentCoords = (Vector2I)parentBuilding;
+				item.Name = $"{parentCoords[0]}x{parentCoords[1]}";
+			}
+			else
+			{
+				item.Name = $"{destination[0]}x{destination[1]}";
 			}
 		}
 		else
@@ -960,6 +1050,37 @@ public partial class World : Godot.TileMap
 		item.Position = coords * 64;
 		AddChild(item); 
 		item.UpdateItem(name);
+	}
+
+	public void CreateRemainsBox(System.Collections.Generic.Dictionary<string, int> itemsDict)
+	{
+		List<LeftoversSlot> slots = new();
+		Vector2 playerPosition = GetNode<Player>("../Player").Position;
+		Leftovers leftovers = (Leftovers)GD.Load<PackedScene>("res://Scenes/Game/World/Leftovers/Leftovers.tscn").Instantiate();
+			leftovers.GlobalPosition = playerPosition;
+
+		foreach (var item in itemsDict)
+		{
+			int amount = item.Value;
+			while (amount > (int)items[item.Key].maxStackSize)
+			{
+				LeftoversSlot additionalSlot = new (item.Key, (int)items[item.Key].maxStackSize);
+				amount -= (int)items[item.Key].maxStackSize;
+
+				slots.Add(additionalSlot);
+			}
+			LeftoversSlot slot = new (item.Key, amount);
+			slots.Add(slot);
+		}
+
+		/*for (int i = 0; i < slots.Count; i++)
+		{
+			GD.Print("itemType: ", slots[i].itemType, " amount: ", slots[i].itemAmount);
+		}*/
+
+		leftovers.items = slots;
+		AddChild(leftovers);
+		//GD.Print("Created Remains Box");
 	}
 
 	private bool CanTBeltTransfer(dynamic building)

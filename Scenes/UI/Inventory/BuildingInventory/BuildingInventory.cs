@@ -31,7 +31,6 @@ public partial class BuildingInventory : Control
 
 		tileMap = GetNode<World>("/root/main/World/TileMap");
 		tileMap.ToggleInventory += ToggleInventory;
-		tileMap.UpdateBuildingProgress += UpdateInventory;
 
 		productionProgress = GetNode<ProgressBar>("TabContainer/Building/ProductionProgress");
 		resourceProduction = GetNode<Label>("TabContainer/Building/Production");
@@ -42,14 +41,12 @@ public partial class BuildingInventory : Control
 	{
 	}
 
-	public void ToggleInventory(bool TOGGLEINGINVENTORY, string building)
+	public void ToggleInventory(bool TOGGLEINGINVENTORY, dynamic _buildingInfo, Leftovers leftovers = null)
 	{
-		Inventories inventories = GetNode<Inventories>("/root/main/UI/Inventories");
 		InventorySlot slot;
 
 		if (!TOGGLEINGINVENTORY) 
 		{
-			inventories.ToggleInventory(false);
 			tileMap.UITOGGLE = false;
 
 			Array<Node> inputSlots = GetTree().GetNodesInGroup("InputSlots");
@@ -85,22 +82,70 @@ public partial class BuildingInventory : Control
 			{
 				main.FindNodeByNameInGroup(storageSlots, $"StorageSlot{i}").QueueFree();
 			}
+				
+			
+			Array<Node> remainsSlots = GetTree().GetNodesInGroup("LeftoversSlots");
+			for (int i = 0; i < remainsSlots.Count; i++)
+			{
+				slot = (InventorySlot)remainsSlots[i];
+				int amount = 0;
+
+				if (slot.itemType != "")
+				{
+					amount = int.Parse(slot.resourceAmount.Text);
+				}
+
+				leftovers.items[i].itemType = slot.itemType;
+				leftovers.items[i].itemAmount = amount;
+				main.FindNodeByNameInGroup(remainsSlots, $"LeftoversSlot{i}").QueueFree();	
+			}
+
+			if (leftovers != null)
+			{
+				leftovers.RemoveEmptySlots();
+			}
 
 			productionProgress.Value = 0;
 			this.Hide();
 			return; 
 		}
 
-
-		buildingInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(building);
+		buildingInfo = _buildingInfo;
 		TabContainer tabContainer = GetNode<TabContainer>("TabContainer");
 		Label buildingName = GetNode<Label>("TabContainer/Building/Name");
+		
+		if (leftovers != null)
+		{	
+			tabContainer.TabsVisible = false;
+			tabContainer.CurrentTab = 1;
+			buildingName.Text = "Leftovers";
+
+			productionProgress.Hide();
+			resourceProduction.Hide();
+
+			for (int i = 0; i < leftovers.items.Count; i++)
+			{
+				InventorySlot newSlot = (InventorySlot)GD.Load<PackedScene>("res://Scenes/UI/Inventory/InventorySlot.tscn").Instantiate();
+				newSlot.Name = $"LeftoversSlot{i}";
+				newSlot.AddToGroup("LeftoversSlots");
+				newSlot.itemType =  leftovers.items[i].itemType;
+
+				newSlot.GetNode<Label>("ResourceAmount").Text =  leftovers.items[i].itemAmount.ToString();
+				
+				GetNode<FlowContainer>("TabContainer/Building/Slots/StorageSlots/FlowContainer").AddChild(newSlot);
+				newSlot.UpdateSlotTexture(newSlot.itemType);
+			}
+
+			GetNode<ScrollContainer>("TabContainer/Building/Slots/StorageSlots").Show();
+			Show();
+			return;
+		}
+		//GD.Print(buildingInfo);
+
 		coordinates = new ((int)buildingInfo.coords[0], (int)buildingInfo.coords[1]);
-	
 		switch (buildingInfo.buildingType.ToString())
 		{
 			case "machine":
-				inventories.ToggleInventory(true);
 				if ((bool)buildingInfo.canChooseRecipe)
 				{
 					tabContainer.TabsVisible = true;
@@ -192,7 +237,6 @@ public partial class BuildingInventory : Control
 				break;
 
 			case "storage":
-				inventories.ToggleInventory(true);
 				tabContainer.TabsVisible = false;
 				tabContainer.CurrentTab = 1;
 
@@ -225,12 +269,11 @@ public partial class BuildingInventory : Control
 		}
 	}
 
-	private void UpdateInventory(string info)
+	public void UpdateInventory(dynamic building)
 	{
-		dynamic building = Newtonsoft.Json.JsonConvert.DeserializeObject(info);
 		Vector2I coords = new Vector2I((int)building.coords[0], (int)building.coords[1]);
 		//GD.Print(coordinates, coords);
-		if (coordinates != coords) { return; }
+		if (coordinates != coords || GetTree().GetNodesInGroup("RemainsSlots").Count != 0) { return; }
 		
 		if (building.buildingType.ToString() == "machine") { productionProgress.Value = (double)building.productionProgress; }
 
@@ -256,7 +299,7 @@ public partial class BuildingInventory : Control
 				UpdateSlot(slot, building.outputSlots[i].resource.ToString(), (int)building.outputSlots[i].amount);
 			}
 		}
-		else
+		else if (building.buildingType.ToString() == "storage")
 		{
 			Array<Node> storageSlots = GetTree().GetNodesInGroup("StorageSlots");
 			for (int i = 0; i < (int)building.slotsAmount; i++)

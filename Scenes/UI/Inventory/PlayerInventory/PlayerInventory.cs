@@ -4,12 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.SymbolStore;
 using System.Dynamic;
+using System.Linq;
 using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 
 public partial class PlayerInventory : Control
 {
-    private const int V = 10;
     FlowContainer flowContainer;
 	private InventorySlot inventorySlot;
 	private string inventorySlotPath = "res://Scenes/UI/Inventory/InventorySlot.tscn";
@@ -32,12 +32,17 @@ public partial class PlayerInventory : Control
 
 		if (loadingScreen == null || !loadingScreen.loadingSave)
 		{
+			PutToInventory("IronIngot", 100);
+			PutToInventory("IronPlate", 100);
+			PutToInventory("IronRod", 100);
+
 			// cheat items to inventory
+			/*PutToInventory("CopperIngot", 2000);
 			PutToInventory("IronIngot", 100);
 			PutToInventory("CopperIngot", 100);
 			PutToInventory("IronPlate", 200);
 			PutToInventory("IronRod", 200);
-			PutToInventory("Wire", 500);
+			PutToInventory("Wire", 500);*/
 		}
 	}
 
@@ -47,6 +52,7 @@ public partial class PlayerInventory : Control
 		{
 			inventorySlot = (InventorySlot)GD.Load<PackedScene>(inventorySlotPath).Instantiate();
 			inventorySlot.Name = $"Slot{i}";
+			inventorySlot.inventoryType = "inventory";
 			flowContainer.AddChild(inventorySlot);
 
 			inventorySlots[i] = inventorySlot;
@@ -58,7 +64,7 @@ public partial class PlayerInventory : Control
 		for (int i = 0; i < inventorySlots.Length; i++)
 		{
 			if (amount == 0) { break; }
-			Label amountLabel = inventorySlots[i].GetNode<Label>("ResourceAmount");
+			Label amountLabel = inventorySlots[i].resourceAmount;
 			
 			if (inventorySlots[i].itemType == "")
 			{
@@ -138,12 +144,48 @@ public partial class PlayerInventory : Control
 		}
 	}
 
+	public int GetItemAmount(string itemType)
+	{
+		int amount = 0;
+		for (int i = 0; i < inventorySlots.Length; i++)
+		{
+			Label amountLabel = inventorySlots[i].GetNode<Label>("ResourceAmount");
+			
+			if (itemType == inventorySlots[i].itemType)
+			{
+				amount += int.Parse(amountLabel.Text);
+			}
+		}
+		return amount;
+	}
+
+	public bool HasSpace(string itemType, int amount)
+	{
+		if (itemType == "" || amount == 0) { return true; }
+		for (int i = 0; i < inventorySlots.Length; i++)
+		{
+			if (inventorySlots[i].itemType == "")
+			{
+				amount -= (int)items[itemType].maxStackSize;
+			}
+			else if (inventorySlots[i].itemType == itemType)
+			{
+				amount -= (int)items[itemType].maxStackSize - int.Parse(inventorySlots[i].resourceAmount.Text);
+			}
+			if (amount <= 0)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 	}
 
-	public string Save()
+	public List<System.Collections.Generic.Dictionary<string, dynamic>> Save()
 	{
 		List<System.Collections.Generic.Dictionary<string, dynamic>> slots = new();
 		foreach (InventorySlot slot in inventorySlots)
@@ -169,16 +211,17 @@ public partial class PlayerInventory : Control
 			slotInfo.Add("amount", amount);
 			slots.Add(slotInfo);
 		}
-		return Newtonsoft.Json.JsonConvert.SerializeObject(slots);
+		return slots;
 	}
 
-	public void Load(string data)
+	public void Load(dynamic data)
 	{
-		dynamic parsedData = Newtonsoft.Json.JsonConvert.DeserializeObject(data);
-		for (int i = 0; i < parsedData.Count; i++)
+		dynamic loadedData = data[Name];
+		//GD.Print(loadedData);
+		for (int i = 0; i < loadedData.Count; i++)
 		{
-			string itemType = parsedData[i].resource.ToString();
-			int amount = (int)parsedData[i].amount;
+			string itemType = loadedData[i].resource.ToString();
+			int amount = (int)loadedData[i].amount;
 			InventorySlot slot = inventorySlots[i];
 
 			if (itemType != "")

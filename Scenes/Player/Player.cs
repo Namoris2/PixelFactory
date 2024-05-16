@@ -97,18 +97,18 @@ public partial class Player : Godot.CharacterBody2D
 		}
 	}
 
-	public string Save()
+	public Vector2 Save()
 	{
 		string X = Position.X.ToString().Replace(',', '.');
 		string Y = Position.Y.ToString().Replace(',', '.');
 
-		return $"[{X}, {Y}]";
+		return Position;
 	}
 	
-	public void Load(string data)
+	public void Load(dynamic data)
 	{
-		dynamic parsedData = Newtonsoft.Json.JsonConvert.DeserializeObject(data);
-		Position = new ((float)parsedData[0], (float)parsedData[1]);
+		//GD.Print(data["Player"].ToString());
+		Position = new ((float)data[Name.ToString()].X, (float)data[Name.ToString()].Y);
 		//GD.Print("Player Loaded");
 	}
 

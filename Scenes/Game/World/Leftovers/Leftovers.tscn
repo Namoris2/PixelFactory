@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcps1vs84abef"]
+
+[ext_resource type="Script" path="res://Scenes/Game/World/Leftovers/Leftovers.cs" id="1_aow2a"]
+[ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="1_ghwlt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1kp0"]
+atlas = ExtResource("1_ghwlt")
+region = Rect2(80, 32, 16, 16)
+
+[node name="Leftovers" type="Node2D" groups=["Leftovers"]]
+top_level = true
+z_index = 1
+script = ExtResource("1_aow2a")
+metadata/_edit_use_anchors_ = true
+
+[node name="Icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(64, 64)
+texture = SubResource("AtlasTexture_c1kp0")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+visible = false
+texture_filter = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 87.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Leftovers"
+horizontal_alignment = 1

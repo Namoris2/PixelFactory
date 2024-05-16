@@ -1,3 +1,6 @@
+res://Scenes/Game/World/Leftovers
+res://Scenes/UI/BuildMenu
+res://Scenes/Game
 C:/Users/namor/OneDrive/Dokumenty/Godot/PixelFactoryBuilds/v0.2
 res://Particles/Buildings/Miner
 res://Particles/Player
@@ -16,8 +19,4 @@ res://Scenes/UI/LoadingScreen
 res://Scenes/Game/World
 res://Font
 res://
-res://Scenes/UI/BuildMenu
 res://Scenes/UI/Inventory/BuildingInventory
-res://Scenes/UI/Pause Menu
-res://Scenes/UI
-res://scenes/UI/Inventory

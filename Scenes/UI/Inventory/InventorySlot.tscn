@@ -1,8 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://bx0lsoflefadc"]
+[gd_scene load_steps=6 format=3 uid="uid://bx0lsoflefadc"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/InventorySlot.cs" id="1_qn2p3"]
 [ext_resource type="Theme" uid="uid://bfqrtqjof5nbe" path="res://Themes/InventorySlot.tres" id="1_rb8qi"]
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/ItemName.cs" id="2_yibj1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_towib"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+bg_color = Color(0.741176, 0.658824, 0.145098, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_y8p7l"]
 line_spacing = 0.0
@@ -25,7 +31,6 @@ offset_bottom = -296.513
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_rb8qi")
-theme_override_colors/font_focus_color = Color(0, 0, 0, 0)
 script = ExtResource("1_qn2p3")
 metadata/_edit_use_anchors_ = true
 
@@ -33,8 +38,10 @@ metadata/_edit_use_anchors_ = true
 visible = false
 z_index = 1
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 26.0
+offset_top = -2.0
+offset_right = 38.0
+offset_bottom = 14.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_towib")
 text = "Item"
 script = ExtResource("2_yibj1")
 
@@ -49,14 +56,13 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="ResourceAmount" type="Label" parent="."]
+layout_direction = 3
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.364583
-anchor_top = 0.739583
+anchor_top = 0.739586
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme_override_font_sizes/font_size = 20
 label_settings = SubResource("LabelSettings_y8p7l")
-horizontal_alignment = 2
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true

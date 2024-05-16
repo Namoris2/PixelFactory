@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/Game/World/Item/Item.cs" id="1_5j7e7"]
 [ext_resource type="Texture2D" uid="uid://bxi2smg4lvdt8" path="res://Gimp/placeholder.png" id="2_vqmxh"]
 
-[node name="Item" type="Node2D"]
+[node name="Item" type="Node2D" groups=["Items"]]
 top_level = true
 z_index = 3
 script = ExtResource("1_5j7e7")

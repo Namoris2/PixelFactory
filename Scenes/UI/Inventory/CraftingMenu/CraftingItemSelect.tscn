@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://j4ti07wdyqt0"]
+
+[ext_resource type="Script" path="res://Scenes/UI/Inventory/CraftingMenu/CraftingItemSelect.cs" id="1_duhh3"]
+[ext_resource type="Texture2D" uid="uid://bxi2smg4lvdt8" path="res://Gimp/placeholder.png" id="1_ii1hf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dhfkn"]
+
+[sub_resource type="Theme" id="Theme_86hsv"]
+Button/styles/focus = SubResource("StyleBoxEmpty_dhfkn")
+
+[node name="CraftingItemSelect" type="Button"]
+custom_minimum_size = Vector2(0, 100)
+anchors_preset = -1
+anchor_right = 0.15625
+anchor_bottom = 0.0925926
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_86hsv")
+script = ExtResource("1_duhh3")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemIcon" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_left = 0.05
+anchor_top = 0.15
+anchor_right = 0.283333
+anchor_bottom = 0.85
+texture = ExtResource("1_ii1hf")
+metadata/_edit_use_anchors_ = true
+
+[node name="ItemName" type="Label" parent="."]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 39.0
+offset_right = 291.0
+offset_bottom = 85.0
+theme_override_font_sizes/font_size = 20
+text = "item Name"
+autowrap_mode = 3

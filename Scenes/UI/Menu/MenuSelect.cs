@@ -65,9 +65,7 @@ public partial class MenuSelect : Button
 		
 		Vector2I coords = new Vector2I((int)buildingInventory.buildingInfo.coords[0], (int)buildingInventory.buildingInfo.coords[1]);
 		tileMap.ChangeRecipe(DisplayName, coords);
-
-		string buildingString = Newtonsoft.Json.JsonConvert.SerializeObject(tileMap.GetBuildingInfo(coords));
-		buildingInventory.ToggleInventory(true, buildingString);
+		buildingInventory.ToggleInventory(true, buildingInventory.buildingInfo);
 	}
 
 	private void Build()
