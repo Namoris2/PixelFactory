@@ -82,24 +82,26 @@ public partial class BuildingInventory : Control
 			{
 				main.FindNodeByNameInGroup(storageSlots, $"StorageSlot{i}").QueueFree();
 			}
+				
+			
+			Array<Node> remainsSlots = GetTree().GetNodesInGroup("LeftoversSlots");
+			for (int i = 0; i < remainsSlots.Count; i++)
+			{
+				slot = (InventorySlot)remainsSlots[i];
+				int amount = 0;
+
+				if (slot.itemType != "")
+				{
+					amount = int.Parse(slot.resourceAmount.Text);
+				}
+
+				leftovers.items[i].itemType = slot.itemType;
+				leftovers.items[i].itemAmount = amount;
+				main.FindNodeByNameInGroup(remainsSlots, $"LeftoversSlot{i}").QueueFree();	
+			}
 
 			if (leftovers != null)
 			{
-				Array<Node> remainsSlots = GetTree().GetNodesInGroup("LeftoversSlots");
-				for (int i = 0; i < remainsSlots.Count; i++)
-				{
-					slot = (InventorySlot)remainsSlots[i];
-					int amount = 0;
-
-					if (slot.itemType != "")
-					{
-						amount = int.Parse(slot.resourceAmount.Text);
-					}
-
-					leftovers.items[i].itemType = slot.itemType;
-					leftovers.items[i].itemAmount = amount;
-					main.FindNodeByNameInGroup(remainsSlots, $"LeftoversSlot{i}").QueueFree();	
-				}
 				leftovers.RemoveEmptySlots();
 			}
 

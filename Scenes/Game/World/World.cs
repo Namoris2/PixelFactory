@@ -380,7 +380,7 @@ public partial class World : Godot.TileMap
 			}
 
 			// if inventory is opened, data will be sent to the inventory to show on screen
-			if (buildingInventory.Visible)
+			if (buildingInventory.Visible && GetBuildingInfo(cellPositionByMouse) != null)
 			{
 				buildingInventory.UpdateInventory(buildingsInfo[i]);
 			}
