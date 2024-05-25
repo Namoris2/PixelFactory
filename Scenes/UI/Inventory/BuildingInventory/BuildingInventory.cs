@@ -272,7 +272,6 @@ public partial class BuildingInventory : Control
 	public void UpdateInventory(dynamic building)
 	{
 		Vector2I coords = new Vector2I((int)building.coords[0], (int)building.coords[1]);
-		//GD.Print(coordinates, coords);
 		if (coordinates != coords || GetTree().GetNodesInGroup("RemainsSlots").Count != 0) { return; }
 		
 		if (building.buildingType.ToString() == "machine") { productionProgress.Value = (double)building.productionProgress; }

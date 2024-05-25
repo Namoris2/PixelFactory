@@ -445,13 +445,16 @@ public partial class World : Godot.TileMap
 	{
         LoadingScreen loadingScreen = GetNodeOrNull<LoadingScreen>("/root/LoadingScreen");
 		string savePath = GetNode<main>("/root/GameInfo").savePath;
+
+		dynamic savedData = null;
+		Vector2I playerPosition = new (0, 0);
         if (loadingScreen != null && loadingScreen.loadingSave && Godot.FileAccess.FileExists(savePath))
 		{
 			Godot.FileAccess saveFile = Godot.FileAccess.Open(savePath, Godot.FileAccess.ModeFlags.Read);
 			string savedGame = saveFile.GetAsText();
 			saveFile.Close();
 
-			dynamic savedData = JsonConvert.DeserializeObject(savedGame);
+			savedData = JsonConvert.DeserializeObject(savedGame);
 			dynamic worldData = savedData[Name];
 			/*string[] savedGameList = savedGame.Split("\n");
 			Array<Node> nodes = GetTree().GetNodesInGroup("CanSave");
@@ -522,12 +525,18 @@ public partial class World : Godot.TileMap
 			//buildingsInfo = loadedBuildings.ToObject<List<dynamic>>();
 		}
 
+		if (savedData != null)
+		{
+			Vector2I savedPosition = new((int)savedData.Player.X, (int)savedData.Player.Y);
+			playerPosition = savedPosition / 64;
+		}
+
 		GenerateWorld generateWorld = GetNode<GenerateWorld>("/root/GenerateWorld");
 
-		generateWorld.GenerateResource(this, mapRadius, seed, "Grass", true);
-		generateWorld.GenerateResource(this, mapRadius, seed, "IronOre");
-		//generateWorld.GenerateResource(this, mapRadius, seed, "CoalOre"); // temporarily removed
-		generateWorld.GenerateResource(this, mapRadius, seed, "CopperOre");
+		generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
+		generateWorld.GenerateResource(this, seed, "IronOre", playerPosition);
+		//generateWorld.GenerateResource(this, seed, "CoalOre"); // temporarily removed
+		generateWorld.GenerateResource(this, seed, "CopperOre", playerPosition);
 		//GD.Print("World Generated");
 	}
 
@@ -651,7 +660,6 @@ public partial class World : Godot.TileMap
 	{
 		if (GroundResourceValidate(buildings[selectedBuilding].canBePlacedOn, groundResourceName) && buildingsData == null && HasItemsToBuild(buildings[selectedBuilding].cost))
 		{
-
 			string buildingsJson = Newtonsoft.Json.JsonConvert.SerializeObject(buildings);
 			dynamic building = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
 			building = building[selectedBuilding];

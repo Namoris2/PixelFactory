@@ -20,6 +20,7 @@ public partial class Player : Godot.CharacterBody2D
 		playerSprite = GetNode<Sprite2D>("PlayerIcon");
 		particlesStationary = GetNode<GpuParticles2D>("ParticlesStationary");
 		particlesMoving = GetNode<GpuParticles2D>("ParticlesMoving");
+		Position = new(0, 0);
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
