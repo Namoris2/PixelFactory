@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,8 +9,8 @@ public partial class GenerateWorld : Node
 {
 	string[] groundTerrains = { "Grass", "Water", "IronOre", "CopperOre" };
 	int chunkSize = 16;
-	int generationHeight = 3;
-	int generationWidth = 5;
+	int generationHeight = 9;
+	int generationWidth = 13;
 
 	World world;
 	int seed;
@@ -19,6 +20,11 @@ public partial class GenerateWorld : Node
 	bool generateWater;
 	FastNoiseLite noise;
 
+
+	List<Vector2I> grassChunks = new();
+	List<Vector2I> waterChunks = new();
+	List<Vector2I> ironChunks = new();
+	List<Vector2I> copperChunks = new();
 
     public void GenerateResource(World _world, int _seed, string _resourceInput, Vector2I _playerPosition, bool _generateWater = false)
 	{
@@ -74,6 +80,41 @@ public partial class GenerateWorld : Node
 		float generationCap = (float)resource.generationCap;
 		List<Vector2I> resourceCells = new();
 		List<Vector2I> waterCells = new();
+
+		switch (resourceInput)
+		{
+			case "Grass":
+				if (grassChunks.Contains(chunkPosition))
+				{
+					return;
+				}
+				grassChunks.Add(chunkPosition);
+				break;
+
+			case "Water":
+				if (waterChunks.Contains(chunkPosition))
+				{
+					return;
+				}
+				waterChunks.Add(chunkPosition);
+				break;
+
+			case "IronOre":
+				if (ironChunks.Contains(chunkPosition))
+				{
+					return;
+				}
+				ironChunks.Add(chunkPosition);
+				break;
+
+			case "CopperOre":
+				if (copperChunks.Contains(chunkPosition))
+				{
+					return;
+				}
+				copperChunks.Add(chunkPosition);
+				break;	
+		}
 
 		for (int x = 0; x < chunkSize; x++)
 		{

@@ -67,6 +67,7 @@ public partial class World : Godot.TileMap
 
 	PlayerInventory playerInventory;
 	BuildingInventory buildingInventory;
+	GenerateWorld generateWorld;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -90,6 +91,8 @@ public partial class World : Godot.TileMap
 		playerInventory = GetNode<PlayerInventory>("/root/main/UI/Inventories/InventoryGrid/PlayerInventory");
 		buildingInventory = playerInventory.GetNode<BuildingInventory>("../BuildingInventory");
 
+		generateWorld = GetNode<GenerateWorld>("/root/GenerateWorld");
+
 		seed = GetNode<main>("/root/GameInfo").seed;
 		Load();
 
@@ -100,7 +103,14 @@ public partial class World : Godot.TileMap
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		// if any inventory is oppend any of the actions bellow won't work
+		Player player = GetNode<Player>("../Player");
+		Vector2I playerPosition = new((int)Math.Floor(player.Position.X / 64), (int)Math.Floor(player.Position.Y / 64));
+
+		generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
+		generateWorld.GenerateResource(this, seed, "IronOre", playerPosition);
+		generateWorld.GenerateResource(this, seed, "CopperOre", playerPosition);
+		
+		// if any inventory is opened any of the actions bellow won't work
 		if (UITOGGLE) { return; }
 		
 		PauseMenu pauseMenu = GetNode<PauseMenu>("/root/main/UI/PauseMenu");
@@ -531,12 +541,10 @@ public partial class World : Godot.TileMap
 			playerPosition = savedPosition / 64;
 		}
 
-		GenerateWorld generateWorld = GetNode<GenerateWorld>("/root/GenerateWorld");
-
 		generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
 		generateWorld.GenerateResource(this, seed, "IronOre", playerPosition);
-		//generateWorld.GenerateResource(this, seed, "CoalOre"); // temporarily removed
 		generateWorld.GenerateResource(this, seed, "CopperOre", playerPosition);
+		//generateWorld.GenerateResource(this, seed, "CoalOre"); // temporarily removed
 		//GD.Print("World Generated");
 	}
 
