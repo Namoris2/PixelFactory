@@ -4,11 +4,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+
 
 public partial class GenerateWorld : Node
 {
+
 	string[] groundTerrains = { "Grass", "Water", "IronOre", "CopperOre" };
-	int chunkSize = 16;
+	public int chunkSize = 16;
 	int generationHeight = 9;
 	int generationWidth = 13;
 
@@ -31,7 +34,7 @@ public partial class GenerateWorld : Node
 		world = _world;
 		seed = _seed;
 		resourceInput = _resourceInput;
-		playerPosition = new(_playerPosition.X - _playerPosition.X % chunkSize, _playerPosition.Y - _playerPosition.Y % chunkSize);
+		playerPosition = _playerPosition;
 		generateWater = _generateWater;
 
         LoadFile load = new();
@@ -61,6 +64,8 @@ public partial class GenerateWorld : Node
 		{
 			if ((-X / 2 <= x) && (x <= X / 2) && (-Y / 2 <= y) && (y <= Y / 2))
 			{
+				/*Thread generateWorld = new(() => GenerateChunk(new(playerPosition.X + x * chunkSize, playerPosition.Y + y * chunkSize)));
+				generateWorld.Start();*/
 				GenerateChunk(new(playerPosition.X + x * chunkSize, playerPosition.Y + y * chunkSize));
 			}
 			if( (x == y) || ((x < 0) && (x == -y)) || ((x > 0) && (x == 1-y)))
@@ -149,5 +154,11 @@ public partial class GenerateWorld : Node
 		{
             world.SetCellsTerrainConnect(0, waterCellsArray, 0, 1);
 		}
+	}
+
+	private void Test(Vector2 data)
+	{
+		GD.Print(data);
+		return;
 	}
 }

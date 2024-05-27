@@ -17,6 +17,8 @@ using System.Runtime.CompilerServices;
 using System.Reflection.Metadata;
 using Newtonsoft.Json.Linq;
 using System.Collections;
+using System.Threading;
+using System.Globalization;
 
 public partial class World : Godot.TileMap
 {
@@ -65,6 +67,7 @@ public partial class World : Godot.TileMap
 	dynamic groundResources;
 	dynamic recipes;
 
+	Vector2I lastPlayerPosition = new (0, 0);
 	PlayerInventory playerInventory;
 	BuildingInventory buildingInventory;
 	GenerateWorld generateWorld;
@@ -105,17 +108,24 @@ public partial class World : Godot.TileMap
 	{
 		Player player = GetNode<Player>("../Player");
 		Vector2I playerPosition = new((int)Math.Floor(player.Position.X / 64), (int)Math.Floor(player.Position.Y / 64));
+		playerPosition = new(playerPosition.X - playerPosition.X % generateWorld.chunkSize, playerPosition.Y - playerPosition.Y % generateWorld.chunkSize);
 
-		generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
-		generateWorld.GenerateResource(this, seed, "IronOre", playerPosition);
-		generateWorld.GenerateResource(this, seed, "CopperOre", playerPosition);
-		
+
+		if (playerPosition != lastPlayerPosition)
+		{
+			GenerateChunks(playerPosition);
+			/*Thread generateWorld = new(() => GenerateChunks(playerPosition));
+			generateWorld.Start();*/
+
+			lastPlayerPosition = playerPosition;
+		}
+
+
 		// if any inventory is opened any of the actions bellow won't work
 		if (UITOGGLE) { return; }
 		
 		PauseMenu pauseMenu = GetNode<PauseMenu>("/root/main/UI/PauseMenu");
 		pauseMenu.CanPause = !UITOGGLE && !BUILDINGMODE;
-
 
 		// getting mouse position with TileMap coordinates
 		cellPositionByMouse = GetMousePosition();
@@ -497,11 +507,6 @@ public partial class World : Godot.TileMap
 					building.atlasCoords[1] = originalAtlasCoords[1];
 				}
 
-				/*if (building.buildingType.ToString() == "beltArm")
-				{
-					GD.Print(buildingAtlasCoords != originalAtlasCoords, buildingAtlasCoords, originalAtlasCoords, building.atlasCoords[0], building.atlasCoords[1]);
-				}*/
-
 				CreateBuilding(building, position);
 			}
 			buildingRotation = 0;
@@ -531,24 +536,31 @@ public partial class World : Godot.TileMap
 				instantiatedLeftovers.items = leftovers.items.ToObject<List<LeftoversSlot>>();
 				AddChild(instantiatedLeftovers);
 			}
-			
-			//buildingsInfo = loadedBuildings.ToObject<List<dynamic>>();
 		}
 
 		if (savedData != null)
 		{
 			Vector2I savedPosition = new((int)savedData.Player.X, (int)savedData.Player.Y);
 			playerPosition = savedPosition / 64;
+			playerPosition = new(playerPosition.X - playerPosition.X % generateWorld.chunkSize, playerPosition.Y - playerPosition.Y % generateWorld.chunkSize);
+			lastPlayerPosition = playerPosition;
 		}
-
-		generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
+		GenerateChunks(playerPosition);
+		/*generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
 		generateWorld.GenerateResource(this, seed, "IronOre", playerPosition);
-		generateWorld.GenerateResource(this, seed, "CopperOre", playerPosition);
+		generateWorld.GenerateResource(this, seed, "CopperOre", playerPosition);*/
 		//generateWorld.GenerateResource(this, seed, "CoalOre"); // temporarily removed
 		//GD.Print("World Generated");
 	}
 
 	public void Load(dynamic data) {} // does nothing, just so 'Call' method does't have error
+
+	private void GenerateChunks(Vector2I playerPosition)
+	{
+		generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
+		generateWorld.GenerateResource(this, seed, "IronOre", playerPosition);
+		generateWorld.GenerateResource(this, seed, "CopperOre", playerPosition);
+	}
 
 	public Vector2I GetMousePosition()
 	{
