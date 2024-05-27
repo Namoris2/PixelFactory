@@ -7,7 +7,7 @@ using System.Linq;
 public partial class GenerateWorld : Node
 {
 	string[] groundTerrains = { "Grass", "Water", "IronOre", "CopperOre" };
-	int chunkSize = 32;
+	int chunkSize = 16;
 	int generationHeight = 3;
 	int generationWidth = 5;
 
@@ -25,7 +25,7 @@ public partial class GenerateWorld : Node
 		world = _world;
 		seed = _seed;
 		resourceInput = _resourceInput;
-		playerPosition = _playerPosition;
+		playerPosition = new(_playerPosition.X - _playerPosition.X % chunkSize, _playerPosition.Y - _playerPosition.Y % chunkSize);
 		generateWater = _generateWater;
 
         LoadFile load = new();
@@ -79,23 +79,23 @@ public partial class GenerateWorld : Node
 		{
 			for (int y = 0; y < chunkSize; y++)
 			{
-				float noiseValue = noise.GetNoise2D(chunkPosition.X + x - chunkSize / 2, chunkPosition.Y + y - chunkSize / 2);
+				float noiseValue = noise.GetNoise2D(chunkPosition.X + x, chunkPosition.Y + y);
 
 				if (generationCap > noiseValue)
 				{
 					if (resourceInput == "Grass")
 					{
 						Vector2I atlasCoords = new Vector2I((int)resource.atlasCoords[0], (int)resource.atlasCoords[1]);
-						world.SetCell(0, chunkPosition + new Vector2I(x - chunkSize / 2, y - chunkSize / 2), 0, atlasCoords);
+						world.SetCell(0, chunkPosition + new Vector2I(x, y), 0, atlasCoords);
 					}
-					else if ((string)world.GetCellTileData(0, chunkPosition + new Vector2I(x - chunkSize / 2, y - chunkSize / 2)).GetCustomData("resourceName") == "Grass")
+					else if ((string)world.GetCellTileData(0, chunkPosition + new Vector2I(x, y)).GetCustomData("resourceName") == "Grass")
 					{
-						resourceCells.Add(chunkPosition + new Vector2I(x - chunkSize / 2, y - chunkSize / 2));
+						resourceCells.Add(chunkPosition + new Vector2I(x, y));
 					}
 				}
 				else if (generateWater)
 				{
-                    waterCells.Add(chunkPosition + new Vector2I(x - chunkSize / 2, y - chunkSize / 2));
+                    waterCells.Add(chunkPosition + new Vector2I(x, y));
 				}
 			}
 		}
