@@ -72,6 +72,8 @@ public partial class World : Godot.TileMap
 	BuildingInventory buildingInventory;
 	GenerateWorld generateWorld;
 
+	List<Thread> runningThreads = new();
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -115,6 +117,7 @@ public partial class World : Godot.TileMap
 		{
 			GenerateChunks(playerPosition);
 			/*Thread generateWorld = new(() => GenerateChunks(playerPosition));
+			runningThreads.Add(generateWorld);
 			generateWorld.Start();*/
 
 			lastPlayerPosition = playerPosition;
