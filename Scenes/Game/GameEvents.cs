@@ -60,6 +60,7 @@ public partial class GameEvents : Node
                 if (leftovers != null)
                 {
                     inventories.ToggleBuildingInventory(!inventories.Visible, "", leftovers);
+                    tileMap.UITOGGLE = inventories.Visible;
                 }
                 else
                 {

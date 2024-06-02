@@ -1088,7 +1088,7 @@ public partial class World : Godot.TileMap
 		List<LeftoversSlot> slots = new();
 		Vector2 playerPosition = GetNode<Player>("../Player").Position;
 		Leftovers leftovers = (Leftovers)GD.Load<PackedScene>("res://Scenes/Game/World/Leftovers/Leftovers.tscn").Instantiate();
-			leftovers.GlobalPosition = playerPosition;
+		leftovers.GlobalPosition = playerPosition;
 
 		foreach (var item in itemsDict)
 		{
