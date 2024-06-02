@@ -904,7 +904,7 @@ public partial class World : Godot.TileMap
 			}
 			item = GetNode<Item>(itemName);
 
-			item.PickUpItem();
+			//item.PickUpItem();
 
 			if (!item.PickUpItem())
 			{
