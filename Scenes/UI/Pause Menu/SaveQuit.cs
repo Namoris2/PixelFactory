@@ -19,6 +19,10 @@ public partial class SaveQuit : Button
 		GetNode<SaveGame>("../SaveGame").Save();
 		GetNode<Node2D>("/root/main").QueueFree();
 		MainMenu mainMenu = (MainMenu)GD.Load<PackedScene>("res://Scenes/UI/MainMenu/MainMenu.tscn").Instantiate();
+
+		GenerateWorld generateWorld  = GetNode<GenerateWorld>("/root/GenerateWorld");
+		generateWorld.ClearChunkList();
+
 		GetTree().Root.AddChild(mainMenu);
 		GetTree().Paused = false;
 	}

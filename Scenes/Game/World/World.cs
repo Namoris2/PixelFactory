@@ -548,6 +548,7 @@ public partial class World : Godot.TileMap
 			playerPosition = new(playerPosition.X - playerPosition.X % generateWorld.chunkSize, playerPosition.Y - playerPosition.Y % generateWorld.chunkSize);
 			lastPlayerPosition = playerPosition;
 		}
+
 		GenerateChunks(playerPosition);
 		/*generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
 		generateWorld.GenerateResource(this, seed, "IronOre", playerPosition);

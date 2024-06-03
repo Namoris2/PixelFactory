@@ -24,13 +24,14 @@ public partial class GenerateWorld : Node
 	FastNoiseLite noise;
 
 
-	List<Vector2I> grassChunks = new();
-	List<Vector2I> waterChunks = new();
-	List<Vector2I> ironChunks = new();
-	List<Vector2I> copperChunks = new();
+	public List<Vector2I> grassChunks = new();
+	public List<Vector2I> waterChunks = new();
+	public List<Vector2I> ironChunks = new();
+	public List<Vector2I> copperChunks = new();
 
     public void GenerateResource(World _world, int _seed, string _resourceInput, Vector2I _playerPosition, bool _generateWater = false)
 	{
+		GD.Print($"grass: {grassChunks.Count}, water: {waterChunks.Count}, iron: {ironChunks.Count}, copper: {copperChunks.Count}");
 		world = _world;
 		seed = _seed;
 		resourceInput = _resourceInput;
@@ -156,9 +157,11 @@ public partial class GenerateWorld : Node
 		}
 	}
 
-	private void Test(Vector2 data)
+	public void ClearChunkList()
 	{
-		GD.Print(data);
-		return;
+		grassChunks = new();
+		waterChunks = new();
+		ironChunks = new();
+		copperChunks = new();
 	}
 }
