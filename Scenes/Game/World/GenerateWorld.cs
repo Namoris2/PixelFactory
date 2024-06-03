@@ -31,7 +31,6 @@ public partial class GenerateWorld : Node
 
     public void GenerateResource(World _world, int _seed, string _resourceInput, Vector2I _playerPosition, bool _generateWater = false)
 	{
-		GD.Print($"grass: {grassChunks.Count}, water: {waterChunks.Count}, iron: {ironChunks.Count}, copper: {copperChunks.Count}");
 		world = _world;
 		seed = _seed;
 		resourceInput = _resourceInput;
