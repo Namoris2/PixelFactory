@@ -51,3 +51,6 @@ res://Scenes/UI/Save and Load/LoadGame.cs
 res://Scenes/UI/Save and Load/SaveGame.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/UIToggle.cs
+res://Themes/Button/button.tres
+res://Scenes/UI/MainMenu/MainMenu.tscn
+res://Themes/UI.tres
