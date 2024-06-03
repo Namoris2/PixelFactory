@@ -1,12 +1,13 @@
 res://Scenes/main.tscn
 res://Themes/InventorySlot.tres
+res://Particles/Buildings/Miner/Drilling.tres
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn
 res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
-res://Scenes/UI/Inventory/InventorySlot.tscn
-res://Scenes/Game/World/Leftovers/Leftovers.tscn
 res://Scenes/Game/World/Item/Item.tscn
 res://Scenes/Player/player.tscn
+res://Particles/Buildings/Miner/Drilling.tscn
+res://Particles/Buildings/Miner/DrillingIronOre.tscn
 res://Scenes/Game/GameEvents.cs
 res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/World/GenerateWorld.cs
@@ -49,7 +50,3 @@ res://Scenes/UI/Save and Load/LoadGame.cs
 res://Scenes/UI/Save and Load/SaveGame.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/UIToggle.cs
-res://Particles/Buildings/Miner/DrillingCopperOre.tscn
-res://Particles/Buildings/Miner/Drilling.tres
-res://Particles/Buildings/Miner/DrillingIronOre.tscn
-res://Particles/Buildings/Miner/Drilling.tscn
