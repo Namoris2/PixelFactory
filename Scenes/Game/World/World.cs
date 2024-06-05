@@ -682,7 +682,7 @@ public partial class World : Godot.TileMap
 
 	private void Build()
 	{
-		if (GroundResourceValidate(buildings[selectedBuilding].canBePlacedOn, groundResourceName) && buildingsData == null && HasItemsToBuild(buildings[selectedBuilding].cost))
+		if (HasBuildingSpace(buildings[selectedBuilding]) && HasItemsToBuild(buildings[selectedBuilding].cost))
 		{
 			string buildingsJson = Newtonsoft.Json.JsonConvert.SerializeObject(buildings);
 			dynamic building = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
@@ -756,6 +756,25 @@ public partial class World : Godot.TileMap
 		}
 	}
 
+	private bool HasBuildingSpace(dynamic building)
+	{
+		TileData data = GetCellTileData(1, cellPositionByMouse);
+		string groundResource = (string)GetCellTileData(0, cellPositionByMouse).GetCustomData("resourceName");
+
+		bool canBuild = data == null && GroundResourceValidate(building.canBePlacedOn, groundResource);
+
+		for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
+		{
+			Vector2I additionalCoords = new((int)building.additionalAtlasPosition[i][0], (int)building.additionalAtlasPosition[i][1]);
+			data = GetCellTileData(1, cellPositionByMouse + additionalCoords);
+			groundResource = (string)GetCellTileData(0, cellPositionByMouse + additionalCoords).GetCustomData("resourceName");
+
+			canBuild &= data == null && GroundResourceValidate(building.canBePlacedOn, groundResource);
+		}
+		
+		return canBuild;
+	}
+	
 	private void CreateBuilding(dynamic building, Vector2I cellPosition)
 	{
 		string buildingsJson = Newtonsoft.Json.JsonConvert.SerializeObject(buildings);
