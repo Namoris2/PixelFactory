@@ -961,20 +961,20 @@ public partial class World : Godot.TileMap
 			for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
 			{
 				coords = new Vector2I((int)building.coords[0] + (int)building.additionalAtlasPosition[i][0], (int)building.coords[1] + (int)building.additionalAtlasPosition[i][1]);
-				dynamic buildingPart = GetBuildingInfo(coords);
+				dynamic buildingPart = GetBuildingInfo(coords, true);
 				buildingsInfo.Remove(buildingPart);
 				EraseCell(1, coords);
 			}
 		}
 	}
 
-	public dynamic GetBuildingInfo(Vector2I cellPosition) 
+	public dynamic GetBuildingInfo(Vector2I cellPosition, bool getBuildingPart = false) 
 	{
 		foreach (var building in buildingsInfo)
 		{
 			if (building.coords[0] == cellPosition[0] && building.coords[1] == cellPosition[1])
 			{
-				if (building.buildingType.ToString() == "buildingPart")
+				if (building.buildingType.ToString() == "buildingPart" && !getBuildingPart)
 				{
 					return GetBuildingInfo(new Vector2I((int)building.parentBuilding[0], (int)building.parentBuilding[1]));
 				}
