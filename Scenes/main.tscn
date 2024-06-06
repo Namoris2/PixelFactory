@@ -2091,7 +2091,7 @@ theme_override_font_sizes/font_size = 50
 text = "Resources: 0"
 script = ExtResource("8_2nicb")
 
-[node name="WolrdInfo" type="Label" parent="UI"]
+[node name="WorldInfo" type="Label" parent="UI"]
 offset_right = 251.0
 offset_bottom = 72.0
 size_flags_horizontal = 0

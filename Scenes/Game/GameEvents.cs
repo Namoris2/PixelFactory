@@ -8,6 +8,7 @@ public partial class GameEvents : Node
     private BuildMenu buildMenu;
     private PauseMenu pauseMenu;
     public Leftovers leftovers;
+    private Label worldInfo;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -16,6 +17,7 @@ public partial class GameEvents : Node
         inventories = GetNode<Inventories>("../UI/Inventories");
         buildMenu = GetNode<BuildMenu>("../UI/BuildMenu");
         pauseMenu = GetNode<PauseMenu>("../UI/PauseMenu");
+        worldInfo = GetNode<Label>("../UI/WorldInfo");
 	}
 
     public override void _Input(InputEvent @event)
@@ -25,10 +27,12 @@ public partial class GameEvents : Node
             if (pauseMenu.Visible)
             {
                 pauseMenu.UnpauseGame();
+                worldInfo.Show();
             }
             else if (!(tileMap.BUILDINGMODE || tileMap.DISMANTLEMODE || inventories.Visible || buildMenu.Visible))
             {
                 pauseMenu.PauseGame();
+                worldInfo.Hide();
             }
             else if (tileMap.DISMANTLEMODE)
             {
@@ -42,6 +46,7 @@ public partial class GameEvents : Node
             {
                 inventories.ToggleInventory(false);
                 tileMap.UITOGGLE = false;
+                worldInfo.Show();
             }
         }
 
@@ -53,19 +58,22 @@ public partial class GameEvents : Node
                 {
                     inventories.ToggleInventory(!inventories.Visible);
                     tileMap.UITOGGLE = inventories.Visible;
+                    worldInfo.Visible = !inventories.Visible;
                 }
             }
             if (@event.IsActionPressed("Interact"))
             {
-                if (leftovers != null)
+                if (leftovers != null) // Open leftovers Inventory
                 {
                     inventories.ToggleBuildingInventory(!inventories.Visible, "", leftovers);
                     tileMap.UITOGGLE = inventories.Visible;
+                    worldInfo.Visible = !inventories.Visible;
                 }
-                else
+                else // Open building Inventory
                 {
                     inventories.ToggleBuildingInventory(!inventories.Visible, tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
                     tileMap.UITOGGLE = inventories.Visible;
+                    worldInfo.Visible = !inventories.Visible;
                 }
             }
         }
