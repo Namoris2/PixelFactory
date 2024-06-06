@@ -28,6 +28,7 @@ shape = SubResource("RectangleShape2D_6blut")
 [node name="PlayerCamera" type="Camera2D" parent="."]
 position = Vector2(32, 32)
 scale = Vector2(4, 4)
+position_smoothing_enabled = true
 script = ExtResource("2_laqpu")
 
 [node name="PlayerIcon" type="Sprite2D" parent="."]

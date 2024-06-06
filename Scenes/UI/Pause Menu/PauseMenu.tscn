@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxn21jfq72eky"]
+[gd_scene load_steps=5 format=3 uid="uid://bxn21jfq72eky"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Pause Menu/PauseMenu.cs" id="1_e0k0e"]
+[ext_resource type="Theme" uid="uid://037hqw0mionk" path="res://Themes/UI.tres" id="1_w0e10"]
 [ext_resource type="Script" path="res://Scenes/UI/Save and Load/SaveGame.cs" id="2_13ohj"]
 [ext_resource type="Script" path="res://Scenes/UI/Pause Menu/SaveQuit.cs" id="3_evhqq"]
 
@@ -12,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_w0e10")
 script = ExtResource("1_e0k0e")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -67,6 +69,7 @@ anchor_bottom = 1.0
 theme_override_font_sizes/normal_font_size = 25
 text = "	Harvest Resource / 			LEFT MOUSE
 	Collect from building			BUTTON
+
 	Open Build Menu					Q
 	Rotate Building						R
 	Dismantle Building				F

@@ -1382,12 +1382,6 @@ texture = ExtResource("3_cesio")
 11:4/0/terrains_peering_bit/bottom_left_corner = 3
 11:4/0/terrains_peering_bit/left_side = 3
 11:4/0/custom_data_0 = "CopperOre"
-12:4/0 = 0
-12:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-12:4/0/physics_layer_0/angular_velocity = 0.0
-12:4/0/physics_layer_1/linear_velocity = Vector2(0, 0)
-12:4/0/physics_layer_1/angular_velocity = 0.0
-12:4/0/custom_data_0 = "CoalOre"
 0:5/0 = 0
 0:5/0/terrain_set = 0
 0:5/0/terrain = 3
@@ -1805,6 +1799,12 @@ texture = ExtResource("3_cesio")
 10:5/0/terrains_peering_bit/top_side = 3
 10:5/0/terrains_peering_bit/top_right_corner = 3
 10:5/0/custom_data_0 = "CopperOre"
+12:4/0 = 0
+12:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+12:4/0/physics_layer_0/angular_velocity = 0.0
+12:4/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+12:4/0/physics_layer_1/angular_velocity = 0.0
+12:4/0/custom_data_0 = "CoalOre"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7gb0d"]
 resource_name = "Buildings"
@@ -2091,7 +2091,7 @@ theme_override_font_sizes/font_size = 50
 text = "Resources: 0"
 script = ExtResource("8_2nicb")
 
-[node name="WolrdInfo" type="Label" parent="UI"]
+[node name="WorldInfo" type="Label" parent="UI"]
 offset_right = 251.0
 offset_bottom = 72.0
 size_flags_horizontal = 0

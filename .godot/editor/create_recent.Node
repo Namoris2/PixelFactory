@@ -1,7 +1,8 @@
+CollisionShape2D
+ColorRect
 Label
 TextureRect
 RichTextLabel
-ColorRect
 Button
 HFlowContainer
 Panel

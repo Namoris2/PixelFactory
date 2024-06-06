@@ -221,7 +221,6 @@ C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\bin\Export
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\bin\ExportDebug\win-x64\hostfxr.dll
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\bin\ExportDebug\win-x64\hostpolicy.dll
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\bin\ExportDebug\win-x64\mscordaccore.dll
-C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\bin\ExportDebug\win-x64\mscordaccore_amd64_amd64_6.0.2724.6912.dll
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\bin\ExportDebug\win-x64\mscordbi.dll
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\bin\ExportDebug\win-x64\mscorrc.dll
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\bin\ExportDebug\win-x64\msquic.dll
@@ -238,3 +237,4 @@ C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\obj\Export
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\obj\ExportDebug\win-x64\PixelFactory.pdb
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\obj\ExportDebug\win-x64\PixelFactory.genruntimeconfig.cache
 C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\obj\ExportDebug\win-x64\ref\PixelFactory.dll
+C:\Users\namor\OneDrive\Dokumenty\Godot\PixelFactory\.godot\mono\temp\bin\ExportDebug\win-x64\mscordaccore_amd64_amd64_6.0.2924.17105.dll

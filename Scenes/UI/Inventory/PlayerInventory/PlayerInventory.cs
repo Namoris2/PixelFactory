@@ -30,20 +30,20 @@ public partial class PlayerInventory : Control
 
 		LoadingScreen loadingScreen = GetNodeOrNull<LoadingScreen>("/root/LoadingScreen");
 
-		if (loadingScreen == null || !loadingScreen.loadingSave)
+		// cheat items to inventory
+		/*if (loadingScreen == null || !loadingScreen.loadingSave)
 		{
 			PutToInventory("IronIngot", 100);
 			PutToInventory("IronPlate", 100);
 			PutToInventory("IronRod", 100);
 
-			// cheat items to inventory
 			/*PutToInventory("CopperIngot", 2000);
 			PutToInventory("IronIngot", 100);
 			PutToInventory("CopperIngot", 100);
 			PutToInventory("IronPlate", 200);
 			PutToInventory("IronRod", 200);
-			PutToInventory("Wire", 500);*/
-		}
+			PutToInventory("Wire", 500);
+		}*/
 	}
 
 	private void CreateInventorySlots()
