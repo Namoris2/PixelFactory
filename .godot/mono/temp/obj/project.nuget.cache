@@ -1,16 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "TXsdSj9ioG/k3CgOsszatBEa4zgSyrfw5Z3t///l5Vjc0HL5Erdek9znCCtZXRgTf1JyfMTgwLUZpvmmYXNBLg==",
+  "dgSpecHash": "cLWEd0Rb9HuPqh9DZ/EXEWfAbVscFQxdTlL34Rd5OZfXtpxhU/w6O+nN5SSO6b/8EYLaSi2hE24P+6jmOSw/eg==",
   "success": true,
   "projectFilePath": "C:\\Users\\namor\\OneDrive\\Dokumenty\\Godot\\PixelFactory\\PixelFactory.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\namor\\.nuget\\packages\\godot.sourcegenerators\\4.2.0\\godot.sourcegenerators.4.2.0.nupkg.sha512",
     "C:\\Users\\namor\\.nuget\\packages\\godotsharp\\4.2.0\\godotsharp.4.2.0.nupkg.sha512",
-    "C:\\Users\\namor\\.nuget\\packages\\godotsharpeditor\\4.2.0\\godotsharpeditor.4.2.0.nupkg.sha512",
     "C:\\Users\\namor\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\namor\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.29\\microsoft.netcore.app.ref.6.0.29.nupkg.sha512",
+    "C:\\Users\\namor\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\6.0.29\\microsoft.netcore.app.runtime.win-x64.6.0.29.nupkg.sha512",
     "C:\\Users\\namor\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.29\\microsoft.windowsdesktop.app.ref.6.0.29.nupkg.sha512",
-    "C:\\Users\\namor\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.29\\microsoft.aspnetcore.app.ref.6.0.29.nupkg.sha512"
+    "C:\\Users\\namor\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\6.0.29\\microsoft.windowsdesktop.app.runtime.win-x64.6.0.29.nupkg.sha512",
+    "C:\\Users\\namor\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.29\\microsoft.aspnetcore.app.ref.6.0.29.nupkg.sha512",
+    "C:\\Users\\namor\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\6.0.29\\microsoft.aspnetcore.app.runtime.win-x64.6.0.29.nupkg.sha512"
   ],
   "logs": []
 }

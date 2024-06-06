@@ -33,13 +33,14 @@ public partial class BuildMenu : CanvasLayer
 		{
 			tileMap.UITOGGLE = true;
 			Visible = true;
+			worldInfo.Hide();
 		}
 		else if (tileMap.UITOGGLE && Visible)
 		{
 			tileMap.UITOGGLE = false;
 			Visible = false;
+			worldInfo.Show();
 		}
-		worldInfo.Visible = !Visible;
 	}
 	private void CloseBuildingMode()
 	{
