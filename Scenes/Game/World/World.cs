@@ -328,7 +328,7 @@ public partial class World : Godot.TileMap
 						{
 							for (int j = previousBuilding.slots.Count - 1; j >= 0; j--)
 							{
-								GD.Print(previousBuilding.slots[j].resource, previousBuilding.slots[j].amount); 
+								//GD.Print(previousBuilding.slots[j].resource, previousBuilding.slots[j].amount); 
 								if (previousBuilding.slots[j].resource.ToString() != "")
 								{
 									buildingsInfo[i].item = previousBuilding.slots[j].resource.ToString();
@@ -337,7 +337,7 @@ public partial class World : Godot.TileMap
 									CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingsInfo[i].speed * 2, parentBuilding: new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]));
 								}
 							}
-							GD.Print();
+							//GD.Print();
 						}
 						else if (previousBuilding.buildingType.ToString() == "belt") // belt
 						{
