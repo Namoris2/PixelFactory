@@ -35,6 +35,7 @@
         "recipe" : "none",
         "canChooseRecipe" : false,
         "productionProgress" : 0,
+        "productionMultiplier" : 1,
         "canBePlacedOn" : ["CoalOre", "CopperOre", "IronOre"],
         "inputSlots" : [],
         "outputSlots" : [

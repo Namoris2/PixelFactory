@@ -243,10 +243,12 @@ public partial class World : Godot.TileMap
 					if (buildingsInfo[i].recipe.ToString() == "none") { continue; } // if no recipe is selected, skips this building
 
 					dynamic recipe = recipes[buildingsInfo[i].recipe.ToString()];
-					// GD.Print(buildingsInfo[i]);
+					int productionMultiplier = 1;
+
 					if (BuildingSlotValidate(buildingsInfo[i], recipe))
 					{
-						buildingsInfo[i].productionProgress += (double)recipe.cyclesPerMinute / 60 * delta;
+						if (buildingsInfo[i].type.ToString().Contains("Drill")) { GD.Print(buildingsInfo[i]); /*productionMultiplier = (int)buildingsInfo[i].productionMultiplier;*/ }
+						buildingsInfo[i].productionProgress += productionMultiplier * (double)recipe.cyclesPerMinute / 60 * delta;
 
 						if (buildingsInfo[i].productionProgress >= 1) // if 'productionProgress' is full items will be added and removed according to machine's recipe
 																	  // and resets 'productionProgress' 
@@ -501,6 +503,11 @@ public partial class World : Godot.TileMap
 					buildingRotation = 0;
 				}
 
+				if (building.type.ToString() == "drill")
+				{
+					building.type = "smallDrill";
+					building.Add("productionMultiplier", 1);
+				}
 
 				Vector2I buildingAtlasCoords = new ((int)building.atlasCoords[0], (int)building.atlasCoords[1]);
 				Vector2I originalAtlasCoords = new ((int)buildings[building.type.ToString()].atlasCoords[0], (int)buildings[building.type.ToString()].atlasCoords[1]);
@@ -682,18 +689,19 @@ public partial class World : Godot.TileMap
 
 	private void Build()
 	{
-		if (HasBuildingSpace(buildings[selectedBuilding]) && HasItemsToBuild(buildings[selectedBuilding].cost))
+		System.Collections.Generic.Dictionary<string, dynamic> groundInfo = GetGroundInfo(buildings[selectedBuilding]);
+		if (groundInfo["canBuild"] && HasItemsToBuild(buildings[selectedBuilding].cost))
 		{
-			string buildingsJson = Newtonsoft.Json.JsonConvert.SerializeObject(buildings);
-			dynamic building = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
+			string buildingsJson = JsonConvert.SerializeObject(buildings);
+			dynamic building = JsonConvert.DeserializeObject<dynamic>(buildingsJson);
 			building = building[selectedBuilding];
 			building.coords[0] = cellPositionByMouse[0];
 			building.coords[1] = cellPositionByMouse[1];
 			
-			if  (building.type.ToString() == "drill")
+			if  (building.type.ToString().Contains("Drill"))
 			{
 				building.outputSlots[0].resource = groundResourceName;
-				building.recipe = groundResourceName;
+				building.recipe = groundInfo["resource"];
 			}
 
 			if (building.buildingType.ToString() == "belt" || building.buildingType.ToString() == "beltArm")
@@ -731,7 +739,7 @@ public partial class World : Godot.TileMap
 			{
 				for (int i = 0; i < (int)building.slotsAmount; i++)
 				{
-					building.slots.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>("{resource:\"\",amount:0}"));
+					building.slots.Add(JsonConvert.DeserializeObject<dynamic>("{resource:\"\",amount:0}"));
 				}
 				//GD.Print(building.slots.Count);
 			}
@@ -745,7 +753,7 @@ public partial class World : Godot.TileMap
 			
 			buildingsInfo.Add(building);
 
-			buildings = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);
+			buildings = JsonConvert.DeserializeObject<dynamic>(buildingsJson);
 
 			// removes cost items from inventory
 			for (int i = 0; i < building.cost.Count; i++)
@@ -756,7 +764,7 @@ public partial class World : Godot.TileMap
 		}
 	}
 
-	private bool HasBuildingSpace(dynamic building)
+	private System.Collections.Generic.Dictionary<string, dynamic> GetGroundInfo(dynamic building)
 	{
 		System.Collections.Generic.Dictionary<string, dynamic> info = new ()
 		{
@@ -810,7 +818,7 @@ public partial class World : Godot.TileMap
 			info["canBuild"] = hasSpace && resources.Count == building.additionalAtlasPosition.Count + 1;
 		}
 		
-		return info["canBuild"];
+		return info;
 	}
 	
 	private void CreateBuilding(dynamic building, Vector2I cellPosition)

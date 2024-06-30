@@ -163,7 +163,7 @@ public partial class BuildingInventory : Control
 				dynamic recipe = recipes[buildingInfo.recipe.ToString()];
 				resourceProduction.Text = "Recipe: none";
 
-				if (buildingInfo.type.ToString() != "drill")
+				if (!buildingInfo.type.ToString().Contains("Drill"))
 				{
 					TabContainer recipesTab = GetNode<TabContainer>("TabContainer/Recipes");
 					switch (buildingInfo.type.ToString())
@@ -192,9 +192,8 @@ public partial class BuildingInventory : Control
 
 					resourceProduction.Text = "Recipe: " + recipe.name.ToString();
 
-					if (buildingInfo.type.ToString() == "drill")
+					if (buildingInfo.type.ToString().Contains("Drill"))
 					{
-						//main main = new();
 						slot = (InventorySlot)main.FindNodeByNameInGroup(GetTree().GetNodesInGroup("SingleSlots"), "DrillOutputSlot");
 						slot.buildingCoordinates = coordinates;
 						slot.itemType = buildingInfo.outputSlots[0].resource.ToString();
@@ -276,7 +275,7 @@ public partial class BuildingInventory : Control
 		
 		if (building.buildingType.ToString() == "machine") { productionProgress.Value = (double)building.productionProgress; }
 
-		if (building.type.ToString() == "drill")
+		if (building.type.ToString().Contains("Drill"))
 		{	
 			InventorySlot slot = GetNode<InventorySlot>("TabContainer/Building/Slots/DrillOutputSlot");
 			UpdateSlot(slot, building.outputSlots[0].resource.ToString(), (int)building.outputSlots[0].amount);
@@ -307,8 +306,6 @@ public partial class BuildingInventory : Control
 				UpdateSlot(slot, building.slots[i].resource.ToString(), (int)building.slots[i].amount);
 			}
 		}
-
-		//GD.Print(coordinates.ToString());
 	}
 
 	private void UpdateSlot(InventorySlot slot, string itemType, int itemAmount)
