@@ -8,9 +8,9 @@
         "parentBuilding" : [0, 0],
         "coords" : [0, 0]
     },
-    "drill" : {
+    "smallDrill" : {
         "buildingType" : "machine",
-        "type" : "drill",
+        "type" : "smallDrill",
         "name" : "Small Drill",
         "description" : "Allows to automatically extract ground resources\n\nExtracts 30 resources per minute\n\nSize: 1x1",
         "cost" : [

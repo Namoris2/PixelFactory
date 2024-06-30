@@ -758,10 +758,18 @@ public partial class World : Godot.TileMap
 
 	private bool HasBuildingSpace(dynamic building)
 	{
+		System.Collections.Generic.Dictionary<string, dynamic> info = new ()
+		{
+			{ "canBuild", false },
+			{ "tiles", 0 },
+			{ "resource", "" }
+		};
+		List<string> resources = new ();
 		TileData data = GetCellTileData(1, cellPositionByMouse);
 		string groundResource = (string)GetCellTileData(0, cellPositionByMouse).GetCustomData("resourceName");
 
-		bool canBuild = data == null && GroundResourceValidate(building.canBePlacedOn, groundResource);
+		bool hasSpace = data == null; 
+		if (GroundResourceValidate(building.canBePlacedOn, groundResource)) { resources.Add(groundResource); }
 
 		for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
 		{
@@ -769,15 +777,45 @@ public partial class World : Godot.TileMap
 			data = GetCellTileData(1, cellPositionByMouse + additionalCoords);
 			groundResource = (string)GetCellTileData(0, cellPositionByMouse + additionalCoords).GetCustomData("resourceName");
 
-			canBuild &= data == null && GroundResourceValidate(building.canBePlacedOn, groundResource);
+			hasSpace = data == null; 
+			if (GroundResourceValidate(building.canBePlacedOn, groundResource)) { resources.Add(groundResource); }
+		}
+
+		if (building.type.ToString().Contains("Drill"))
+		{
+			resources.RemoveAll(resource => resource == "Grass");
+			info["canBuild"] = hasSpace && resources.Count > 0;
+			
+			if (!info["canBuild"]) { return info["canBuild"]; }
+
+			if (hasSpace && !(bool)building.hasAdditionalAtlasPosition)
+			{
+				info["tiles"] = 1;
+				info["resource"] = groundResource;
+			}
+			else
+			{
+				dynamic mostFrequentResource = resources
+					.GroupBy(x => x)                   // Group elements by their value
+					.Select(g => new { Element = g.Key, Count = g.Count() }) // Create a new object with the element and its count
+					.OrderByDescending(g => g.Count)   // Order by descending count
+					.First();  
+
+				info["tiles"] = mostFrequentResource.Count;
+				info["resource"] = mostFrequentResource.Element;
+			}
+		}
+		else
+		{
+			info["canBuild"] = hasSpace && resources.Count == building.additionalAtlasPosition.Count + 1;
 		}
 		
-		return canBuild;
+		return info["canBuild"];
 	}
 	
 	private void CreateBuilding(dynamic building, Vector2I cellPosition)
 	{
-		string buildingsJson = Newtonsoft.Json.JsonConvert.SerializeObject(buildings);
+		string buildingsJson = JsonConvert.SerializeObject(buildings);
 		SetCell(1, cellPosition, 1, new((int)building.atlasCoords[0] + buildingRotation, (int)building.atlasCoords[1]));	
 		
 		if((bool)building.hasAdditionalAtlasPosition)
@@ -787,7 +825,7 @@ public partial class World : Godot.TileMap
 				Vector2I atlasCoords = new ((int)building.atlasCoords[0], (int)building.atlasCoords[1]);
 				Vector2I additionalAtlasPosition = new ((int)building.additionalAtlasPosition[i][0], (int)building.additionalAtlasPosition[i][1]);
 				
-				dynamic buildingPart = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(buildingsJson);;
+				dynamic buildingPart = JsonConvert.DeserializeObject<dynamic>(buildingsJson);;
 				buildingPart = buildingPart.buildingPart;
 
 				buildingPart.coords[0] = cellPosition[0] + additionalAtlasPosition[0];
@@ -800,7 +838,7 @@ public partial class World : Godot.TileMap
 			}
 		}
 
-		if (building.type.ToString() == "drill")
+		if (building.type.ToString().Contains("Drill"))
 		{
 			Node2D particle = (Node2D)GD.Load<PackedScene>($"res://Particles/Buildings/Miner/Drilling{building.recipe}.tscn").Instantiate();
 			Vector2 particlePosition = cellPosition + new Vector2(0.5f, 10f / 16);
