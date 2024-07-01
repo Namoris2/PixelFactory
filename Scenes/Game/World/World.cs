@@ -702,6 +702,7 @@ public partial class World : Godot.TileMap
 			{
 				building.outputSlots[0].resource = groundResourceName;
 				building.recipe = groundInfo["resource"];
+				building.productionMultiplier *= groundInfo["tiles"];
 			}
 
 			if (building.buildingType.ToString() == "belt" || building.buildingType.ToString() == "beltArm")
