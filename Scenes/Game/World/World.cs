@@ -243,11 +243,11 @@ public partial class World : Godot.TileMap
 					if (buildingsInfo[i].recipe.ToString() == "none") { continue; } // if no recipe is selected, skips this building
 
 					dynamic recipe = recipes[buildingsInfo[i].recipe.ToString()];
-					int productionMultiplier = 1;
+					float productionMultiplier = 1;
 
 					if (BuildingSlotValidate(buildingsInfo[i], recipe))
 					{
-						if (buildingsInfo[i].type.ToString().Contains("Drill")) { GD.Print(buildingsInfo[i]); /*productionMultiplier = (int)buildingsInfo[i].productionMultiplier;*/ }
+						if (buildingsInfo[i].type.ToString().Contains("Drill")) { productionMultiplier = (float)buildingsInfo[i].productionMultiplier; }
 						buildingsInfo[i].productionProgress += productionMultiplier * (double)recipe.cyclesPerMinute / 60 * delta;
 
 						if (buildingsInfo[i].productionProgress >= 1) // if 'productionProgress' is full items will be added and removed according to machine's recipe
@@ -805,9 +805,9 @@ public partial class World : Godot.TileMap
 			else
 			{
 				dynamic mostFrequentResource = resources
-					.GroupBy(x => x)                   // Group elements by their value
+					.GroupBy(x => x)                   						 // Group elements by their value
 					.Select(g => new { Element = g.Key, Count = g.Count() }) // Create a new object with the element and its count
-					.OrderByDescending(g => g.Count)   // Order by descending count
+					.OrderByDescending(g => g.Count)   						 // Order by descending count
 					.First();  
 
 				info["tiles"] = mostFrequentResource.Count;

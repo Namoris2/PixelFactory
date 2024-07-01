@@ -1,7 +1,7 @@
-res://Scenes/main.tscn
+res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Themes/InventorySlot.tres
 res://Themes/UI.tres
-res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
+res://Scenes/main.tscn
 res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn
 res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
 res://Scenes/Game/World/Item/Item.tscn

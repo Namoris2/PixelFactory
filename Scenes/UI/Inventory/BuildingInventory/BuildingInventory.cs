@@ -198,6 +198,8 @@ public partial class BuildingInventory : Control
 						slot.buildingCoordinates = coordinates;
 						slot.itemType = buildingInfo.outputSlots[0].resource.ToString();
 						slot.inventoryType = INVENTORYTYPE;
+						slot.GetNode<Label>("Produce").Text = $"{recipe.output[0].amount}x {items[recipe.output[0].name.ToString()].name}";
+						slot.GetNode<Label>("Rate").Text = $"{buildingInfo.productionMultiplier * recipe.cyclesPerMinute * recipe.output[0].amount} / min";
 						slot.UpdateSlotTexture(slot.itemType);
 						slot.Show();
 					}
