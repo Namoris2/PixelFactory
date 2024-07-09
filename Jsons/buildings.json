@@ -36,6 +36,7 @@
         "canChooseRecipe" : false,
         "productionProgress" : 0,
         "productionMultiplier" : 1,
+        "tiles" : 0,
         "canBePlacedOn" : ["CoalOre", "CopperOre", "IronOre"],
         "inputSlots" : [],
         "outputSlots" : [
@@ -150,9 +151,8 @@
         "nextPosition" : [0, 0],
         "hasAdditionalAtlasPosition" : false,
         "additionalAtlasPosition" : [],
-        "speed" : 30,
+        "speed" : 60,
         "moveProgress" : 0,
-        "recivingItem" : false,
         "canBePlacedOn" : ["Grass", "Concrete"],
         "item" : ""
     },
@@ -178,7 +178,7 @@
         "previousPosition" : [0, 0],
         "hasAdditionalAtlasPosition" : false,
         "additionalAtlasPosition" : [],
-        "speed" : 30,
+        "speed" : 60,
         "moveProgress" : 0,
         "canMove" : false,
         "canBePlacedOn" : ["Grass", "Concrete"],
