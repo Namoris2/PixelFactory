@@ -250,7 +250,7 @@ public partial class World : Godot.TileMap
 
 					if (BuildingSlotValidate(buildingsInfo[i], recipe))
 					{
-						//if (buildingsInfo[i].type.ToString().Contains("Drill")) { productionMultiplier = (float)buildingsInfo[i].productionMultiplier; }
+						if (buildingsInfo[i].type.ToString().Contains("Drill")) { productionMultiplier = (float)buildingData.productionMultiplier * (float)buildingsInfo[i].tiles; }
 						buildingsInfo[i].productionProgress += productionMultiplier * (double)recipe.cyclesPerMinute / 60 * delta;
 
 						if (buildingsInfo[i].productionProgress >= 1) // if 'productionProgress' is full items will be added and removed according to machine's recipe
@@ -820,7 +820,7 @@ public partial class World : Godot.TileMap
 				buildingData.Add("inputSlots", building.inputSlots);
 				buildingData.Add("outputSlots", building.outputSlots);
 
-				if (building.buildingType.ToString().Contains("Drill")) { buildingData.Add("tiles", building.tiles);}
+				if (building.type.ToString().Contains("Drill")) { buildingData.Add("tiles", building.tiles);}
 				break;
 
 			case "belt": case "beltArm":
@@ -864,7 +864,7 @@ public partial class World : Godot.TileMap
 			}
 		}
 
-		if (building.type.ToString().Contains("Drill"))
+		if (building.type.ToString() == "smallDrill")
 		{
 			Node2D particle = (Node2D)GD.Load<PackedScene>($"res://Particles/Buildings/Miner/Drilling{building.recipe}.tscn").Instantiate();
 			Vector2 particlePosition = cellPosition + new Vector2(0.5f, 10f / 16);
@@ -1011,7 +1011,7 @@ public partial class World : Godot.TileMap
 			CreateRemainsBox(leftovers);
 		}
 
-		if (building.type.ToString() == "drill")
+		if (building.type.ToString() == "smallDrill")
 		{
 			GetParent().GetNode<Node>($"DrillParticles{coords[0]}x{coords[1]}").QueueFree();
 		}

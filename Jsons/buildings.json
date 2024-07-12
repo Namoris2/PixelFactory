@@ -46,6 +46,45 @@
             }
         ] 
     },
+    "mediumDrill" : {
+        "buildingType" : "machine",
+        "type" : "mediumDrill",
+        "name" : "Medium Drill",
+        "description" : "Allows to automatically extract ground resources\n\nExtracts 45 resources per minute per game tile\n\nSize: 2x2",
+        "cost" : [
+            {
+                "resource" : "",
+                "amount" : 0
+            },
+            {
+                "resource" : "",
+                "amount" : 0
+            }
+        ],
+        "coords" : [0, 0],
+        "atlasCoords" : [8, 0],
+        "width" : 2,
+        "height" : 2,
+        "canRotate" : false,
+        "rotationAmount" : 0,
+        "rotation" : 0,
+        "hasAdditionalAtlasPosition" : true,
+        "additionalAtlasPosition" : [        [1, 0],
+                                     [0, 1], [1, 1]],
+        "recipe" : "none",
+        "canChooseRecipe" : false,
+        "productionProgress" : 0,
+        "productionMultiplier" : 1.5,
+        "tiles" : 0,
+        "canBePlacedOn" : ["CoalOre", "CopperOre", "IronOre"],
+        "inputSlots" : [],
+        "outputSlots" : [
+            {
+                "resource" : "",
+                "amount" : 0
+            }
+        ] 
+    },
     "smelter" : {
         "buildingType" : "machine",
         "type" : "smelter",

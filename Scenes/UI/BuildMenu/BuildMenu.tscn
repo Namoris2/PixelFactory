@@ -75,6 +75,11 @@ layout_mode = 2
 DisplayName = "smallDrill"
 Type = "building"
 
+[node name="mediumDrill" parent="TabContainer/Manufacturing" instance=ExtResource("1_oydjw")]
+layout_mode = 2
+DisplayName = "mediumDrill"
+Type = "building"
+
 [node name="smelter" parent="TabContainer/Manufacturing" instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "smelter"
