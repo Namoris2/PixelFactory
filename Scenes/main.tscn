@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bbqmsnkmc3pac"]
+[gd_scene load_steps=26 format=3 uid="uid://bbqmsnkmc3pac"]
 
 [ext_resource type="Script" path="res://Scenes/Game/GameEvents.cs" id="1_st43b"]
 [ext_resource type="Texture2D" uid="uid://cakt6ts1d5n8k" path="res://Gimp/Ground Materials/ground.png" id="3_cesio"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="4_r6w7n"]
 [ext_resource type="Texture2D" uid="uid://ck712pm16mpkt" path="res://Gimp/Cussor/cursor_tile_hover.png" id="5_ckxak"]
 [ext_resource type="PackedScene" uid="uid://i4r6u351cl60" path="res://Scenes/Player/player.tscn" id="6_dnyod"]
+[ext_resource type="Script" path="res://Scenes/Game/World/ParticleControl.cs" id="7_o8fwl"]
 [ext_resource type="Script" path="res://Scenes/UI/HUD/ResourceAmount.cs" id="8_2nicb"]
 [ext_resource type="PackedScene" uid="uid://crq7hbeb86rlt" path="res://Scenes/UI/Inventory/HoldingItem.tscn" id="8_capta"]
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/Inventories.cs" id="8_jtdr3"]
@@ -1799,12 +1800,6 @@ texture = ExtResource("3_cesio")
 10:5/0/terrains_peering_bit/top_side = 3
 10:5/0/terrains_peering_bit/top_right_corner = 3
 10:5/0/custom_data_0 = "CopperOre"
-12:4/0 = 0
-12:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-12:4/0/physics_layer_0/angular_velocity = 0.0
-12:4/0/physics_layer_1/linear_velocity = Vector2(0, 0)
-12:4/0/physics_layer_1/angular_velocity = 0.0
-12:4/0/custom_data_0 = "CoalOre"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7gb0d"]
 resource_name = "Buildings"
@@ -2016,6 +2011,9 @@ process_mode = 3
 script = ExtResource("1_st43b")
 
 [node name="World" type="Node2D" parent="."]
+
+[node name="ParticleControl" type="Node2D" parent="World"]
+script = ExtResource("7_o8fwl")
 
 [node name="Player" parent="World" groups=["CanSave"] instance=ExtResource("6_dnyod")]
 position = Vector2(-1312, 672)

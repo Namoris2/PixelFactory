@@ -34,6 +34,12 @@ public partial class World : Godot.TileMap
 	[Signal]
 	public delegate void UpdateBuildingProgressEventHandler(string info);
 
+	[Signal]
+	public delegate void CreateParticleEventHandler(Vector2I coords, string type, string resource);
+
+	[Signal]
+	public delegate void RemoveParticleEventHandler(Vector2I coords);
+
 	[Export]
 	private bool worldGeneration = true;
 
@@ -864,14 +870,11 @@ public partial class World : Godot.TileMap
 			}
 		}
 
-		if (building.type.ToString() == "smallDrill")
-		{
-			Node2D particle = (Node2D)GD.Load<PackedScene>($"res://Particles/Buildings/Miner/Drilling{building.recipe}.tscn").Instantiate();
-			Vector2 particlePosition = cellPosition + new Vector2(0.5f, 10f / 16);
-			particle.Position = particlePosition * 64;
-			particle.Name = $"DrillParticles{cellPosition[0]}x{cellPosition[1]}";
-			GetParent().CallDeferred("add_child", particle);
-		}
+		string recipe = "";
+		if (building.ContainsKey("recipe")) { recipe = building.recipe.ToString(); }
+
+		// adds particles to building
+		EmitSignal(SignalName.CreateParticle, cellPosition, building.type.ToString(), recipe);
 	}
 
 	private bool HasItemsToBuild (dynamic items)
@@ -1011,10 +1014,8 @@ public partial class World : Godot.TileMap
 			CreateRemainsBox(leftovers);
 		}
 
-		if (building.type.ToString() == "smallDrill")
-		{
-			GetParent().GetNode<Node>($"DrillParticles{coords[0]}x{coords[1]}").QueueFree();
-		}
+		// removes building's particles
+		EmitSignal(SignalName.RemoveParticle, cellPositionByMouse);
 		
 		// destroys building
 		buildingsInfo.Remove(building);

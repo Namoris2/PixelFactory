@@ -1,3 +1,5 @@
+Node2D
+Node
 CollisionShape2D
 ColorRect
 Label
@@ -9,7 +11,5 @@ Panel
 ScrollContainer
 VScrollBar
 VBoxContainer
-Node
 GPUParticles2D
 CPUParticles2D
-LineEdit

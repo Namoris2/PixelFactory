@@ -16,6 +16,7 @@ res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/World/GenerateWorld.cs
 res://Scenes/Game/World/Item/Item.cs
 res://Scenes/Game/World/Leftovers/Leftovers.cs
+res://Scenes/Game/World/ParticleControl.cs
 res://Scenes/Game/World/World.cs
 res://Scenes/main.cs
 res://Scenes/Player/Player.cs
