@@ -26,6 +26,8 @@ public partial class ParticleControl : Node2D
 
     private void RemoveParticle(Vector2I coords)
     {
-		GetNode<Node>($"DrillParticles{coords[0]}x{coords[1]}").QueueFree();
+		Node particle = GetNodeOrNull<Node>($"DrillParticles{coords[0]}x{coords[1]}");
+
+        if (particle != null) { particle.QueueFree(); }
     }
 }

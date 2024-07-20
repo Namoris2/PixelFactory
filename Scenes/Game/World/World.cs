@@ -40,6 +40,12 @@ public partial class World : Godot.TileMap
 	[Signal]
 	public delegate void RemoveParticleEventHandler(Vector2I coords);
 
+	[Signal]
+	public delegate void CreateBuildingPartEventHandler(Vector2I coords, string type);
+
+	[Signal]
+	public delegate void RemoveBuildingPartEventHandler(Vector2I coords, string type);
+
 	[Export]
 	private bool worldGeneration = true;
 
@@ -106,9 +112,6 @@ public partial class World : Godot.TileMap
 
 		seed = GetNode<main>("/root/GameInfo").seed;
 		Load();
-
-		/*buildings.smelter.outputSlots.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>("{resource:\"\",amount:0}"));
-		GD.Print(buildings.smelter.outputSlots);*/
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -875,6 +878,7 @@ public partial class World : Godot.TileMap
 
 		// adds particles to building
 		EmitSignal(SignalName.CreateParticle, cellPosition, building.type.ToString(), recipe);
+		EmitSignal(SignalName.CreateBuildingPart, cellPosition, building.type.ToString());
 	}
 
 	private bool HasItemsToBuild (dynamic items)
@@ -1015,7 +1019,8 @@ public partial class World : Godot.TileMap
 		}
 
 		// removes building's particles
-		EmitSignal(SignalName.RemoveParticle, cellPositionByMouse);
+		EmitSignal(SignalName.RemoveParticle, coords);
+		EmitSignal(SignalName.RemoveBuildingPart, coords, building.type.ToString());
 		
 		// destroys building
 		buildingsInfo.Remove(building);
