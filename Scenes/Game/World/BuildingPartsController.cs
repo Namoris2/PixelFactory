@@ -22,7 +22,6 @@ public partial class BuildingPartsController : Node2D
 
 	private void CreateBuildingPart(Vector2I coords, string type)
 	{
-		GD.Print(type, $"res://Scenes/Game/World/BuildingParts/{type}.tscn", Godot.FileAccess.FileExists($"res://Scenes/Game/World/BuildingParts/{type}.tscn"));
 		if (!Godot.FileAccess.FileExists($"res://Scenes/Game/World/BuildingParts/{type}.tscn")) { return; }
 
 		Node2D buildingPart = (Node2D)GD.Load<PackedScene>($"res://Scenes/Game/World/BuildingParts/{type}.tscn").Instantiate();

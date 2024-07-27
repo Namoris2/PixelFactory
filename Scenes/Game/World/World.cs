@@ -685,6 +685,7 @@ public partial class World : Godot.TileMap
 	private void Build()
 	{
 		System.Collections.Generic.Dictionary<string, dynamic> groundInfo = GetGroundInfo(buildings[selectedBuilding]);
+		GD.Print(groundInfo["canBuild"]);
 		if (groundInfo["canBuild"] && HasItemsToBuild(buildings[selectedBuilding].cost))
 		{
 			string buildingsJson = JsonConvert.SerializeObject(buildings);
@@ -767,7 +768,7 @@ public partial class World : Godot.TileMap
 		string groundResource = (string)GetCellTileData(0, cellPositionByMouse).GetCustomData("resourceName");
 
 		bool hasSpace = data == null; 
-		if (GroundResourceValidate(building.canBePlacedOn, groundResource)) { resources.Add(groundResource); }
+		resources.Add(groundResource);
 
 		for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
 		{
@@ -776,11 +777,18 @@ public partial class World : Godot.TileMap
 			groundResource = (string)GetCellTileData(0, cellPositionByMouse + additionalCoords).GetCustomData("resourceName");
 
 			hasSpace = data == null; 
-			if (GroundResourceValidate(building.canBePlacedOn, groundResource)) { resources.Add(groundResource); }
+			resources.Add(groundResource);
 		}
 
 		if (building.type.ToString().Contains("Drill"))
 		{
+			GD.Print(JsonConvert.SerializeObject(resources));
+			if (resources.Contains("Water"))
+			{
+				info["canBuild"] = false;
+				return info;
+			}
+
 			resources.RemoveAll(resource => resource == "Grass");
 			info["canBuild"] = hasSpace && resources.Count > 0;
 			
