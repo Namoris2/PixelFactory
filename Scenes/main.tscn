@@ -1,7 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://bbqmsnkmc3pac"]
+[gd_scene load_steps=28 format=3 uid="uid://bbqmsnkmc3pac"]
 
 [ext_resource type="Script" path="res://Scenes/Game/GameEvents.cs" id="1_st43b"]
 [ext_resource type="Script" path="res://Scenes/Game/World/BuildingPartsController.cs" id="3_1aiw1"]
+[ext_resource type="Script" path="res://Scenes/Game/World/AnimatedBuildingPartsController.cs" id="3_blam1"]
 [ext_resource type="Texture2D" uid="uid://cakt6ts1d5n8k" path="res://Gimp/Ground Materials/ground.png" id="3_cesio"]
 [ext_resource type="Script" path="res://Scenes/Game/World/World.cs" id="4_doi5u"]
 [ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="4_r6w7n"]
@@ -2011,6 +2012,10 @@ script = ExtResource("1_st43b")
 
 [node name="ParticleControler" type="Node2D" parent="World"]
 script = ExtResource("7_o8fwl")
+
+[node name="AnimatedBuildingPartsController" type="Node2D" parent="World"]
+z_index = 1
+script = ExtResource("3_blam1")
 
 [node name="BuildingPartsController" type="Node2D" parent="World"]
 z_index = 1

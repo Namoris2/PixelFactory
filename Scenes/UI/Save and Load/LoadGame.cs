@@ -3,6 +3,7 @@ using Godot.Collections;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 public partial class LoadGame : Button
 {
@@ -21,6 +22,7 @@ public partial class LoadGame : Button
 
 	private void CheckAllParameters()
 	{
+		GD.Print("Load pressed");
 		if (Name != "CreateGame")
 		{
 			saveName = GetNode<Label>("../SaveName").Text;
@@ -86,8 +88,8 @@ public partial class LoadGame : Button
 		loadingScreen.scenePath = "res://Scenes/main.tscn";
 		GetTree().Root.AddChild(loadingScreen);
 
-		loadingScreen.StartLoading();
 		GetNode<Node>("/root/MainMenu").QueueFree();
+		loadingScreen.StartLoading();
 
 		//GD.Print("scene changed");
 		return;
