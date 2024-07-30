@@ -173,7 +173,8 @@ public partial class World : Godot.TileMap
 
 		if (buildingsData != null)
 		{
-			worldInfo = $"Building: {GetBuildingInfo(cellPositionByMouse).name}";
+			dynamic buildingData = buildings[GetBuildingInfo(cellPositionByMouse).type.ToString()];
+			worldInfo = $"Building: {buildingData.name}";
 		}
 		else
 		{
@@ -891,6 +892,7 @@ public partial class World : Godot.TileMap
 		// adds particles to building
 		EmitSignal(SignalName.CreateParticle, cellPosition, building.type.ToString(), recipe);
 		EmitSignal(SignalName.CreateAnimatedBuildingPart, cellPosition, building.type.ToString());
+		EmitSignal(SignalName.CreateBuildingPart, cellPosition, building.type.ToString());
 	}
 
 	private bool HasItemsToBuild (dynamic items)
@@ -1033,6 +1035,7 @@ public partial class World : Godot.TileMap
 		// removes building's particles
 		EmitSignal(SignalName.RemoveParticle, coords);
 		EmitSignal(SignalName.RemoveAnimatedBuildingPart, coords, building.type.ToString());
+		EmitSignal(SignalName.RemoveBuildingPart, coords, building.type.ToString());
 		
 		// destroys building
 		buildingsInfo.Remove(building);

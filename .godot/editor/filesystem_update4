@@ -7,13 +7,14 @@ res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/Game/World/Item/Item.tscn
 res://Scenes/Player/player.tscn
 res://Scenes/UI/Pause Menu/PauseMenu.tscn
-res://Scenes/Game/World/BuildingParts/constructor.tscn
+res://Scenes/Game/World/BuildingParts/Anim_constructor.tscn
 res://Scenes/UI/MainMenu/MainMenu.tscn
 res://Scenes/UI/MainMenu/LoadedSave.tscn
 res://Scenes/UI/LoadingScreen/LoadingScreen.tscn
 res://Scenes/Game/GameEvents.cs
 res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/World/AnimatedBuildingPartsController.cs
+res://Scenes/Game/World/BuildingPartsController.cs
 res://Scenes/Game/World/GenerateWorld.cs
 res://Scenes/Game/World/Item/Item.cs
 res://Scenes/Game/World/Leftovers/Leftovers.cs
@@ -53,5 +54,3 @@ res://Scenes/UI/Save and Load/DeleteSave.cs
 res://Scenes/UI/Save and Load/SaveGame.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/UIToggle.cs
-res://Scenes/Game/World/BuildingParts/Anim_constructor.tscn
-res://Scenes/Game/World/BuildingPartsController.cs

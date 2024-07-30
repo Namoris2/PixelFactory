@@ -20,7 +20,7 @@ public partial class AnimatedBuildingPartsController : Node2D
 
 	private void CreateAnimatedBuildingPart(Vector2I coords, string type)
 	{
-		if (!Godot.FileAccess.FileExists($"res://Scenes/Game/World/BuildingParts/{type}.tscn")) { return; }
+		if (!Godot.FileAccess.FileExists($"res://Scenes/Game/World/BuildingParts/Anim_{type}.tscn")) { return; }
 
 		Node2D buildingPart = (Node2D)GD.Load<PackedScene>($"res://Scenes/Game/World/BuildingParts/Anim_{type}.tscn").Instantiate();
 		buildingPart.Position = coords * 64;
