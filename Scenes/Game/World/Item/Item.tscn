@@ -10,7 +10,11 @@ script = ExtResource("1_5j7e7")
 metadata/_edit_use_anchors_ = true
 
 [node name="Icon" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(56, 56)
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 60.0
+offset_bottom = 60.0
 texture = ExtResource("2_vqmxh")
 metadata/_edit_use_anchors_ = true
 
