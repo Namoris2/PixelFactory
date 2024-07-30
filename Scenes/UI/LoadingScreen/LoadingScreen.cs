@@ -70,11 +70,11 @@ public partial class LoadingScreen : Control
 		if (scenePath == null) { GD.PrintErr("Scene Path not set"); return; }
 
 		savePath = GetNode<main>("/root/GameInfo").savePath;
-		ResourceLoader.LoadThreadedRequest(scenePath);
-		loading = true;
+		/*ResourceLoader.LoadThreadedRequest(scenePath);
+		loading = true;*/
 
 
-		/*PackedScene newScene = GD.Load<PackedScene>("res://Scenes/main.tscn");
+		PackedScene newScene = GD.Load<PackedScene>("res://Scenes/main.tscn");
 		Node sceneInstantiated = newScene.Instantiate();
 		GetTree().Root.AddChild(sceneInstantiated);
 		
@@ -98,6 +98,6 @@ public partial class LoadingScreen : Control
 			}
 			//GD.Print("Save Loaded");
 		}
-		QueueFree();*/
+		QueueFree();
 	}
 }
