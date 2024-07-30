@@ -685,7 +685,6 @@ public partial class World : Godot.TileMap
 	private void Build()
 	{
 		System.Collections.Generic.Dictionary<string, dynamic> groundInfo = GetGroundInfo(buildings[selectedBuilding]);
-		GD.Print(groundInfo["canBuild"]);
 		if (groundInfo["canBuild"] && HasItemsToBuild(buildings[selectedBuilding].cost))
 		{
 			string buildingsJson = JsonConvert.SerializeObject(buildings);
@@ -776,13 +775,12 @@ public partial class World : Godot.TileMap
 			data = GetCellTileData(1, cellPositionByMouse + additionalCoords);
 			groundResource = (string)GetCellTileData(0, cellPositionByMouse + additionalCoords).GetCustomData("resourceName");
 
-			hasSpace = data == null; 
+			hasSpace &= data == null; 
 			resources.Add(groundResource);
 		}
 
 		if (building.type.ToString().Contains("Drill"))
 		{
-			GD.Print(JsonConvert.SerializeObject(resources));
 			if (resources.Contains("Water"))
 			{
 				info["canBuild"] = false;

@@ -33,7 +33,6 @@ public partial class BuildingPartsController : Node2D
 	private void RemoveBuildingPart(Vector2I coords, string type)
 	{
 		Node buildingPart = GetNodeOrNull<Node>($"{type}{coords[0]}x{coords[1]}");
-		GD.Print($"{type}{coords[0]}x{coords[1]}");
 		if (buildingPart != null) { buildingPart.QueueFree(); }
 	}
 }
