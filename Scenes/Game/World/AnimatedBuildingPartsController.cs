@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 using System.IO;
 using System.Numerics;
@@ -22,7 +23,25 @@ public partial class AnimatedBuildingPartsController : Node2D
 	{
 		if (!Godot.FileAccess.FileExists($"res://Scenes/Game/World/BuildingParts/Anim_{type}.tscn")) { return; }
 
-		Node2D buildingPart = (Node2D)GD.Load<PackedScene>($"res://Scenes/Game/World/BuildingParts/Anim_{type}.tscn").Instantiate();
+		Array<Node> buildingParts = GetTree().GetNodesInGroup($"Anim_{type}");
+		
+		Node2D buildingPart;
+
+		if (buildingParts.Count == 0) 
+		{ 
+			buildingPart = (Node2D)GD.Load<PackedScene>($"res://Scenes/Game/World/BuildingParts/Anim_{type}.tscn").Instantiate();
+		}
+		else
+		{
+			Node existingBuildingPart = buildingParts[0];
+			buildingPart = (Node2D)existingBuildingPart.Duplicate();
+			AnimationPlayer currentAnimation = existingBuildingPart.GetNode<AnimationPlayer>("AnimationPlayer");
+			AnimationPlayer newAnimation = buildingPart.GetNode<AnimationPlayer>("AnimationPlayer");
+
+			newAnimation.Play("Main");
+			newAnimation.Advance(currentAnimation.CurrentAnimationPosition);
+		}
+
 		buildingPart.Position = coords * 64;
 		buildingPart.Name = $"{type}{coords[0]}x{coords[1]}";
 		AddChild(buildingPart);

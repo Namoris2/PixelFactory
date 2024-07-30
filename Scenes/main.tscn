@@ -2010,7 +2010,7 @@ script = ExtResource("1_st43b")
 
 [node name="World" type="Node2D" parent="."]
 
-[node name="ParticleControler" type="Node2D" parent="World"]
+[node name="ParticleController" type="Node2D" parent="World"]
 script = ExtResource("7_o8fwl")
 
 [node name="AnimatedBuildingPartsController" type="Node2D" parent="World"]
