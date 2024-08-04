@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0v373gmmpwh"]
+[gd_scene load_steps=7 format=3 uid="uid://c0v373gmmpwh"]
 
 [ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="1_00e2b"]
+[ext_resource type="Script" path="res://Scenes/Game/World/AnimatedBuildingParts/AnimatedBuildingPart.cs" id="1_st45k"]
 [ext_resource type="Texture2D" uid="uid://ig4emvm2jgvc" path="res://Gimp/Buildings/Constructor/pistonBG.png" id="2_mub7l"]
 [ext_resource type="Texture2D" uid="uid://cnjvjvv2qq87g" path="res://Gimp/Buildings/Constructor/piston.png" id="3_yl402"]
 
@@ -27,6 +28,7 @@ _data = {
 }
 
 [node name="Constructor" type="Node2D" groups=["Anim_constructor"]]
+script = ExtResource("1_st45k")
 
 [node name="Buildings" type="Sprite2D" parent="."]
 visible = false
@@ -49,7 +51,7 @@ scale = Vector2(4, 4)
 texture = ExtResource("2_mub7l")
 
 [node name="Piston" type="Sprite2D" parent="Control"]
-position = Vector2(0, -16)
+position = Vector2(0, 8.92954e-08)
 scale = Vector2(4, 4)
 texture = ExtResource("3_yl402")
 offset = Vector2(5.5, 4)
