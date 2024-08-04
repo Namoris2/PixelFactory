@@ -6,6 +6,8 @@ using System.Numerics;
 
 public partial class AnimatedBuildingPartsController : Node2D
 {
+	string path = $"res://Scenes/Game/World/AnimatedBuildingParts/Anim_";
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -19,9 +21,9 @@ public partial class AnimatedBuildingPartsController : Node2D
 	{
 	}
 
-	private void CreateAnimatedBuildingPart(Vector2I coords, string type)
+	private void CreateAnimatedBuildingPart(Vector2I coords, string type, int rotation)
 	{
-		if (!Godot.FileAccess.FileExists($"res://Scenes/Game/World/BuildingParts/Anim_{type}.tscn")) { return; }
+		if (!Godot.FileAccess.FileExists($"{path}{type}.tscn")) { return; }
 
 		Array<Node> buildingParts = GetTree().GetNodesInGroup($"Anim_{type}");
 		
@@ -29,7 +31,7 @@ public partial class AnimatedBuildingPartsController : Node2D
 
 		if (buildingParts.Count == 0) 
 		{ 
-			buildingPart = (Node2D)GD.Load<PackedScene>($"res://Scenes/Game/World/BuildingParts/Anim_{type}.tscn").Instantiate();
+			buildingPart = (Node2D)GD.Load<PackedScene>($"{path}{type}.tscn").Instantiate();
 		}
 		else
 		{

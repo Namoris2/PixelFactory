@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://c0v373gmmpwh"]
 
-[ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="1_u0x64"]
-[ext_resource type="Texture2D" uid="uid://ig4emvm2jgvc" path="res://Gimp/Buildings/Constructor/pistonBG.png" id="2_pvbln"]
-[ext_resource type="Texture2D" uid="uid://cnjvjvv2qq87g" path="res://Gimp/Buildings/Constructor/piston.png" id="3_djo1q"]
+[ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="1_00e2b"]
+[ext_resource type="Texture2D" uid="uid://ig4emvm2jgvc" path="res://Gimp/Buildings/Constructor/pistonBG.png" id="2_mub7l"]
+[ext_resource type="Texture2D" uid="uid://cnjvjvv2qq87g" path="res://Gimp/Buildings/Constructor/piston.png" id="3_yl402"]
 
 [sub_resource type="Animation" id="Animation_52av6"]
 resource_name = "Main"
@@ -32,7 +32,7 @@ _data = {
 visible = false
 position = Vector2(288, 384)
 scale = Vector2(4, 4)
-texture = ExtResource("1_u0x64")
+texture = ExtResource("1_00e2b")
 
 [node name="Control" type="Control" parent="."]
 clip_contents = true
@@ -46,12 +46,12 @@ offset_bottom = 108.0
 [node name="PistonBg" type="Sprite2D" parent="Control"]
 position = Vector2(22, 16)
 scale = Vector2(4, 4)
-texture = ExtResource("2_pvbln")
+texture = ExtResource("2_mub7l")
 
 [node name="Piston" type="Sprite2D" parent="Control"]
 position = Vector2(0, -16)
 scale = Vector2(4, 4)
-texture = ExtResource("3_djo1q")
+texture = ExtResource("3_yl402")
 offset = Vector2(5.5, 4)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

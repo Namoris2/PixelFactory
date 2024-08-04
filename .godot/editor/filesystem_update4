@@ -1,16 +1,16 @@
-res://Scenes/main.tscn
+res://Scenes/Game/World/BuildingParts/Anim_default.tscn
 res://Themes/InventorySlot.tres
 res://Themes/UI.tres
 res://Scenes/UI/Menu/ChangeMenu.cs
 res://Scenes/UI/Save and Load/LoadGame.cs
-res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
-res://Scenes/Game/World/Item/Item.tscn
-res://Scenes/Player/player.tscn
-res://Scenes/UI/Pause Menu/PauseMenu.tscn
+res://Scenes/Game/World/BuildingParts/Anim_test.tscn
 res://Scenes/Game/World/BuildingParts/Anim_constructor.tscn
+res://Scenes/main.tscn
+res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
+res://Scenes/UI/Pause Menu/PauseMenu.tscn
 res://Scenes/UI/MainMenu/MainMenu.tscn
-res://Scenes/UI/MainMenu/LoadedSave.tscn
-res://Scenes/UI/LoadingScreen/LoadingScreen.tscn
+res://Scenes/Game/World/AnimatedBuildingParts/Anim_default.tscn
+res://Scenes/Game/World/AnimatedBuildingParts/Anim_constructor.tscn
 res://Scenes/Game/GameEvents.cs
 res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/World/AnimatedBuildingPartsController.cs

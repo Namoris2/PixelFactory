@@ -41,13 +41,13 @@ public partial class World : Godot.TileMap
 	public delegate void RemoveParticleEventHandler(Vector2I coords);
 
 	[Signal]
-	public delegate void CreateBuildingPartEventHandler(Vector2I coords, string type);
+	public delegate void CreateBuildingPartEventHandler(Vector2I coords, string type, int rotation);
 
 	[Signal]
 	public delegate void RemoveBuildingPartEventHandler(Vector2I coords, string type);
 	
 	[Signal]
-	public delegate void CreateAnimatedBuildingPartEventHandler(Vector2I coords, string type);
+	public delegate void CreateAnimatedBuildingPartEventHandler(Vector2I coords, string type, int rotation);
 
 	[Signal]
 	public delegate void RemoveAnimatedBuildingPartEventHandler(Vector2I coords, string type);
@@ -891,8 +891,8 @@ public partial class World : Godot.TileMap
 
 		// adds particles to building
 		EmitSignal(SignalName.CreateParticle, cellPosition, building.type.ToString(), recipe);
-		EmitSignal(SignalName.CreateAnimatedBuildingPart, cellPosition, building.type.ToString());
-		EmitSignal(SignalName.CreateBuildingPart, cellPosition, building.type.ToString());
+		EmitSignal(SignalName.CreateAnimatedBuildingPart, cellPosition, building.type.ToString(), buildingRotation);
+		EmitSignal(SignalName.CreateBuildingPart, cellPosition, building.type.ToString(), buildingRotation);
 	}
 
 	private bool HasItemsToBuild (dynamic items)

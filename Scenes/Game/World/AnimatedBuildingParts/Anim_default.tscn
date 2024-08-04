@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bc423k2483tk2"]
 
-[ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="1_2nwax"]
+[ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="1_kcf8i"]
 
 [sub_resource type="Animation" id="Animation_52av6"]
 resource_name = "Main"
@@ -12,12 +12,12 @@ _data = {
 "Main": SubResource("Animation_52av6")
 }
 
-[node name="Constructor" type="Node2D" groups=["Anim_constructor"]]
+[node name="Building" type="Node2D" groups=["Anim_constructor"]]
 
 [node name="Buildings" type="Sprite2D" parent="."]
 position = Vector2(672, 384)
 scale = Vector2(4, 4)
-texture = ExtResource("1_2nwax")
+texture = ExtResource("1_kcf8i")
 
 [node name="Control" type="Control" parent="."]
 clip_contents = true
