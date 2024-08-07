@@ -55,3 +55,4 @@ res://Scenes/UI/Save and Load/SaveGame.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/UIToggle.cs
 res://Scenes/Game/World/AnimatedBuildingParts/_Anim_belt1.tscn
+res://Scenes/Game/World/AnimatedBuildingParts/_Anim_default.tscn

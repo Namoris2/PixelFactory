@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://qqk3gly50y64"]
 
-[ext_resource type="Script" path="res://Scenes/Game/World/AnimatedBuildingParts/AnimatedBuildingPart.cs" id="1_wf717"]
-[ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="2_xw02x"]
-[ext_resource type="Texture2D" uid="uid://bxi2smg4lvdt8" path="res://Gimp/placeholder.png" id="3_cv20f"]
-[ext_resource type="Texture2D" uid="uid://ca32akf8cug51" path="res://Gimp/Buildings/ConveyorBelts/belt1.png" id="4_4kqmg"]
+[ext_resource type="Script" path="res://Scenes/Game/World/AnimatedBuildingParts/AnimatedBuildingPart.cs" id="1_56tmd"]
+[ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="2_t5ekj"]
+[ext_resource type="Texture2D" uid="uid://ca32akf8cug51" path="res://Gimp/Buildings/ConveyorBelts/belt1.png" id="3_el0nd"]
+[ext_resource type="Texture2D" uid="uid://bxi2smg4lvdt8" path="res://Gimp/placeholder.png" id="4_kwx1f"]
 
 [sub_resource type="Animation" id="Animation_52av6"]
 resource_name = "Main"
@@ -29,25 +29,25 @@ _data = {
 
 [node name="Belt1" type="Node2D" groups=["Anim_belt1", "AnimatedPart"]]
 clip_children = 1
-script = ExtResource("1_wf717")
+script = ExtResource("1_56tmd")
 
 [node name="Buildings" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(672, 384)
 scale = Vector2(4, 4)
-texture = ExtResource("2_xw02x")
+texture = ExtResource("2_t5ekj")
 
 [node name="Mask" type="Sprite2D" parent="."]
 clip_children = 1
 position = Vector2(32, 32)
 scale = Vector2(64, 64)
-texture = ExtResource("3_cv20f")
+texture = ExtResource("4_kwx1f")
 
 [node name="Belt1" type="Sprite2D" parent="Mask"]
 light_mask = 524288
 position = Vector2(0.389948, 0)
 scale = Vector2(0.0625, 0.0625)
-texture = ExtResource("4_4kqmg")
+texture = ExtResource("3_el0nd")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
