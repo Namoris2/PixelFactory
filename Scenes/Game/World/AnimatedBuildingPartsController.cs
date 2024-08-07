@@ -28,7 +28,7 @@ public partial class AnimatedBuildingPartsController : Node2D
 		Array<Node> buildingParts = GetTree().GetNodesInGroup($"Anim_{type}");
 		
 		Node2D buildingPart;
-
+		GD.Print(buildingParts.Count, type);
 		if (buildingParts.Count == 0) 
 		{ 
 			buildingPart = (Node2D)GD.Load<PackedScene>($"{path}{type}.tscn").Instantiate();
