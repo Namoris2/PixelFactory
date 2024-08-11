@@ -645,7 +645,10 @@ public partial class World : Godot.TileMap
 		buildingRotation = (buildingRotation + 1) % (int)buildings[selectedBuilding].rotationAmount;
 		
 		Node2D constructingPart = (Node2D)GetTree().GetFirstNodeInGroup("constructingPart");
-		constructingPart.GetNode<Node2D>("Part").RotationDegrees += 90;
+		if (constructingPart != null)
+		{
+			constructingPart.GetNode<Node2D>("Part").RotationDegrees += 90;
+		}
 	}
 
 	public void ToggleBuildMode(bool? toggle = null)

@@ -43,6 +43,13 @@ public partial class AnimatedBuildingPartsController : Node2D
 			newAnimation.Advance(currentAnimation.CurrentAnimationPosition);
 		}
 
+		Sprite2D animatedTexture = buildingPart.GetNodeOrNull<Sprite2D>("Mask/Part");
+		if (animatedTexture != null && (rotation == 1 || rotation == 2))
+		{
+			animatedTexture.FlipV = true;
+		}
+
+		buildingPart.GetNode<Node2D>("Mask").RotationDegrees = rotation * 90;
 		buildingPart.Position = coords * 64;
 		buildingPart.Name = $"{type}{coords[0]}x{coords[1]}";
 		AddChild(buildingPart);
