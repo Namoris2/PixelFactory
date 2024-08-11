@@ -19,6 +19,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Threading;
 using System.Globalization;
+using System.Diagnostics.Tracing;
 
 public partial class World : Godot.TileMap
 {
@@ -41,7 +42,7 @@ public partial class World : Godot.TileMap
 	public delegate void RemoveParticleEventHandler(Vector2I coords);
 
 	[Signal]
-	public delegate void CreateBuildingPartEventHandler(Vector2I coords, string type, int rotation);
+	public delegate void CreateBuildingPartEventHandler(Vector2I coords, string type, int rotation, bool createdBuilding);
 
 	[Signal]
 	public delegate void RemoveBuildingPartEventHandler(Vector2I coords, string type);
@@ -603,6 +604,13 @@ public partial class World : Godot.TileMap
 			Vector2I atlasCoords = new Vector2I((int)buildings[selectedBuilding].atlasCoords[0] + buildingRotation, (int)buildings[selectedBuilding].atlasCoords[1]);
 			SetCell(tileMapLayer, cellPositionByMouse, tileMapId, atlasCoords);
 
+			Node2D constructingPart = (Node2D)GetTree().GetFirstNodeInGroup("constructingPart");
+			if (constructingPart != null)
+			{
+				constructingPart.Position = cellPositionByMouse * 64;
+				//GD.Print(constructingPart.Position);
+			}
+
 			if ((bool)buildings[selectedBuilding].hasAdditionalAtlasPosition)
 			{
 				for (int i = 0; i < buildings[selectedBuilding].additionalAtlasPosition.Count; i++)
@@ -635,11 +643,19 @@ public partial class World : Godot.TileMap
 	private void RotateBuilding()
 	{
 		buildingRotation = (buildingRotation + 1) % (int)buildings[selectedBuilding].rotationAmount;
-		//GD.Print(buildingRotation);
+		
+		Node2D constructingPart = (Node2D)GetTree().GetFirstNodeInGroup("constructingPart");
+		constructingPart.GetNode<Node2D>("Part").RotationDegrees += 90;
 	}
 
 	public void ToggleBuildMode(bool? toggle = null)
 	{
+		Node2D constructingPart = (Node2D)GetTree().GetFirstNodeInGroup("constructingPart");
+		if (constructingPart != null)
+		{
+			constructingPart.QueueFree();
+		}
+		
 		if (toggle == null)
 		{
 			BUILDINGMODE = !BUILDINGMODE;
@@ -662,6 +678,11 @@ public partial class World : Godot.TileMap
 			tileMapId = 100;
 			atlasPosition = new (0, 0);
 			buildingRotation = 0;
+			
+		}
+		else
+		{
+			EmitSignal(SignalName.CreateBuildingPart, cellPositionByMouse, selectedBuilding, 0, false);
 		}
 	}
 
@@ -686,6 +707,12 @@ public partial class World : Godot.TileMap
 		{
 			// draws cross crosshair to TileMap
 			atlasPosition = new (1, 0);
+
+			Node2D constructingPart = (Node2D)GetTree().GetFirstNodeInGroup("constructingPart");
+			if (constructingPart != null)
+			{
+				constructingPart.QueueFree();
+			}
 		}
 	}
 
@@ -705,6 +732,13 @@ public partial class World : Godot.TileMap
 				building.outputSlots[0].resource = groundResourceName;
 				building.recipe = groundInfo["resource"];
 				building.tiles = groundInfo["tiles"];
+			}
+
+			Node2D constructingPart = (Node2D)GetTree().GetFirstNodeInGroup("constructingPart");
+			if (constructingPart != null)
+			{
+				Node2D part = constructingPart.GetNode<Node2D>("Part");
+				buildingRotation = (int)(part.RotationDegrees % 360) / 90;
 			}
 
 			if (building.buildingType.ToString() == "belt" || building.buildingType.ToString() == "beltArm")
@@ -863,7 +897,18 @@ public partial class World : Godot.TileMap
 
 	private void CreateBuilding(dynamic building, dynamic buildingData, Vector2I cellPosition)
 	{
+		// Gets building's recipe
+		string recipe = "";
+		if (building.ContainsKey("recipe")) { recipe = building.recipe.ToString(); }
+		
+		// Adds particles and additional parts to building
+		EmitSignal(SignalName.CreateParticle, cellPosition, building.type.ToString(), recipe);
+		EmitSignal(SignalName.CreateAnimatedBuildingPart, cellPosition, building.type.ToString(), buildingRotation);
+		EmitSignal(SignalName.CreateBuildingPart, cellPosition, building.type.ToString(), buildingRotation, true);
+
 		string buildingsJson = JsonConvert.SerializeObject(buildings);
+		
+		if ((int)buildingData.rotationAmount == 1) { buildingRotation = 0; }
 		SetCell(1, cellPosition, 1, new((int)buildingData.atlasCoords[0] + buildingRotation, (int)buildingData.atlasCoords[1]));	
 		
 		if((bool)buildingData.hasAdditionalAtlasPosition)
@@ -886,13 +931,7 @@ public partial class World : Godot.TileMap
 			}
 		}
 
-		string recipe = "";
-		if (building.ContainsKey("recipe")) { recipe = building.recipe.ToString(); }
 
-		// adds particles to building
-		EmitSignal(SignalName.CreateParticle, cellPosition, building.type.ToString(), recipe);
-		EmitSignal(SignalName.CreateAnimatedBuildingPart, cellPosition, building.type.ToString(), buildingRotation);
-		EmitSignal(SignalName.CreateBuildingPart, cellPosition, building.type.ToString(), buildingRotation);
 	}
 
 	private bool HasItemsToBuild (dynamic items)

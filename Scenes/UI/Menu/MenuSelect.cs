@@ -75,8 +75,8 @@ public partial class MenuSelect : Button
 
 		World tileMap = GetNode<World>("/root/main/World/TileMap");
 		tileMap.selectedBuilding = DisplayName;
-		tileMap.BUILDINGMODE = false;
-		tileMap.ToggleBuildMode();
+		//tileMap.BUILDINGMODE = false;
+		tileMap.ToggleBuildMode(true);
 		if (!(bool)data.canRotate) { tileMap.buildingRotation = 0; }
 	}
 

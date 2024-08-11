@@ -6,7 +6,7 @@ using System.Numerics;
 
 public partial class BuildingPartsController : Node2D
 {
-	string path = $"res://Scenes/Game/World/BuildingParts/";
+	string path = $"res://Scenes/Game/World/BuildingParts/Part_";
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -23,13 +23,25 @@ public partial class BuildingPartsController : Node2D
 	{
 	}
 
-	private void CreateBuildingPart(Vector2I coords, string type, int rotation)
+	private void CreateBuildingPart(Vector2I coords, string type, int rotation, bool createdBuilding)
 	{
+		if (!createdBuilding) { GD.Print(type); }
 		if (!Godot.FileAccess.FileExists($"{path}{type}.tscn")) { return; }
 
-		Node2D buildingPart = (Node2D)GD.Load<PackedScene>($"{path}{type}.tscn").Instantiate();
+		BuildingPart buildingPart = (BuildingPart)GD.Load<PackedScene>($"{path}{type}.tscn").Instantiate();
 		buildingPart.Position = coords * 64;
-		buildingPart.Name = $"{type}{coords[0]}x{coords[1]}";
+		
+		if (createdBuilding) 
+		{ 
+			buildingPart.Name = $"{type}{coords[0]}x{coords[1]}"; 
+		}
+		else 
+		{
+			buildingPart.Name = "constructingPart";
+			buildingPart.AddToGroup("constructingPart");
+		}
+		
+		buildingPart.rotation = rotation;
 		AddChild(buildingPart);
 	}
 

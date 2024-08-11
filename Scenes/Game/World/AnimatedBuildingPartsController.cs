@@ -25,11 +25,10 @@ public partial class AnimatedBuildingPartsController : Node2D
 	{
 		if (!Godot.FileAccess.FileExists($"{path}{type}.tscn")) { return; }
 
+		Node2D buildingPart = (Node2D)GetTree().GetFirstNodeInGroup($"Anim_{type}");;
 		Array<Node> buildingParts = GetTree().GetNodesInGroup($"Anim_{type}");
-		
-		Node2D buildingPart;
-		GD.Print(buildingParts.Count, type);
-		if (buildingParts.Count == 0) 
+
+		if (buildingPart == null) 
 		{ 
 			buildingPart = (Node2D)GD.Load<PackedScene>($"{path}{type}.tscn").Instantiate();
 		}
