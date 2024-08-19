@@ -5,11 +5,11 @@
 
 [node name="Item" type="Node2D" groups=["Items"]]
 top_level = true
-z_index = 3
 script = ExtResource("1_5j7e7")
 metadata/_edit_use_anchors_ = true
 
 [node name="Icon" type="TextureRect" parent="."]
+z_index = 1
 custom_minimum_size = Vector2(56, 56)
 offset_left = 4.0
 offset_top = 4.0

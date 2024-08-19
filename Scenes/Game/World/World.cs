@@ -744,44 +744,66 @@ public partial class World : Godot.TileMap
 				buildingRotation = (int)(part.RotationDegrees % 360) / 90;
 			}
 
-			if (building.buildingType.ToString() == "belt" || building.buildingType.ToString() == "beltArm")
+			if ((bool)building.canRotate) { building.rotation = buildingRotation; }
+			Vector2I nextPosition = new Vector2I(0, 0);
+			
+			switch (building.buildingType.ToString())
 			{
-				building.rotation = buildingRotation;
-				Vector2I nextPosition = new Vector2I(0, 0);
+				case "belt":
+					switch (buildingRotation)
+					{
+						case 0:
+							nextPosition = new Vector2I(1, 0);
+							break;
+						case 1:
+							nextPosition = new Vector2I(0, 1);
+							break;
+						case 2:
+							nextPosition = new Vector2I(-1, 0);
+							break;
+						case 3:
+							nextPosition = new Vector2I(0, -1);
+							break;
+					}
+
+					building.nextPosition[0] = nextPosition[0];
+					building.nextPosition[1] = nextPosition[1];
+					break;
 				
-				switch (buildingRotation)
+				case "beltArm":
+					int reach = (int)building.reach;
+					switch (buildingRotation)
+					{
+						case 0:
+							nextPosition = new Vector2I(reach, 0);
+							break;
+						case 1:
+							nextPosition = new Vector2I(0, reach);
+							break;
+						case 2:
+							nextPosition = new Vector2I(-reach, 0);
+							break;
+						case 3:
+							nextPosition = new Vector2I(0, -reach);
+							break;
+					}
+
+					building.nextPosition[0] = nextPosition[0];
+					building.nextPosition[1] = nextPosition[1];
+
+					building.previousPosition[0] = -1 * nextPosition[0];
+					building.previousPosition[1] = -1 * nextPosition[1];
+					break;
+				
+				case "storage":
 				{
-					case 0:
-						nextPosition = new Vector2I(1, 0);
-						break;
-					case 1:
-						nextPosition = new Vector2I(0, 1);
-						break;
-					case 2:
-						nextPosition = new Vector2I(-1, 0);
-						break;
-					case 3:
-						nextPosition = new Vector2I(0, -1);
-						break;
+					for (int i = 0; i < (int)building.slotsAmount; i++)
+					{
+						building.slots.Add(JsonConvert.DeserializeObject<dynamic>("{resource:\"\",amount:0}"));
+					}
+					//GD.Print(building.slots.Count);
+					break;
 				}
-
-				building.nextPosition[0] = nextPosition[0];
-				building.nextPosition[1] = nextPosition[1];
-			}
-
-			if (building.buildingType.ToString() == "beltArm")
-			{
-				building.previousPosition[0] = -1 * (int)building.nextPosition[0];
-				building.previousPosition[1] = -1 * (int)building.nextPosition[1];
-			}
-
-			if (building.buildingType.ToString() == "storage")
-			{
-				for (int i = 0; i < (int)building.slotsAmount; i++)
-				{
-					building.slots.Add(JsonConvert.DeserializeObject<dynamic>("{resource:\"\",amount:0}"));
-				}
-				//GD.Print(building.slots.Count);
 			}
 
 			// removes cost items from inventory
