@@ -299,8 +299,13 @@ public partial class World : Godot.TileMap
 					{
 						buildingsInfo[i].moveProgress += (double)buildingData.speed / 60 * delta;
 
-						/*itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
-						item = GetNode<Item>(itemName);*/
+						itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
+						item = GetNode<Item>(itemName);
+
+						if (item.parentBuilding != null) 
+						{  
+							item.parentBuilding = null;
+						}
 					}
 
 					if ((double)buildingsInfo[i].moveProgress > 1) { buildingsInfo[i].moveProgress = 1; }
@@ -310,7 +315,7 @@ public partial class World : Godot.TileMap
 					{
 						itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
 						item = GetNodeOrNull<Item>(itemName);
-
+				
 						item.destination = nextCoords * 64;
 						item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
 						item.speed = 64 / (60 / (int)buildingData.speed);
@@ -321,7 +326,6 @@ public partial class World : Godot.TileMap
 
 						if (item.parentBuilding != null) 
 						{ 
-							item.parentBuilding = null;
 							item.GetNode<TextureRect>("ItemHolder").Hide();
 							item.ZIndex = 0;
 						}
