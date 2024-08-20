@@ -6,8 +6,8 @@ res://Scenes/UI/Save and Load/LoadGame.cs
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/UI/Pause Menu/PauseMenu.tscn
 res://Scenes/UI/MainMenu/MainMenu.tscn
-res://Scenes/Game/World/AnimatedBuildingParts/Anim_belt1.tscn
-res://Scenes/Game/World/AnimatedBuildingParts/Anim_constructor.tscn
+res://Scenes/Game/World/BuildingParts/Part_beltArm1.tscn
+res://Scenes/Game/World/Item/Item.tscn
 res://Scenes/Game/GameEvents.cs
 res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/World/AnimatedBuildingPartsController.cs
@@ -53,5 +53,3 @@ res://Scenes/UI/Save and Load/DeleteSave.cs
 res://Scenes/UI/Save and Load/SaveGame.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/UIToggle.cs
-res://Scenes/Game/World/BuildingParts/Part_beltArm1.tscn
-res://Scenes/Game/World/Item/Item.tscn

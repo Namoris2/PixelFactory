@@ -299,9 +299,8 @@ public partial class World : Godot.TileMap
 					{
 						buildingsInfo[i].moveProgress += (double)buildingData.speed / 60 * delta;
 
-						itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
-						item = GetNode<Item>(itemName);
-						if (item.parentBuilding != null) { item.parentBuilding = null; }
+						/*itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
+						item = GetNode<Item>(itemName);*/
 					}
 
 					if ((double)buildingsInfo[i].moveProgress > 1) { buildingsInfo[i].moveProgress = 1; }
@@ -319,6 +318,13 @@ public partial class World : Godot.TileMap
 						nextBuilding.item = buildingsInfo[i].item;
 						buildingsInfo[i].item = "";
 						buildingsInfo[i].moveProgress = 0;
+
+						if (item.parentBuilding != null) 
+						{ 
+							item.parentBuilding = null;
+							item.GetNode<TextureRect>("ItemHolder").Hide();
+							item.ZIndex = 0;
+						}
 					}
 					break;
 
@@ -373,6 +379,8 @@ public partial class World : Godot.TileMap
 							item.speed = 64 / (60 / (float)buildingData.speed) * 2;
 							item.Name = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
 							item.parentBuilding = new ((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]);
+							item.GetNode<TextureRect>("ItemHolder").Show();
+							item.ZIndex = 1;
 						}
 
 						if (nextBuilding.buildingType.ToString() == "belt")
@@ -385,7 +393,6 @@ public partial class World : Godot.TileMap
 					// putting item to building/belt
 					else if ((double)buildingsInfo[i].moveProgress >= 1)
 					{
-
 						if (nextBuilding.buildingType.ToString() != "belt")
 						{
 							itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
@@ -1235,6 +1242,8 @@ public partial class World : Godot.TileMap
 				item.parentBuilding = parentBuilding;
 				Vector2I parentCoords = (Vector2I)parentBuilding;
 				item.Name = $"{parentCoords[0]}x{parentCoords[1]}";
+				item.GetNode<TextureRect>("ItemHolder").Show();
+				item.ZIndex = 1;
 			}
 			else
 			{

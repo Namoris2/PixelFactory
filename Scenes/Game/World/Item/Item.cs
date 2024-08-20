@@ -37,6 +37,8 @@ public partial class Item : Node2D
 	public override void _Process(double delta)
 	{
 		if (mouseHover && Input.IsActionPressed("Interact")) { PickUpItem(); }
+		
+		//GetNode<TextureRect>("ItemHolder").Visible = parentBuilding != null;
 	}
 
     public override void _PhysicsProcess(double delta)

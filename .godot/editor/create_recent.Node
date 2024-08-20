@@ -1,8 +1,8 @@
+TextureRect
 CollisionShape2D
 BackBufferCopy
 CanvasLayer
 CanvasModulate
-TextureRect
 Control
 PointLight2D
 Sprite2D
