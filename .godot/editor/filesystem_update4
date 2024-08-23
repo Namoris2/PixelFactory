@@ -4,9 +4,7 @@ res://Themes/UI.tres
 res://Scenes/UI/Menu/ChangeMenu.cs
 res://Scenes/UI/Save and Load/LoadGame.cs
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
-res://Scenes/UI/Pause Menu/PauseMenu.tscn
 res://Scenes/UI/MainMenu/MainMenu.tscn
-res://Scenes/Game/World/BuildingParts/Part_beltArm1.tscn
 res://Scenes/Game/World/Item/Item.tscn
 res://Scenes/Game/GameEvents.cs
 res://Scenes/Game/LoadFile.cs

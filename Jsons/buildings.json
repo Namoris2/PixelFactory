@@ -202,7 +202,7 @@
         "width" : 1,
         "height" : 1,
         "canRotate" : true,
-        "rotationAmount" : 1,
+        "rotationAmount" : 4,
         "rotation" : 0,
         "nextPosition" : [0, 0],
         "previousPosition" : [0, 0],
