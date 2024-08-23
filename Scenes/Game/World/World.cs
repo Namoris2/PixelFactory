@@ -320,15 +320,12 @@ public partial class World : Godot.TileMap
 						item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
 						item.speed = 64 / (60 / (int)buildingData.speed);
 
+						item.GetNode<TextureRect>("ItemHolder").Hide();
+						item.ZIndex = 0;
+
 						nextBuilding.item = buildingsInfo[i].item;
 						buildingsInfo[i].item = "";
 						buildingsInfo[i].moveProgress = 0;
-
-						if (item.parentBuilding != null) 
-						{ 
-							item.GetNode<TextureRect>("ItemHolder").Hide();
-							item.ZIndex = 0;
-						}
 					}
 					break;
 
