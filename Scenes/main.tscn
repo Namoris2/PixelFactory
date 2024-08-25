@@ -2102,6 +2102,7 @@ theme_type_variation = &"HeaderLarge"
 theme_override_font_sizes/font_size = 30
 text = "Resource: "
 script = ExtResource("9_17mov")
+metadata/_edit_use_anchors_ = true
 
 [node name="FPSCounter" type="Label" parent="UI"]
 process_mode = 3

@@ -1,8 +1,9 @@
-res://Scenes/main.tscn
+res://Scenes/UI/BuildMenu/BuildMenu.tscn
 res://Themes/InventorySlot.tres
 res://Themes/UI.tres
 res://Scenes/UI/Menu/ChangeMenu.cs
 res://Scenes/UI/Save and Load/LoadGame.cs
+res://Scenes/main.tscn
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/UI/MainMenu/MainMenu.tscn
 res://Scenes/Game/World/Item/Item.tscn
