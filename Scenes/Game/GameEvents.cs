@@ -17,6 +17,7 @@ public partial class GameEvents : Node
         inventories = GetNode<Inventories>("../UI/Inventories");
         buildMenu = GetNode<BuildMenu>("../UI/BuildMenu");
         pauseMenu = GetNode<PauseMenu>("../UI/PauseMenu");
+        worldInfo = GetNode<Label>("../UI/WorldInfo");
 	}
 
     public override void _Input(InputEvent @event)
