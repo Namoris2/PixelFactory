@@ -363,6 +363,7 @@ public partial class World : Godot.TileMap
 									previousBuilding.slots[j].amount -= 1;
 									if ((int)previousBuilding.slots[j].amount == 0) { previousBuilding.slots[j].resource = ""; }
 									CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (float)buildingData.speed * 2, parentBuilding: new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]));
+									break;
 								}
 							}
 							//GD.Print();
