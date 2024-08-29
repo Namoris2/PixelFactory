@@ -320,7 +320,7 @@ public partial class World : Godot.TileMap
 						item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
 						item.speed = 64 / (60 / (int)buildingData.speed);
 
-						item.GetNode<TextureRect>("ItemHolder").Hide();
+						item.GetNode<Sprite2D>("ItemHolder").Hide();
 						item.ZIndex = 0;
 
 						nextBuilding.item = buildingsInfo[i].item;
@@ -381,7 +381,7 @@ public partial class World : Godot.TileMap
 							item.speed = 64 / (60 / (float)buildingData.speed) * 2;
 							item.Name = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
 							item.parentBuilding = new ((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]);
-							item.GetNode<TextureRect>("ItemHolder").Show();
+							item.GetNode<Sprite2D>("ItemHolder").Show();
 							item.ZIndex = 1;
 						}
 
@@ -1244,7 +1244,7 @@ public partial class World : Godot.TileMap
 				item.parentBuilding = parentBuilding;
 				Vector2I parentCoords = (Vector2I)parentBuilding;
 				item.Name = $"{parentCoords[0]}x{parentCoords[1]}";
-				item.GetNode<TextureRect>("ItemHolder").Show();
+				item.GetNode<Sprite2D>("ItemHolder").Show();
 				item.ZIndex = 1;
 			}
 			else

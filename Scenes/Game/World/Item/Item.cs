@@ -13,7 +13,7 @@ public partial class Item : Node2D
 
 	private Label name;
 	private AtlasTexture textureAtlas = new ();
-	private TextureRect icon;
+	private Sprite2D icon;
 
 	private bool mouseHover = false;
 	dynamic items;
@@ -24,13 +24,15 @@ public partial class Item : Node2D
 		LoadFile load = new();
 		items = load.LoadJson("items.json");
 
-		icon = GetNode<TextureRect>("Icon");
+		icon = GetNode<Sprite2D>("Icon");
 		name = GetNode<Label>("Name");
 
 		textureAtlas.Atlas = GD.Load<Texture2D>("res://Gimp/Items/items.png");
 
-		icon.MouseEntered +=  OnMouseEnter;
-		icon.MouseExited += OnMouseExit;
+		Area2D area2D = GetNode<Area2D>("Area2D");
+
+		area2D.MouseEntered +=  OnMouseEnter;
+		area2D.MouseExited += OnMouseExit;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

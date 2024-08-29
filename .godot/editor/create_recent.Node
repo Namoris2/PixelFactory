@@ -1,14 +1,14 @@
-TextureRect
 CollisionShape2D
+Area2D
+Sprite2D
+TextureRect
 BackBufferCopy
 CanvasLayer
 CanvasModulate
 Control
 PointLight2D
-Sprite2D
 Container
 SubViewport
 Node
 Node2D
 AnimationPlayer
-ColorRect
