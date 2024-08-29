@@ -21,6 +21,7 @@ public partial class BuildingInventory : Control
 	Vector2I coordinates;
 	LoadFile load = new();
 	dynamic items;
+	dynamic buildings;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -28,6 +29,7 @@ public partial class BuildingInventory : Control
 	{
 		recipes = load.LoadJson("recipes.json");
 		items = load.LoadJson("items.json");
+		buildings = load.LoadJson("buildings.json");
 
 		tileMap = GetNode<World>("/root/main/World/TileMap");
 		tileMap.ToggleInventory += ToggleInventory;
@@ -142,11 +144,12 @@ public partial class BuildingInventory : Control
 		}
 		//GD.Print(buildingInfo);
 
+		dynamic buildingData = buildings[buildingInfo.type.ToString()];
 		coordinates = new ((int)buildingInfo.coords[0], (int)buildingInfo.coords[1]);
 		switch (buildingInfo.buildingType.ToString())
 		{
 			case "machine":
-				if ((bool)buildingInfo.canChooseRecipe)
+				if ((bool)buildingData.canChooseRecipe)
 				{
 					tabContainer.TabsVisible = true;
 				}
@@ -159,11 +162,11 @@ public partial class BuildingInventory : Control
 				productionProgress.Show();
 				resourceProduction.Show();
 					
-				buildingName.Text = buildingInfo.name;
+				buildingName.Text = buildingData.name;
 				dynamic recipe = recipes[buildingInfo.recipe.ToString()];
 				resourceProduction.Text = "Recipe: none";
 
-				if (buildingInfo.type.ToString() != "drill")
+				if (!buildingInfo.type.ToString().Contains("Drill"))
 				{
 					TabContainer recipesTab = GetNode<TabContainer>("TabContainer/Recipes");
 					switch (buildingInfo.type.ToString())
@@ -192,13 +195,14 @@ public partial class BuildingInventory : Control
 
 					resourceProduction.Text = "Recipe: " + recipe.name.ToString();
 
-					if (buildingInfo.type.ToString() == "drill")
+					if (buildingInfo.type.ToString().Contains("Drill"))
 					{
-						//main main = new();
 						slot = (InventorySlot)main.FindNodeByNameInGroup(GetTree().GetNodesInGroup("SingleSlots"), "DrillOutputSlot");
 						slot.buildingCoordinates = coordinates;
 						slot.itemType = buildingInfo.outputSlots[0].resource.ToString();
 						slot.inventoryType = INVENTORYTYPE;
+						slot.GetNode<Label>("Produce").Text = $"{recipe.output[0].amount}x {items[recipe.output[0].name.ToString()].name}";
+						slot.GetNode<Label>("Rate").Text = $"{buildingData.productionMultiplier * buildingInfo.tiles * recipe.cyclesPerMinute * recipe.output[0].amount} / min";
 						slot.UpdateSlotTexture(slot.itemType);
 						slot.Show();
 					}
@@ -240,11 +244,11 @@ public partial class BuildingInventory : Control
 				tabContainer.TabsVisible = false;
 				tabContainer.CurrentTab = 1;
 
-				buildingName.Text = buildingInfo.name.ToString();
+				buildingName.Text = buildingData.name.ToString();
 				productionProgress.Hide();
 				resourceProduction.Hide();
 				
-				for (int i = 0; i < (int)buildingInfo.slotsAmount; i++)
+				for (int i = 0; i < (int)buildingInfo.slots.Count; i++)
 				{
 					InventorySlot newSlot = (InventorySlot)GD.Load<PackedScene>("res://Scenes/UI/Inventory/InventorySlot.tscn").Instantiate();
 					newSlot.Name = $"StorageSlot{i}";
@@ -276,7 +280,7 @@ public partial class BuildingInventory : Control
 		
 		if (building.buildingType.ToString() == "machine") { productionProgress.Value = (double)building.productionProgress; }
 
-		if (building.type.ToString() == "drill")
+		if (building.type.ToString().Contains("Drill"))
 		{	
 			InventorySlot slot = GetNode<InventorySlot>("TabContainer/Building/Slots/DrillOutputSlot");
 			UpdateSlot(slot, building.outputSlots[0].resource.ToString(), (int)building.outputSlots[0].amount);
@@ -301,14 +305,12 @@ public partial class BuildingInventory : Control
 		else if (building.buildingType.ToString() == "storage")
 		{
 			Array<Node> storageSlots = GetTree().GetNodesInGroup("StorageSlots");
-			for (int i = 0; i < (int)building.slotsAmount; i++)
+			for (int i = 0; i < (int)building.slots.Count; i++)
 			{
 				InventorySlot slot = (InventorySlot)storageSlots[i];
 				UpdateSlot(slot, building.slots[i].resource.ToString(), (int)building.slots[i].amount);
 			}
 		}
-
-		//GD.Print(coordinates.ToString());
 	}
 
 	private void UpdateSlot(InventorySlot slot, string itemType, int itemAmount)

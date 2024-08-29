@@ -1,3 +1,5 @@
+res://Scenes/Game/World/BuildingParts
+res://Scenes/Game/World
 C:/Users/namor/OneDrive/Dokumenty/Godot/PixelFactoryBuilds/v03.1
 C:/Users/namor/OneDrive/Dokumenty/Godot/PixelFactoryBuilds/v0.3
 res://Themes/Button
@@ -6,7 +8,6 @@ res://Scenes/Game/World/Leftovers
 res://Scenes/UI/BuildMenu
 res://Scenes/Game
 C:/Users/namor/OneDrive/Dokumenty/Godot/PixelFactoryBuilds/v0.2
-res://Particles/Buildings/Miner
 res://Particles/Player
 res://Gimp/Cussor
 res://Scenes/Player
@@ -19,6 +20,3 @@ C:/Users/namor/OneDrive/Dokumenty/Godot/PixelFactoryBuilds
 C:/Users/namor/OneDrive/Dokumenty/Godot
 res://Gimp
 res://Scenes/UI/Menu
-res://Scenes/UI/LoadingScreen
-res://Scenes/Game/World
-res://Font

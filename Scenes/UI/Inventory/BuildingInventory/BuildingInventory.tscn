@@ -136,6 +136,33 @@ offset_right = -1.00022
 offset_bottom = -10.8086
 UserImport = false
 
+[node name="Produce" type="Label" parent="TabContainer/Building/Slots/DrillOutputSlot"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.01111
+anchor_top = 2.3992
+anchor_right = 2.01111
+anchor_bottom = 2.691
+theme_override_font_sizes/font_size = 20
+text = "produce"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Rate" type="Label" parent="TabContainer/Building/Slots/DrillOutputSlot"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.01111
+anchor_top = 2.79907
+anchor_right = 2.01111
+anchor_bottom = 3.13409
+offset_right = 1.52588e-05
+theme_override_font_sizes/font_size = 20
+text = "per minute"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="InputSlots" type="VFlowContainer" parent="TabContainer/Building/Slots"]
 layout_mode = 1
 anchors_preset = -1
@@ -393,6 +420,7 @@ text = "per minute"
 horizontal_alignment = 2
 
 [node name="StorageSlots" type="ScrollContainer" parent="TabContainer/Building/Slots"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -6.00006

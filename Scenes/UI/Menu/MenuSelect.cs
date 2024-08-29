@@ -17,7 +17,7 @@ public partial class MenuSelect : Button
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		// loads 'buildigns.json' file and parses in to dynamic object
+		// loads 'buildings.json' file and parses in to dynamic object
 		data = load.LoadJson($"{Type}s.json")[DisplayName];
 
 		GetNode<Label>("Name").Text = data.name;
@@ -75,8 +75,8 @@ public partial class MenuSelect : Button
 
 		World tileMap = GetNode<World>("/root/main/World/TileMap");
 		tileMap.selectedBuilding = DisplayName;
-		tileMap.BUILDINGMODE = false;
-		tileMap.ToggleBuildMode();
+		//tileMap.BUILDINGMODE = false;
+		tileMap.ToggleBuildMode(true);
 		if (!(bool)data.canRotate) { tileMap.buildingRotation = 0; }
 	}
 

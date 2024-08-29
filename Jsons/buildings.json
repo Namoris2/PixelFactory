@@ -8,9 +8,9 @@
         "parentBuilding" : [0, 0],
         "coords" : [0, 0]
     },
-    "drill" : {
+    "smallDrill" : {
         "buildingType" : "machine",
-        "type" : "drill",
+        "type" : "smallDrill",
         "name" : "Small Drill",
         "description" : "Allows to automatically extract ground resources\n\nExtracts 30 resources per minute\n\nSize: 1x1",
         "cost" : [
@@ -28,13 +28,45 @@
         "width" : 1,
         "height" : 1,
         "canRotate" : false,
-        "rotationAmount" : 0,
+        "rotationAmount" : 1,
         "rotation" : 0,
         "hasAdditionalAtlasPosition" : false,
         "additionalAtlasPosition" : [],
         "recipe" : "none",
         "canChooseRecipe" : false,
         "productionProgress" : 0,
+        "productionMultiplier" : 1,
+        "tiles" : 0,
+        "canBePlacedOn" : ["CoalOre", "CopperOre", "IronOre"],
+        "inputSlots" : [],
+        "outputSlots" : [
+            {
+                "resource" : "",
+                "amount" : 0
+            }
+        ] 
+    },
+    "mediumDrill" : {
+        "buildingType" : "machine",
+        "type" : "mediumDrill",
+        "name" : "Medium Drill",
+        "description" : "Allows to automatically extract ground resources\n\nExtracts 45 resources per minute per game tile\n\nSize: 2x2",
+        "cost" : [],
+        "coords" : [0, 0],
+        "atlasCoords" : [8, 0],
+        "width" : 2,
+        "height" : 2,
+        "canRotate" : false,
+        "rotationAmount" : 1,
+        "rotation" : 0,
+        "hasAdditionalAtlasPosition" : true,
+        "additionalAtlasPosition" : [        [1, 0],
+                                     [0, 1], [1, 1]],
+        "recipe" : "none",
+        "canChooseRecipe" : false,
+        "productionProgress" : 0,
+        "productionMultiplier" : 1.5,
+        "tiles" : 0,
         "canBePlacedOn" : ["CoalOre", "CopperOre", "IronOre"],
         "inputSlots" : [],
         "outputSlots" : [
@@ -64,7 +96,7 @@
         "height" : 2,
         "width" : 2,
         "canRotate" : false,
-        "rotationAmount" : 0,
+        "rotationAmount" : 1,
         "rotation" : 0,
         "hasAdditionalAtlasPosition" : true,
         "additionalAtlasPosition" : [        [1, 0],
@@ -106,7 +138,7 @@
         "height" : 2,
         "width" : 2,
         "canRotate" : false,
-        "rotationAmount" : 0,
+        "rotationAmount" : 1,
         "rotation" : 0,
         "hasAdditionalAtlasPosition" : true,
         "additionalAtlasPosition" : [        [1, 0],
@@ -151,7 +183,6 @@
         "additionalAtlasPosition" : [],
         "speed" : 30,
         "moveProgress" : 0,
-        "recivingItem" : false,
         "canBePlacedOn" : ["Grass", "Concrete"],
         "item" : ""
     },
@@ -167,7 +198,7 @@
             }
         ],
         "coords" : [0, 0],
-        "atlasCoords" : [0, 5],
+        "atlasCoords" : [0, 2],
         "width" : 1,
         "height" : 1,
         "canRotate" : true,
@@ -179,6 +210,7 @@
         "additionalAtlasPosition" : [],
         "speed" : 30,
         "moveProgress" : 0,
+        "reach": 1,
         "canMove" : false,
         "canBePlacedOn" : ["Grass", "Concrete"],
         "item" : ""
@@ -203,7 +235,7 @@
         "width" : 1,
         "height" : 1,
         "canRotate" : false,
-        "rotationAmount" : 0,
+        "rotationAmount" : 1,
         "rotation" : 0,
         "beltArmInteraction" : true,
         "hasAdditionalAtlasPosition" : false,

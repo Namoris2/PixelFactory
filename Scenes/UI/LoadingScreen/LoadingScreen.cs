@@ -18,6 +18,7 @@ public partial class LoadingScreen : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		GD.Print("Loading started");
 		loadingBar = GetNode<ProgressBar>("LoadingBar");
 		loadingProgress = GetNode<Label>("LoadingProgress");
 	}
@@ -57,7 +58,7 @@ public partial class LoadingScreen : Control
 						node.Load(data);
 						//i++;
 					}
-					//GD.Print("Save Loaded");
+					GD.Print("Save Loaded");
 				}
 				QueueFree();
 			}
@@ -65,11 +66,38 @@ public partial class LoadingScreen : Control
 	}
 
 	public void StartLoading()
-	{
+	{		
 		if (scenePath == null) { GD.PrintErr("Scene Path not set"); return; }
 
-		loading = true;
 		savePath = GetNode<main>("/root/GameInfo").savePath;
 		ResourceLoader.LoadThreadedRequest(scenePath);
+		loading = true;
+
+
+		/*PackedScene newScene = GD.Load<PackedScene>("res://Scenes/main.tscn");
+		Node sceneInstantiated = newScene.Instantiate();
+		GetTree().Root.AddChild(sceneInstantiated);
+		
+		if (loadingSave)
+		{
+			FileAccess saveFile = FileAccess.Open(savePath, FileAccess.ModeFlags.Read);
+			string savedGame = saveFile.GetAsText();
+			saveFile.Close();
+			Array<Node> nodes = GetTree().GetNodesInGroup("CanSave");
+
+			if (!Godot.FileAccess.FileExists(savePath)) { return; }
+		
+			//string[] savedGameList = savedGame.Split("\n");
+
+			//int i = 0;
+			foreach (dynamic node in nodes)
+			{
+				dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject(savedGame);
+				node.Load(data);
+				//i++;
+			}
+			//GD.Print("Save Loaded");
+		}
+		QueueFree();*/
 	}
 }

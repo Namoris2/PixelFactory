@@ -70,9 +70,15 @@ layout_mode = 2
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="drill" parent="TabContainer/Manufacturing" instance=ExtResource("1_oydjw")]
+[node name="smallDrill" parent="TabContainer/Manufacturing" instance=ExtResource("1_oydjw")]
 layout_mode = 2
-DisplayName = "drill"
+DisplayName = "smallDrill"
+Type = "building"
+
+[node name="mediumDrill" parent="TabContainer/Manufacturing" instance=ExtResource("1_oydjw")]
+visible = false
+layout_mode = 2
+DisplayName = "mediumDrill"
 Type = "building"
 
 [node name="smelter" parent="TabContainer/Manufacturing" instance=ExtResource("1_oydjw")]

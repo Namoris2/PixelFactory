@@ -27,12 +27,10 @@ public partial class GameEvents : Node
             if (pauseMenu.Visible)
             {
                 pauseMenu.UnpauseGame();
-                worldInfo.Show();
             }
             else if (!(tileMap.BUILDINGMODE || tileMap.DISMANTLEMODE || inventories.Visible || buildMenu.Visible))
             {
                 pauseMenu.PauseGame();
-                worldInfo.Hide();
             }
             else if (tileMap.DISMANTLEMODE)
             {
