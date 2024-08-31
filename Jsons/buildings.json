@@ -164,7 +164,7 @@
         "buildingType" : "belt",
         "type" : "belt1",
         "name" : "Conveyor Belt MK1",
-        "description" : "Moves items from one place to another\n\nCan transport 30 items per minute\n\nSize: 1x1",
+        "description" : "Moves items from one place to another\n\nCan transport 60 items per minute\n\nSize: 1x1",
         "cost" : [
             {
                 "resource" : "IronPlate",
@@ -181,7 +181,7 @@
         "nextPosition" : [0, 0],
         "hasAdditionalAtlasPosition" : false,
         "additionalAtlasPosition" : [],
-        "speed" : 30,
+        "speed" : 60,
         "moveProgress" : 0,
         "canBePlacedOn" : ["Grass", "Concrete"],
         "item" : ""
@@ -190,7 +190,7 @@
         "buildingType" : "beltArm",
         "type" : "beltArm1",
         "name" : "Conveyor Arm MK1",
-        "description" : "Moves items between building and Conveyor Belt or between two different Conveyor Belts\n\nCan transfer 30 item per minute\n\nSize: 1x1",
+        "description" : "Moves items between building and Conveyor Belt or between two different Conveyor Belts\n\nCan transfer 60 item per minute\n\nSize: 1x1",
         "cost" : [
             {
                 "resource" : "IronPlate",
@@ -208,7 +208,7 @@
         "previousPosition" : [0, 0],
         "hasAdditionalAtlasPosition" : false,
         "additionalAtlasPosition" : [],
-        "speed" : 30,
+        "speed" : 60,
         "moveProgress" : 0,
         "reach": 1,
         "canMove" : false,
