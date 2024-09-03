@@ -1184,28 +1184,34 @@ public partial class World : Godot.TileMap
 		return true;
 	}
 
-	public void RemoveItemFromSlot(Vector2I coords, string slotType, int slotIndex)
+	public void RemoveItemsFromSlot(Vector2I coords, int itemAmount, string slotType, int slotIndex)
 	{
 		dynamic building = GetBuildingInfo(coords);
 		if (building.buildingType.ToString() == "machine")
 		{
 			slotType = slotType.ToLower();
+			building[slotType + "Slots"][slotIndex].amount = building[slotType + "Slots"][slotIndex].amount - itemAmount;
 
-			if (slotType == "input")
+			if (slotType == "input" && (int)building[slotType + "Slots"][slotIndex].amount == 0)
 			{
 				building.productionProgress = 0;
 			}
 
-			building[slotType + "Slots"][slotIndex].amount = 0;
+			//building[slotType + "Slots"][slotIndex].amount = 0;
 		}
 		else
 		{
-			building.slots[slotIndex].resource = "";
-			building.slots[slotIndex].amount = 0;
+			building.slots[slotIndex].amount = building.slots[slotIndex].amount - itemAmount;
+
+			if ((int)building.slots[slotIndex].amount == 0)
+			{
+				building.slots[slotIndex].resource = "";
+			}
+			
 		}
 	}
 
-	public void PutItemToSlot(Vector2I coords, int itemAmount, string itemType, string slotType, int slotIndex)
+	public void PutItemsToSlot(Vector2I coords, int itemAmount, string itemType, string slotType, int slotIndex)
 	{
 		dynamic building = GetBuildingInfo(coords);
 		if (building.buildingType.ToString() == "machine")

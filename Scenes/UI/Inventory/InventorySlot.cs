@@ -101,13 +101,25 @@ public partial class InventorySlot : Button
 		{
 			if (resourceAmount.Text == "") { return; };
 
-			EmitSignal(SignalName.ShowHoldingItem, itemType, resourceAmount.Text);
+			int removedAmount = int.Parse(resourceAmount.Text);
+			int remainingAmount = 0;
+
+			// Checks if items are being split
+			if (Input.IsActionJustReleased("SplitItems"))
+			{
+				// Calculates split items
+				int amount = removedAmount;
+				removedAmount = (int)Math.Ceiling(amount / 2f);
+				remainingAmount = amount - removedAmount;
+			}
+
+			EmitSignal(SignalName.ShowHoldingItem, itemType, removedAmount.ToString());
 			if (inventoryType == "machine")
 			{
 				World tileMap = GetNode<World>("/root/main/World/TileMap");
 				LoadFile load = new ();
 				
-				tileMap.RemoveItemFromSlot(buildingCoordinates, slotType, inventorySlotIndex);
+				tileMap.RemoveItemsFromSlot(buildingCoordinates, removedAmount, slotType, inventorySlotIndex);
 				
 				dynamic building = tileMap.GetBuildingInfo(buildingCoordinates);
 				dynamic recipe = load.LoadJson("recipes.json")[building.recipe.ToString()];
@@ -116,17 +128,25 @@ public partial class InventorySlot : Button
 				building[$"{slotType.ToLower()}Slots"][inventorySlotIndex].resource = itemType;
 			}
 			
-			if (inventoryType != "machine")
-			{
-				itemType = "";
-			}
 
-			resourceAmount.Text = "";
-			itemTexture.Texture = null;
+			if (remainingAmount == 0)
+			{
+				if (inventoryType != "machine")
+				{
+					itemType = "";
+				}
+
+				resourceAmount.Text = "";
+				itemTexture.Texture = null;
+			}
+			else
+			{
+				resourceAmount.Text = remainingAmount.ToString();
+			}
 
 			if (inventoryType == "storage")
 			{
-				tileMap.RemoveItemFromSlot(buildingCoordinates, slotType, inventorySlotIndex);
+				tileMap.RemoveItemsFromSlot(buildingCoordinates, removedAmount, slotType, inventorySlotIndex);
 			}
 		}
 
@@ -137,7 +157,7 @@ public partial class InventorySlot : Button
 			{
 				World tileMap = GetNode<World>("/root/main/World/TileMap");
 
-				tileMap.PutItemToSlot(buildingCoordinates, int.Parse(holdingItem.itemAmount), itemType, slotType, inventorySlotIndex);
+				tileMap.PutItemsToSlot(buildingCoordinates, int.Parse(holdingItem.itemAmount), itemType, slotType, inventorySlotIndex);
 			}
 
 			// putting item to slot (if slot is empty)
@@ -208,7 +228,7 @@ public partial class InventorySlot : Button
 					amount = int.Parse(resourceAmount.Text);
 				}
 
-				tileMap.PutItemToSlot(buildingCoordinates, amount, itemType, slotType, inventorySlotIndex);
+				tileMap.PutItemsToSlot(buildingCoordinates, amount, itemType, slotType, inventorySlotIndex);
 			}
 		}
 

@@ -53,3 +53,4 @@ res://Scenes/UI/Save and Load/DeleteSave.cs
 res://Scenes/UI/Save and Load/SaveGame.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/UIToggle.cs
+res://Scenes/UI/Inventory/InventorySlot.tscn
