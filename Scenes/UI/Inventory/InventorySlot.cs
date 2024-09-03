@@ -24,6 +24,7 @@ public partial class InventorySlot : Button
 	private Label resourceName;
 	public int inventorySlotIndex;
 	public string inventoryType;
+	private HoldingItem holdingItem;
 	public Vector2I buildingCoordinates;
 	private World tileMap;
 	private CraftingMenu craftingMenu;
@@ -39,6 +40,7 @@ public partial class InventorySlot : Button
 		resourceAmount = GetNode<Label>("ResourceAmount");
 		resourceName = GetNode<Label>("ItemName");
 		craftingMenu = (CraftingMenu)GetTree().GetNodesInGroup("CraftingMenu")[0];
+		holdingItem = GetNode<HoldingItem>("/root/main/UI/Inventories/HoldingItem");
 		
 		inventorySlotIndex = this.GetIndex();
 
@@ -91,8 +93,6 @@ public partial class InventorySlot : Button
 
 	private void PressedSlot() 
 	{
-		HoldingItem holdingItem = GetNode<HoldingItem>("/root/main/UI/Inventories/HoldingItem");
-
 		this.ShowHoldingItem += holdingItem.ShowHoldingItem;
 		this.HideHoldingItem += holdingItem.HideHoldingItem;
 
@@ -157,7 +157,8 @@ public partial class InventorySlot : Button
 			{
 				World tileMap = GetNode<World>("/root/main/World/TileMap");
 
-				tileMap.PutItemsToSlot(buildingCoordinates, int.Parse(holdingItem.itemAmount), itemType, slotType, inventorySlotIndex);
+				tileMap.PutItemsToSlot(buildingCoordinates, PutItems(int.Parse(resourceAmount.Text), (int)items[itemType].maxStackSize), itemType, slotType, inventorySlotIndex);
+				return;
 			}
 
 			// putting item to slot (if slot is empty)
@@ -165,10 +166,8 @@ public partial class InventorySlot : Button
 			{
 				itemType = holdingItem.itemName;
 				resourceName.Text = itemType;
-				resourceAmount.Text = holdingItem.itemAmount;
+				PutItems(0, (int)items[itemType].maxStackSize);
 				UpdateSlotTexture(itemType);
-
-				EmitSignal(SignalName.HideHoldingItem);
 			}
 
 			// putting item to slot (if slot is not empty)
@@ -179,21 +178,8 @@ public partial class InventorySlot : Button
 				{
 					amount = int.Parse(resourceAmount.Text);
 				}
-				// putting item to slot (if sum of amount of item in slot and amount of holding item is less or equal to its 'maxStackSize')
-				if ((amount + int.Parse(holdingItem.itemAmount)) <= (int)items[itemType].maxStackSize)
-				{
-					resourceAmount.Text = (amount + int.Parse(holdingItem.itemAmount)).ToString();
-					EmitSignal(SignalName.HideHoldingItem);
-				}
 
-				// putting item to slot (if sum of amount of item in slot and amount of holding item is more or equal to its 'maxStackSize')
-				// amount of item in slot is set to its 'maxStackSize' and amount of holding item is set to new value (current amount - amount of items put to slot)
-				else
-				{
-					holdingItem.itemAmount = (int.Parse(holdingItem.itemAmount) - ((int)items[itemType].maxStackSize - amount)).ToString();
-					resourceAmount.Text = items[itemType].maxStackSize.ToString();
-					GetNode<Label>(holdingItem.GetPath() + "/ResourceAmount").Text = holdingItem.itemAmount;
-				}
+				PutItems(amount, (int)items[itemType].maxStackSize);
 				UpdateSlotTexture(itemType);
 			}
 
@@ -239,5 +225,43 @@ public partial class InventorySlot : Button
 
 		this.ShowHoldingItem -= holdingItem.ShowHoldingItem;
 		this.HideHoldingItem -= holdingItem.HideHoldingItem;
+	}
+
+	private int PutItems(int amount, int maxStackSize)
+	{
+		if (amount == maxStackSize) { return 0; }
+		int holdingAmount = int.Parse(holdingItem.itemAmount);
+        int difference;
+
+        if (Input.IsActionJustReleased("SplitItems"))
+		{
+			difference = 1;
+		}
+		else
+		{
+			// putting item to slot (if sum of amount of item in slot and amount of holding item is less or equal to its 'maxStackSize')
+			if (amount + holdingAmount <= maxStackSize)
+			{
+				difference = holdingAmount;
+			}
+
+			// putting item to slot (if sum of amount of item in slot and amount of holding item is more or equal to its 'maxStackSize')
+			// amount of item in slot is set to its 'maxStackSize' and amount of holding item is set to new value (current amount - amount of items put to slot)
+			else
+			{
+				difference = maxStackSize - amount;
+			}
+		}
+
+		if (holdingAmount - difference == 0)
+		{
+			EmitSignal(SignalName.HideHoldingItem);
+		}
+
+		resourceAmount.Text = (amount + difference).ToString();
+		holdingItem.itemAmount = (holdingAmount - difference).ToString();
+		GetNode<Label>(holdingItem.GetPath() + "/ResourceAmount").Text = holdingItem.itemAmount;
+
+		return difference;
 	}
 }
