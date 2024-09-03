@@ -318,7 +318,7 @@ public partial class World : Godot.TileMap
 				
 						item.destination = nextCoords * 64;
 						item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
-						item.speed = 64 / (60 / (int)buildingData.speed);
+						item.speed = 64 / (60f / (int)buildingData.speed);
 
 						item.GetNode<Sprite2D>("ItemHolder").Hide();
 						item.ZIndex = 0;

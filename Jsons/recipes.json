@@ -1,4 +1,5 @@
 {
+    "Drill" : "",
     "IronOre" : {
         "name" : "Iron Ore",
         "cyclesPerMinute" : 30,
@@ -44,6 +45,7 @@
         ]
     },
 
+    "Smelter" : "",
     "IronIngot" : {
         "name" : "Iron Ingot",
         "cyclesPerMinute" : 30,
@@ -77,6 +79,7 @@
         ]
     },
 
+    "Constructor" : "",
     "IronRod" : {
         "name" : "Iron Rod",
         "cyclesPerMinute" : 15,
@@ -106,6 +109,22 @@
             {
                 "name" : "IronPlate",
                 "amount" : 2
+            }
+        ]
+    },
+    "Screws" : {
+        "name" : "Screws",
+        "cyclesPerMinute" : 10,
+        "input" : [
+            {
+                "name" : "IronRod",
+                "amount" : 1
+            }
+        ],
+        "output" : [
+            {
+                "name" : "Screws",
+                "amount" : 4
             }
         ]
     },

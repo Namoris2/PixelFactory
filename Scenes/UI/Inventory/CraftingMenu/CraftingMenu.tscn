@@ -135,6 +135,10 @@ itemType = "IronPlate"
 layout_mode = 2
 itemType = "IronRod"
 
+[node name="Screws" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "Screws"
+
 [node name="Wire" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
 layout_mode = 2
 itemType = "Wire"
