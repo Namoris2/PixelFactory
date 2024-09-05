@@ -91,6 +91,11 @@ layout_mode = 2
 DisplayName = "constructor"
 Type = "building"
 
+[node name="assembler" parent="TabContainer/Manufacturing" instance=ExtResource("1_oydjw")]
+layout_mode = 2
+DisplayName = "assembler"
+Type = "building"
+
 [node name="Transport" type="FlowContainer" parent="TabContainer"]
 visible = false
 layout_mode = 2

@@ -53,7 +53,7 @@
         "description" : "Allows to automatically extract ground resources\n\nExtracts 45 resources per minute per game tile\n\nSize: 2x2",
         "cost" : [],
         "coords" : [0, 0],
-        "atlasCoords" : [8, 0],
+        "atlasCoords" : [4, 4],
         "width" : 2,
         "height" : 2,
         "canRotate" : false,
@@ -148,6 +148,54 @@
         "productionProgress" : 0,
         "canBePlacedOn" : ["Grass"],
         "inputSlots" : [
+            {
+                
+                "resource" : "",
+                "amount" : 0
+            }
+        ],
+        "outputSlots" :  [
+            {
+                "resource" : "",
+                "amount" : 0
+            }
+        ]
+    },
+    "assembler" : {
+        "buildingType" : "machine",
+        "type" : "assembler",
+        "name" : "Assembler",
+        "description" : "n\nSize: 2x2",
+        "cost" : [
+            {
+                "resource" : "IronRod",
+                "amount" : 15
+            },
+            {
+                "resource" : "Wire",
+                "amount" : 5
+            }
+        ],
+        "coords" : [0, 0],
+        "atlasCoords" : [8, 0],
+        "height" : 2,
+        "width" : 2,
+        "canRotate" : false,
+        "rotationAmount" : 1,
+        "rotation" : 0,
+        "hasAdditionalAtlasPosition" : true,
+        "additionalAtlasPosition" : [        [1, 0],
+                                     [0, 1], [1, 1]],
+        "recipe" : "none",
+        "canChooseRecipe" : true,
+        "productionProgress" : 0,
+        "canBePlacedOn" : ["Grass"],
+        "inputSlots" : [
+            {
+
+                "resource" : "",
+                "amount" : 0
+            },
             {
                 "resource" : "",
                 "amount" : 0

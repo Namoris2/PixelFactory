@@ -179,6 +179,10 @@ public partial class BuildingInventory : Control
 							recipesTab.CurrentTab = 1;
 							break;
 
+						case "assembler":
+							recipesTab.CurrentTab = 2;
+							break;
+
 						default:
 							GD.PrintErr("Unknown building");
 							break;
