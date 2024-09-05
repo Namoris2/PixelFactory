@@ -92,6 +92,11 @@ layout_mode = 2
 DisplayName = "IronRod"
 Type = "recipe"
 
+[node name="Screws" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
+layout_mode = 2
+DisplayName = "Screws"
+Type = "recipe"
+
 [node name="Wire" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "Wire"
