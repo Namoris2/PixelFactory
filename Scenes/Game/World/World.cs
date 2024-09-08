@@ -1047,7 +1047,7 @@ public partial class World : Godot.TileMap
 
 		if (building.buildingType.ToString() == "storage")
 		{
-			for (int i = 0; i < (int)building.slotsAmount; i++)
+			for (int i = 0; i < (int)buildingData.slotsAmount; i++)
 			{
 				int leftover = playerInventory.PutToInventory(building.slots[i].resource.ToString(), (int)building.slots[i].amount);
 				//GD.Print(building.slots[i].resource, leftover);
@@ -1350,13 +1350,19 @@ public partial class World : Godot.TileMap
 			{
 				if (nextBuilding.recipe.ToString() == "none") { return false; }
 				
-				if ((int)nextBuilding.inputSlots[0].amount == 0)
+				dynamic recipe = recipes[nextBuilding.recipe.ToString()];
+				for (int i = 0; i < recipe.input.Count; i++)
 				{
-					hasSpace = previousItem == recipes[nextBuilding.recipe.ToString()].input[0].name.ToString();
-				}
-				else
-				{
-					hasSpace = (int)nextBuilding.inputSlots[0].amount < (int)items[nextBuilding.inputSlots[0].resource.ToString()].maxStackSize && previousItem == nextBuilding.inputSlots[0].resource.ToString();
+					if ((int)nextBuilding.inputSlots[i].amount == 0)
+					{
+						hasSpace = previousItem == recipe.name.ToString();
+					}
+					else
+					{
+						hasSpace = (int)nextBuilding.inputSlots[i].amount < (int)items[nextBuilding.inputSlots[i].resource.ToString()].maxStackSize && previousItem == nextBuilding.inputSlots[i].resource.ToString();
+					}
+
+					if (hasSpace) { break; }
 				}
 			}
 			else if (nextBuilding.buildingType.ToString() == "belt") // belt

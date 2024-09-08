@@ -66,5 +66,12 @@
 		"name" : "Concrete",
 		"maxStackSize" : 500,
 		"atlasCoords" : "not set"
+	},
+
+	"ReinforcedIronPlate" : {
+		"type" : "ReinforcedIronPlate",
+		"name" : "Reinforced Iron Plate",
+		"maxStackSize" : 100,
+		"atlasCoords" : [1, 2]
 	}
 }

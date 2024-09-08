@@ -115,6 +115,11 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
+[node name="ReinforcedIronPlate" parent="TabContainer/Recipes/Assembler/FlowContainer" instance=ExtResource("2_amxgm")]
+layout_mode = 2
+DisplayName = "ReinforcedIronPlate"
+Type = "recipe"
+
 [node name="Building" type="TabBar" parent="TabContainer"]
 layout_mode = 2
 

@@ -159,5 +159,23 @@
                 "amount" : 1
             }
         ]
+    },
+
+    "Assembler" : "",
+    "ReinforcedIronPlate" : {
+        "name" : "Reinforced Iron Plate",
+        "cyclesPerMinute" : 5,
+        "input" : [
+            {
+                "name" : "IronPlate",
+                "amount" : 6
+            },
+            {
+                "name" : "Screws",
+                "amount" : 12
+            }
+        ],
+        "output" : [
+        ]
     }
 }
