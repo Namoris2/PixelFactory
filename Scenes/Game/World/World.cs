@@ -402,7 +402,11 @@ public partial class World : Godot.TileMap
 							Vector2I coords = new ((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]);
 
 							if (coords != item.parentBuilding) { break; }
-							if (nextBuilding.buildingType.ToString() == "machine") { nextBuilding.inputSlots[0].amount += 1; }
+							if (nextBuilding.buildingType.ToString() == "machine") 
+							{
+								int index = GetItemIndexInRecipe(recipes[nextBuilding.recipe.ToString()], "input", item.itemType);
+								nextBuilding.inputSlots[index].amount += 1; 
+							}
 							
 							else
 							{
@@ -1446,5 +1450,20 @@ public partial class World : Godot.TileMap
 			}
 
 		}
+	}
+
+	private int GetItemIndexInRecipe(dynamic recipe, string type, string item)
+	{
+		int index = -1;
+		for (int i = 0; i < recipe[type].Count; i++)
+		{
+			if (recipe[type][i].name.ToString() == item)
+			{
+				index = i;
+				break;
+			}
+		}
+
+		return index;
 	}
 }
