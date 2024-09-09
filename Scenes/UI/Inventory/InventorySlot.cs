@@ -157,7 +157,9 @@ public partial class InventorySlot : Button
 			{
 				World tileMap = GetNode<World>("/root/main/World/TileMap");
 
-				tileMap.PutItemsToSlot(buildingCoordinates, PutItems(int.Parse(resourceAmount.Text), (int)items[itemType].maxStackSize), itemType, slotType, inventorySlotIndex);
+				int amount = int.Parse(holdingItem.itemAmount);
+				tileMap.PutItemsToSlot(buildingCoordinates, PutItems(amount, (int)items[itemType].maxStackSize), itemType, slotType, inventorySlotIndex);
+				GD.Print(itemType);
 				return;
 			}
 

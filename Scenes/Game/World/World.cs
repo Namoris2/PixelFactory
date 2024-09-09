@@ -1160,7 +1160,7 @@ public partial class World : Godot.TileMap
 
 	private bool BuildingSlotValidate(dynamic building, dynamic recipe)
 	{
-		for (int i = 0; i < building.inputSlots.Count; i++)
+		for (int i = 0; i < recipe.input.Count; i++)
 		{
 			// checks if in 'inputSlot' is right item and its amount required to crafting
 			if ((int)building.inputSlots[i].amount < (int)recipe.input[i].amount || 
@@ -1170,7 +1170,7 @@ public partial class World : Godot.TileMap
 			}
 		}
 
-		for (int i = 0; i < building.outputSlots.Count; i++)
+		for (int i = 0; i < recipe.output.Count; i++)
 		{
 			// checks if in 'outputSlot' is right item and is enough space required to crafting
 			string resource = building.outputSlots[i].resource.ToString();
@@ -1355,7 +1355,7 @@ public partial class World : Godot.TileMap
 				{
 					if ((int)nextBuilding.inputSlots[i].amount == 0)
 					{
-						hasSpace = previousItem == recipe.name.ToString();
+						hasSpace = previousItem == recipe.input[i].name.ToString();
 					}
 					else
 					{

@@ -176,6 +176,10 @@
             }
         ],
         "output" : [
+            {
+                "name" : "IronOre",
+                "amount" : 1
+            }
         ]
     }
 }
