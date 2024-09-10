@@ -177,7 +177,7 @@
         ],
         "output" : [
             {
-                "name" : "IronOre",
+                "name" : "ReinforcedIronPlate",
                 "amount" : 1
             }
         ]
