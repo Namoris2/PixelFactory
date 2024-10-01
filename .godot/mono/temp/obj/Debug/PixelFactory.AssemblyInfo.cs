@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PixelFactory")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+da3c3945b31467ecf0c96318bf3581fe98c0a92b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2bf982aeaef0df5a049a49f7cdc99d39795e70fe")]
 [assembly: System.Reflection.AssemblyProductAttribute("PixelFactory")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PixelFactory")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

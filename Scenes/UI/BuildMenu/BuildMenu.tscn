@@ -112,6 +112,11 @@ layout_mode = 2
 DisplayName = "beltArm1"
 Type = "building"
 
+[node name="beltArm2" parent="TabContainer/Transport" instance=ExtResource("1_oydjw")]
+layout_mode = 2
+DisplayName = "beltArm2"
+Type = "building"
+
 [node name="beltArm2Long" parent="TabContainer/Transport" instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "beltArm2Long"

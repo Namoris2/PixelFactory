@@ -263,6 +263,35 @@
         "canBePlacedOn" : ["Grass", "Concrete"],
         "item" : ""
     },
+    "beltArm2" : {
+        "buildingType" : "beltArm",
+        "type" : "beltArm2",
+        "name" : "Conveyor Arm MK2",
+        "description" : "Moves items between building and Conveyor Belt or between two different Conveyor Belts\n\nCan transfer 120 item per minute\nReach: 1\n\nSize: 1x1",
+        "cost" : [
+            {
+                "resource" : "ReinforcedIronPlate",
+                "amount" : 10
+            }
+        ],
+        "coords" : [0, 0],
+        "atlasCoords" : [0, 3],
+        "width" : 1,
+        "height" : 1,
+        "canRotate" : true,
+        "rotationAmount" : 4,
+        "rotation" : 0,
+        "nextPosition" : [0, 0],
+        "previousPosition" : [0, 0],
+        "hasAdditionalAtlasPosition" : false,
+        "additionalAtlasPosition" : [],
+        "speed" : 120,
+        "moveProgress" : 0,
+        "reach": 1,
+        "canMove" : false,
+        "canBePlacedOn" : ["Grass", "Concrete"],
+        "item" : ""
+    },
     "beltArm2Long" : {
         "buildingType" : "beltArm",
         "type" : "beltArm2Long",
@@ -271,7 +300,7 @@
         "cost" : [
             {
                 "resource" : "ReinforcedIronPlate",
-                "amount" : 10
+                "amount" : 15
             }
         ],
         "coords" : [0, 0],

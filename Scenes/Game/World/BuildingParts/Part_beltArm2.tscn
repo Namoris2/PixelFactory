@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk2gg2qlj58e4"]
+
+[ext_resource type="Script" path="res://Scenes/Game/World/BuildingParts/BuildingPart.cs" id="1_sr3g0"]
+[ext_resource type="Texture2D" uid="uid://dp4jqnijkl35y" path="res://Gimp/Buildings/ConveyorArms/conveyorArm2Beam.png" id="2_h2l52"]
+
+[node name="BeltArm2" type="Node2D" groups=["BuildingPart"]]
+script = ExtResource("1_sr3g0")
+
+[node name="Part" type="Sprite2D" parent="."]
+z_index = 2
+position = Vector2(32, 32)
+scale = Vector2(4, 4)
+texture = ExtResource("2_h2l52")
