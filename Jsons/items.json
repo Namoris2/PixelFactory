@@ -78,7 +78,7 @@
 		"type" : "ReinforcedIronPlate",
 		"name" : "Reinforced Iron Plate",
 		"maxStackSize" : 100,
-		"atlasCoords" : [1, 5]
+		"atlasCoords" : [3, 0]
 	},
 	"Rotor" : {
 		"type" : "Rotor",
