@@ -10,7 +10,7 @@ using System.Threading;
 public partial class GenerateWorld : Node
 {
 
-	string[] groundTerrains = { "Grass", "Water", "IronOre", "CopperOre" };
+	string[] groundTerrains = { "Grass", "Water", "IronOre", "CopperOre", "Coal" };
 	public int chunkSize = 16;
 	int generationHeight = 9;
 	int generationWidth = 13;
@@ -28,6 +28,7 @@ public partial class GenerateWorld : Node
 	public List<Vector2I> waterChunks = new();
 	public List<Vector2I> ironChunks = new();
 	public List<Vector2I> copperChunks = new();
+	public List<Vector2I> coalChunks = new();
 
     public void GenerateResource(World _world, int _seed, string _resourceInput, Vector2I _playerPosition, bool _generateWater = false)
 	{
@@ -118,6 +119,13 @@ public partial class GenerateWorld : Node
 					return;
 				}
 				copperChunks.Add(chunkPosition);
+				break;	
+			case "Coal":
+				if (coalChunks.Contains(chunkPosition))
+				{
+					return;
+				}
+				coalChunks.Add(chunkPosition);
 				break;	
 		}
 

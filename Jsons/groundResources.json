@@ -22,11 +22,11 @@
         "generationCap" : -0.5,
         "frequency" : 0.03
     },
-    "CoalOre" : {
-        "name" : "Coal Ore",
+    "Coal" : {
+        "name" : "Coal",
         "addedSeed" : 6716351,
-        "generationCap" : -0.55,
-        "frequency" : 0.03,
+        "generationCap" : -0.7,
+        "frequency" : 0.01,
 		"atlasCoords" : [1, 0]
     }
 }

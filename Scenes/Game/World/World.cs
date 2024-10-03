@@ -587,6 +587,7 @@ public partial class World : Godot.TileMap
 		generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
 		generateWorld.GenerateResource(this, seed, "IronOre", playerPosition);
 		generateWorld.GenerateResource(this, seed, "CopperOre", playerPosition);
+		generateWorld.GenerateResource(this, seed, "Coal", playerPosition);
 	}
 
 	public Vector2I GetMousePosition()
