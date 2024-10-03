@@ -11,9 +11,9 @@
 		"maxStackSize" : 100,
 		"atlasCoords" : [2, 0]
 	},
-	"CoalOre" : {
-		"type" : "CoalOre",
-		"name" : "Coal Ore",
+	"Coal" : {
+		"type" : "Coal",
+		"name" : "Coal",
 		"maxStackSize" : 100,
 		"atlasCoords" : [0, 0]
 	},

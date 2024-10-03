@@ -642,7 +642,7 @@ public partial class World : Godot.TileMap
 
 	private void FarmResources(dynamic building)
 	{
-		if (GroundResourceValidate(resourcesHarvestedByHand.canBeUsedOn, groundResourceName) && Input.IsActionJustPressed("Use") && buildingsData == null)
+		if (GroundResourceValidate(resourcesHarvestedByHand.canBeUsedOn, new List<string>{groundResourceName}) && Input.IsActionJustPressed("Use") && buildingsData == null)
 		{
 			playerInventory.PutToInventory(groundResourceName, 1);
 		}
@@ -848,6 +848,7 @@ public partial class World : Godot.TileMap
 
 		bool hasSpace = data == null; 
 		resources.Add(groundResource);
+		GD.Print(groundResource);
 
 		for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
 		{
@@ -859,16 +860,18 @@ public partial class World : Godot.TileMap
 			resources.Add(groundResource);
 		}
 
+		
+		if (resources.Contains("Water"))
+		{
+			info["canBuild"] = false;
+			return info;
+		}
+
 		if (building.type.ToString().Contains("Drill"))
 		{
-			if (resources.Contains("Water"))
-			{
-				info["canBuild"] = false;
-				return info;
-			}
 
 			resources.RemoveAll(resource => resource == "Grass");
-			info["canBuild"] = hasSpace && resources.Count > 0;
+			info["canBuild"] = hasSpace && resources.Count > 0 && GroundResourceValidate(building.canBePlacedOn, resources);
 			
 			if (!info["canBuild"]) { return info; }
 
@@ -891,7 +894,7 @@ public partial class World : Godot.TileMap
 		}
 		else
 		{
-			info["canBuild"] = hasSpace && resources.Count == building.additionalAtlasPosition.Count + 1;
+			info["canBuild"] = hasSpace && resources.Count == building.additionalAtlasPosition.Count + 1 && GroundResourceValidate(building.canBePlacedOn, resources);
 		}
 		
 		return info;
@@ -1151,16 +1154,21 @@ public partial class World : Godot.TileMap
 		return null;
 	}
 
-	private static bool GroundResourceValidate(dynamic canBePlacedOn, string groundResourceName)
+	private static bool GroundResourceValidate(dynamic canBePlacedOn, List<string> groundResources)
 	{
-		foreach(string resource in canBePlacedOn)
+		bool canPlace = true;
+		string[] resources = new string[canBePlacedOn.Count];
+
+		for (int i = 0; i < canBePlacedOn.Count; i++)
 		{
-			if (resource == groundResourceName)
-			{
-				return true;
-			}
+			resources[i] = canBePlacedOn[i].ToString();
 		}
-		return false;
+
+		foreach(string resource in groundResources)
+		{
+			canPlace &= resources.Contains(resource);
+		}
+		return canPlace;
 	}
 
 	private bool BuildingSlotValidate(dynamic building, dynamic recipe)

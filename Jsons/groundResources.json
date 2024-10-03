@@ -26,7 +26,6 @@
         "name" : "Coal",
         "addedSeed" : 6716351,
         "generationCap" : -0.7,
-        "frequency" : 0.01,
-		"atlasCoords" : [1, 0]
+        "frequency" : 0.01
     }
 }
