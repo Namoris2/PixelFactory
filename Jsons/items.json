@@ -84,6 +84,6 @@
 		"type" : "Rotor",
 		"name" : "Rotor",
 		"maxStackSize" : 100,
-		"atlasCoords" : [2, 2]
+		"atlasCoords" : [3, 1]
 	}
 }
