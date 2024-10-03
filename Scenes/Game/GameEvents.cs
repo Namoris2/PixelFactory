@@ -43,8 +43,7 @@ public partial class GameEvents : Node
             else if (inventories.Visible)
             {
                 inventories.ToggleInventory(false);
-                tileMap.UITOGGLE = false;
-                worldInfo.Show();
+                ToggleBuildingInventory(false);
             }
         }
 
@@ -61,19 +60,20 @@ public partial class GameEvents : Node
             }
             if (@event.IsActionPressed("Interact"))
             {
-                if (leftovers != null) // Open leftovers Inventory
-                {
-                    inventories.ToggleBuildingInventory(!inventories.Visible, "", leftovers);
-                    tileMap.UITOGGLE = inventories.Visible;
-                    worldInfo.Visible = !inventories.Visible;
-                }
-                else // Open building Inventory
-                {
-                    inventories.ToggleBuildingInventory(!inventories.Visible, tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
-                    tileMap.UITOGGLE = inventories.Visible;
-                    worldInfo.Visible = !inventories.Visible;
-                }
+                ToggleBuildingInventory(!inventories.Visible);
             }
+        }
+    }
+
+    private void ToggleBuildingInventory(bool toggle)
+    {
+        if (leftovers != null) // Open leftovers Inventory
+        {
+            inventories.ToggleBuildingInventory(toggle, "", leftovers);
+        }
+        else // Open building Inventory
+        {
+            inventories.ToggleBuildingInventory(toggle, tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
         }
     }
 }
