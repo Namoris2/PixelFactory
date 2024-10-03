@@ -85,5 +85,11 @@
 		"name" : "Rotor",
 		"maxStackSize" : 100,
 		"atlasCoords" : [3, 1]
+	},
+	"ModularFrame" : {
+		"type" : "ModularFrame",
+		"name" : "Modular Frame",
+		"maxStackSize" : 50,
+		"atlasCoords" : [3, 2]
 	}
 }

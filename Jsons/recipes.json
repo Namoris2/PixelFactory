@@ -217,5 +217,25 @@
                 "amount" : 1
             }
         ]
+    },
+    "ModularFrame" : {
+        "name" : "Modular Frame",
+        "cyclesPerMinute" : 1,
+        "input" : [
+            {
+                "name" : "ReinforcedIronPlate",
+                "amount" : 3
+            },
+            {
+                "name" : "IronRod",
+                "amount" : 12
+            }
+        ],
+        "output" : [
+            {
+                "name" : "ModularFrame",
+                "amount" : 2
+            }
+        ]
     }
 }

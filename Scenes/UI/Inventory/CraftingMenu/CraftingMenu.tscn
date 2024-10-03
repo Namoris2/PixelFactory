@@ -154,3 +154,7 @@ itemType = "ReinforcedIronPlate"
 [node name="Rotor" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
 layout_mode = 2
 itemType = "Rotor"
+
+[node name="ModularFrame" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "ModularFrame"
