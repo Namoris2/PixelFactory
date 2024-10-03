@@ -73,5 +73,11 @@
 		"name" : "Reinforced Iron Plate",
 		"maxStackSize" : 100,
 		"atlasCoords" : [1, 5]
+	},
+	"Rotor" : {
+		"type" : "Rotor",
+		"name" : "Rotor",
+		"maxStackSize" : 100,
+		"atlasCoords" : [2, 2]
 	}
 }

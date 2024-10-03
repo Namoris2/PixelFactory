@@ -181,5 +181,25 @@
                 "amount" : 1
             }
         ]
+    },
+    "Rotor" : {
+        "name" : "Rotor",
+        "cyclesPerMinute" : 4,
+        "input" : [
+            {
+                "name" : "IronRod",
+                "amount" : 5
+            },
+            {
+                "name" : "Screws",
+                "amount" : 25
+            }
+        ],
+        "output" : [
+            {
+                "name" : "Rotor",
+                "amount" : 1
+            }
+        ]
     }
 }
