@@ -144,6 +144,22 @@
             }
         ]
     },
+    "CopperSheet": {
+        "name" : "Copper Sheet",
+        "cyclesPerMinute" : 10,
+        "input" : [
+            {
+                "name" : "CopperIngot",
+                "amount" : 2
+            }
+        ],
+        "output" : [
+            {
+                "name" : "CopperSheet",
+                "amount" : 1
+            }
+        ]
+    },
     "Concrete" : {
         "name" : "Concrete",
         "cyclesPerMinute" : 15,

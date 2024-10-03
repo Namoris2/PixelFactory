@@ -61,6 +61,12 @@
 		"maxStackSize" : 500,
 		"atlasCoords" : [2, 2]
 	},
+	"CopperSheet" : {
+		"type" : "CopperSheet",
+		"name" : "Coper Sheet",
+		"maxStackSize" : 200,
+		"atlasCoords" : [2, 1]
+	},
 	"Concrete" : {
 		"type" : "Concrete",
 		"name" : "Concrete",
