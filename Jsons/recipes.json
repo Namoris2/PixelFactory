@@ -23,12 +23,12 @@
         ]
     },
     "Coal" : {
-        "name" : "Coal Ore",
+        "name" : "Coal",
         "cyclesPerMinute" : 30,
         "input" : [],
         "output" : [
             {
-                "name" : "CoalOre",
+                "name" : "Coal",
                 "amount" : 1
             }
         ]

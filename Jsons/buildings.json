@@ -37,7 +37,7 @@
         "productionProgress" : 0,
         "productionMultiplier" : 1,
         "tiles" : 0,
-        "canBePlacedOn" : ["CopperOre", "IronOre"],
+        "canBePlacedOn" : ["CopperOre", "IronOre", "Coal"],
         "inputSlots" : [],
         "outputSlots" : [
             {
