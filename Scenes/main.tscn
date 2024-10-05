@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="4_r6w7n"]
 [ext_resource type="Texture2D" uid="uid://ck712pm16mpkt" path="res://Gimp/Cussor/cursor_tile_hover.png" id="5_ckxak"]
 [ext_resource type="PackedScene" uid="uid://i4r6u351cl60" path="res://Scenes/Player/player.tscn" id="6_dnyod"]
-[ext_resource type="Script" path="res://Scenes/Game/World/ParticleControl.cs" id="7_o8fwl"]
+[ext_resource type="Script" path="res://Scenes/Game/World/ParticleController.cs" id="7_o8fwl"]
 [ext_resource type="Script" path="res://Scenes/UI/HUD/ResourceAmount.cs" id="8_2nicb"]
 [ext_resource type="PackedScene" uid="uid://crq7hbeb86rlt" path="res://Scenes/UI/Inventory/HoldingItem.tscn" id="8_capta"]
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/Inventories.cs" id="8_jtdr3"]

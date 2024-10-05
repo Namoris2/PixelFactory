@@ -1,7 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bwphcbtwjwqms"]
 
-[ext_resource type="PackedScene" uid="uid://606jj7dg53sk" path="res://Particles/Buildings/SmallDrill/Drilling.tscn" id="1_hxumi"]
-
+[ext_resource type="PackedScene" uid="uid://606jj7dg53sk" path="res://Particles/Buildings/smallDrill/old_Drilling.tscn" id="1_hxumi"]
 
 [sub_resource type="Curve" id="Curve_8nee2"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

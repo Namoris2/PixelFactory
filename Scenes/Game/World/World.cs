@@ -39,7 +39,7 @@ public partial class World : Godot.TileMap
 	public delegate void CreateParticleEventHandler(Vector2I coords, string type, string resource);
 
 	[Signal]
-	public delegate void RemoveParticleEventHandler(Vector2I coords);
+	public delegate void RemoveParticleEventHandler(Vector2I coords, string type);
 
 	[Signal]
 	public delegate void CreateBuildingPartEventHandler(Vector2I coords, string type, int rotation, bool createdBuilding);
@@ -1114,7 +1114,7 @@ public partial class World : Godot.TileMap
 		}
 
 		// removes building's particles
-		EmitSignal(SignalName.RemoveParticle, coords);
+		EmitSignal(SignalName.RemoveParticle, coords, building.type.ToString());
 		EmitSignal(SignalName.RemoveAnimatedBuildingPart, coords, building.type.ToString());
 		EmitSignal(SignalName.RemoveBuildingPart, coords, building.type.ToString());
 		

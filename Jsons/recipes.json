@@ -22,7 +22,7 @@
             }
         ]
     },
-    "CoalOre" : {
+    "Coal" : {
         "name" : "Coal Ore",
         "cyclesPerMinute" : 30,
         "input" : [],
