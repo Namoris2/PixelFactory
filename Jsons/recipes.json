@@ -144,6 +144,22 @@
             }
         ]
     },
+    "Cable" : {
+        "name" : "Cable",
+        "cyclesPerMinute" : 30,
+        "input" : [
+            {
+                "name" : "Wire",
+                "amount" : 2
+            }
+        ],
+        "output" : [
+            {
+                "name" : "Cable",
+                "amount" : 1
+            }
+        ]
+    },
     "CopperSheet": {
         "name" : "Copper Sheet",
         "cyclesPerMinute" : 10,

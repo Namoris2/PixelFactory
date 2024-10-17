@@ -102,6 +102,11 @@ layout_mode = 2
 DisplayName = "Wire"
 Type = "recipe"
 
+[node name="Cable" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
+layout_mode = 2
+DisplayName = "Cable"
+Type = "recipe"
+
 [node name="CopperSheet" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "CopperSheet"
