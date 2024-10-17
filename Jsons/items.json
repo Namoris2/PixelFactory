@@ -1,4 +1,5 @@
 {
+	"Ores" : "",
 	"IronOre" : {
 		"type" : "IronOre",
 		"name" : "Iron Ore",
@@ -24,6 +25,7 @@
 		"atlasCoords" : "not set"
 	},
 
+	"Ingots" : "",
 	"IronIngot" : {
 		"type" : "IronIngot",
 		"name" : "Iron Ingot",
@@ -36,7 +38,14 @@
 		"maxStackSize" : 100,
 		"atlasCoords" : [2, 1]
 	},
+	"SteelIngot" : {
+		"type" : "SteelIngot",
+		"name" : "Steel Ingot",
+		"maxStackSize" : 100,
+		"atlasCoords" : [0, 1]
+	},
 
+	"Constructor" : "",
 	"IronRod" : {
 		"type" : "IronRod",
 		"name" : "Iron Rod",
@@ -67,6 +76,12 @@
 		"maxStackSize" : 200,
 		"atlasCoords" : [2, 1]
 	},
+	"Cable" : {
+		"type" : "Cable",
+		"name" : "Cable",
+		"maxStackSize" : 200,
+		"atlasCoords" : [2, 3]
+	},
 	"Concrete" : {
 		"type" : "Concrete",
 		"name" : "Concrete",
@@ -74,6 +89,7 @@
 		"atlasCoords" : "not set"
 	},
 
+	"Assembler" : "",
 	"ReinforcedIronPlate" : {
 		"type" : "ReinforcedIronPlate",
 		"name" : "Reinforced Iron Plate",
