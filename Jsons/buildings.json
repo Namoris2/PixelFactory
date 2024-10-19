@@ -125,12 +125,12 @@
         "description" : "Processes one resource as input into one resource as output\n\nSize: 2x2",
         "cost" : [
             {
-                "resource" : "IronPlate",
-                "amount" : 20
+                "resource" : "ReinforcedIronPlate",
+                "amount" : 2
             },
             {
-                "resource" : "IronRod",
-                "amount" : 10
+                "resource" : "Cable",
+                "amount" : 8
             }
         ],
         "coords" : [0, 0],
@@ -168,13 +168,18 @@
         "description" : "n\nSize: 2x2",
         "cost" : [
             {
-                "resource" : "IronRod",
-                "amount" : 15
+                "resource" : "ReinforcedIronPlate",
+                "amount" : 8
             },
             {
-                "resource" : "Wire",
-                "amount" : 5
-            }
+                "resource" : "Rotor",
+                "amount" : 4
+            },
+            {
+                "resource" : "Cable",
+                "amount" : 10
+            }   
+
         ],
         "coords" : [0, 0],
         "atlasCoords" : [8, 0],
