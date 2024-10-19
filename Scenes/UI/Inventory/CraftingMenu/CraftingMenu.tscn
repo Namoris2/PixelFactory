@@ -127,6 +127,10 @@ itemType = "IronIngot"
 layout_mode = 2
 itemType = "CopperIngot"
 
+[node name="SteelIngot" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "SteelIngot"
+
 [node name="IronPlate" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
 layout_mode = 2
 itemType = "IronPlate"
