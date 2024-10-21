@@ -86,6 +86,11 @@ layout_mode = 2
 DisplayName = "smelter"
 Type = "building"
 
+[node name="foundry" parent="TabContainer/Manufacturing" instance=ExtResource("1_oydjw")]
+layout_mode = 2
+DisplayName = "foundry"
+Type = "building"
+
 [node name="constructor" parent="TabContainer/Manufacturing" instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "constructor"

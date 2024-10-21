@@ -118,6 +118,52 @@
             }
         ]
     },
+    "foundry" : {
+        "buildingType" : "machine",
+        "type" : "foundry",
+        "name" : "Foundry",
+        "description" : "Smelts two items two items into one alloy ingot\n\nSize: 2x2",
+        "cost" : [
+            {
+                "resource" : "ModularFrame",
+                "amount" : 10
+            },
+            {
+                "resource" : "Rotor",
+                "amount" : 10
+            }
+        ],
+        "coords" : [0, 0],
+        "atlasCoords" : [6, 4],
+        "height" : 2,
+        "width" : 2,
+        "canRotate" : false,
+        "rotationAmount" : 1,
+        "rotation" : 0,
+        "hasAdditionalAtlasPosition" : true,
+        "additionalAtlasPosition" : [        [1, 0],
+                                     [0, 1], [1, 1]],
+        "recipe" : "none",
+        "canChooseRecipe" : true,
+        "productionProgress" : 0,
+        "canBePlacedOn" : ["Grass"],
+        "inputSlots" : [
+            {
+                "resource" : "",
+                "amount" : 0
+            },
+            {
+                "resource" : "",
+                "amount" : 0
+            }
+        ],
+        "outputSlots" :  [
+            {
+                "resource" : "",
+                "amount" : 0
+            }
+        ]
+    },
     "constructor" : {
         "buildingType" : "machine",
         "type" : "constructor",
