@@ -82,6 +82,11 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
+[node name="SteelIngot" parent="TabContainer/Recipes/Foundry/FlowContainer" instance=ExtResource("2_amxgm")]
+layout_mode = 2
+DisplayName = "SteelIngot"
+Type = "recipe"
+
 [node name="Constructor" type="TabBar" parent="TabContainer/Recipes" groups=["Recipes"]]
 visible = false
 layout_mode = 2
