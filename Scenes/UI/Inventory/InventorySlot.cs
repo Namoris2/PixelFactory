@@ -158,8 +158,11 @@ public partial class InventorySlot : Button
 				World tileMap = GetNode<World>("/root/main/World/TileMap");
 
 				int amount = int.Parse(holdingItem.itemAmount);
-				tileMap.PutItemsToSlot(buildingCoordinates, PutItems(amount, (int)items[itemType].maxStackSize), itemType, slotType, inventorySlotIndex);
-				GD.Print(itemType);
+				PutItems(amount, (int)items[itemType].maxStackSize);
+				amount = int.Parse(holdingItem.itemAmount);
+
+				tileMap.PutItemsToSlot(buildingCoordinates, amount, itemType, slotType, inventorySlotIndex);
+				//GD.Print(itemType);
 				return;
 			}
 
@@ -264,6 +267,7 @@ public partial class InventorySlot : Button
 		holdingItem.itemAmount = (holdingAmount - difference).ToString();
 		GetNode<Label>(holdingItem.GetPath() + "/ResourceAmount").Text = holdingItem.itemAmount;
 
+		//GD.Print(difference);
 		return difference;
 	}
 }
