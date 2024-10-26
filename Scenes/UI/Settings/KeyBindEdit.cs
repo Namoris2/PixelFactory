@@ -2,13 +2,15 @@ using Godot;
 using Godot.Collections;
 using System;
 
-public partial class KebindEdit : Button
+public partial class KeyBindEdit : Button
 {
 	// Called when the node enters the scene tree for the first time.
+	Label keyLabel;
 	bool editingAction = false;
-	[Export] string actionType;
+	[Export] public string actionType;
 	public override void _Ready()
 	{
+		keyLabel = GetNode<Label>("HBoxContainer/Key");
 		Pressed += UpdateKey;
 	}
 
@@ -20,7 +22,7 @@ public partial class KebindEdit : Button
 	void UpdateKey()
 	{
 		editingAction = true;
-		Text = "Press Key";
+		keyLabel.Text = "Press Key to Bind...";
 	}
 
 	public override void _Input(InputEvent @event)
@@ -29,7 +31,7 @@ public partial class KebindEdit : Button
 
 		if (Input.IsKeyPressed(Key.Escape))
 		{ 
-			Text = "Edit Key";
+			keyLabel.Text = InputMap.ActionGetEvents(actionType)[0].AsText();
 			editingAction = false;
 			return; 
 		}
@@ -43,7 +45,7 @@ public partial class KebindEdit : Button
 			InputMap.ActionAddEvent(actionType, inputs[i]);
 		}
 
-		Text = "Edit Key";
+		keyLabel.Text = inputs[0].AsText();
 		editingAction = false;
 
 		/*GD.Print(inputs);

@@ -4,12 +4,12 @@
 [ext_resource type="Script" path="res://Scenes/UI/MainMenu/MainMenu.cs" id="1_k8ci2"]
 [ext_resource type="Texture2D" uid="uid://cakt6ts1d5n8k" path="res://Gimp/Ground Materials/ground.png" id="2_6d34b"]
 [ext_resource type="PackedScene" uid="uid://ealmg15lgtr5" path="res://Scenes/UI/Menu/ExitGame.tscn" id="4_6yric"]
-[ext_resource type="Script" path="res://Scenes/UI/Settings/KebindEdit.cs" id="4_lmc6j"]
 [ext_resource type="Script" path="res://Scenes/UI/MainMenu/ButtonInfo.cs" id="4_ufcr7"]
 [ext_resource type="Script" path="res://Scenes/UI/Menu/ChangeMenu.cs" id="4_x2mx5"]
 [ext_resource type="Script" path="res://Scenes/UI/Save and Load/LoadGame.cs" id="5_x4nho"]
 [ext_resource type="Script" path="res://Scenes/UI/MainMenu/DeleteSaveDialog/DeleteSaveDialog.cs" id="6_hu7yu"]
 [ext_resource type="Script" path="res://Scenes/UI/Save and Load/DeleteSave.cs" id="7_8do3p"]
+[ext_resource type="PackedScene" uid="uid://c5t7ynans785e" path="res://Scenes/UI/Settings/KeyBindEdit.tscn" id="9_o644s"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5bhl0"]
 texture = ExtResource("2_6d34b")
@@ -1363,16 +1363,8 @@ IndexOffset = 1
 GoHome = true
 metadata/_edit_use_anchors_ = true
 
-[node name="Button" type="Button" parent="UI/TabContainer/Settings"]
-layout_mode = 2
-offset_left = 320.0
-offset_top = 190.0
-offset_right = 608.0
-offset_bottom = 344.0
-theme_override_font_sizes/font_size = 20
-text = "Edit Key"
-script = ExtResource("4_lmc6j")
-actionType = "MoveUp"
+[node name="Button" parent="UI/TabContainer/Settings" instance=ExtResource("9_o644s")]
+layout_mode = 0
 
 [node name="ButtonInfo" type="Label" parent="UI/TabContainer"]
 visible = false

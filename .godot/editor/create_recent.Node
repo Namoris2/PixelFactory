@@ -1,3 +1,5 @@
+HBoxContainer
+Label
 Button
 VBoxContainer
 Panel
@@ -11,4 +13,3 @@ BackBufferCopy
 CanvasLayer
 CanvasModulate
 Control
-PointLight2D
