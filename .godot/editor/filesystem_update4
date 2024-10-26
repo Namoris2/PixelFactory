@@ -1,12 +1,14 @@
-res://Scenes/main.tscn
+res://Scenes/UI/Settings/KeybindsMenu.tscn
 res://Themes/InventorySlot.tres
 res://Themes/UI.tres
 res://Scenes/UI/Menu/ChangeMenu.cs
 res://Scenes/UI/Save and Load/LoadGame.cs
-res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/UI/MainMenu/MainMenu.tscn
+res://Scenes/main.tscn
+res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/UI/BuildMenu/BuildMenu.tscn
 res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn
+res://Scenes/Player/player.tscn
 res://Scenes/Game/GameEvents.cs
 res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/World/AnimatedBuildingPartsController.cs
@@ -18,6 +20,7 @@ res://Scenes/Game/World/Item/Item.cs
 res://Scenes/Game/World/Leftovers/Leftovers.cs
 res://Scenes/Game/World/ParticleController.cs
 res://Scenes/Game/World/World.cs
+res://Scenes/InputMapTest.cs
 res://Scenes/main.cs
 res://Scenes/Player/Player.cs
 res://Scenes/Player/PlayerCamera.cs
@@ -50,6 +53,6 @@ res://Scenes/UI/Pause Menu/PauseMenu.cs
 res://Scenes/UI/Pause Menu/SaveQuit.cs
 res://Scenes/UI/Save and Load/DeleteSave.cs
 res://Scenes/UI/Save and Load/SaveGame.cs
+res://Scenes/UI/Settings/KebindEdit.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/UIToggle.cs
-res://Scenes/Player/player.tscn

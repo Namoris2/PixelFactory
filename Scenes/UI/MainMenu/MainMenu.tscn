@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://cca243qeuh2c5"]
+[gd_scene load_steps=15 format=3 uid="uid://cca243qeuh2c5"]
 
 [ext_resource type="Theme" uid="uid://037hqw0mionk" path="res://Themes/UI.tres" id="1_8qc0c"]
 [ext_resource type="Script" path="res://Scenes/UI/MainMenu/MainMenu.cs" id="1_k8ci2"]
 [ext_resource type="Texture2D" uid="uid://cakt6ts1d5n8k" path="res://Gimp/Ground Materials/ground.png" id="2_6d34b"]
 [ext_resource type="PackedScene" uid="uid://ealmg15lgtr5" path="res://Scenes/UI/Menu/ExitGame.tscn" id="4_6yric"]
+[ext_resource type="Script" path="res://Scenes/UI/Settings/KebindEdit.cs" id="4_lmc6j"]
 [ext_resource type="Script" path="res://Scenes/UI/MainMenu/ButtonInfo.cs" id="4_ufcr7"]
 [ext_resource type="Script" path="res://Scenes/UI/Menu/ChangeMenu.cs" id="4_x2mx5"]
 [ext_resource type="Script" path="res://Scenes/UI/Save and Load/LoadGame.cs" id="5_x4nho"]
@@ -1118,7 +1119,6 @@ IndexOffset = 1
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-disabled = true
 text = "Settings
 "
 script = ExtResource("4_x2mx5")
@@ -1363,11 +1363,20 @@ IndexOffset = 1
 GoHome = true
 metadata/_edit_use_anchors_ = true
 
-[node name="ButtonInfo" type="Label" parent="UI"]
+[node name="Button" type="Button" parent="UI/TabContainer/Settings"]
+layout_mode = 2
+offset_left = 320.0
+offset_top = 190.0
+offset_right = 608.0
+offset_bottom = 344.0
+theme_override_font_sizes/font_size = 20
+text = "Edit Key"
+script = ExtResource("4_lmc6j")
+actionType = "MoveUp"
+
+[node name="ButtonInfo" type="Label" parent="UI/TabContainer"]
 visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 16.0
+layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "This option is not available"
 script = ExtResource("4_ufcr7")

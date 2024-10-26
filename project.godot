@@ -32,6 +32,7 @@ window/size/mode=3
 window/size/resizable=false
 window/size/borderless=true
 window/stretch/aspect="expand"
+window/stretch/scale_mode="integer"
 window/vsync/vsync_mode=0
 mouse_cursor/tooltip_position_offset=Vector2(-22, -22)
 
