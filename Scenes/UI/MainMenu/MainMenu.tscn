@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://Scenes/UI/Save and Load/LoadGame.cs" id="5_x4nho"]
 [ext_resource type="Script" path="res://Scenes/UI/MainMenu/DeleteSaveDialog/DeleteSaveDialog.cs" id="6_hu7yu"]
 [ext_resource type="Script" path="res://Scenes/UI/Save and Load/DeleteSave.cs" id="7_8do3p"]
-[ext_resource type="PackedScene" uid="uid://c5t7ynans785e" path="res://Scenes/UI/Settings/KeyBindEdit.tscn" id="9_o644s"]
+[ext_resource type="PackedScene" uid="uid://b1pyswhxuea04" path="res://Scenes/UI/Settings/KeyBindsMenu.tscn" id="9_r4yrv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5bhl0"]
 texture = ExtResource("2_6d34b")
@@ -1349,10 +1349,10 @@ layout_mode = 2
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.369792
-anchor_top = 0.771296
-anchor_right = 0.630208
-anchor_bottom = 0.863889
+anchor_left = 0.370833
+anchor_top = 0.822222
+anchor_right = 0.63125
+anchor_bottom = 0.914815
 offset_bottom = 6.10352e-05
 grow_horizontal = 2
 grow_vertical = 0
@@ -1363,8 +1363,8 @@ IndexOffset = 1
 GoHome = true
 metadata/_edit_use_anchors_ = true
 
-[node name="Button" parent="UI/TabContainer/Settings" instance=ExtResource("9_o644s")]
-layout_mode = 0
+[node name="Control" parent="UI/TabContainer/Settings" instance=ExtResource("9_r4yrv")]
+layout_mode = 1
 
 [node name="ButtonInfo" type="Label" parent="UI/TabContainer"]
 visible = false

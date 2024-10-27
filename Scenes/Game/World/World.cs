@@ -315,7 +315,8 @@ public partial class World : Godot.TileMap
 					{
 						itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
 						item = GetNodeOrNull<Item>(itemName);
-				
+						if (item == null) { break; }
+
 						item.destination = nextCoords * 64;
 						item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
 						item.speed = 64 / (60f / (int)buildingData.speed);
@@ -1089,11 +1090,10 @@ public partial class World : Godot.TileMap
 					itemName = $"{building.coords[0]}x{building.coords[1]}";
 				}
 			}
-			item = GetNode<Item>(itemName);
 
-			//item.PickUpItem();
+			item = GetNodeOrNull<Item>(itemName);
 
-			if (!item.PickUpItem())
+			if (item != null && !item.PickUpItem())
 			{
 				if (leftovers.ContainsKey(item.itemType))
 				{

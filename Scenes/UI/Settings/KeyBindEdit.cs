@@ -19,20 +19,15 @@ public partial class KeyBindEdit : Button
 	{
 	}
 
-	void UpdateKey()
-	{
-		editingAction = true;
-		keyLabel.Text = "Press Key to Bind...";
-	}
-
 	public override void _Input(InputEvent @event)
 	{
-		if (!editingAction || @event is not InputEventKey) { return; }
+		if (!editingAction || !@event.IsPressed() /*@event is not InputEventKey*/) { return; }
 
 		if (Input.IsKeyPressed(Key.Escape))
 		{ 
-			keyLabel.Text = InputMap.ActionGetEvents(actionType)[0].AsText();
+			keyLabel.Text = InputMap.ActionGetEvents(actionType)[0].AsText().TrimSuffix(" (Physical)");
 			editingAction = false;
+			Disabled = false;
 			return; 
 		}
 		
@@ -47,8 +42,16 @@ public partial class KeyBindEdit : Button
 
 		keyLabel.Text = inputs[0].AsText();
 		editingAction = false;
+		Disabled = false;
 
 		/*GD.Print(inputs);
 		GD.Print(InputMap.ActionGetEvents(actionType), "\n");*/
+	}
+
+	void UpdateKey()
+	{
+		editingAction = true;
+		Disabled = true;
+		keyLabel.Text = "Press Key to Bind...";
 	}
 }
