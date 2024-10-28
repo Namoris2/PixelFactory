@@ -5,13 +5,15 @@ using System;
 public partial class KeyBindEdit : Button
 {
 	// Called when the node enters the scene tree for the first time.
+	SettingsHandler settingsHandler;
 	Label keyLabel;
 	bool editingAction = false;
 	[Export] public string actionType;
 	public override void _Ready()
 	{
+		settingsHandler = GetNode<SettingsHandler>("/root/SettingsHandler");
 		keyLabel = GetNode<Label>("HBoxContainer/Key");
-		Pressed += UpdateKey;
+		Pressed += ToggleEditing;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -44,11 +46,13 @@ public partial class KeyBindEdit : Button
 		editingAction = false;
 		Disabled = false;
 
+		settingsHandler.SaveConfigFile("KeyboardMouseBinds", actionType, keyLabel.Text);
+
 		/*GD.Print(inputs);
 		GD.Print(InputMap.ActionGetEvents(actionType), "\n");*/
 	}
 
-	void UpdateKey()
+	void ToggleEditing()
 	{
 		editingAction = true;
 		Disabled = true;

@@ -23,6 +23,7 @@ config/windows_native_icon="res://Gimp/GameIcon.ico"
 LoadFile="*res://Scenes/Game/LoadFile.cs"
 GenerateWorld="*res://Scenes/Game/World/GenerateWorld.cs"
 GameInfo="*res://Scenes/main.cs"
+SettingsHandler="*res://Scenes/UI/Settings/SettingsHandler.cs"
 
 [display]
 
