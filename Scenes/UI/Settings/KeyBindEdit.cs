@@ -23,7 +23,7 @@ public partial class KeyBindEdit : Button
 
 	public override void _Input(InputEvent @event)
 	{
-		if (!editingAction || !@event.IsPressed() /*@event is not InputEventKey*/) { return; }
+		if (!editingAction || !@event.IsPressed()) { return; }
 
 		if (Input.IsKeyPressed(Key.Escape))
 		{ 

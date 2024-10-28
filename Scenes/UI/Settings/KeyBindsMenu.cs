@@ -22,7 +22,7 @@ public partial class KeyBindsMenu : Control
 	Node buttonsContainer;
 	public override void _Ready()
 	{
-		buttonsContainer = GetNode<Node>("Panel/VBoxContainer");
+		buttonsContainer = GetNode<Node>("VBoxContainer");
 		
 		foreach (KeyValuePair<string,string> action in actions)
 		{

@@ -2,37 +2,38 @@
 
 [ext_resource type="Script" path="res://Scenes/UI/Settings/KeyBindsMenu.cs" id="1_b0dp0"]
 
-[node name="Control" type="Control"]
+[node name="KeyBindsMenu" type="Control"]
+custom_minimum_size = Vector2(0, 600)
 layout_mode = 3
-anchors_preset = 15
+anchor_left = 0.0958333
+anchor_top = 0.187037
+anchor_right = 0.904167
+anchor_bottom = 0.287037
+offset_top = -132.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+script = ExtResource("1_b0dp0")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("1_b0dp0")
-
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -644.0
-offset_top = -491.0
-offset_right = 644.0
-offset_bottom = 292.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0248447
-anchor_top = 0.0587484
-anchor_right = 0.970497
-anchor_bottom = 0.923372
-grow_horizontal = 2
-grow_vertical = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 93.0
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 2
