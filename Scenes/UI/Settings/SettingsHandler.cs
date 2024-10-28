@@ -39,12 +39,21 @@ public partial class SettingsHandler : Node
 
         foreach (string bind in keyBinds)
         {
-            InputEventKey loadedBind = new();
             Godot.Collections.Array<InputEvent> inputs = InputMap.ActionGetEvents(bind);
             string keyEvent = (string)configFile.GetValue("KeyboardMouseBinds", bind);
 
-            loadedBind.Keycode = OS.FindKeycodeFromString(keyEvent);
-            inputs[0] = loadedBind;
+            if (keyEvent.Contains("Mouse"))
+            {
+                InputEventMouseButton loadedButton = new();
+                loadedButton.ButtonIndex = (MouseButton)int.Parse(keyEvent.Replace("Mouse", ""));
+                inputs[0] = loadedButton;
+            }
+            else
+            {
+                InputEventKey loadedKey = new();
+                loadedKey.Keycode = OS.FindKeycodeFromString(keyEvent);
+                inputs[0] = loadedKey;
+            }
             
             InputMap.ActionEraseEvents(bind);
 

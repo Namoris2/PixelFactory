@@ -46,10 +46,14 @@ public partial class KeyBindEdit : Button
 		editingAction = false;
 		Disabled = false;
 
-		settingsHandler.SaveConfigFile("KeyboardMouseBinds", actionType, keyLabel.Text);
+		string bind = keyLabel.Text;
+		if (@event is InputEventMouse)
+		{
+			InputEventMouseButton button = @event as InputEventMouseButton;
+			bind = "Mouse" + (int)button.ButtonIndex;
+		}
 
-		/*GD.Print(inputs);
-		GD.Print(InputMap.ActionGetEvents(actionType), "\n");*/
+		settingsHandler.SaveConfigFile("KeyboardMouseBinds", actionType, bind);
 	}
 
 	void ToggleEditing()
