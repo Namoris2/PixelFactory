@@ -1,3 +1,4 @@
+res://Scenes/UI/Menu
 res://Scenes/UI/Settings
 res://Scenes
 res://Scenes/Game/World/BuildingParts
@@ -19,4 +20,3 @@ res://Scenes/UI/MainMenu/DeleteSaveDialog
 res://Scenes/UI/Inventory
 C:/Users/namor/OneDrive/Dokumenty/Godot/PixelFactoryBuilds
 C:/Users/namor/OneDrive/Dokumenty/Godot
-res://Gimp
