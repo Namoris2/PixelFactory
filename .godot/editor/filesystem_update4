@@ -7,8 +7,8 @@ res://Scenes/main.tscn
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/UI/BuildMenu/BuildMenu.tscn
 res://Scenes/UI/Settings/KeyBindsMenu.tscn
-res://Scenes/UI/Settings/KeyBindEdit.tscn
 res://Scenes/UI/Pause Menu/PauseMenu.tscn
+res://Scenes/UI/Menu/ExitGame.tscn
 res://Scenes/Game/GameEvents.cs
 res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/World/AnimatedBuildingPartsController.cs
