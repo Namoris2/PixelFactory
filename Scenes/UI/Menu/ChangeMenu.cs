@@ -3,18 +3,14 @@ using System;
 
 public partial class ChangeMenu : Button
 {
-	[Export] 
-	int HomeIndex = 0;
-	[Export] 
-	int IndexOffset = 0;
-	[Export] 
-	bool GoHome = false;
+	[Export] int HomeIndex = 0;
+	[Export] int IndexOffset = 0;
+	[Export] bool GoHome = false;
+	[Export] string GroupName;
 
-	[Signal]
-	public delegate void ShowInfoEventHandler();
+	[Signal] public delegate void ShowInfoEventHandler();
 
-	[Signal]
-	public delegate void HideInfoEventHandler();
+	[Signal] public delegate void HideInfoEventHandler();
 
 
 	private TabContainer tabContainer;
@@ -22,8 +18,8 @@ public partial class ChangeMenu : Button
 	public override void _Ready()
 	{
 		Pressed += ChangeTab;
-
-		tabContainer = (TabContainer)GetTree().GetNodesInGroup("MainMenuTabs")[0];
+		
+		tabContainer = (TabContainer)GetTree().GetNodesInGroup(GroupName)[0];
 
 		MouseEntered += ShowButtonInfo;
 		MouseExited += HideButtonInfo;
