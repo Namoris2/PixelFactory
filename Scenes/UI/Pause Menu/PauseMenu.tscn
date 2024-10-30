@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxn21jfq72eky"]
+[gd_scene load_steps=8 format=3 uid="uid://bxn21jfq72eky"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Pause Menu/PauseMenu.cs" id="1_e0k0e"]
 [ext_resource type="Theme" uid="uid://037hqw0mionk" path="res://Themes/UI.tres" id="1_w0e10"]
 [ext_resource type="Script" path="res://Scenes/UI/Save and Load/SaveGame.cs" id="2_13ohj"]
+[ext_resource type="Script" path="res://Scenes/UI/Pause Menu/Unpause.cs" id="3_6ohx1"]
 [ext_resource type="Script" path="res://Scenes/UI/Menu/ChangeMenu.cs" id="3_63baq"]
 [ext_resource type="Script" path="res://Scenes/UI/Pause Menu/SaveQuit.cs" id="3_evhqq"]
 [ext_resource type="PackedScene" uid="uid://dddibunucrhbo" path="res://Scenes/UI/Settings/SettingsContainer.tscn" id="6_yh32d"]
@@ -44,6 +45,7 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Back to Game"
+script = ExtResource("3_6ohx1")
 metadata/_edit_use_anchors_ = true
 
 [node name="Settings" type="Button" parent="TabContainer/Menu/VBoxContainer"]
