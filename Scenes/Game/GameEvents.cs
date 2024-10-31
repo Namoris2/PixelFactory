@@ -40,6 +40,7 @@ public partial class GameEvents : Node
             }
             else if (buildMenu.Visible)
             {
+                camera.toggleZoom = true;
                 buildMenu.ToggleBuildMode();
             }
             else if (inventories.Visible)
@@ -61,9 +62,16 @@ public partial class GameEvents : Node
                     worldInfo.Visible = !inventories.Visible;
                 }
             }
+
             if (@event.IsActionPressed("Interact"))
             {
                 ToggleBuildingInventory(!inventories.Visible);
+            }
+
+            if (@event.IsActionPressed("ToggleBuildMode"))
+            {
+                buildMenu.ToggleBuildMode();
+                camera.toggleZoom = !buildMenu.Visible;
             }
         }
     }
