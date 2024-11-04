@@ -200,7 +200,7 @@
     },
     "SteelBeam": {
         "name" : "Steel Beam",
-        "cyclesPerMinute" : 4,
+        "cyclesPerMinute" : 15,
         "input" : [
             {
                 "name" : "SteelIngot",
@@ -211,6 +211,22 @@
             {
                 "name" : "SteelBeam",
                 "amount" : 1
+            }
+        ]
+    },
+    "SteelPipe": {
+        "name" : "Steel Pipe",
+        "cyclesPerMinute" : 10,
+        "input" : [
+            {
+                "name" : "SteelIngot",
+                "amount" : 3
+            }
+        ],
+        "output" : [
+            {
+                "name" : "SteelPipe",
+                "amount" : 2
             }
         ]
     },

@@ -135,6 +135,11 @@ layout_mode = 2
 DisplayName = "SteelBeam"
 Type = "recipe"
 
+[node name="SteelPipe" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
+layout_mode = 2
+DisplayName = "SteelPipe"
+Type = "recipe"
+
 [node name="Assembler" type="TabBar" parent="TabContainer/Recipes" groups=["Recipes"]]
 visible = false
 layout_mode = 2
