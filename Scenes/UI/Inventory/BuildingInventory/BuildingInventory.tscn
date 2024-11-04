@@ -130,6 +130,11 @@ layout_mode = 2
 DisplayName = "CopperSheet"
 Type = "recipe"
 
+[node name="SteelBeam" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
+layout_mode = 2
+DisplayName = "SteelBeam"
+Type = "recipe"
+
 [node name="Assembler" type="TabBar" parent="TabContainer/Recipes" groups=["Recipes"]]
 visible = false
 layout_mode = 2

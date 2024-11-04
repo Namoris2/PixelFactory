@@ -155,6 +155,10 @@ itemType = "Cable"
 layout_mode = 2
 itemType = "CopperSheet"
 
+[node name="SteelBeam" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "SteelBeam"
+
 [node name="ReinforcedIronPlate" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
 layout_mode = 2
 itemType = "ReinforcedIronPlate"

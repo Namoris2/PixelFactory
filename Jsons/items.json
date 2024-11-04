@@ -82,6 +82,12 @@
 		"maxStackSize" : 200,
 		"atlasCoords" : [2, 3]
 	},
+	"SteelBeam" : {
+		"type" : "SteelBeam",
+		"name" : "Steel Beam",
+		"maxStackSize" : 200,
+		"atlasCoords" : [0, 2]
+	},
 	"Concrete" : {
 		"type" : "Concrete",
 		"name" : "Concrete",

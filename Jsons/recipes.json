@@ -198,6 +198,22 @@
             }
         ]
     },
+    "SteelBeam": {
+        "name" : "Steel Beam",
+        "cyclesPerMinute" : 4,
+        "input" : [
+            {
+                "name" : "SteelIngot",
+                "amount" : 4
+            }
+        ],
+        "output" : [
+            {
+                "name" : "SteelBeam",
+                "amount" : 1
+            }
+        ]
+    },
     "Concrete" : {
         "name" : "Concrete",
         "cyclesPerMinute" : 15,
