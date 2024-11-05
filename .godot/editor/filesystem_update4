@@ -58,3 +58,5 @@ res://Scenes/UI/Settings/KeyBindsMenu.cs
 res://Scenes/UI/Settings/SettingsHandler.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/UIToggle.cs
+res://Scenes/UI/Settings/KeyBindsMenu.tscn
+res://Scenes/UI/Settings/SettingsContainer.tscn

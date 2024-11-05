@@ -5,19 +5,14 @@
 [node name="KeyBindsMenu" type="Control"]
 custom_minimum_size = Vector2(0, 800)
 layout_mode = 3
-anchor_left = 0.0958333
-anchor_top = 0.0648148
-anchor_right = 0.904167
-anchor_bottom = 0.834259
-offset_top = 129.0
-offset_right = -0.00012207
-offset_bottom = 129.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 script = ExtResource("1_b0dp0")
-metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="Panel" parent="."]
 visible = false
@@ -35,8 +30,8 @@ anchors_preset = -1
 anchor_top = 0.155235
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -129.0
-offset_bottom = -129.0
+offset_top = -128.654
+offset_bottom = -123.0
 
 [node name="ResetBinds" type="Button" parent="."]
 custom_minimum_size = Vector2(440, 80)
@@ -46,10 +41,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -224.0
-offset_top = -228.0
-offset_right = 216.0
-offset_bottom = -148.0
+offset_left = -219.0
+offset_top = -132.0
+offset_right = 221.0
+offset_bottom = -52.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 30
