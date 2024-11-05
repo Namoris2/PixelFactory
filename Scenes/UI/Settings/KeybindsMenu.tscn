@@ -3,14 +3,15 @@
 [ext_resource type="Script" path="res://Scenes/UI/Settings/KeyBindsMenu.cs" id="1_b0dp0"]
 
 [node name="KeyBindsMenu" type="Control"]
-custom_minimum_size = Vector2(0, 600)
+custom_minimum_size = Vector2(0, 800)
 layout_mode = 3
 anchor_left = 0.0958333
-anchor_top = 0.187037
+anchor_top = 0.0648148
 anchor_right = 0.904167
-anchor_bottom = 0.287037
-offset_top = -132.0
-offset_bottom = 360.0
+anchor_bottom = 0.834259
+offset_top = 129.0
+offset_right = -0.00012207
+offset_bottom = 129.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -30,10 +31,26 @@ metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_top = 0.155235
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 93.0
-offset_bottom = 93.0
+offset_top = -129.0
+offset_bottom = -129.0
+
+[node name="ResetBinds" type="Button" parent="."]
+custom_minimum_size = Vector2(440, 80)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -224.0
+offset_top = -228.0
+offset_right = 216.0
+offset_bottom = -148.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 30
+text = "Reset Binds"

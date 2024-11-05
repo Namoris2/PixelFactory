@@ -18,11 +18,15 @@ public partial class KeyBindsMenu : Control
 		{ "ToggleDismantleMode", "Dismantle Mode" },
 		{ "ToggleInventory", "Open Inventory" },
 	};
-	
+
 	Node buttonsContainer;
+	Button resetBinds;
+	
 	public override void _Ready()
 	{
 		buttonsContainer = GetNode<Node>("VBoxContainer");
+		resetBinds = GetNode<Button>("ResetBinds");
+		resetBinds.Pressed += ResetBinds;
 		
 		foreach (KeyValuePair<string,string> action in actions)
 		{
@@ -43,5 +47,13 @@ public partial class KeyBindsMenu : Control
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+	}
+
+	void ResetBinds()
+	{
+		foreach (KeyBindEdit keyBindEdit in buttonsContainer.GetChildren())
+		{
+			keyBindEdit.SetBind(SettingsHandler.defaultBinds[keyBindEdit.actionType]);
+		}
 	}
 }

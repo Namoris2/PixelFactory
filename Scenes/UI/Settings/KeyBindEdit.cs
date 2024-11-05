@@ -6,6 +6,7 @@ public partial class KeyBindEdit : Button
 {
 	// Called when the node enters the scene tree for the first time.
 	SettingsHandler settingsHandler;
+	public InputEvent defaultKeyBind;
 	Label keyLabel;
 	bool editingAction = false;
 	[Export] public string actionType;
@@ -33,6 +34,18 @@ public partial class KeyBindEdit : Button
 			return; 
 		}
 		
+		SetBind(@event);
+	}
+
+	void ToggleEditing()
+	{
+		editingAction = true;
+		Disabled = true;
+		keyLabel.Text = "Press Key to Bind...";
+	}
+
+	public void SetBind(InputEvent @event)
+	{
 		Array<InputEvent> inputs = InputMap.ActionGetEvents(actionType);
 		inputs[0] = @event;
 		InputMap.ActionEraseEvents(actionType);
@@ -42,7 +55,7 @@ public partial class KeyBindEdit : Button
 			InputMap.ActionAddEvent(actionType, inputs[i]);
 		}
 
-		keyLabel.Text = inputs[0].AsText();
+		keyLabel.Text = inputs[0].AsText().TrimSuffix(" (Physical)");
 		editingAction = false;
 		Disabled = false;
 
@@ -54,12 +67,5 @@ public partial class KeyBindEdit : Button
 		}
 
 		settingsHandler.SaveConfigFile("KeyboardMouseBinds", actionType, bind);
-	}
-
-	void ToggleEditing()
-	{
-		editingAction = true;
-		Disabled = true;
-		keyLabel.Text = "Press Key to Bind...";
 	}
 }

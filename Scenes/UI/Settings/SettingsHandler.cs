@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public partial class SettingsHandler : Node
 {	readonly string[] keyBinds = new string[] { "MoveUp", "MoveDown", "MoveLeft", "MoveRight","Sprint","Interact","Rotate", "ToggleBuildMode", "ToggleDismantleMode", "ToggleInventory"};
+    public static Dictionary<string, InputEvent> defaultBinds = new();
     const string configPath = "user://settings.ini";
     ConfigFile configFile = new();
     public override void _Ready()
@@ -23,7 +24,10 @@ public partial class SettingsHandler : Node
         // Set config values
         foreach (string keyBind in keyBinds)
         {
-            configFile.SetValue("KeyboardMouseBinds", keyBind, InputMap.ActionGetEvents(keyBind)[0].AsText().TrimSuffix(" (Physical)"));
+            InputEvent defaultBind = InputMap.ActionGetEvents(keyBind)[0];
+            defaultBinds.Add(keyBind, defaultBind);
+
+            configFile.SetValue("KeyboardMouseBinds", keyBind, defaultBind.AsText().TrimSuffix(" (Physical)"));
         }
 
         configFile.Save(configPath);
@@ -35,12 +39,15 @@ public partial class SettingsHandler : Node
         Error err = configFile.Load(configPath);
         if (err != Error.Ok) { return; }
 
-        string[] keyBinds = configFile.GetSectionKeys("KeyboardMouseBinds");
+        string[] keyLoadedBinds = configFile.GetSectionKeys("KeyboardMouseBinds");
 
-        foreach (string bind in keyBinds)
+        foreach (string keyBind in keyLoadedBinds)
         {
-            Godot.Collections.Array<InputEvent> inputs = InputMap.ActionGetEvents(bind);
-            string keyEvent = (string)configFile.GetValue("KeyboardMouseBinds", bind);
+            InputEvent defaultBind = InputMap.ActionGetEvents(keyBind)[0];
+            defaultBinds.Add(keyBind, defaultBind);
+
+            Godot.Collections.Array<InputEvent> inputs = InputMap.ActionGetEvents(keyBind);
+            string keyEvent = (string)configFile.GetValue("KeyboardMouseBinds", keyBind);
 
             if (keyEvent.Contains("Mouse"))
             {
@@ -55,11 +62,11 @@ public partial class SettingsHandler : Node
                 inputs[0] = loadedKey;
             }
             
-            InputMap.ActionEraseEvents(bind);
+            InputMap.ActionEraseEvents(keyBind);
 
             for (int i = 0; i < inputs.Count; i++)
             {
-                InputMap.ActionAddEvent(bind, inputs[i]);
+                InputMap.ActionAddEvent(keyBind, inputs[i]);
             }
         }
     }
