@@ -1,9 +1,8 @@
-res://Scenes/UI/Settings/KeyBindsMenu.tscn
+res://Scenes/main.tscn
 res://Themes/InventorySlot.tres
 res://Themes/UI.tres
 res://Scenes/UI/Menu/ChangeMenu.cs
 res://Scenes/UI/Save and Load/LoadGame.cs
-res://Scenes/main.tscn
 res://Scenes/UI/MainMenu/MainMenu.tscn
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/UI/BuildMenu/BuildMenu.tscn
@@ -59,4 +58,3 @@ res://Scenes/UI/Settings/KeyBindsMenu.cs
 res://Scenes/UI/Settings/SettingsHandler.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/UIToggle.cs
-res://Scenes/UI/Settings/SettingsContainer.tscn

@@ -288,7 +288,7 @@
     "beltArm1" : {
         "buildingType" : "beltArm",
         "type" : "beltArm1",
-        "name" : "Conveyor Arm MK1",
+        "name" : "Conveyor Bridge MK1",
         "description" : "Moves items between building and Conveyor Belt or between two different Conveyor Belts\n\nCan transfer 60 item per minute\nReach: 1\n\nSize: 1x1",
         "cost" : [
             {
@@ -317,7 +317,7 @@
     "beltArm2" : {
         "buildingType" : "beltArm",
         "type" : "beltArm2",
-        "name" : "Conveyor Arm MK2",
+        "name" : "Conveyor Bridge MK2",
         "description" : "Moves items between building and Conveyor Belt or between two different Conveyor Belts\n\nCan transfer 120 item per minute\nReach: 1\n\nSize: 1x1",
         "cost" : [
             {
@@ -346,7 +346,7 @@
     "beltArm2Long" : {
         "buildingType" : "beltArm",
         "type" : "beltArm2Long",
-        "name" : "Conveyor Arm MK2 Long",
+        "name" : "Conveyor Bridge MK2 Long",
         "description" : "Moves items between building and Conveyor Belt or between two different Conveyor Belts\n\nCan transfer 120 item per minute\nReach: 2\n\nSize: 1x1",
         "cost" : [
             {
