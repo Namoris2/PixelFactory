@@ -32,24 +32,16 @@ public partial class CollapsingMenu : VBoxContainer
 
 	void ToggleCollapse()
 	{
+		items.Visible = collapsed;
 		collapsed = !collapsed;
+
 		if (collapsed)
 		{
 			icon.Texture = icons[1];
-
-			foreach (Control item in items.GetChildren())
-			{
-				item.Hide();
-			}
 		}
 		else
 		{
 			icon.Texture = icons[0];
-
-			foreach (Control item in items.GetChildren())
-			{
-				item.Show();
-			}
 		}
 	}
 }
