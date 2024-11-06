@@ -1,0 +1,55 @@
+Items
+Ingots
+	IronIngot
+	CopperIngot
+	SteelIngot
+
+Standard Parts
+	IronPlate
+	IronRod
+	Screw
+	ReinforcedIronPlate
+	ModularFrame
+	CopperSheet
+	SteelBeam
+	SteelPipe
+	EncasedIndustrialBeam
+
+Electronics
+	Wire
+	Cable
+
+Compounds
+	Concrete
+
+Industrial Parts
+	Rotor
+	Stator
+	Motor
+
+Buildings
+*Production*
+Manufacturers
+	Constructor
+	Assembler
+
+Smelters
+	Smelter
+	Foundry
+
+Miners
+	SmallDrill
+	MediumDrill
+
+*Logistics*
+Conveyor Belts
+	ConveyorBelt 1-3
+
+Conveyor Bridges
+	ConveyorArm 1-3
+	ConveyorArmLong 1-3
+
+*Organization*
+Storage
+	SmallStorage
+	MediumStorage

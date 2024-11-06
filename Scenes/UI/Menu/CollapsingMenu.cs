@@ -10,16 +10,19 @@ public partial class CollapsingMenu : VBoxContainer
 	Button button;
 	TextureRect icon;
 	Label nameLabel;
-	HFlowContainer items;
+	Control items;
+
+	float labelWidth;
 	public override void _Ready()
 	{
 		button = GetNode<Button>("Button");
 		icon = GetNode<TextureRect>("Button/HBoxContainer/Icon");
 		nameLabel = GetNode<Label>("Button/HBoxContainer/Name");
-		items = GetNode<HFlowContainer>("Items");
+		items = GetNode<Control>("Items");
 
 		button.Pressed += ToggleCollapse;
 		nameLabel.Text = name;
+		labelWidth = nameLabel.Size.X;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

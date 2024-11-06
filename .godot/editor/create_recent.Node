@@ -1,3 +1,6 @@
+HBoxContainer
+HSplitContainer
+MarginContainer
 VBoxContainer
 Control
 Button
@@ -10,5 +13,3 @@ TabContainer
 VFlowContainer
 Panel
 ScrollContainer
-HBoxContainer
-Label
