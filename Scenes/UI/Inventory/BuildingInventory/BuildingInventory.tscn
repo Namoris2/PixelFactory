@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dyxbbw8tmug2l"]
+[gd_scene load_steps=8 format=3 uid="uid://dyxbbw8tmug2l"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.cs" id="1_10j8y"]
 [ext_resource type="PackedScene" uid="uid://cycrfkkc7xrqg" path="res://Scenes/UI/Menu/MenuSelect.tscn" id="2_amxgm"]
 [ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="2_e53n2"]
+[ext_resource type="PackedScene" uid="uid://c2khkmfyip0p7" path="res://Scenes/UI/Menu/CollapsingMenu.tscn" id="3_thli6"]
 [ext_resource type="Texture2D" uid="uid://5676axmk8hit" path="res://Gimp/UI/Inventory/BuildingInventory.png" id="3_xg42y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0f5jq"]
@@ -38,11 +39,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 30
-current_tab = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Recipes" type="TabContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 tabs_visible = false
 metadata/_edit_use_anchors_ = true
@@ -50,21 +49,25 @@ metadata/_edit_use_anchors_ = true
 [node name="Smelter" type="TabBar" parent="TabContainer/Recipes" groups=["Recipes"]]
 layout_mode = 2
 
-[node name="FlowContainer" type="FlowContainer" parent="TabContainer/Recipes/Smelter"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Recipes/Smelter"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.01389
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="IronIngot" parent="TabContainer/Recipes/Smelter/FlowContainer" instance=ExtResource("2_amxgm")]
+[node name="Ingots" parent="TabContainer/Recipes/Smelter/VBoxContainer" instance=ExtResource("3_thli6")]
+layout_mode = 2
+name = "Ingots"
+
+[node name="IronIngot" parent="TabContainer/Recipes/Smelter/VBoxContainer/Ingots/Items" index="0" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "IronIngot"
 Type = "recipe"
 
-[node name="CopperIngot" parent="TabContainer/Recipes/Smelter/FlowContainer" instance=ExtResource("2_amxgm")]
+[node name="CopperIngot" parent="TabContainer/Recipes/Smelter/VBoxContainer/Ingots/Items" index="1" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "CopperIngot"
 Type = "recipe"
@@ -73,16 +76,20 @@ Type = "recipe"
 visible = false
 layout_mode = 2
 
-[node name="FlowContainer" type="FlowContainer" parent="TabContainer/Recipes/Foundry"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Recipes/Foundry"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.01389
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="SteelIngot" parent="TabContainer/Recipes/Foundry/FlowContainer" instance=ExtResource("2_amxgm")]
+[node name="Ingots" parent="TabContainer/Recipes/Foundry/VBoxContainer" instance=ExtResource("3_thli6")]
+layout_mode = 2
+name = "Ingots"
+
+[node name="SteelIngot" parent="TabContainer/Recipes/Foundry/VBoxContainer/Ingots/Items" index="0" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "SteelIngot"
 Type = "recipe"
@@ -91,84 +98,101 @@ Type = "recipe"
 visible = false
 layout_mode = 2
 
-[node name="FlowContainer" type="FlowContainer" parent="TabContainer/Recipes/Constructor"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Recipes/Constructor"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.01389
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="IronPlate" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
+[node name="StandardParts" parent="TabContainer/Recipes/Constructor/VBoxContainer" instance=ExtResource("3_thli6")]
+layout_mode = 2
+name = "Standard Parts"
+
+[node name="IronPlate" parent="TabContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="0" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "IronPlate"
 Type = "recipe"
 
-[node name="IronRod" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
+[node name="IronRod" parent="TabContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="1" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "IronRod"
 Type = "recipe"
 
-[node name="Screws" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
+[node name="Screws" parent="TabContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="2" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "Screws"
 Type = "recipe"
 
-[node name="Wire" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
-layout_mode = 2
-DisplayName = "Wire"
-Type = "recipe"
-
-[node name="Cable" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
-layout_mode = 2
-DisplayName = "Cable"
-Type = "recipe"
-
-[node name="CopperSheet" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
+[node name="CopperSheet" parent="TabContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="3" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "CopperSheet"
 Type = "recipe"
 
-[node name="SteelBeam" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
+[node name="SteelBeam" parent="TabContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="4" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "SteelBeam"
 Type = "recipe"
 
-[node name="SteelPipe" parent="TabContainer/Recipes/Constructor/FlowContainer" instance=ExtResource("2_amxgm")]
+[node name="SteelPipe" parent="TabContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="5" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "SteelPipe"
+Type = "recipe"
+
+[node name="Electronics" parent="TabContainer/Recipes/Constructor/VBoxContainer" instance=ExtResource("3_thli6")]
+layout_mode = 2
+name = "Electronics"
+
+[node name="Wire" parent="TabContainer/Recipes/Constructor/VBoxContainer/Electronics/Items" index="0" instance=ExtResource("2_amxgm")]
+layout_mode = 2
+DisplayName = "Wire"
+Type = "recipe"
+
+[node name="Cable" parent="TabContainer/Recipes/Constructor/VBoxContainer/Electronics/Items" index="1" instance=ExtResource("2_amxgm")]
+layout_mode = 2
+DisplayName = "Cable"
 Type = "recipe"
 
 [node name="Assembler" type="TabBar" parent="TabContainer/Recipes" groups=["Recipes"]]
 visible = false
 layout_mode = 2
 
-[node name="FlowContainer" type="FlowContainer" parent="TabContainer/Recipes/Assembler"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Recipes/Assembler"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.01389
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="ReinforcedIronPlate" parent="TabContainer/Recipes/Assembler/FlowContainer" instance=ExtResource("2_amxgm")]
+[node name="StandardParts" parent="TabContainer/Recipes/Assembler/VBoxContainer" instance=ExtResource("3_thli6")]
+layout_mode = 2
+name = "Standard Parts"
+
+[node name="ReinforcedIronPlate" parent="TabContainer/Recipes/Assembler/VBoxContainer/StandardParts/Items" index="0" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "ReinforcedIronPlate"
 Type = "recipe"
 
-[node name="Rotor" parent="TabContainer/Recipes/Assembler/FlowContainer" instance=ExtResource("2_amxgm")]
-layout_mode = 2
-DisplayName = "Rotor"
-Type = "recipe"
-
-[node name="ModularFrame" parent="TabContainer/Recipes/Assembler/FlowContainer" instance=ExtResource("2_amxgm")]
+[node name="ModularFrame" parent="TabContainer/Recipes/Assembler/VBoxContainer/StandardParts/Items" index="1" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "ModularFrame"
 Type = "recipe"
 
+[node name="IndustrialParts" parent="TabContainer/Recipes/Assembler/VBoxContainer" instance=ExtResource("3_thli6")]
+layout_mode = 2
+name = "Industrial Parts"
+
+[node name="Rotor" parent="TabContainer/Recipes/Assembler/VBoxContainer/IndustrialParts/Items" index="0" instance=ExtResource("2_amxgm")]
+layout_mode = 2
+DisplayName = "Rotor"
+Type = "recipe"
+
 [node name="Building" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="TabContainer/Building"]
@@ -548,3 +572,10 @@ theme_override_styles/background = SubResource("StyleBoxFlat_0f5jq")
 theme_override_styles/fill = SubResource("StyleBoxFlat_6dtkl")
 max_value = 1.0
 metadata/_edit_use_anchors_ = true
+
+[editable path="TabContainer/Recipes/Smelter/VBoxContainer/Ingots"]
+[editable path="TabContainer/Recipes/Foundry/VBoxContainer/Ingots"]
+[editable path="TabContainer/Recipes/Constructor/VBoxContainer/StandardParts"]
+[editable path="TabContainer/Recipes/Constructor/VBoxContainer/Electronics"]
+[editable path="TabContainer/Recipes/Assembler/VBoxContainer/StandardParts"]
+[editable path="TabContainer/Recipes/Assembler/VBoxContainer/IndustrialParts"]

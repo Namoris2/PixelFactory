@@ -1,7 +1,7 @@
+VBoxContainer
 HBoxContainer
 HSplitContainer
 MarginContainer
-VBoxContainer
 Control
 Button
 HFlowContainer
@@ -12,4 +12,3 @@ AnimatedSprite2D
 TabContainer
 VFlowContainer
 Panel
-ScrollContainer
