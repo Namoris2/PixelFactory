@@ -127,6 +127,7 @@ DisplayName = "Screws"
 Type = "recipe"
 
 [node name="CopperSheet" parent="TabContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="3" instance=ExtResource("2_amxgm")]
+visible = false
 layout_mode = 2
 DisplayName = "CopperSheet"
 Type = "recipe"

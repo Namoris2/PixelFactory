@@ -162,6 +162,7 @@ layout_mode = 2
 itemType = "ModularFrame"
 
 [node name="CopperSheet" parent="ColorRect/ItemsScrollContainer/ItemsContainer/StandardParts/Items" index="5" instance=ExtResource("1_caiuq")]
+visible = false
 layout_mode = 2
 itemType = "CopperSheet"
 
