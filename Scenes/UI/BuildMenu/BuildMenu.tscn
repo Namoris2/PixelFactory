@@ -36,11 +36,11 @@ theme_override_constants/v_separation = 0
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Manufacturing" type="Button" parent="VFlowContainer"]
+[node name="Production" type="Button" parent="VFlowContainer"]
 custom_minimum_size = Vector2(170, 170)
 layout_mode = 2
 disabled = true
-text = "MANUFACTURING"
+text = "PRODUCTION"
 script = ExtResource("1_jxuxl")
 
 [node name="Logistics" type="Button" parent="VFlowContainer"]
@@ -66,54 +66,54 @@ anchor_bottom = 1.0
 tabs_visible = false
 metadata/_edit_use_anchors_ = true
 
-[node name="Manufacturing" type="Control" parent="TabContainer"]
+[node name="Production" type="Control" parent="TabContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Manufacturing"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Production"]
 layout_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Drills" parent="TabContainer/Manufacturing/VBoxContainer" instance=ExtResource("2_k0wev")]
+[node name="Drills" parent="TabContainer/Production/VBoxContainer" instance=ExtResource("2_k0wev")]
 layout_mode = 2
 name = "Drills"
 
-[node name="smallDrill" parent="TabContainer/Manufacturing/VBoxContainer/Drills/Items" index="0" instance=ExtResource("1_oydjw")]
+[node name="smallDrill" parent="TabContainer/Production/VBoxContainer/Drills/Items" index="0" instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "smallDrill"
 Type = "building"
 
-[node name="mediumDrill" parent="TabContainer/Manufacturing/VBoxContainer/Drills/Items" index="1" instance=ExtResource("1_oydjw")]
+[node name="mediumDrill" parent="TabContainer/Production/VBoxContainer/Drills/Items" index="1" instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "mediumDrill"
 Type = "building"
 
-[node name="Smelters" parent="TabContainer/Manufacturing/VBoxContainer" instance=ExtResource("2_k0wev")]
+[node name="Smelters" parent="TabContainer/Production/VBoxContainer" instance=ExtResource("2_k0wev")]
 layout_mode = 2
 name = "Smelters"
 
-[node name="smelter" parent="TabContainer/Manufacturing/VBoxContainer/Smelters/Items" index="0" instance=ExtResource("1_oydjw")]
+[node name="smelter" parent="TabContainer/Production/VBoxContainer/Smelters/Items" index="0" instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "smelter"
 Type = "building"
 
-[node name="foundry" parent="TabContainer/Manufacturing/VBoxContainer/Smelters/Items" index="1" instance=ExtResource("1_oydjw")]
+[node name="foundry" parent="TabContainer/Production/VBoxContainer/Smelters/Items" index="1" instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "foundry"
 Type = "building"
 
-[node name="Manufacturers" parent="TabContainer/Manufacturing/VBoxContainer" instance=ExtResource("2_k0wev")]
+[node name="Manufacturers" parent="TabContainer/Production/VBoxContainer" instance=ExtResource("2_k0wev")]
 layout_mode = 2
 name = "Manufacturers"
 
-[node name="constructor" parent="TabContainer/Manufacturing/VBoxContainer/Manufacturers/Items" index="0" instance=ExtResource("1_oydjw")]
+[node name="constructor" parent="TabContainer/Production/VBoxContainer/Manufacturers/Items" index="0" instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "constructor"
 Type = "building"
 
-[node name="assembler" parent="TabContainer/Manufacturing/VBoxContainer/Manufacturers/Items" index="1" instance=ExtResource("1_oydjw")]
+[node name="assembler" parent="TabContainer/Production/VBoxContainer/Manufacturers/Items" index="1" instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "assembler"
 Type = "building"
@@ -242,9 +242,9 @@ horizontal_alignment = 1
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[editable path="TabContainer/Manufacturing/VBoxContainer/Drills"]
-[editable path="TabContainer/Manufacturing/VBoxContainer/Smelters"]
-[editable path="TabContainer/Manufacturing/VBoxContainer/Manufacturers"]
+[editable path="TabContainer/Production/VBoxContainer/Drills"]
+[editable path="TabContainer/Production/VBoxContainer/Smelters"]
+[editable path="TabContainer/Production/VBoxContainer/Manufacturers"]
 [editable path="TabContainer/Logistics/VBoxContainer/ConveyorBelts"]
 [editable path="TabContainer/Logistics/VBoxContainer/ConveyorBridges"]
 [editable path="TabContainer/Organization/VBoxContainer/StorageContainers"]
