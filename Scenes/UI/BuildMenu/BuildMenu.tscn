@@ -76,16 +76,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Extractors" parent="TabContainer/Manufacturing/VBoxContainer" instance=ExtResource("2_k0wev")]
+[node name="Drills" parent="TabContainer/Manufacturing/VBoxContainer" instance=ExtResource("2_k0wev")]
 layout_mode = 2
-name = "Extractors"
+name = "Drills"
 
-[node name="smallDrill" parent="TabContainer/Manufacturing/VBoxContainer/Extractors/Items" index="0" instance=ExtResource("1_oydjw")]
+[node name="smallDrill" parent="TabContainer/Manufacturing/VBoxContainer/Drills/Items" index="0" instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "smallDrill"
 Type = "building"
 
-[node name="mediumDrill" parent="TabContainer/Manufacturing/VBoxContainer/Extractors/Items" index="1" instance=ExtResource("1_oydjw")]
+[node name="mediumDrill" parent="TabContainer/Manufacturing/VBoxContainer/Drills/Items" index="1" instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "mediumDrill"
 Type = "building"
@@ -242,7 +242,7 @@ horizontal_alignment = 1
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[editable path="TabContainer/Manufacturing/VBoxContainer/Extractors"]
+[editable path="TabContainer/Manufacturing/VBoxContainer/Drills"]
 [editable path="TabContainer/Manufacturing/VBoxContainer/Smelters"]
 [editable path="TabContainer/Manufacturing/VBoxContainer/Manufacturers"]
 [editable path="TabContainer/Logistics/VBoxContainer/ConveyorBelts"]
