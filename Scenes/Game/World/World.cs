@@ -406,25 +406,13 @@ public partial class World : Godot.TileMap
 							if (nextBuilding.buildingType.ToString() == "machine") 
 							{
 								int index = GetItemIndexInRecipe(recipes[nextBuilding.recipe.ToString()], "input", item.itemType);
+								if (index == -1) { break; }
 								nextBuilding.inputSlots[index].amount += 1; 
 							}
 							
 							else
 							{
-								for (int j = 0; j < nextBuilding.slots.Count; j++)
-								{
-									if (nextBuilding.slots[j].resource.ToString() == "")
-									{
-										nextBuilding.slots[j].amount = 1;
-										nextBuilding.slots[j].resource = buildingsInfo[i].item;
-										break;
-									}
-									else if (buildingsInfo[i].item.ToString() == nextBuilding.slots[j].resource.ToString() && (int)nextBuilding.slots[j].amount < (int)items[nextBuilding.slots[j].resource.ToString()].maxStackSize)
-									{
-										nextBuilding.slots[j].amount += 1;
-										break;
-									}
-								}
+								PutItemsIntoStorage(nextCoords, 1, buildingsInfo[i].item.ToString());
 							}
 
 							item.QueueFree();
@@ -1420,6 +1408,49 @@ public partial class World : Godot.TileMap
 		return null;
 	}
 
+	public int PutItemsIntoStorage(Vector2I coords, int amount, string itemType)
+	{
+		dynamic building = GetBuildingInfo(coords);
+		int maxStackSize = (int)items[itemType].maxStackSize;
+		for (int i = 0; i < building.slots.Count; i++)
+		{
+			if (building.slots[i].resource.ToString() == itemType)
+			{
+				if ((int)building.slots[i].amount + amount <= maxStackSize)
+				{
+					building.slots[i].amount += amount;
+					return 0;
+				}
+				else if ((int)building.slots[i].amount + amount >= maxStackSize)
+				{
+					amount = amount + (int)building.slots[i].amount - maxStackSize;
+					building.slots[i].amount = maxStackSize;
+				}
+			}
+		}
+
+		// If all of items are not put their relative stack they wil be put into empty slot
+		for (int i = 0; i < building.slots.Count; i++)
+		{
+			if (building.slots[i].resource.ToString() == "")
+			{
+				if ((int)building.slots[i].amount + amount <= maxStackSize)
+				{
+					building.slots[i].resource = itemType;
+					building.slots[i].amount += amount;
+					return 0;
+				}
+				else if ((int)building.slots[i].amount + amount >= maxStackSize)
+				{
+					building.slots[i].resource = itemType;
+					amount = amount + (int)building.slots[i].amount - maxStackSize;
+					building.slots[i].amount = maxStackSize;
+				}
+			}
+		}
+		return amount;
+	}
+
 	private bool HasStorageSpace(dynamic building, string item)
 	{
 		for (int i = 0; i < building.slots.Count; i++)
@@ -1461,12 +1492,13 @@ public partial class World : Godot.TileMap
 		}
 	}
 
-	private int GetItemIndexInRecipe(dynamic recipe, string type, string item)
+	public int GetItemIndexInRecipe(dynamic recipe, string slotType, string item)
 	{
+		slotType = slotType.ToLower();
 		int index = -1;
-		for (int i = 0; i < recipe[type].Count; i++)
+		for (int i = 0; i < recipe[slotType].Count; i++)
 		{
-			if (recipe[type][i].name.ToString() == item)
+			if (recipe[slotType][i].name.ToString() == item)
 			{
 				index = i;
 				break;

@@ -18,7 +18,7 @@ public partial class BuildingInventory : Control
 	private Label resources;
 	public Label resourceProduction;
 	ProgressBar productionProgress;
-	Vector2I coordinates;
+	public Vector2I coordinates;
 	LoadFile load = new();
 	dynamic items;
 	dynamic buildings;

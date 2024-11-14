@@ -28,12 +28,14 @@ public partial class InventorySlot : Button
 	public Vector2I buildingCoordinates;
 	private World tileMap;
 	private CraftingMenu craftingMenu;
+	private BuildingInventory buildingInventory;
+	private PlayerInventory playerInventory;
+	LoadFile load = new ();
 
 	public dynamic items;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		LoadFile load = new();
 		items = load.LoadJson("items.json");
 
 		itemTexture = GetNode<TextureRect>("ItemTexture");
@@ -41,8 +43,10 @@ public partial class InventorySlot : Button
 		resourceName = GetNode<Label>("ItemName");
 		craftingMenu = (CraftingMenu)GetTree().GetNodesInGroup("CraftingMenu")[0];
 		holdingItem = GetNode<HoldingItem>("/root/main/UI/Inventories/HoldingItem");
+		buildingInventory = craftingMenu.GetParent().GetNode<BuildingInventory>("BuildingInventory");
+		playerInventory = craftingMenu.GetParent().GetNode<PlayerInventory>("PlayerInventory");
 		
-		inventorySlotIndex = this.GetIndex();
+		inventorySlotIndex = GetIndex();
 
 		textureAtlas.Atlas = GD.Load<Texture2D>("res://Gimp/Items/items.png");
 		tileMap = GetNode<World>("/root/main/World/TileMap");
@@ -93,8 +97,79 @@ public partial class InventorySlot : Button
 
 	private void PressedSlot() 
 	{
-		this.ShowHoldingItem += holdingItem.ShowHoldingItem;
-		this.HideHoldingItem += holdingItem.HideHoldingItem;
+		ShowHoldingItem += holdingItem.ShowHoldingItem;
+		HideHoldingItem += holdingItem.HideHoldingItem;
+
+		if (Input.IsKeyPressed(Key.Shift) && UserExport && resourceAmount.Text != "")
+		{
+			int amount = int.Parse(resourceAmount.Text);
+			dynamic building = buildingInventory.buildingInfo;
+			dynamic recipe = 0;
+			if (buildingInventory.buildingInfo.buildingType.ToString() == "machine")
+			{
+				recipe = load.LoadJson("recipes.json")[building.recipe.ToString()];
+			}
+
+			// Taking items from player inventory and putting it into building inventory
+			if (inventoryType == "inventory" && buildingInventory.Visible)
+			{
+				holdingItem.itemAmount = resourceAmount.Text;
+
+				if (building.buildingType.ToString() == "machine")
+				{
+					int index = tileMap.GetItemIndexInRecipe(recipe, "input", itemType);
+					if (index == -1) { return; }
+
+					int buildingAmount = (int)building.inputSlots[index].amount;
+					int maxStackSize = (int)items[itemType].maxStackSize;
+
+					if (buildingAmount + amount <= maxStackSize)
+					{
+						PutItems(-amount, maxStackSize);
+						tileMap.PutItemsToSlot(buildingInventory.coordinates, amount, itemType, "input", index);
+						itemType = "";
+						resourceAmount.Text = "";
+						UpdateSlotTexture(itemType);
+					}
+					else
+					{
+						int puttingAmount = maxStackSize - buildingAmount;
+						PutItems(-puttingAmount, maxStackSize);
+						tileMap.PutItemsToSlot(buildingInventory.coordinates, puttingAmount, itemType, "input", index);
+					}
+				}
+				else if (building.buildingType.ToString() == "storage")
+				{
+					int overflow = tileMap.PutItemsIntoStorage(buildingInventory.coordinates, amount, itemType);
+					if (overflow == 0)
+					{
+						itemType = "";
+						resourceAmount.Text = "";
+						UpdateSlotTexture(itemType);
+					}
+					else
+					{
+						resourceAmount.Text = overflow.ToString();
+					}
+				}
+			}
+
+			// Taking items from building inventory and putting it into player inventory
+			else if (inventoryType != "inventory")
+			{
+				int overflow = playerInventory.PutToInventory(itemType, amount);
+
+				tileMap.RemoveItemsFromSlot(buildingCoordinates, amount - overflow, slotType, inventorySlotIndex);
+				
+				if (inventoryType == "machine")
+				{
+
+					itemType = recipe[slotType.ToLower()][inventorySlotIndex].name;
+					building[$"{slotType.ToLower()}Slots"][inventorySlotIndex].resource = itemType;
+				}
+			}
+			return;
+		}
 
 		// taking item from slot
 		if (!holdingItem.ISHOLDINGITEM && UserExport)
@@ -115,10 +190,7 @@ public partial class InventorySlot : Button
 
 			EmitSignal(SignalName.ShowHoldingItem, itemType, removedAmount.ToString());
 			if (inventoryType == "machine")
-			{
-				World tileMap = GetNode<World>("/root/main/World/TileMap");
-				LoadFile load = new ();
-				
+			{				
 				tileMap.RemoveItemsFromSlot(buildingCoordinates, removedAmount, slotType, inventorySlotIndex);
 				
 				dynamic building = tileMap.GetBuildingInfo(buildingCoordinates);
@@ -155,8 +227,6 @@ public partial class InventorySlot : Button
 		{
 			if (inventoryType == "machine" && holdingItem.itemName == itemType)
 			{
-				World tileMap = GetNode<World>("/root/main/World/TileMap");
-
 				int amount = int.Parse(holdingItem.itemAmount);
 				int difference = PutItems(amount, (int)items[itemType].maxStackSize);
 

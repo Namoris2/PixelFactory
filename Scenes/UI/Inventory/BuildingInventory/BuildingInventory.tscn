@@ -12,7 +12,7 @@ bg_color = Color(0.027451, 0.0156863, 0.0745098, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6dtkl"]
 bg_color = Color(0.0627451, 0.0431373, 0.164706, 1)
 
-[node name="BuildingInventory" type="Control"]
+[node name="BuildingInventory" type="Control" groups=["BuildingInventory"]]
 custom_minimum_size = Vector2(910, 980)
 layout_mode = 3
 anchor_right = 0.473958
