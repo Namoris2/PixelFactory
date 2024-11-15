@@ -2694,7 +2694,7 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="PlayerInventory" parent="UI/Inventories/InventoryGrid" groups=["CanSave"] instance=ExtResource("9_a0ikk")]
+[node name="PlayerInventory" parent="UI/Inventories/InventoryGrid" groups=["CanSave", "PlayerInventory"] instance=ExtResource("9_a0ikk")]
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 4

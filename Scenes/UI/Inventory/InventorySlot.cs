@@ -43,8 +43,8 @@ public partial class InventorySlot : Button
 		resourceName = GetNode<Label>("ItemName");
 		craftingMenu = (CraftingMenu)GetTree().GetNodesInGroup("CraftingMenu")[0];
 		holdingItem = GetNode<HoldingItem>("/root/main/UI/Inventories/HoldingItem");
-		buildingInventory = craftingMenu.GetParent().GetNode<BuildingInventory>("BuildingInventory");
-		playerInventory = craftingMenu.GetParent().GetNode<PlayerInventory>("PlayerInventory");
+		buildingInventory = (BuildingInventory)GetTree().GetNodesInGroup("BuildingInventory")[0];
+		playerInventory = (PlayerInventory)GetTree().GetNodesInGroup("PlayerInventory")[0];
 		
 		inventorySlotIndex = GetIndex();
 

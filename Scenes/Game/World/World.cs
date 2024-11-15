@@ -838,8 +838,7 @@ public partial class World : Godot.TileMap
 
 		bool hasSpace = data == null; 
 		resources.Add(groundResource);
-		GD.Print(groundResource);
-
+		
 		for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
 		{
 			Vector2I additionalCoords = new((int)building.additionalAtlasPosition[i][0], (int)building.additionalAtlasPosition[i][1]);

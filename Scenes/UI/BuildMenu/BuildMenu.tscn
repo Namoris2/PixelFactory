@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bsymbesh48kwd"]
+[gd_scene load_steps=7 format=3 uid="uid://bsymbesh48kwd"]
 
 [ext_resource type="Script" path="res://Scenes/UI/BuildMenu/TabSelect.cs" id="1_jxuxl"]
 [ext_resource type="PackedScene" uid="uid://cycrfkkc7xrqg" path="res://Scenes/UI/Menu/MenuSelect.tscn" id="1_oydjw"]
 [ext_resource type="PackedScene" uid="uid://c2khkmfyip0p7" path="res://Scenes/UI/Menu/CollapsingMenu.tscn" id="2_k0wev"]
 [ext_resource type="Script" path="res://Scenes/UI/BuildMenu/BuildingInfo.cs" id="3_ss521"]
+[ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="5_uddjo"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ostt8"]
 
@@ -228,7 +229,7 @@ text = "Needed resources"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Needs" type="Label" parent="BuildingInfo"]
+[node name="NeededItems" type="HFlowContainer" parent="BuildingInfo"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0227273
@@ -236,11 +237,38 @@ anchor_top = 0.696296
 anchor_right = 0.977273
 anchor_bottom = 0.903704
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 20
-text = "needs"
-horizontal_alignment = 1
-autowrap_mode = 2
+alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="Item" parent="BuildingInfo/NeededItems" instance=ExtResource("5_uddjo")]
+visible = false
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="Item2" parent="BuildingInfo/NeededItems" instance=ExtResource("5_uddjo")]
+visible = false
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="Item3" parent="BuildingInfo/NeededItems" instance=ExtResource("5_uddjo")]
+visible = false
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="Item4" parent="BuildingInfo/NeededItems" instance=ExtResource("5_uddjo")]
+visible = false
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="Item5" parent="BuildingInfo/NeededItems" instance=ExtResource("5_uddjo")]
+visible = false
+layout_mode = 2
+UserImport = false
+UserExport = false
 
 [editable path="TabContainer/Production/VBoxContainer/Drills"]
 [editable path="TabContainer/Production/VBoxContainer/Smelters"]
