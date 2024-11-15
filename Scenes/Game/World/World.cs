@@ -413,6 +413,7 @@ public partial class World : Godot.TileMap
 							else
 							{
 								PutItemsIntoStorage(nextCoords, 1, buildingsInfo[i].item.ToString());
+
 							}
 
 							item.QueueFree();

@@ -227,11 +227,10 @@ public partial class InventorySlot : Button
 		{
 			if (inventoryType == "machine" && holdingItem.itemName == itemType)
 			{
-				int amount = int.Parse(holdingItem.itemAmount);
+				int amount = int.Parse(resourceAmount.Text);
 				int difference = PutItems(amount, (int)items[itemType].maxStackSize);
 
 				tileMap.PutItemsToSlot(buildingCoordinates, difference, itemType, slotType, inventorySlotIndex);
-				//GD.Print(itemType);
 				return;
 			}
 
@@ -336,7 +335,6 @@ public partial class InventorySlot : Button
 		holdingItem.itemAmount = (holdingAmount - difference).ToString();
 		GetNode<Label>(holdingItem.GetPath() + "/ResourceAmount").Text = holdingItem.itemAmount;
 
-		//GD.Print(difference);
 		return difference;
 	}
 }
