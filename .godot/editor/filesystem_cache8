@@ -65,9 +65,9 @@ ArrowDown.png::CompressedTexture2D::5545279911526459695::1730834734::1730834798:
 ArrowLeft.png::CompressedTexture2D::4342417904038140033::1730834723::1730834798::1::::<><>::
 ArrowRight.png::CompressedTexture2D::1437480182955586617::1730834714::1730834798::1::::<><>::
 ArrowUp.png::CompressedTexture2D::6656085316771823069::1730834746::1730834798::1::::<><>::
-::res://Gimp/Items/::1731931605
+::res://Gimp/Items/::1731932017
 ItemHolder.png::CompressedTexture2D::3002865090224841687::1724082520::1724082522::1::::<><>::
-items.png::CompressedTexture2D::6904434550548872743::1731931617::1731931621::1::::<><>::
+items.png::CompressedTexture2D::6904434550548872743::1731932024::1731932036::1::::<><>::
 ::res://Gimp/Items/Coal/::1731088003
 Coal.png::CompressedTexture2D::4100528739090829500::1731087960::1731088003::1::::<><>::
 ::res://Gimp/Items/CopperIngot/::1714928645

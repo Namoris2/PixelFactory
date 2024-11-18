@@ -98,7 +98,7 @@
 		"type" : "Concrete",
 		"name" : "Concrete",
 		"maxStackSize" : 500,
-		"atlasCoords" : "not set"
+		"atlasCoords" : [4, 1]
 	},
 
 	"Assembler" : "",

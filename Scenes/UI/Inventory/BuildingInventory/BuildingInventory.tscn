@@ -142,6 +142,15 @@ layout_mode = 2
 DisplayName = "SteelPipe"
 Type = "recipe"
 
+[node name="Compounds" parent="TabContainer/Recipes/Constructor/VBoxContainer" instance=ExtResource("3_thli6")]
+layout_mode = 2
+name = "Compounds"
+
+[node name="Concrete" parent="TabContainer/Recipes/Constructor/VBoxContainer/Compounds/Items" index="0" instance=ExtResource("2_amxgm")]
+layout_mode = 2
+DisplayName = "Concrete"
+Type = "recipe"
+
 [node name="Electronics" parent="TabContainer/Recipes/Constructor/VBoxContainer" instance=ExtResource("3_thli6")]
 layout_mode = 2
 name = "Electronics"
@@ -577,6 +586,7 @@ metadata/_edit_use_anchors_ = true
 [editable path="TabContainer/Recipes/Smelter/VBoxContainer/Ingots"]
 [editable path="TabContainer/Recipes/Foundry/VBoxContainer/Ingots"]
 [editable path="TabContainer/Recipes/Constructor/VBoxContainer/StandardParts"]
+[editable path="TabContainer/Recipes/Constructor/VBoxContainer/Compounds"]
 [editable path="TabContainer/Recipes/Constructor/VBoxContainer/Electronics"]
 [editable path="TabContainer/Recipes/Assembler/VBoxContainer/StandardParts"]
 [editable path="TabContainer/Recipes/Assembler/VBoxContainer/IndustrialParts"]
