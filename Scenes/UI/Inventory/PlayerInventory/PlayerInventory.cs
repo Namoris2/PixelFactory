@@ -61,31 +61,48 @@ public partial class PlayerInventory : Control
 
 	public int PutToInventory(string itemType, int amount)
 	{
+		int maxStackSize = (int)items[itemType].maxStackSize;
+		if (amount == 0) { return 0; }
 		for (int i = 0; i < inventorySlots.Length; i++)
 		{
-			if (amount == 0) { break; }
 			Label amountLabel = inventorySlots[i].resourceAmount;
-			
-			if (inventorySlots[i].itemType == "")
-			{
-				inventorySlots[i].itemType = itemType;
-				amountLabel.Text = amount.ToString();
-				inventorySlots[i].UpdateSlotTexture(itemType);
-				amount = 0;
-			}
-			
+
 			if (inventorySlots[i].itemType == itemType)
 			{
 				int slotAmount = int.Parse(amountLabel.Text);
-				if (amount + slotAmount <= (int)items[itemType].maxStackSize)
+				if (slotAmount + amount <= maxStackSize)
 				{
 					amountLabel.Text = (amount + slotAmount).ToString();
-					amount = 0;
+					return 0;
 				}
-				else if (slotAmount != (int)items[itemType].maxStackSize)
+				else if (slotAmount + amount >= maxStackSize)
 				{
 					amountLabel.Text = items[itemType].maxStackSize.ToString();
-					amount = amount + slotAmount - (int)items[itemType].maxStackSize;
+					amount = amount + slotAmount - maxStackSize;
+				}
+			}
+		}
+		
+		for (int i = 0; i < inventorySlots.Length; i++)
+		{
+			Label amountLabel = inventorySlots[i].resourceAmount;
+
+			if (inventorySlots[i].itemType == "")
+			{
+				int slotAmount = 0;
+				if (slotAmount + amount <= maxStackSize)
+				{
+					inventorySlots[i].itemType = itemType;
+					amountLabel.Text = amount.ToString();
+					inventorySlots[i].UpdateSlotTexture(itemType);
+					return 0;
+				}
+				else if (slotAmount + amount >= maxStackSize)
+				{
+					inventorySlots[i].itemType = itemType;
+					inventorySlots[i].UpdateSlotTexture(itemType);
+					amountLabel.Text = items[itemType].maxStackSize.ToString();
+					amount = amount + slotAmount - maxStackSize;
 				}
 			}
 		}

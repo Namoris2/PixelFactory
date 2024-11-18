@@ -1437,7 +1437,7 @@ public partial class World : Godot.TileMap
 				if ((int)building.slots[i].amount + amount <= maxStackSize)
 				{
 					building.slots[i].resource = itemType;
-					building.slots[i].amount += amount;
+					building.slots[i].amount = amount;
 					return 0;
 				}
 				else if ((int)building.slots[i].amount + amount >= maxStackSize)
