@@ -22,7 +22,7 @@
 		"type" : "Limestone",
 		"name" : "Limestone",
 		"maxStackSize" : 100,
-		"atlasCoords" : "not set"
+		"atlasCoords" : [4, 0]
 	},
 
 	"Ingots" : "",
