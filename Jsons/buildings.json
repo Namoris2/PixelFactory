@@ -1,6 +1,6 @@
 {
     "handHarvest" : {
-        "canBeUsedOn" : ["CoalOre", "CopperOre", "IronOre", "Coal"]
+        "canBeUsedOn" : ["CopperOre", "IronOre", "Limestone", "Coal"]
     },
     "buildingPart" :
     {
@@ -37,7 +37,7 @@
         "productionProgress" : 0,
         "productionMultiplier" : 1,
         "tiles" : 0,
-        "canBePlacedOn" : ["CopperOre", "IronOre", "Coal"],
+        "canBePlacedOn" : ["CopperOre", "IronOre", "Limestone", "Coal"],
         "inputSlots" : [],
         "outputSlots" : [
             {
@@ -67,7 +67,7 @@
         "productionProgress" : 0,
         "productionMultiplier" : 1.5,
         "tiles" : 0,
-        "canBePlacedOn" : ["CopperOre", "IronOre", "Coal"],
+        "canBePlacedOn" : ["CopperOre", "IronOre", "Limestone", "Coal"],
         "inputSlots" : [],
         "outputSlots" : [
             {

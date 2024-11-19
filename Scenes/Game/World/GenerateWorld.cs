@@ -10,7 +10,7 @@ using System.Threading;
 public partial class GenerateWorld : Node
 {
 
-	string[] groundTerrains = { "Grass", "Water", "IronOre", "CopperOre", "Coal" };
+	string[] groundTerrains = { "Grass", "Water", "IronOre", "CopperOre", "Limestone", "Coal" };
 	public int chunkSize = 16;
 	int generationHeight = 9;
 	int generationWidth = 13;
