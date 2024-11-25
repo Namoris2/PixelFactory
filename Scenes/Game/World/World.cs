@@ -131,10 +131,12 @@ public partial class World : Godot.TileMap
 
 		if (playerPosition != lastPlayerPosition)
 		{
-			GenerateChunks(playerPosition);
-			/*Thread generateWorld = new(() => GenerateChunks(playerPosition));
-			runningThreads.Add(generateWorld);
-			generateWorld.Start();*/
+			//GenerateChunks(playerPosition);
+			Thread generateWorldThread = new(() => GenerateChunks(playerPosition));
+			generateWorld.GenerateResource(this, seed, "Grass", playerPosition, false);
+			
+			//runningThreads.Add(generateWorldThread);
+			generateWorldThread.Start();
 
 			lastPlayerPosition = playerPosition;
 		}
@@ -567,6 +569,7 @@ public partial class World : Godot.TileMap
 			lastPlayerPosition = playerPosition;
 		}
 
+		generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
 		GenerateChunks(playerPosition);
 	}
 
@@ -574,7 +577,25 @@ public partial class World : Godot.TileMap
 
 	private void GenerateChunks(Vector2I playerPosition)
 	{
-		generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
+		//Thread generateGrass = new(() => generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true));
+		//generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
+		/*Thread generateIronOre = new(() => generateWorld.GenerateResource(this, seed, "IronOre", playerPosition));
+		Thread generateCopperOre = new(() => generateWorld.GenerateResource(this, seed, "CopperOre", playerPosition));
+		Thread generateLimestone = new(() => generateWorld.GenerateResource(this, seed, "Limestone", playerPosition));
+		Thread generateCoal = new(() => generateWorld.GenerateResource(this, seed, "Coal", playerPosition));*/
+
+		/*generateGrass.Start();
+		generateGrass.Join();
+		generateIronOre.Start();
+		generateIronOre.Join();
+		/*generateCopperOre.Start();
+		generateCopperOre.Join();
+		generateLimestone.Start();
+		generateLimestone.Join();
+		generateCoal.Start();
+		generateCoal.Join();*/
+		//generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
+		generateWorld.GenerateResource(this, seed, "Water", playerPosition);
 		generateWorld.GenerateResource(this, seed, "IronOre", playerPosition);
 		generateWorld.GenerateResource(this, seed, "CopperOre", playerPosition);
 		generateWorld.GenerateResource(this, seed, "Limestone", playerPosition);

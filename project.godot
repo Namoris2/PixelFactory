@@ -13,7 +13,6 @@ config_version=5
 config/name="PixelFactory"
 run/main_scene="res://Scenes/UI/MainMenu/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
-run/max_fps=60
 boot_splash/show_image=false
 config/icon="res://Gimp/GameIcon512.png"
 config/windows_native_icon="res://Gimp/GameIcon.ico"
@@ -187,3 +186,7 @@ textures/screen_space_roughness_limiter/amount=0.25
 textures/screen_space_roughness_limiter/limit=0.18
 textures/screen_space_roughness_limiter/enabled=true
 textures/quality/use_taa=false
+
+[threading]
+
+worker_pool/low_priority_thread_ratio=0.0

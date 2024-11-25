@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 
 
 public partial class GenerateWorld : Node
@@ -41,11 +40,14 @@ public partial class GenerateWorld : Node
 
 		if (!chunks.ContainsKey(resourceInput))
 		{
-			noise = new()
+			if (resourceInput != "Grass")
 			{
-				Seed = seed + (int)resource.addedSeed,
-				Frequency = (float)resource.frequency
-			};
+				noise = new()
+				{
+					Seed = seed + (int)resource.addedSeed,
+					Frequency = (float)resource.frequency
+				};
+			}
 
 			System.Collections.Generic.Dictionary<string, dynamic> seedInfo = new()
 			{
@@ -74,8 +76,6 @@ public partial class GenerateWorld : Node
 		{
 			if ((-X / 2 <= x) && (x <= X / 2) && (-Y / 2 <= y) && (y <= Y / 2))
 			{
-				/*Thread generateWorld = new(() => GenerateChunk(new(playerPosition.X + x * chunkSize, playerPosition.Y + y * chunkSize)));
-				generateWorld.Start();*/
 				GenerateChunk(new(playerPosition.X + x * chunkSize, playerPosition.Y + y * chunkSize));
 			}
 			if( (x == y) || ((x < 0) && (x == -y)) || ((x > 0) && (x == 1-y)))
@@ -92,7 +92,8 @@ public partial class GenerateWorld : Node
 	// Generates chunk based on location
 	private void GenerateChunk(Vector2I chunkPosition)
 	{
-		float generationCap = (float)resource.generationCap;
+		float generationCap = 0;
+		if (resourceInput != "Grass") { generationCap = (float)resource.generationCap; }
 		List<Vector2I> resourceCells = new();
 		List<Vector2I> waterCells = new();
 
@@ -103,16 +104,17 @@ public partial class GenerateWorld : Node
 		{
 			for (int y = 0; y < chunkSize; y++)
 			{
-				float noiseValue = noise.GetNoise2D(chunkPosition.X + x, chunkPosition.Y + y);
+				if (resourceInput == "Grass")
+				{
+					Vector2I atlasCoords = new Vector2I((int)resource.atlasCoords[0], (int)resource.atlasCoords[1]);
+					world.SetCell(0, chunkPosition + new Vector2I(x, y), 0, atlasCoords);
+					continue;
+				}
 
+				float noiseValue = noise.GetNoise2D(chunkPosition.X + x, chunkPosition.Y + y);
 				if (generationCap > noiseValue)
 				{
-					if (resourceInput == "Grass")
-					{
-						Vector2I atlasCoords = new Vector2I((int)resource.atlasCoords[0], (int)resource.atlasCoords[1]);
-						world.SetCell(0, chunkPosition + new Vector2I(x, y), 0, atlasCoords);
-					}
-					else if ((string)world.GetCellTileData(0, chunkPosition + new Vector2I(x, y)).GetCustomData("resourceName") == "Grass")
+					if ((string)world.GetCellTileData(0, chunkPosition + new Vector2I(x, y)).GetCustomData("resourceName") == "Grass")
 					{
 						resourceCells.Add(chunkPosition + new Vector2I(x, y));
 					}
