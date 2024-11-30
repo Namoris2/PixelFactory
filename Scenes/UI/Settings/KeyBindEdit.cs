@@ -8,12 +8,14 @@ public partial class KeyBindEdit : Button
 	SettingsHandler settingsHandler;
 	public InputEvent defaultKeyBind;
 	Label keyLabel;
+	ActionKey icon;
 	bool editingAction = false;
 	[Export] public string actionType;
 	public override void _Ready()
 	{
 		settingsHandler = GetNode<SettingsHandler>("/root/SettingsHandler");
 		keyLabel = GetNode<Label>("HBoxContainer/Key");
+		icon = GetNode<ActionKey>("HBoxContainer/ActionKey");
 		Pressed += ToggleEditing;
 	}
 
@@ -41,7 +43,8 @@ public partial class KeyBindEdit : Button
 	{
 		editingAction = true;
 		Disabled = true;
-		keyLabel.Text = "Press Key to Bind...";
+		keyLabel.Show();
+		icon.Hide();
 	}
 
 	public void SetBind(InputEvent @event)
@@ -55,11 +58,13 @@ public partial class KeyBindEdit : Button
 			InputMap.ActionAddEvent(actionType, inputs[i]);
 		}
 
-		keyLabel.Text = inputs[0].AsText().TrimSuffix(" (Physical)");
+		icon.key = inputs[0].AsText().TrimSuffix(" (Physical)");
+		icon.SetKeyIcon(icon.key);
+
 		editingAction = false;
 		Disabled = false;
 
-		string bind = keyLabel.Text;
+		string bind = icon.key;
 		if (@event is InputEventMouse)
 		{
 			InputEventMouseButton button = @event as InputEventMouseButton;
@@ -67,5 +72,8 @@ public partial class KeyBindEdit : Button
 		}
 
 		settingsHandler.SaveConfigFile("KeyboardMouseBinds", actionType, bind);
+
+		keyLabel.Hide();
+		icon.Show();
 	}
 }

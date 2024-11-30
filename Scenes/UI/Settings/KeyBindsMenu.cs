@@ -32,13 +32,14 @@ public partial class KeyBindsMenu : Control
 		{
 			KeyBindEdit keyBindEdit = (KeyBindEdit)GD.Load<PackedScene>("res://Scenes/UI/Settings/KeyBindEdit.tscn").Instantiate();
 			Label actionLabel = keyBindEdit.GetNode<Label>("HBoxContainer/Action");
+			ActionKey icon = keyBindEdit.GetNode<ActionKey>("HBoxContainer/ActionKey");
 			Label keyLabel = keyBindEdit.GetNode<Label>("HBoxContainer/Key");
 
 			keyBindEdit.actionType = action.Key;
 			actionLabel.Text = action.Value;
 
 			Godot.Collections.Array<InputEvent> events = InputMap.ActionGetEvents(action.Key);
-			keyLabel.Text = events[0].AsText().TrimSuffix(" (Physical)");
+			icon.key = events[0].AsText().TrimSuffix(" (Physical)");
 
 			buttonsContainer.AddChild(keyBindEdit);
 		}

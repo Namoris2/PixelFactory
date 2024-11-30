@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c5t7ynans785e"]
+[gd_scene load_steps=3 format=3 uid="uid://c5t7ynans785e"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Settings/KeyBindEdit.cs" id="1_pkaj5"]
+[ext_resource type="PackedScene" uid="uid://ctjahtuleggl2" path="res://Scenes/UI/Kebinds/ActionKey.tscn" id="2_xynvi"]
 
 [node name="KeyBindEdit" type="Button"]
 custom_minimum_size = Vector2(0, 30)
@@ -23,6 +24,10 @@ theme_override_font_sizes/font_size = 26
 text = "action"
 
 [node name="Key" type="Label" parent="HBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
-text = "key"
+text = "Press Key to Bind..."
+
+[node name="ActionKey" parent="HBoxContainer" instance=ExtResource("2_xynvi")]
+layout_mode = 2
