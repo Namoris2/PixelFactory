@@ -35,7 +35,6 @@ public partial class ActionKey : TextureRect
 			sprite.Frame = (int)KeyboardKeys.Unknown;
 		}
 
-		GD.Print("Texture set");
 		Texture = sprite.SpriteFrames.GetFrameTexture("default", sprite.Frame);
 	}
 }

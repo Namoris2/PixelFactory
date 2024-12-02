@@ -87,6 +87,7 @@ DisplayName = "smallDrill"
 Type = "building"
 
 [node name="mediumDrill" parent="TabContainer/Production/VBoxContainer/Drills/Items" index="1" instance=ExtResource("1_oydjw")]
+visible = false
 layout_mode = 2
 DisplayName = "mediumDrill"
 Type = "building"

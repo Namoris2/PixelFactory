@@ -22,6 +22,7 @@ sprite_frames = ExtResource("1_ckxqg")
 
 [node name="Label" type="Label" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 64.0
 offset_top = 40.0
 offset_right = 130.0
