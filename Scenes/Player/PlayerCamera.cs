@@ -9,6 +9,7 @@ public partial class PlayerCamera : Camera2D
 	Vector2 zoomSpeed = new (.2f, .2f);
 
 	bool animationsPaused = false;
+	public bool toggleZoom = true;
 	Node2D animatedBuildingPartsController;
 
 	[Signal]
@@ -24,15 +25,15 @@ public partial class PlayerCamera : Camera2D
 	public override void _Process(double delta)
 	{
 		// Controller Zoom
-		if (Input.IsActionPressed("ZoomIn") && this.Zoom[0] < maxZoom[0])
+		if (toggleZoom && Input.IsActionPressed("ZoomIn") && Zoom[0] < maxZoom[0])
 		{
-			this.Zoom += zoomSpeed / 4;
+			Zoom += zoomSpeed / 4;
 			ResumeBuildingAnimations();
 		}
 
-		if (Input.IsActionPressed("ZoomOut") && this.Zoom[0] > minZoom[0])
+		if (toggleZoom && Input.IsActionPressed("ZoomOut") && Zoom[0] > minZoom[0])
 		{
-			this.Zoom -= zoomSpeed / 4;
+			Zoom -= zoomSpeed / 4;
 			PauseBuildingAnimations();
 		}
 	}
@@ -43,16 +44,16 @@ public partial class PlayerCamera : Camera2D
 		if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
 		{
 			// zoom in
-			if (mouseEvent.ButtonIndex == MouseButton.WheelUp && this.Zoom[0] < maxZoom[0])
+			if (toggleZoom && mouseEvent.ButtonIndex == MouseButton.WheelUp && Zoom[0] < maxZoom[0])
 			{
-				this.Zoom += zoomSpeed;
+				Zoom += zoomSpeed;
 				ResumeBuildingAnimations();
 			}
 
 			// zoom out
-			if (mouseEvent.ButtonIndex == MouseButton.WheelDown && this.Zoom[0] > minZoom[0])
+			if (toggleZoom && mouseEvent.ButtonIndex == MouseButton.WheelDown && Zoom[0] > minZoom[0])
 			{
-				this.Zoom -= zoomSpeed;
+				Zoom -= zoomSpeed;
 				PauseBuildingAnimations();
 			}
 		}

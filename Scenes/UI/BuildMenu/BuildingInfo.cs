@@ -7,7 +7,8 @@ public partial class BuildingInfo : Panel
 	private Label name;
 	private Label description;
 	private Label needsHeader;
-	private Label needs;
+	private FlowContainer neededItems;
+	private PlayerInventory playerInventory;
 	dynamic buildings;
 	dynamic items;
 	// Called when the node enters the scene tree for the first time.
@@ -20,7 +21,8 @@ public partial class BuildingInfo : Panel
 		name = GetNode<Label>("Name");
 		description = GetNode<Label>("Description");
 		needsHeader = GetNode<Label>("NeedsHeader");
-		needs = GetNode<Label>("Needs");
+		neededItems = GetNode<FlowContainer>("NeededItems");
+		playerInventory = (PlayerInventory)GetTree().GetNodesInGroup("PlayerInventory")[0];
 
 		HideBuildingInfo();
 	}
@@ -40,7 +42,14 @@ public partial class BuildingInfo : Panel
 
 		for (int i = 0; i < building.cost.Count; i++)
 		{
-			needs.Text += $"{building.cost[i].amount} x {items[building.cost[i].resource.ToString()].name}\n";
+			InventorySlot slot = (InventorySlot)neededItems.GetChild(i);
+			string itemType = building.cost[i].resource.ToString();
+			int totalItemAmount = playerInventory.GetItemAmount(itemType);
+
+			slot.itemType = itemType;
+			slot.resourceAmount.Text = $"{totalItemAmount}/{building.cost[i].amount.ToString()}";
+			slot.UpdateSlotTexture(slot.itemType);
+			slot.Show();
 		}
 	}
 
@@ -49,6 +58,14 @@ public partial class BuildingInfo : Panel
 		name.Text = "";
 		description.Text = "";
 		needsHeader.Hide();
-		needs.Text = "";
+		
+		foreach (Node node in neededItems.GetChildren())
+		{
+			InventorySlot slot = (InventorySlot)node;
+			slot.itemType = "";
+			slot.resourceAmount.Text = "";
+			slot.UpdateSlotTexture("");
+			slot.Hide();
+		}
 	}
 }

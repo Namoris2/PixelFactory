@@ -9,6 +9,7 @@ public partial class GameEvents : Node
     private PauseMenu pauseMenu;
     public Leftovers leftovers;
     private Label worldInfo;
+    public static PlayerCamera camera;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -18,6 +19,7 @@ public partial class GameEvents : Node
         buildMenu = GetNode<BuildMenu>("../UI/BuildMenu");
         pauseMenu = GetNode<PauseMenu>("../UI/PauseMenu");
         worldInfo = GetNode<Label>("../UI/WorldInfo");
+        camera = GetNode<PlayerCamera>("../World/Player/PlayerCamera");
 	}
 
     public override void _Input(InputEvent @event)
@@ -38,13 +40,13 @@ public partial class GameEvents : Node
             }
             else if (buildMenu.Visible)
             {
+                camera.toggleZoom = true;
                 buildMenu.ToggleBuildMode();
             }
             else if (inventories.Visible)
             {
                 inventories.ToggleInventory(false);
-                tileMap.UITOGGLE = false;
-                worldInfo.Show();
+                ToggleBuildingInventory(false);
             }
         }
 
@@ -55,25 +57,35 @@ public partial class GameEvents : Node
                 if (!buildMenu.Visible)
                 {
                     inventories.ToggleInventory(!inventories.Visible);
+                    camera.toggleZoom = !inventories.Visible;    
                     tileMap.UITOGGLE = inventories.Visible;
                     worldInfo.Visible = !inventories.Visible;
                 }
             }
+
             if (@event.IsActionPressed("Interact"))
             {
-                if (leftovers != null) // Open leftovers Inventory
-                {
-                    inventories.ToggleBuildingInventory(!inventories.Visible, "", leftovers);
-                    tileMap.UITOGGLE = inventories.Visible;
-                    worldInfo.Visible = !inventories.Visible;
-                }
-                else // Open building Inventory
-                {
-                    inventories.ToggleBuildingInventory(!inventories.Visible, tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
-                    tileMap.UITOGGLE = inventories.Visible;
-                    worldInfo.Visible = !inventories.Visible;
-                }
+                ToggleBuildingInventory(!inventories.Visible);
             }
+
+            if (@event.IsActionPressed("ToggleBuildMode"))
+            {
+                buildMenu.ToggleBuildMode();
+                camera.toggleZoom = !buildMenu.Visible;
+            }
+        }
+    }
+
+    private void ToggleBuildingInventory(bool toggle)
+    {
+        camera.toggleZoom = !toggle;
+        if (leftovers != null) // Open leftovers Inventory
+        {
+            inventories.ToggleBuildingInventory(toggle, "", leftovers);
+        }
+        else // Open building Inventory
+        {
+            inventories.ToggleBuildingInventory(toggle, tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
         }
     }
 }

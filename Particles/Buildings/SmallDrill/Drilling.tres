@@ -7,12 +7,10 @@ point_count = 2
 [sub_resource type="CurveTexture" id="CurveTexture_iv28s"]
 curve = SubResource("Curve_8nee2")
 
-[sub_resource type="Gradient" id="Gradient_2ihd5"]
-offsets = PackedFloat32Array(0, 0.841004, 0.845188, 1)
-colors = PackedColorArray(0.466667, 0.466667, 0.466667, 1, 0.615686, 0.615686, 0.615686, 1, 0.584314, 0.419608, 0.396078, 1, 0.6, 0.360784, 0.313726, 1)
+[sub_resource type="Gradient" id="Gradient_cbt77"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_chlqe"]
-gradient = SubResource("Gradient_2ihd5")
+gradient = SubResource("Gradient_cbt77")
 
 [resource]
 lifetime_randomness = 0.2

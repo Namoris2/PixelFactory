@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://blfbemcfo20kf"]
+[gd_scene load_steps=5 format=3 uid="uid://blfbemcfo20kf"]
 
 [ext_resource type="PackedScene" uid="uid://j4ti07wdyqt0" path="res://Scenes/UI/Inventory/CraftingMenu/CraftingItemSelect.tscn" id="1_caiuq"]
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.cs" id="1_daig4"]
 [ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="2_7x8p6"]
+[ext_resource type="PackedScene" uid="uid://cd611gi8b5pde" path="res://Scenes/UI/Menu/VCollapsingMenu.tscn" id="3_2g22n"]
 
 [node name="CraftingMenu" type="Control" groups=["CraftingMenu"]]
 custom_minimum_size = Vector2(910, 1018)
@@ -109,6 +110,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -0.000610352
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
@@ -118,23 +120,90 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="IronIngot" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
+[node name="Ingots" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("3_2g22n")]
+layout_mode = 2
+name = "Ingots"
+
+[node name="IronIngot" parent="ColorRect/ItemsScrollContainer/ItemsContainer/Ingots/Items" index="0" instance=ExtResource("1_caiuq")]
 layout_mode = 2
 disabled = true
 itemType = "IronIngot"
 
-[node name="CopperIngot" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
+[node name="CopperIngot" parent="ColorRect/ItemsScrollContainer/ItemsContainer/Ingots/Items" index="1" instance=ExtResource("1_caiuq")]
 layout_mode = 2
 itemType = "CopperIngot"
 
-[node name="IronPlate" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
+[node name="SteelIngot" parent="ColorRect/ItemsScrollContainer/ItemsContainer/Ingots/Items" index="2" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "SteelIngot"
+
+[node name="StandardParts" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("3_2g22n")]
+layout_mode = 2
+name = "Standard Parts"
+
+[node name="IronPlate" parent="ColorRect/ItemsScrollContainer/ItemsContainer/StandardParts/Items" index="0" instance=ExtResource("1_caiuq")]
 layout_mode = 2
 itemType = "IronPlate"
 
-[node name="IronRod" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
+[node name="IronRod" parent="ColorRect/ItemsScrollContainer/ItemsContainer/StandardParts/Items" index="1" instance=ExtResource("1_caiuq")]
 layout_mode = 2
 itemType = "IronRod"
 
-[node name="Wire" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("1_caiuq")]
+[node name="Screws" parent="ColorRect/ItemsScrollContainer/ItemsContainer/StandardParts/Items" index="2" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "Screws"
+
+[node name="ReinforcedIronPlate" parent="ColorRect/ItemsScrollContainer/ItemsContainer/StandardParts/Items" index="3" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "ReinforcedIronPlate"
+
+[node name="ModularFrame" parent="ColorRect/ItemsScrollContainer/ItemsContainer/StandardParts/Items" index="4" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "ModularFrame"
+
+[node name="CopperSheet" parent="ColorRect/ItemsScrollContainer/ItemsContainer/StandardParts/Items" index="5" instance=ExtResource("1_caiuq")]
+visible = false
+layout_mode = 2
+itemType = "CopperSheet"
+
+[node name="SteelBeam" parent="ColorRect/ItemsScrollContainer/ItemsContainer/StandardParts/Items" index="6" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "SteelBeam"
+
+[node name="SteelPipe" parent="ColorRect/ItemsScrollContainer/ItemsContainer/StandardParts/Items" index="7" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "SteelPipe"
+
+[node name="Compounds" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("3_2g22n")]
+layout_mode = 2
+name = "Compounds"
+
+[node name="Concrete" parent="ColorRect/ItemsScrollContainer/ItemsContainer/Compounds/Items" index="0" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "Concrete"
+
+[node name="Electronics" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("3_2g22n")]
+layout_mode = 2
+name = "Electronics"
+
+[node name="Wire" parent="ColorRect/ItemsScrollContainer/ItemsContainer/Electronics/Items" index="0" instance=ExtResource("1_caiuq")]
 layout_mode = 2
 itemType = "Wire"
+
+[node name="Cable" parent="ColorRect/ItemsScrollContainer/ItemsContainer/Electronics/Items" index="1" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "Cable"
+
+[node name="IndustrialParts" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("3_2g22n")]
+layout_mode = 2
+name = "Industrial Parts"
+
+[node name="Rotor" parent="ColorRect/ItemsScrollContainer/ItemsContainer/IndustrialParts/Items" index="0" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "Rotor"
+
+[editable path="ColorRect/ItemsScrollContainer/ItemsContainer/Ingots"]
+[editable path="ColorRect/ItemsScrollContainer/ItemsContainer/StandardParts"]
+[editable path="ColorRect/ItemsScrollContainer/ItemsContainer/Compounds"]
+[editable path="ColorRect/ItemsScrollContainer/ItemsContainer/Electronics"]
+[editable path="ColorRect/ItemsScrollContainer/ItemsContainer/IndustrialParts"]

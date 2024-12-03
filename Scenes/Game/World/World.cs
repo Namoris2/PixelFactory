@@ -39,7 +39,7 @@ public partial class World : Godot.TileMap
 	public delegate void CreateParticleEventHandler(Vector2I coords, string type, string resource);
 
 	[Signal]
-	public delegate void RemoveParticleEventHandler(Vector2I coords);
+	public delegate void RemoveParticleEventHandler(Vector2I coords, string type);
 
 	[Signal]
 	public delegate void CreateBuildingPartEventHandler(Vector2I coords, string type, int rotation, bool createdBuilding);
@@ -131,10 +131,12 @@ public partial class World : Godot.TileMap
 
 		if (playerPosition != lastPlayerPosition)
 		{
-			GenerateChunks(playerPosition);
-			/*Thread generateWorld = new(() => GenerateChunks(playerPosition));
-			runningThreads.Add(generateWorld);
-			generateWorld.Start();*/
+			//GenerateChunks(playerPosition);
+			Thread generateWorldThread = new(() => GenerateChunks(playerPosition));
+			generateWorld.GenerateResource(this, seed, "Grass", playerPosition, false);
+			
+			//runningThreads.Add(generateWorldThread);
+			generateWorldThread.Start();
 
 			lastPlayerPosition = playerPosition;
 		}
@@ -315,10 +317,11 @@ public partial class World : Godot.TileMap
 					{
 						itemName = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
 						item = GetNodeOrNull<Item>(itemName);
-				
+						if (item == null) { break; }
+
 						item.destination = nextCoords * 64;
 						item.Name = $"{nextCoords[0]}x{nextCoords[1]}";
-						item.speed = 64 / (60 / (int)buildingData.speed);
+						item.speed = 64 / (60f / (int)buildingData.speed);
 
 						item.GetNode<Sprite2D>("ItemHolder").Hide();
 						item.ZIndex = 0;
@@ -378,7 +381,7 @@ public partial class World : Godot.TileMap
 							item = GetNode<Item>(itemName);
 
 							item.destination = nextCoords * 64;
-							item.speed = 64 / (60 / (float)buildingData.speed) * 2;
+							item.speed = 64 / (60 / (float)buildingData.speed) * (int)buildingData.reach * 2;
 							item.Name = $"{buildingsInfo[i].coords[0]}x{buildingsInfo[i].coords[1]}";
 							item.parentBuilding = new ((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]);
 							item.GetNode<Sprite2D>("ItemHolder").Show();
@@ -402,24 +405,17 @@ public partial class World : Godot.TileMap
 							Vector2I coords = new ((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]);
 
 							if (coords != item.parentBuilding) { break; }
-							if (nextBuilding.buildingType.ToString() == "machine") { nextBuilding.inputSlots[0].amount += 1; }
+							if (nextBuilding.buildingType.ToString() == "machine") 
+							{
+								int index = GetItemIndexInRecipe(recipes[nextBuilding.recipe.ToString()], "input", item.itemType);
+								if (index == -1) { break; }
+								nextBuilding.inputSlots[index].amount += 1; 
+							}
 							
 							else
 							{
-								for (int j = 0; j < nextBuilding.slots.Count; j++)
-								{
-									if (nextBuilding.slots[j].resource.ToString() == "")
-									{
-										nextBuilding.slots[j].amount = 1;
-										nextBuilding.slots[j].resource = buildingsInfo[i].item;
-										break;
-									}
-									else if (buildingsInfo[i].item.ToString() == nextBuilding.slots[j].resource.ToString() && (int)nextBuilding.slots[j].amount < (int)items[nextBuilding.slots[j].resource.ToString()].maxStackSize)
-									{
-										nextBuilding.slots[j].amount += 1;
-										break;
-									}
-								}
+								PutItemsIntoStorage(nextCoords, 1, buildingsInfo[i].item.ToString());
+
 							}
 
 							item.QueueFree();
@@ -573,6 +569,7 @@ public partial class World : Godot.TileMap
 			lastPlayerPosition = playerPosition;
 		}
 
+		generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
 		GenerateChunks(playerPosition);
 	}
 
@@ -580,9 +577,29 @@ public partial class World : Godot.TileMap
 
 	private void GenerateChunks(Vector2I playerPosition)
 	{
-		generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
+		//Thread generateGrass = new(() => generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true));
+		//generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
+		/*Thread generateIronOre = new(() => generateWorld.GenerateResource(this, seed, "IronOre", playerPosition));
+		Thread generateCopperOre = new(() => generateWorld.GenerateResource(this, seed, "CopperOre", playerPosition));
+		Thread generateLimestone = new(() => generateWorld.GenerateResource(this, seed, "Limestone", playerPosition));
+		Thread generateCoal = new(() => generateWorld.GenerateResource(this, seed, "Coal", playerPosition));*/
+
+		/*generateGrass.Start();
+		generateGrass.Join();
+		generateIronOre.Start();
+		generateIronOre.Join();
+		/*generateCopperOre.Start();
+		generateCopperOre.Join();
+		generateLimestone.Start();
+		generateLimestone.Join();
+		generateCoal.Start();
+		generateCoal.Join();*/
+		//generateWorld.GenerateResource(this, seed, "Grass", playerPosition, true);
+		generateWorld.GenerateResource(this, seed, "Water", playerPosition);
 		generateWorld.GenerateResource(this, seed, "IronOre", playerPosition);
 		generateWorld.GenerateResource(this, seed, "CopperOre", playerPosition);
+		generateWorld.GenerateResource(this, seed, "Limestone", playerPosition);
+		generateWorld.GenerateResource(this, seed, "Coal", playerPosition);
 	}
 
 	public Vector2I GetMousePosition()
@@ -637,7 +654,7 @@ public partial class World : Godot.TileMap
 
 	private void FarmResources(dynamic building)
 	{
-		if (GroundResourceValidate(resourcesHarvestedByHand.canBeUsedOn, groundResourceName) && Input.IsActionJustPressed("Use") && buildingsData == null)
+		if (GroundResourceValidate(resourcesHarvestedByHand.canBeUsedOn, new List<string>{groundResourceName}) && Input.IsActionJustPressed("Use") && buildingsData == null)
 		{
 			playerInventory.PutToInventory(groundResourceName, 1);
 		}
@@ -843,7 +860,7 @@ public partial class World : Godot.TileMap
 
 		bool hasSpace = data == null; 
 		resources.Add(groundResource);
-
+		
 		for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
 		{
 			Vector2I additionalCoords = new((int)building.additionalAtlasPosition[i][0], (int)building.additionalAtlasPosition[i][1]);
@@ -854,16 +871,18 @@ public partial class World : Godot.TileMap
 			resources.Add(groundResource);
 		}
 
+		
+		if (resources.Contains("Water"))
+		{
+			info["canBuild"] = false;
+			return info;
+		}
+
 		if (building.type.ToString().Contains("Drill"))
 		{
-			if (resources.Contains("Water"))
-			{
-				info["canBuild"] = false;
-				return info;
-			}
 
 			resources.RemoveAll(resource => resource == "Grass");
-			info["canBuild"] = hasSpace && resources.Count > 0;
+			info["canBuild"] = hasSpace && resources.Count > 0 && GroundResourceValidate(building.canBePlacedOn, resources);
 			
 			if (!info["canBuild"]) { return info; }
 
@@ -886,7 +905,7 @@ public partial class World : Godot.TileMap
 		}
 		else
 		{
-			info["canBuild"] = hasSpace && resources.Count == building.additionalAtlasPosition.Count + 1;
+			info["canBuild"] = hasSpace && resources.Count == building.additionalAtlasPosition.Count + 1 && GroundResourceValidate(building.canBePlacedOn, resources);
 		}
 		
 		return info;
@@ -1047,7 +1066,7 @@ public partial class World : Godot.TileMap
 
 		if (building.buildingType.ToString() == "storage")
 		{
-			for (int i = 0; i < (int)building.slotsAmount; i++)
+			for (int i = 0; i < (int)buildingData.slotsAmount; i++)
 			{
 				int leftover = playerInventory.PutToInventory(building.slots[i].resource.ToString(), (int)building.slots[i].amount);
 				//GD.Print(building.slots[i].resource, leftover);
@@ -1081,11 +1100,10 @@ public partial class World : Godot.TileMap
 					itemName = $"{building.coords[0]}x{building.coords[1]}";
 				}
 			}
-			item = GetNode<Item>(itemName);
 
-			//item.PickUpItem();
+			item = GetNodeOrNull<Item>(itemName);
 
-			if (!item.PickUpItem())
+			if (item != null && !item.PickUpItem())
 			{
 				if (leftovers.ContainsKey(item.itemType))
 				{
@@ -1106,7 +1124,7 @@ public partial class World : Godot.TileMap
 		}
 
 		// removes building's particles
-		EmitSignal(SignalName.RemoveParticle, coords);
+		EmitSignal(SignalName.RemoveParticle, coords, building.type.ToString());
 		EmitSignal(SignalName.RemoveAnimatedBuildingPart, coords, building.type.ToString());
 		EmitSignal(SignalName.RemoveBuildingPart, coords, building.type.ToString());
 		
@@ -1146,21 +1164,26 @@ public partial class World : Godot.TileMap
 		return null;
 	}
 
-	private static bool GroundResourceValidate(dynamic canBePlacedOn, string groundResourceName)
+	private static bool GroundResourceValidate(dynamic canBePlacedOn, List<string> groundResources)
 	{
-		foreach(string resource in canBePlacedOn)
+		bool canPlace = true;
+		string[] resources = new string[canBePlacedOn.Count];
+
+		for (int i = 0; i < canBePlacedOn.Count; i++)
 		{
-			if (resource == groundResourceName)
-			{
-				return true;
-			}
+			resources[i] = canBePlacedOn[i].ToString();
 		}
-		return false;
+
+		foreach(string resource in groundResources)
+		{
+			canPlace &= resources.Contains(resource);
+		}
+		return canPlace;
 	}
 
 	private bool BuildingSlotValidate(dynamic building, dynamic recipe)
 	{
-		for (int i = 0; i < building.inputSlots.Count; i++)
+		for (int i = 0; i < recipe.input.Count; i++)
 		{
 			// checks if in 'inputSlot' is right item and its amount required to crafting
 			if ((int)building.inputSlots[i].amount < (int)recipe.input[i].amount || 
@@ -1170,7 +1193,7 @@ public partial class World : Godot.TileMap
 			}
 		}
 
-		for (int i = 0; i < building.outputSlots.Count; i++)
+		for (int i = 0; i < recipe.output.Count; i++)
 		{
 			// checks if in 'outputSlot' is right item and is enough space required to crafting
 			string resource = building.outputSlots[i].resource.ToString();
@@ -1184,28 +1207,34 @@ public partial class World : Godot.TileMap
 		return true;
 	}
 
-	public void RemoveItemFromSlot(Vector2I coords, string slotType, int slotIndex)
+	public void RemoveItemsFromSlot(Vector2I coords, int itemAmount, string slotType, int slotIndex)
 	{
 		dynamic building = GetBuildingInfo(coords);
 		if (building.buildingType.ToString() == "machine")
 		{
 			slotType = slotType.ToLower();
+			building[slotType + "Slots"][slotIndex].amount = building[slotType + "Slots"][slotIndex].amount - itemAmount;
 
-			if (slotType == "input")
+			if (slotType == "input" && (int)building[slotType + "Slots"][slotIndex].amount == 0)
 			{
 				building.productionProgress = 0;
 			}
 
-			building[slotType + "Slots"][slotIndex].amount = 0;
+			//building[slotType + "Slots"][slotIndex].amount = 0;
 		}
 		else
 		{
-			building.slots[slotIndex].resource = "";
-			building.slots[slotIndex].amount = 0;
+			building.slots[slotIndex].amount = building.slots[slotIndex].amount - itemAmount;
+
+			if ((int)building.slots[slotIndex].amount == 0)
+			{
+				building.slots[slotIndex].resource = "";
+			}
+			
 		}
 	}
 
-	public void PutItemToSlot(Vector2I coords, int itemAmount, string itemType, string slotType, int slotIndex)
+	public void PutItemsToSlot(Vector2I coords, int itemAmount, string itemType, string slotType, int slotIndex)
 	{
 		dynamic building = GetBuildingInfo(coords);
 		if (building.buildingType.ToString() == "machine")
@@ -1344,13 +1373,19 @@ public partial class World : Godot.TileMap
 			{
 				if (nextBuilding.recipe.ToString() == "none") { return false; }
 				
-				if ((int)nextBuilding.inputSlots[0].amount == 0)
+				dynamic recipe = recipes[nextBuilding.recipe.ToString()];
+				for (int i = 0; i < recipe.input.Count; i++)
 				{
-					hasSpace = previousItem == recipes[nextBuilding.recipe.ToString()].input[0].name.ToString();
-				}
-				else
-				{
-					hasSpace = (int)nextBuilding.inputSlots[0].amount < (int)items[nextBuilding.inputSlots[0].resource.ToString()].maxStackSize && previousItem == nextBuilding.inputSlots[0].resource.ToString();
+					if ((int)nextBuilding.inputSlots[i].amount == 0)
+					{
+						hasSpace = previousItem == recipe.input[i].name.ToString();
+					}
+					else
+					{
+						hasSpace = (int)nextBuilding.inputSlots[i].amount < (int)items[nextBuilding.inputSlots[i].resource.ToString()].maxStackSize && previousItem == nextBuilding.inputSlots[i].resource.ToString();
+					}
+
+					if (hasSpace) { break; }
 				}
 			}
 			else if (nextBuilding.buildingType.ToString() == "belt") // belt
@@ -1395,6 +1430,49 @@ public partial class World : Godot.TileMap
 		return null;
 	}
 
+	public int PutItemsIntoStorage(Vector2I coords, int amount, string itemType)
+	{
+		dynamic building = GetBuildingInfo(coords);
+		int maxStackSize = (int)items[itemType].maxStackSize;
+		for (int i = 0; i < building.slots.Count; i++)
+		{
+			if (building.slots[i].resource.ToString() == itemType)
+			{
+				if ((int)building.slots[i].amount + amount <= maxStackSize)
+				{
+					building.slots[i].amount += amount;
+					return 0;
+				}
+				else if ((int)building.slots[i].amount + amount >= maxStackSize)
+				{
+					amount = amount + (int)building.slots[i].amount - maxStackSize;
+					building.slots[i].amount = maxStackSize;
+				}
+			}
+		}
+
+		// If all of items are not put their relative stack they wil be put into empty slot
+		for (int i = 0; i < building.slots.Count; i++)
+		{
+			if (building.slots[i].resource.ToString() == "")
+			{
+				if ((int)building.slots[i].amount + amount <= maxStackSize)
+				{
+					building.slots[i].resource = itemType;
+					building.slots[i].amount = amount;
+					return 0;
+				}
+				else if ((int)building.slots[i].amount + amount >= maxStackSize)
+				{
+					building.slots[i].resource = itemType;
+					amount = amount + (int)building.slots[i].amount - maxStackSize;
+					building.slots[i].amount = maxStackSize;
+				}
+			}
+		}
+		return amount;
+	}
+
 	private bool HasStorageSpace(dynamic building, string item)
 	{
 		for (int i = 0; i < building.slots.Count; i++)
@@ -1434,5 +1512,21 @@ public partial class World : Godot.TileMap
 			}
 
 		}
+	}
+
+	public int GetItemIndexInRecipe(dynamic recipe, string slotType, string item)
+	{
+		slotType = slotType.ToLower();
+		int index = -1;
+		for (int i = 0; i < recipe[slotType].Count; i++)
+		{
+			if (recipe[slotType][i].name.ToString() == item)
+			{
+				index = i;
+				break;
+			}
+		}
+
+		return index;
 	}
 }

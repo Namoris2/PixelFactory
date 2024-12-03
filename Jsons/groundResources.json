@@ -1,14 +1,14 @@
 {
     "Grass" : {
         "name" : "Grass",
-        "addedSeed": 0,
-        "generationCap" : 0.33,
-        "frequency" : 0.01,
 		"atlasCoords" : [10, 1]
     },
     "Water" :
     {
-        "name" : "Water"
+        "name" : "Water",
+        "addedSeed": 0,
+        "generationCap" : -0.45,
+        "frequency" : 0.01
     },
     "IronOre" : {
         "name" : "Iron Ore",
@@ -22,11 +22,16 @@
         "generationCap" : -0.5,
         "frequency" : 0.03
     },
-    "CoalOre" : {
-        "name" : "Coal Ore",
+    "Coal" : {
+        "name" : "Coal",
         "addedSeed" : 6716351,
-        "generationCap" : -0.55,
-        "frequency" : 0.03,
-		"atlasCoords" : [1, 0]
+        "generationCap" : -0.65,
+        "frequency" : 0.03
+    },
+    "Limestone" : {
+        "name" : "Limestone",
+        "addedSeed" : 764934,
+        "generationCap" : -0.6,
+        "frequency" : 0.03
     }
 }

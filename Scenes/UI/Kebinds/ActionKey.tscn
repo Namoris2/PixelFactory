@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctjahtuleggl2"]
+
+[ext_resource type="SpriteFrames" uid="uid://bw55y6hguecdc" path="res://Scenes/UI/Kebinds/spritetest.tres" id="1_ckxqg"]
+[ext_resource type="Script" path="res://Scenes/UI/Kebinds/ActionKey.cs" id="2_ad236"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jr58u"]
+
+[node name="ActionKey" type="TextureRect"]
+offset_left = 101.0
+offset_top = 85.0
+offset_right = 115.0
+offset_bottom = 99.0
+scale = Vector2(3, 3)
+texture = SubResource("PlaceholderTexture2D_jr58u")
+expand_mode = 3
+stretch_mode = 5
+script = ExtResource("2_ad236")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = ExtResource("1_ckxqg")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 64.0
+offset_top = 40.0
+offset_right = 130.0
+offset_bottom = 56.0
+metadata/_edit_use_anchors_ = true

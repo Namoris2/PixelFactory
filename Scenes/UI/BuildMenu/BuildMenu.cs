@@ -15,11 +15,6 @@ public partial class BuildMenu : CanvasLayer
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed("ToggleBuildMode"))
-		{
-			ToggleBuildMode();
-		}
-
 		if (Input.IsActionJustPressed("Back") && tileMap.BUILDINGMODE)
 		{
 			CloseBuildingMode();

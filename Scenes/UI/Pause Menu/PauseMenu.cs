@@ -19,9 +19,6 @@ public partial class PauseMenu : Control
 		{
 			Hide();
 		}
-
-		Button close = GetNode<Button>("Close");
-		close.Pressed += UnpauseGame;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -18,7 +18,7 @@ public partial class BuildingInventory : Control
 	private Label resources;
 	public Label resourceProduction;
 	ProgressBar productionProgress;
-	Vector2I coordinates;
+	public Vector2I coordinates;
 	LoadFile load = new();
 	dynamic items;
 	dynamic buildings;
@@ -169,19 +169,17 @@ public partial class BuildingInventory : Control
 				if (!buildingInfo.type.ToString().Contains("Drill"))
 				{
 					TabContainer recipesTab = GetNode<TabContainer>("TabContainer/Recipes");
-					switch (buildingInfo.type.ToString())
+					string buildingType = buildingInfo.type.ToString();
+					buildingType = buildingType.ToUpper()[0] + buildingType.Substring(1);
+
+					Node tab = recipesTab.GetNodeOrNull<Node>(buildingType);
+					if (tab != null)
 					{
-						case "smelter":
-							recipesTab.CurrentTab = 0;
-							break;
-
-						case "constructor":
-							recipesTab.CurrentTab = 1;
-							break;
-
-						default:
-							GD.PrintErr("Unknown building");
-							break;
+						recipesTab.CurrentTab = tab.GetIndex();
+					}
+					else
+					{
+						GD.PrintErr("Unknown building");
 					}
 				}
 

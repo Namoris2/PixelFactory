@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://606jj7dg53sk"]
+
+[ext_resource type="Material" uid="uid://b4ufx16b7kh3m" path="res://Particles/Buildings/SmallDrill/Drilling.tres" id="1_3nwxu"]
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+z_index = 2
+process_material = ExtResource("1_3nwxu")
+lifetime = 0.5

@@ -1,4 +1,5 @@
 {
+	"Ores" : "",
 	"IronOre" : {
 		"type" : "IronOre",
 		"name" : "Iron Ore",
@@ -11,9 +12,9 @@
 		"maxStackSize" : 100,
 		"atlasCoords" : [2, 0]
 	},
-	"CoalOre" : {
-		"type" : "CoalOre",
-		"name" : "Coal Ore",
+	"Coal" : {
+		"type" : "Coal",
+		"name" : "Coal",
 		"maxStackSize" : 100,
 		"atlasCoords" : [0, 0]
 	},
@@ -21,9 +22,10 @@
 		"type" : "Limestone",
 		"name" : "Limestone",
 		"maxStackSize" : 100,
-		"atlasCoords" : "not set"
+		"atlasCoords" : [4, 0]
 	},
 
+	"Ingots" : "",
 	"IronIngot" : {
 		"type" : "IronIngot",
 		"name" : "Iron Ingot",
@@ -36,7 +38,14 @@
 		"maxStackSize" : 100,
 		"atlasCoords" : [2, 1]
 	},
+	"SteelIngot" : {
+		"type" : "SteelIngot",
+		"name" : "Steel Ingot",
+		"maxStackSize" : 100,
+		"atlasCoords" : [0, 1]
+	},
 
+	"Constructor" : "",
 	"IronRod" : {
 		"type" : "IronRod",
 		"name" : "Iron Rod",
@@ -49,16 +58,66 @@
 		"maxStackSize" : 200,
 		"atlasCoords" : [1, 2]
 	},
+	"Screws" :{
+		"type" : "Screws",
+		"name" : "Screws",
+		"maxStackSize" : 500,
+		"atlasCoords" : [1, 4]
+	},
 	"Wire" : {
 		"type" : "Wire",
 		"name" : "Wire",
 		"maxStackSize" : 500,
 		"atlasCoords" : [2, 2]
 	},
+	"CopperSheet" : {
+		"type" : "CopperSheet",
+		"name" : "Coper Sheet",
+		"maxStackSize" : 200,
+		"atlasCoords" : [2, 1]
+	},
+	"Cable" : {
+		"type" : "Cable",
+		"name" : "Cable",
+		"maxStackSize" : 200,
+		"atlasCoords" : [2, 3]
+	},
+	"SteelBeam" : {
+		"type" : "SteelBeam",
+		"name" : "Steel Beam",
+		"maxStackSize" : 200,
+		"atlasCoords" : [0, 2]
+	},
+	"SteelPipe" : {
+		"type" : "SteelPipe",
+		"name" : "Steel Pipe",
+		"maxStackSize" : 200,
+		"atlasCoords" : [0, 3]
+	},
 	"Concrete" : {
 		"type" : "Concrete",
 		"name" : "Concrete",
 		"maxStackSize" : 500,
-		"atlasCoords" : "not set"
+		"atlasCoords" : [4, 1]
+	},
+
+	"Assembler" : "",
+	"ReinforcedIronPlate" : {
+		"type" : "ReinforcedIronPlate",
+		"name" : "Reinforced Iron Plate",
+		"maxStackSize" : 100,
+		"atlasCoords" : [3, 0]
+	},
+	"Rotor" : {
+		"type" : "Rotor",
+		"name" : "Rotor",
+		"maxStackSize" : 100,
+		"atlasCoords" : [3, 1]
+	},
+	"ModularFrame" : {
+		"type" : "ModularFrame",
+		"name" : "Modular Frame",
+		"maxStackSize" : 50,
+		"atlasCoords" : [3, 2]
 	}
 }

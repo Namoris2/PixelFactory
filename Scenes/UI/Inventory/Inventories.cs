@@ -7,12 +7,14 @@ public partial class Inventories : CanvasLayer
 	World tileMap;
 	HoldingItem holdingItem;
 	PlayerInventory playerInventory;
+	Label worldInfo;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		tileMap = GetNode<World>("/root/main/World/TileMap");
 		holdingItem = GetNode<HoldingItem>("HoldingItem");
 		playerInventory = GetNode<PlayerInventory>("InventoryGrid/PlayerInventory");
+		worldInfo = GetNode<Label>("../WorldInfo");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,6 +24,9 @@ public partial class Inventories : CanvasLayer
   
 	public void ToggleInventory(bool toggle, bool showCraftingMenu = true)
 	{
+		tileMap.UITOGGLE = toggle;
+		worldInfo.Visible = !toggle;
+		
 		if (toggle)
 		{
 			if (showCraftingMenu)

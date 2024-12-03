@@ -31,6 +31,7 @@ offset_bottom = -296.513
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_rb8qi")
+button_mask = 3
 script = ExtResource("1_qn2p3")
 metadata/_edit_use_anchors_ = true
 

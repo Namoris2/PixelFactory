@@ -1,4 +1,5 @@
 {
+    "Drill" : "",
     "IronOre" : {
         "name" : "Iron Ore",
         "cyclesPerMinute" : 30,
@@ -21,13 +22,13 @@
             }
         ]
     },
-    "CoalOre" : {
-        "name" : "Coal Ore",
+    "Coal" : {
+        "name" : "Coal",
         "cyclesPerMinute" : 30,
         "input" : [],
         "output" : [
             {
-                "name" : "CoalOre",
+                "name" : "Coal",
                 "amount" : 1
             }
         ]
@@ -44,6 +45,7 @@
         ]
     },
 
+    "Smelter" : "",
     "IronIngot" : {
         "name" : "Iron Ingot",
         "cyclesPerMinute" : 30,
@@ -77,6 +79,29 @@
         ]
     },
 
+    "Foundry" : "",
+    "SteelIngot" : {
+        "name" : "Steel Ingot",
+        "cyclesPerMinute" : 15,
+        "input" : [
+            {
+                "name" : "IronOre",
+                "amount" : 3
+            },
+            {
+                "name" : "Coal",
+                "amount" : 3
+            }
+        ],
+        "output" : [
+            {
+                "name" : "SteelIngot",
+                "amount" : 3
+            }
+        ]
+    },
+
+    "Constructor" : "",
     "IronRod" : {
         "name" : "Iron Rod",
         "cyclesPerMinute" : 15,
@@ -109,6 +134,22 @@
             }
         ]
     },
+    "Screws" : {
+        "name" : "Screws",
+        "cyclesPerMinute" : 10,
+        "input" : [
+            {
+                "name" : "IronRod",
+                "amount" : 1
+            }
+        ],
+        "output" : [
+            {
+                "name" : "Screws",
+                "amount" : 4
+            }
+        ]
+    },
     "Wire" : {
         "name" : "Wire",
         "cyclesPerMinute" : 15,
@@ -121,6 +162,70 @@
         "output" : [
             {
                 "name" : "Wire",
+                "amount" : 2
+            }
+        ]
+    },
+    "Cable" : {
+        "name" : "Cable",
+        "cyclesPerMinute" : 30,
+        "input" : [
+            {
+                "name" : "Wire",
+                "amount" : 2
+            }
+        ],
+        "output" : [
+            {
+                "name" : "Cable",
+                "amount" : 1
+            }
+        ]
+    },
+    "CopperSheet": {
+        "name" : "Copper Sheet",
+        "cyclesPerMinute" : 10,
+        "input" : [
+            {
+                "name" : "CopperIngot",
+                "amount" : 2
+            }
+        ],
+        "output" : [
+            {
+                "name" : "CopperSheet",
+                "amount" : 1
+            }
+        ]
+    },
+    "SteelBeam": {
+        "name" : "Steel Beam",
+        "cyclesPerMinute" : 15,
+        "input" : [
+            {
+                "name" : "SteelIngot",
+                "amount" : 4
+            }
+        ],
+        "output" : [
+            {
+                "name" : "SteelBeam",
+                "amount" : 1
+            }
+        ]
+    },
+    "SteelPipe": {
+        "name" : "Steel Pipe",
+        "cyclesPerMinute" : 10,
+        "input" : [
+            {
+                "name" : "SteelIngot",
+                "amount" : 3
+            }
+        ],
+        "output" : [
+            {
+                "name" : "SteelPipe",
                 "amount" : 2
             }
         ]
@@ -138,6 +243,68 @@
             {
                 "name" : "Concrete",
                 "amount" : 1
+            }
+        ]
+    },
+
+    "Assembler" : "",
+    "ReinforcedIronPlate" : {
+        "name" : "Reinforced Iron Plate",
+        "cyclesPerMinute" : 5,
+        "input" : [
+            {
+                "name" : "IronPlate",
+                "amount" : 6
+            },
+            {
+                "name" : "Screws",
+                "amount" : 12
+            }
+        ],
+        "output" : [
+            {
+                "name" : "ReinforcedIronPlate",
+                "amount" : 1
+            }
+        ]
+    },
+    "Rotor" : {
+        "name" : "Rotor",
+        "cyclesPerMinute" : 4,
+        "input" : [
+            {
+                "name" : "IronRod",
+                "amount" : 5
+            },
+            {
+                "name" : "Screws",
+                "amount" : 25
+            }
+        ],
+        "output" : [
+            {
+                "name" : "Rotor",
+                "amount" : 1
+            }
+        ]
+    },
+    "ModularFrame" : {
+        "name" : "Modular Frame",
+        "cyclesPerMinute" : 1,
+        "input" : [
+            {
+                "name" : "ReinforcedIronPlate",
+                "amount" : 3
+            },
+            {
+                "name" : "IronRod",
+                "amount" : 12
+            }
+        ],
+        "output" : [
+            {
+                "name" : "ModularFrame",
+                "amount" : 2
             }
         ]
     }

@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxn21jfq72eky"]
+[gd_scene load_steps=8 format=3 uid="uid://bxn21jfq72eky"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Pause Menu/PauseMenu.cs" id="1_e0k0e"]
 [ext_resource type="Theme" uid="uid://037hqw0mionk" path="res://Themes/UI.tres" id="1_w0e10"]
 [ext_resource type="Script" path="res://Scenes/UI/Save and Load/SaveGame.cs" id="2_13ohj"]
+[ext_resource type="Script" path="res://Scenes/UI/Pause Menu/Unpause.cs" id="3_6ohx1"]
+[ext_resource type="Script" path="res://Scenes/UI/Menu/ChangeMenu.cs" id="3_63baq"]
 [ext_resource type="Script" path="res://Scenes/UI/Pause Menu/SaveQuit.cs" id="3_evhqq"]
+[ext_resource type="PackedScene" uid="uid://dddibunucrhbo" path="res://Scenes/UI/Settings/SettingsContainer.tscn" id="6_yh32d"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -16,7 +19,96 @@ grow_vertical = 2
 theme = ExtResource("1_w0e10")
 script = ExtResource("1_e0k0e")
 
+[node name="TabContainer" type="TabContainer" parent="." groups=["PauseMenuTabs"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+tabs_visible = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Menu" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -316.0
+offset_right = 216.0
+offset_bottom = 316.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Close" type="Button" parent="TabContainer/Menu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Back to Game"
+script = ExtResource("3_6ohx1")
+metadata/_edit_use_anchors_ = true
+
+[node name="Settings" type="Button" parent="TabContainer/Menu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Settings"
+script = ExtResource("3_63baq")
+GroupName = "PauseMenuTabs"
+metadata/_edit_use_anchors_ = true
+
+[node name="SaveGame" type="Button" parent="TabContainer/Menu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Save Game"
+script = ExtResource("2_13ohj")
+metadata/_edit_use_anchors_ = true
+
+[node name="Save&Quit" type="Button" parent="TabContainer/Menu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Save & Quit"
+script = ExtResource("3_evhqq")
+metadata/_edit_use_anchors_ = true
+
+[node name="Settings" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ScrollContainer" parent="TabContainer/Settings" instance=ExtResource("6_yh32d")]
+layout_mode = 1
+anchor_left = 0.05
+anchor_top = 0.0814815
+anchor_right = 0.95
+anchor_bottom = 0.837038
+
+[node name="Back" type="Button" parent="TabContainer/Settings"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -210.0
+offset_right = 250.0
+offset_bottom = -110.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 50
+text = "Back"
+script = ExtResource("3_63baq")
+GoHome = true
+GroupName = "PauseMenuTabs"
+
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -36,13 +128,12 @@ anchor_bottom = 0.253086
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 30
-text = "Game Paused
-
-Controls"
+text = "Game Paused"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.25
@@ -60,6 +151,7 @@ Zoom							    MOUSE WHEEL"
 metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -76,43 +168,4 @@ text = "	Harvest Resource / 			LEFT MOUSE
 	Interact									E
 
 "
-metadata/_edit_use_anchors_ = true
-
-[node name="Close" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.430729
-anchor_top = 0.637037
-anchor_right = 0.569617
-anchor_bottom = 0.723456
-theme_override_font_sizes/font_size = 30
-text = "Back to Game"
-metadata/_edit_use_anchors_ = true
-
-[node name="SaveGame" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.430729
-anchor_top = 0.733333
-anchor_right = 0.569617
-anchor_bottom = 0.819752
-offset_right = -0.665039
-offset_bottom = 6.66754
-theme_override_font_sizes/font_size = 30
-text = "Save Game"
-script = ExtResource("2_13ohj")
-metadata/_edit_use_anchors_ = true
-
-[node name="Save&Quit" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.430729
-anchor_top = 0.837037
-anchor_right = 0.569617
-anchor_bottom = 0.923456
-offset_right = -0.665039
-offset_bottom = 6.66754
-theme_override_font_sizes/font_size = 30
-text = "Save & Quit"
-script = ExtResource("3_evhqq")
 metadata/_edit_use_anchors_ = true

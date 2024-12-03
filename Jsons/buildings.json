@@ -1,6 +1,6 @@
 {
     "handHarvest" : {
-        "canBeUsedOn" : ["CoalOre", "CopperOre", "IronOre"]
+        "canBeUsedOn" : ["CopperOre", "IronOre", "Limestone", "Coal"]
     },
     "buildingPart" :
     {
@@ -37,7 +37,7 @@
         "productionProgress" : 0,
         "productionMultiplier" : 1,
         "tiles" : 0,
-        "canBePlacedOn" : ["CoalOre", "CopperOre", "IronOre"],
+        "canBePlacedOn" : ["CopperOre", "IronOre", "Limestone", "Coal"],
         "inputSlots" : [],
         "outputSlots" : [
             {
@@ -53,7 +53,7 @@
         "description" : "Allows to automatically extract ground resources\n\nExtracts 45 resources per minute per game tile\n\nSize: 2x2",
         "cost" : [],
         "coords" : [0, 0],
-        "atlasCoords" : [8, 0],
+        "atlasCoords" : [4, 4],
         "width" : 2,
         "height" : 2,
         "canRotate" : false,
@@ -67,7 +67,7 @@
         "productionProgress" : 0,
         "productionMultiplier" : 1.5,
         "tiles" : 0,
-        "canBePlacedOn" : ["CoalOre", "CopperOre", "IronOre"],
+        "canBePlacedOn" : ["CopperOre", "IronOre", "Limestone", "Coal"],
         "inputSlots" : [],
         "outputSlots" : [
             {
@@ -118,6 +118,52 @@
             }
         ]
     },
+    "foundry" : {
+        "buildingType" : "machine",
+        "type" : "foundry",
+        "name" : "Foundry",
+        "description" : "Smelts two items two items into one alloy ingot\n\nSize: 2x2",
+        "cost" : [
+            {
+                "resource" : "ModularFrame",
+                "amount" : 10
+            },
+            {
+                "resource" : "Rotor",
+                "amount" : 10
+            }
+        ],
+        "coords" : [0, 0],
+        "atlasCoords" : [6, 4],
+        "height" : 2,
+        "width" : 2,
+        "canRotate" : false,
+        "rotationAmount" : 1,
+        "rotation" : 0,
+        "hasAdditionalAtlasPosition" : true,
+        "additionalAtlasPosition" : [        [1, 0],
+                                     [0, 1], [1, 1]],
+        "recipe" : "none",
+        "canChooseRecipe" : true,
+        "productionProgress" : 0,
+        "canBePlacedOn" : ["Grass"],
+        "inputSlots" : [
+            {
+                "resource" : "",
+                "amount" : 0
+            },
+            {
+                "resource" : "",
+                "amount" : 0
+            }
+        ],
+        "outputSlots" :  [
+            {
+                "resource" : "",
+                "amount" : 0
+            }
+        ]
+    },
     "constructor" : {
         "buildingType" : "machine",
         "type" : "constructor",
@@ -125,12 +171,12 @@
         "description" : "Processes one resource as input into one resource as output\n\nSize: 2x2",
         "cost" : [
             {
-                "resource" : "IronPlate",
-                "amount" : 20
+                "resource" : "ReinforcedIronPlate",
+                "amount" : 2
             },
             {
-                "resource" : "IronRod",
-                "amount" : 10
+                "resource" : "Cable",
+                "amount" : 8
             }
         ],
         "coords" : [0, 0],
@@ -149,6 +195,59 @@
         "canBePlacedOn" : ["Grass"],
         "inputSlots" : [
             {
+                
+                "resource" : "",
+                "amount" : 0
+            }
+        ],
+        "outputSlots" :  [
+            {
+                "resource" : "",
+                "amount" : 0
+            }
+        ]
+    },
+    "assembler" : {
+        "buildingType" : "machine",
+        "type" : "assembler",
+        "name" : "Assembler",
+        "description" : "n\nSize: 2x2",
+        "cost" : [
+            {
+                "resource" : "ReinforcedIronPlate",
+                "amount" : 8
+            },
+            {
+                "resource" : "Rotor",
+                "amount" : 4
+            },
+            {
+                "resource" : "Cable",
+                "amount" : 10
+            }   
+
+        ],
+        "coords" : [0, 0],
+        "atlasCoords" : [8, 0],
+        "height" : 2,
+        "width" : 2,
+        "canRotate" : false,
+        "rotationAmount" : 1,
+        "rotation" : 0,
+        "hasAdditionalAtlasPosition" : true,
+        "additionalAtlasPosition" : [        [1, 0],
+                                     [0, 1], [1, 1]],
+        "recipe" : "none",
+        "canChooseRecipe" : true,
+        "productionProgress" : 0,
+        "canBePlacedOn" : ["Grass"],
+        "inputSlots" : [
+            {
+
+                "resource" : "",
+                "amount" : 0
+            },
+            {
                 "resource" : "",
                 "amount" : 0
             }
@@ -164,7 +263,7 @@
         "buildingType" : "belt",
         "type" : "belt1",
         "name" : "Conveyor Belt MK1",
-        "description" : "Moves items from one place to another\n\nCan transport 30 items per minute\n\nSize: 1x1",
+        "description" : "Moves items from one place to another\n\nCan transport 60 items per minute\n\nSize: 1x1",
         "cost" : [
             {
                 "resource" : "IronPlate",
@@ -181,7 +280,7 @@
         "nextPosition" : [0, 0],
         "hasAdditionalAtlasPosition" : false,
         "additionalAtlasPosition" : [],
-        "speed" : 30,
+        "speed" : 60,
         "moveProgress" : 0,
         "canBePlacedOn" : ["Grass", "Concrete"],
         "item" : ""
@@ -189,8 +288,8 @@
     "beltArm1" : {
         "buildingType" : "beltArm",
         "type" : "beltArm1",
-        "name" : "Conveyor Arm MK1",
-        "description" : "Moves items between building and Conveyor Belt or between two different Conveyor Belts\n\nCan transfer 30 item per minute\n\nSize: 1x1",
+        "name" : "Conveyor Bridge MK1",
+        "description" : "Moves items between building and Conveyor Belt or between two different Conveyor Belts\n\nCan transfer 60 item per minute\nReach: 1\n\nSize: 1x1",
         "cost" : [
             {
                 "resource" : "IronPlate",
@@ -208,9 +307,67 @@
         "previousPosition" : [0, 0],
         "hasAdditionalAtlasPosition" : false,
         "additionalAtlasPosition" : [],
-        "speed" : 30,
+        "speed" : 60,
         "moveProgress" : 0,
         "reach": 1,
+        "canMove" : false,
+        "canBePlacedOn" : ["Grass", "Concrete"],
+        "item" : ""
+    },
+    "beltArm2" : {
+        "buildingType" : "beltArm",
+        "type" : "beltArm2",
+        "name" : "Conveyor Bridge MK2",
+        "description" : "Moves items between building and Conveyor Belt or between two different Conveyor Belts\n\nCan transfer 120 item per minute\nReach: 1\n\nSize: 1x1",
+        "cost" : [
+            {
+                "resource" : "ReinforcedIronPlate",
+                "amount" : 10
+            }
+        ],
+        "coords" : [0, 0],
+        "atlasCoords" : [0, 3],
+        "width" : 1,
+        "height" : 1,
+        "canRotate" : true,
+        "rotationAmount" : 4,
+        "rotation" : 0,
+        "nextPosition" : [0, 0],
+        "previousPosition" : [0, 0],
+        "hasAdditionalAtlasPosition" : false,
+        "additionalAtlasPosition" : [],
+        "speed" : 120,
+        "moveProgress" : 0,
+        "reach": 1,
+        "canMove" : false,
+        "canBePlacedOn" : ["Grass", "Concrete"],
+        "item" : ""
+    },
+    "beltArm2Long" : {
+        "buildingType" : "beltArm",
+        "type" : "beltArm2Long",
+        "name" : "Conveyor Bridge MK2 Long",
+        "description" : "Moves items between building and Conveyor Belt or between two different Conveyor Belts\n\nCan transfer 120 item per minute\nReach: 2\n\nSize: 1x1",
+        "cost" : [
+            {
+                "resource" : "ReinforcedIronPlate",
+                "amount" : 15
+            }
+        ],
+        "coords" : [0, 0],
+        "atlasCoords" : [0, 3],
+        "width" : 1,
+        "height" : 1,
+        "canRotate" : true,
+        "rotationAmount" : 4,
+        "rotation" : 0,
+        "nextPosition" : [0, 0],
+        "previousPosition" : [0, 0],
+        "hasAdditionalAtlasPosition" : false,
+        "additionalAtlasPosition" : [],
+        "speed" : 120,
+        "moveProgress" : 0,
+        "reach": 2,
         "canMove" : false,
         "canBePlacedOn" : ["Grass", "Concrete"],
         "item" : ""
