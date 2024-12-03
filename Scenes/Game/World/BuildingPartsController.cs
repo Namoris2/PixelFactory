@@ -25,7 +25,7 @@ public partial class BuildingPartsController : Node2D
 
 	private void CreateBuildingPart(Vector2I coords, string type, int rotation, bool createdBuilding)
 	{
-		if (!Godot.FileAccess.FileExists($"{path}{type}.tscn")) { return; }
+		if (!ResourceLoader.Exists($"{path}{type}.tscn")) { return; }
 
 		BuildingPart buildingPart = (BuildingPart)GD.Load<PackedScene>($"{path}{type}.tscn").Instantiate();
 		buildingPart.Position = coords * 64;

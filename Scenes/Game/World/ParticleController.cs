@@ -14,7 +14,7 @@ public partial class ParticleController : Node2D
     private void CreateParticle(Vector2I coords, string type, string resource = "")
     {
         if (resource != "") { resource = "/" + resource; }
-		if (!FileAccess.FileExists($"{path}{type}{resource}.tscn")) { return; }
+		if (!ResourceLoader.Exists($"{path}{type}{resource}.tscn")) { return; }
 
         Node2D particle = (Node2D)GD.Load<PackedScene>($"{path}{type}{resource}.tscn").Instantiate();
         particle.Position = coords * 64;
