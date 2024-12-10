@@ -8,7 +8,7 @@
 [sub_resource type="Theme" id="Theme_86hsv"]
 Button/styles/focus = SubResource("StyleBoxEmpty_dhfkn")
 
-[node name="CraftingItemSelect" type="Button"]
+[node name="CraftingItemSelect" type="Button" groups=["CraftingMeneRecipeSelect"]]
 custom_minimum_size = Vector2(0, 100)
 anchors_preset = -1
 anchor_right = 0.15625

@@ -13,6 +13,7 @@ public partial class CraftingMenu : Control
 
 	Array<Node> inputItems;
 	Array<Node> outputItems;
+	Array<Node> recipeSelects;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -22,6 +23,7 @@ public partial class CraftingMenu : Control
 
 		inputItems = GetTree().GetNodesInGroup("CraftingInputItems");
 		outputItems = GetTree().GetNodesInGroup("CraftingOutputItems");
+		recipeSelects = GetTree().GetNodesInGroup("CraftingMeneRecipeSelect");
 
 		GetNode<Button>("CraftingBackground/Craft").Pressed += Craft;
 	}
@@ -67,6 +69,12 @@ public partial class CraftingMenu : Control
 			slot.itemType = recipe.output[i].name.ToString();
 			slot.UpdateSlotTexture(recipe.output[i].name.ToString());
 			slot.Show();
+		}
+
+		foreach (Node recipeSelect in recipeSelects)
+		{
+			CraftingItemSelect select = (CraftingItemSelect)recipeSelect;
+			select.Disabled = false;
 		}
 	}
 

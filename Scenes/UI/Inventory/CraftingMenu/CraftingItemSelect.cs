@@ -67,8 +67,9 @@ public partial class CraftingItemSelect : Button
 			CraftingItemSelect itemRecipe = (CraftingItemSelect)parent.GetChild(i);
 			itemRecipe.Disabled = false;
 
-			craftingMenu.ChangeRecipe(itemType);
 		}
+
+		craftingMenu.ChangeRecipe(itemType);
 		Disabled = true;
 	}
 
