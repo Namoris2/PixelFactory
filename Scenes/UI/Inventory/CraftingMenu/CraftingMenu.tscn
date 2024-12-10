@@ -206,6 +206,10 @@ name = "Industrial Parts"
 layout_mode = 2
 itemType = "Rotor"
 
+[node name="Stator" parent="ColorRect/ItemsScrollContainer/ItemsContainer/IndustrialParts/Items" index="1" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "Stator"
+
 [editable path="ColorRect/ItemsScrollContainer/ItemsContainer/Ingots"]
 [editable path="ColorRect/ItemsScrollContainer/ItemsContainer/StandardParts"]
 [editable path="ColorRect/ItemsScrollContainer/ItemsContainer/Compounds"]

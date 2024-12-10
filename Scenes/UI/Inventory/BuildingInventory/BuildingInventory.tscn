@@ -206,6 +206,11 @@ layout_mode = 2
 DisplayName = "Rotor"
 Type = "recipe"
 
+[node name="Stator" parent="TabContainer/Recipes/Assembler/VBoxContainer/IndustrialParts/Items" index="1" instance=ExtResource("2_amxgm")]
+layout_mode = 2
+DisplayName = "Stator"
+Type = "recipe"
+
 [node name="Building" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2

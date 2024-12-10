@@ -230,26 +230,6 @@
             }
         ]
     },
-    "EncasedSteelBeam": {
-        "name" : "Encased Steel Beam",
-        "cyclesPerMinute" : 6,
-        "input" : [
-            {
-                "name" : "SteelIngot",
-                "amount" : 3
-            },
-            {
-                "name" : "Concrete",
-                "amount" : 6
-            }
-        ],
-        "output" : [
-            {
-                "name" : "EncasedSteelBeam",
-                "amount" : 1
-            }
-        ]
-    },
     "Concrete" : {
         "name" : "Concrete",
         "cyclesPerMinute" : 15,
@@ -308,6 +288,26 @@
             }
         ]
     },
+    "Stator" : {
+        "name" : "Stator",
+        "cyclesPerMinute" : 5,
+        "input" : [
+            {
+                "name" : "SteelPipe",
+                "amount" : 3
+            },
+            {
+                "name" : "Wire",
+                "amount" : 8
+            }
+        ],
+        "output" : [
+            {
+                "name" : "Stator",
+                "amount" : 1
+            }
+        ]
+    },
     "ModularFrame" : {
         "name" : "Modular Frame",
         "cyclesPerMinute" : 1,
@@ -327,5 +327,25 @@
                 "amount" : 2
             }
         ]
-    }
+    },
+    "EncasedSteelBeam": {
+        "name" : "Encased Steel Beam",
+        "cyclesPerMinute" : 6,
+        "input" : [
+            {
+                "name" : "SteelIngot",
+                "amount" : 3
+            },
+            {
+                "name" : "Concrete",
+                "amount" : 6
+            }
+        ],
+        "output" : [
+            {
+                "name" : "EncasedSteelBeam",
+                "amount" : 1
+            }
+        ]
+    },
 }
