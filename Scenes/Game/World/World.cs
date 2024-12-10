@@ -286,6 +286,11 @@ public partial class World : Godot.TileMap
 							{
 								buildingsInfo[i].outputSlots[j].amount += recipe.output[j].amount;
 							}
+
+						}
+						else
+						{
+							UpdateBuildingInventory(buildingsInfo[i]);
 						}
 					}
 
@@ -354,12 +359,12 @@ public partial class World : Godot.TileMap
 							buildingsInfo[i].item = previousBuilding.outputSlots[0].resource; 
 							previousBuilding.outputSlots[0].amount -= 1;
 							CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (int)buildingData.speed * 2, parentBuilding: new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]));
+							UpdateBuildingInventory(buildingsInfo[i]);
 						}
 						else if (previousBuilding.buildingType.ToString() == "storage") // storage
 						{
 							for (int j = previousBuilding.slots.Count - 1; j >= 0; j--)
 							{
-								//GD.Print(previousBuilding.slots[j].resource, previousBuilding.slots[j].amount); 
 								if (previousBuilding.slots[j].resource.ToString() != "")
 								{
 									buildingsInfo[i].item = previousBuilding.slots[j].resource.ToString();
@@ -368,6 +373,7 @@ public partial class World : Godot.TileMap
 									CreateItem(previousCoords, nextCoords, buildingsInfo[i].item.ToString(), (float)buildingData.speed * 2, parentBuilding: new Vector2I((int)buildingsInfo[i].coords[0], (int)buildingsInfo[i].coords[1]));
 									break;
 								}
+								UpdateBuildingInventory(previousBuilding);
 							}
 							//GD.Print();
 						}
@@ -411,13 +417,12 @@ public partial class World : Godot.TileMap
 								if (index == -1) { break; }
 								nextBuilding.inputSlots[index].amount += 1; 
 							}
-							
-							else
+							else //storage
 							{
 								PutItemsIntoStorage(nextCoords, 1, buildingsInfo[i].item.ToString());
-
 							}
 
+							UpdateBuildingInventory(nextBuilding);
 							item.QueueFree();
 						}
 
@@ -426,12 +431,6 @@ public partial class World : Godot.TileMap
 					}
 					
 				break;					
-			}
-
-			// if inventory is opened, data will be sent to the inventory to show on screen
-			if (buildingInventory.Visible && GetBuildingInfo(cellPositionByMouse) != null)
-			{
-				buildingInventory.UpdateInventory(buildingsInfo[i]);
 			}
 		}
 	}
@@ -1511,6 +1510,20 @@ public partial class World : Godot.TileMap
 				building.outputSlots[i].resource = currentRecipe.output[i].name;
 			}
 
+		}
+	}
+
+	private void UpdateBuildingInventory(dynamic building)
+	{
+		if (GetBuildingInfo(cellPositionByMouse) == null) { return; }
+		dynamic hoveringBuilding = GetBuildingInfo(cellPositionByMouse);
+
+		Vector2 coords = new((int)hoveringBuilding.coords[0], (int)hoveringBuilding.coords[1]);
+
+		// if inventory is opened, data will be sent to the inventory to show on screen
+		if (buildingInventory.Visible && coords == buildingInventory.coordinates && GetBuildingInfo(cellPositionByMouse) != null)
+		{
+			buildingInventory.UpdateInventory(building);
 		}
 	}
 

@@ -130,12 +130,14 @@ public partial class InventorySlot : Button
 						itemType = "";
 						resourceAmount.Text = "";
 						UpdateSlotTexture(itemType);
+						buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
 					}
 					else
 					{
 						int puttingAmount = maxStackSize - buildingAmount;
 						PutItems(-puttingAmount, maxStackSize);
 						tileMap.PutItemsToSlot(buildingInventory.coordinates, puttingAmount, itemType, "input", index);
+						buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
 					}
 				}
 				else if (building.buildingType.ToString() == "storage")
@@ -146,6 +148,7 @@ public partial class InventorySlot : Button
 						itemType = "";
 						resourceAmount.Text = "";
 						UpdateSlotTexture(itemType);
+						buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
 					}
 					else
 					{
@@ -163,10 +166,11 @@ public partial class InventorySlot : Button
 				
 				if (inventoryType == "machine")
 				{
-
 					itemType = recipe[slotType.ToLower()][inventorySlotIndex].name;
 					building[$"{slotType.ToLower()}Slots"][inventorySlotIndex].resource = itemType;
 				}
+				
+				buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
 			}
 			return;
 		}
