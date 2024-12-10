@@ -142,7 +142,6 @@ public partial class BuildingInventory : Control
 			Show();
 			return;
 		}
-		//GD.Print(buildingInfo);
 
 		dynamic buildingData = buildings[buildingInfo.type.ToString()];
 		coordinates = new ((int)buildingInfo.coords[0], (int)buildingInfo.coords[1]);
@@ -269,6 +268,8 @@ public partial class BuildingInventory : Control
 				tileMap.UITOGGLE = false;
 				break;
 		}
+		
+		UpdateInventory(buildingInfo);
 	}
 
 	public void UpdateInventory(dynamic building)

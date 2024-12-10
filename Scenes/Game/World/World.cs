@@ -375,7 +375,6 @@ public partial class World : Godot.TileMap
 								}
 								UpdateBuildingInventory(previousBuilding);
 							}
-							//GD.Print();
 						}
 						else if (previousBuilding.buildingType.ToString() == "belt") // belt
 						{
@@ -1516,9 +1515,9 @@ public partial class World : Godot.TileMap
 	private void UpdateBuildingInventory(dynamic building)
 	{
 		if (GetBuildingInfo(cellPositionByMouse) == null) { return; }
-		dynamic hoveringBuilding = GetBuildingInfo(cellPositionByMouse);
+		//dynamic hoveringBuilding = GetBuildingInfo(cellPositionByMouse);
 
-		Vector2 coords = new((int)hoveringBuilding.coords[0], (int)hoveringBuilding.coords[1]);
+		Vector2 coords = new((int)building.coords[0], (int)building.coords[1]);
 
 		// if inventory is opened, data will be sent to the inventory to show on screen
 		if (buildingInventory.Visible && coords == buildingInventory.coordinates && GetBuildingInfo(cellPositionByMouse) != null)
