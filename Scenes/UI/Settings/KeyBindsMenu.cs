@@ -5,19 +5,6 @@ using System.Collections.Generic;
 public partial class KeyBindsMenu : Control
 {
 	// Called when the node enters the scene tree for the first time.
-	readonly Dictionary<string, string> actions = new()
-	{
-		{ "MoveUp", "Move Up" },
-		{ "MoveDown", "Move Down" },
-		{ "MoveLeft", "Move Left" },
-		{ "MoveRight", "Move Right" },
-		{ "Sprint", "Sprint" },
-		{ "Interact", "Interact" },
-		{ "Rotate", "Rotate Building" },
-		{ "ToggleBuildMode", "Open BuildMenu" },
-		{ "ToggleDismantleMode", "Dismantle Mode" },
-		{ "ToggleInventory", "Open Inventory" },
-	};
 
 	Node buttonsContainer;
 	Button resetBinds;
@@ -28,7 +15,7 @@ public partial class KeyBindsMenu : Control
 		resetBinds = GetNode<Button>("ResetBinds");
 		resetBinds.Pressed += ResetBinds;
 		
-		foreach (KeyValuePair<string,string> action in actions)
+		foreach (KeyValuePair<string,string> action in SettingsHandler.actions)
 		{
 			KeyBindEdit keyBindEdit = (KeyBindEdit)GD.Load<PackedScene>("res://Scenes/UI/Settings/KeyBindEdit.tscn").Instantiate();
 			Label actionLabel = keyBindEdit.GetNode<Label>("HBoxContainer/Action");

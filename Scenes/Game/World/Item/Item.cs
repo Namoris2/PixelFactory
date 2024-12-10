@@ -17,6 +17,7 @@ public partial class Item : Node2D
 
 	private bool mouseHover = false;
 	dynamic items;
+	Control actionPopup;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -26,6 +27,7 @@ public partial class Item : Node2D
 
 		icon = GetNode<Sprite2D>("Icon");
 		name = GetNode<Label>("Name");
+		actionPopup = (Control)GetTree().GetFirstNodeInGroup("PickUpItem");
 
 		textureAtlas.Atlas = GD.Load<Texture2D>("res://Gimp/Items/items.png");
 
@@ -60,6 +62,7 @@ public partial class Item : Node2D
 		if (canPutToInventory) 
 		{ 
 			QueueFree(); 
+			actionPopup.Hide();
 			if (!onGround)
 			{
 				World tileMap = GetNode<World>("/root/main/World/TileMap");
@@ -97,12 +100,14 @@ public partial class Item : Node2D
 	private void OnMouseEnter()
 	{
 		name.Show();
+		actionPopup.Show();
 		mouseHover = true;
 	}
 
 	private void OnMouseExit()
 	{
 		name.Hide();
+		actionPopup.Hide();
 		mouseHover = false;
 	}
 }

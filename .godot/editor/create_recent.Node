@@ -1,11 +1,11 @@
+VBoxContainer
+HBoxContainer
+Label
 AnimatedSprite2D
 TextureRect
 Control
-Label
 Container
 HFlowContainer
-VBoxContainer
-HBoxContainer
 HSplitContainer
 MarginContainer
 Button

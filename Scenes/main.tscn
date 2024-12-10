@@ -20,7 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://dyxbbw8tmug2l" path="res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn" id="13_dtspo"]
 [ext_resource type="PackedScene" uid="uid://bsymbesh48kwd" path="res://Scenes/UI/BuildMenu/BuildMenu.tscn" id="15_14qvx"]
 [ext_resource type="Script" path="res://Scenes/UI/BuildMenu/BuildMenu.cs" id="15_v7e3e"]
-[ext_resource type="Script" path="res://Scenes/UI/UIToggle.cs" id="16_pxye0"]
+[ext_resource type="PackedScene" uid="uid://dovmqqqkotuid" path="res://Scenes/UI/Kebinds/ActionInfoPopup.tscn" id="18_fakxi"]
 [ext_resource type="PackedScene" uid="uid://bxn21jfq72eky" path="res://Scenes/UI/Pause Menu/PauseMenu.tscn" id="19_3uy5l"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x64vh"]
@@ -3278,10 +3278,20 @@ script = ExtResource("15_v7e3e")
 
 [node name="Buildings" parent="UI/BuildMenu" instance=ExtResource("15_14qvx")]
 
-[node name="UIToggle" type="Node" parent="UI"]
-script = ExtResource("16_pxye0")
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+offset_left = 1376.0
+offset_top = 672.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+alignment = 2
+
+[node name="PickUpItem" parent="UI/VBoxContainer" groups=["PickUpItem"] instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "Interact"
+customActionText = "Pick Up Item"
 
 [node name="PauseMenu" parent="UI" instance=ExtResource("19_3uy5l")]
+visible = false
 pauseOnStart = false
 metadata/_edit_use_anchors_ = true
 

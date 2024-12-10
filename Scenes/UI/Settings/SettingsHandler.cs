@@ -3,7 +3,20 @@ using System;
 using System.Collections.Generic;
 
 public partial class SettingsHandler : Node
-{	readonly string[] keyBinds = new string[] { "MoveUp", "MoveDown", "MoveLeft", "MoveRight","Sprint","Interact","Rotate", "ToggleBuildMode", "ToggleDismantleMode", "ToggleInventory"};
+{	readonly string[] keyBinds = new string[] { "MoveUp", "MoveDown", "MoveLeft", "MoveRight", "Sprint", "Interact", "Rotate", "ToggleBuildMode", "ToggleDismantleMode", "ToggleInventory"};
+	public static readonly Dictionary<string, string> actions = new()
+	{
+		{ "MoveUp", "Move Up" },
+		{ "MoveDown", "Move Down" },
+		{ "MoveLeft", "Move Left" },
+		{ "MoveRight", "Move Right" },
+		{ "Sprint", "Sprint" },
+		{ "Interact", "Interact" },
+		{ "Rotate", "Rotate Building" },
+		{ "ToggleBuildMode", "Open BuildMenu" },
+		{ "ToggleDismantleMode", "Dismantle Mode" },
+		{ "ToggleInventory", "Open Inventory" },
+	};
     public static Dictionary<string, InputEvent> defaultBinds = new();
     const string configPath = "user://settings.ini";
     ConfigFile configFile = new();
