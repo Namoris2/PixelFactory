@@ -422,6 +422,10 @@ public partial class World : Godot.TileMap
 							}
 
 							UpdateBuildingInventory(nextBuilding);
+							if (item.mouseHover)
+							{
+								item.actionPopup.Hide();
+							}
 							item.QueueFree();
 						}
 

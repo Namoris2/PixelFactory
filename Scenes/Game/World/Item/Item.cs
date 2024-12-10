@@ -15,9 +15,9 @@ public partial class Item : Node2D
 	private AtlasTexture textureAtlas = new ();
 	private Sprite2D icon;
 
-	private bool mouseHover = false;
+	public bool mouseHover = false;
 	dynamic items;
-	Control actionPopup;
+	public Control actionPopup;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
