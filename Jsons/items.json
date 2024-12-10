@@ -119,5 +119,11 @@
 		"name" : "Modular Frame",
 		"maxStackSize" : 50,
 		"atlasCoords" : [3, 2]
+	},
+	"EncasedSteelBeam" : {
+		"type" : "EncasedSteelBeam",
+		"name" : "Encased Steel Beam",
+		"maxStackSize" : 100,
+		"atlasCoords" : [3, 3]
 	}
 }

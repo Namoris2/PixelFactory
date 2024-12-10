@@ -192,6 +192,11 @@ layout_mode = 2
 DisplayName = "ModularFrame"
 Type = "recipe"
 
+[node name="EncasedSteelBeam" parent="TabContainer/Recipes/Assembler/VBoxContainer/StandardParts/Items" index="2" instance=ExtResource("2_amxgm")]
+layout_mode = 2
+DisplayName = "EncasedSteelBeam"
+Type = "recipe"
+
 [node name="IndustrialParts" parent="TabContainer/Recipes/Assembler/VBoxContainer" instance=ExtResource("3_thli6")]
 layout_mode = 2
 name = "Industrial Parts"
