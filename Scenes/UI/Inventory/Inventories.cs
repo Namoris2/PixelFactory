@@ -35,11 +35,18 @@ public partial class Inventories : CanvasLayer
 				craftingMenu.ChangeRecipe(craftingMenu.selectedRecipe);
 				craftingMenu.Show();
 			}
+			GameEvents.closePopup.SetCustomActionText();
+			GameEvents.closePopup.Show();
+			GameEvents.toggleInventoryPopup.SetCustomActionText();
 			Show();
 		}
 		else
 		{
 			Hide();
+			GameEvents.pickUpItemPopup.Hide();
+			GameEvents.closePopup.Hide();
+			GameEvents.toggleInventoryPopup.SetDefaultActionText();
+
 			GetNode<Control>("InventoryGrid/BuildingInventory").Hide();
 			GetNode<Control>("InventoryGrid/CraftingMenu").Hide();
 

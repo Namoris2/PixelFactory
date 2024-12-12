@@ -16,6 +16,8 @@ public partial class SettingsHandler : Node
 		{ "ToggleBuildMode", "Open BuildMenu" },
 		{ "ToggleDismantleMode", "Dismantle Mode" },
 		{ "ToggleInventory", "Open Inventory" },
+
+        { "Back", "Back" }
 	};
     public static Dictionary<string, InputEvent> defaultBinds = new();
     const string configPath = "user://settings.ini";

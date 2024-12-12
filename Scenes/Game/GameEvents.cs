@@ -11,6 +11,10 @@ public partial class GameEvents : Node
     private Label worldInfo;
     public static PlayerCamera camera;
 
+    public static ActionInfoPopup pickUpItemPopup;
+    public static ActionInfoPopup closePopup;
+    public static ActionInfoPopup toggleInventoryPopup;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -20,6 +24,10 @@ public partial class GameEvents : Node
         pauseMenu = GetNode<PauseMenu>("../UI/PauseMenu");
         worldInfo = GetNode<Label>("../UI/WorldInfo");
         camera = GetNode<PlayerCamera>("../World/Player/PlayerCamera");
+
+        pickUpItemPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("PickUpItem");
+        closePopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("Back");
+        toggleInventoryPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleInventory");
 	}
 
     public override void _Input(InputEvent @event)
@@ -29,10 +37,16 @@ public partial class GameEvents : Node
             if (pauseMenu.Visible)
             {
                 pauseMenu.UnpauseGame();
+                closePopup.Hide();
+                toggleInventoryPopup.Show();
             }
             else if (!(tileMap.BUILDINGMODE || tileMap.DISMANTLEMODE || inventories.Visible || buildMenu.Visible))
             {
                 pauseMenu.PauseGame();
+                closePopup.SetDefaultActionText();
+                closePopup.Show();
+                pickUpItemPopup.Hide();
+                toggleInventoryPopup.Hide();
             }
             else if (tileMap.DISMANTLEMODE)
             {

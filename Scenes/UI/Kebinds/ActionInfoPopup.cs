@@ -5,24 +5,23 @@ using System;
 public partial class ActionInfoPopup : HBoxContainer
 {
 	[Export] string actionType;
+	[Export] bool hideOnStart;
 	[Export] string customActionText;
+	[Export] bool overrideWithCustomTextOnStart;
+
+	string actionText;
 	Label label;
 	ActionKey icon;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		Hide();
+		if (hideOnStart) { Hide(); }
 		label = GetNode<Label>("Label");
 		icon = GetNode<ActionKey>("Icon");
+		actionText = SettingsHandler.actions[actionType];
 
-		if (customActionText == "")
-		{
-			label.Text = SettingsHandler.actions[actionType];
-		}
-		else
-		{
-			label.Text = customActionText;
-		}
+		SetDefaultActionText();
+		if (overrideWithCustomTextOnStart) { SetCustomActionText();}
 
 		Array<InputEvent> inputs = InputMap.ActionGetEvents(actionType);
 		icon.key = inputs[0].AsText().TrimSuffix(" (Physical)");
@@ -32,5 +31,16 @@ public partial class ActionInfoPopup : HBoxContainer
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+	}
+
+	public void SetCustomActionText()
+	{
+		if (customActionText == "") { GD.PrintErr("No custom action text was set"); return; }
+		label.Text = customActionText;
+	}
+
+	public void SetDefaultActionText()
+	{
+		label.Text = actionText;
 	}
 }
