@@ -178,10 +178,12 @@ public partial class World : Godot.TileMap
 		{
 			dynamic buildingData = buildings[GetBuildingInfo(cellPositionByMouse).type.ToString()];
 			worldInfo = $"Building: {buildingData.name}";
+			if (!buildingData.name.ToString().Contains("belt")) { GameEvents.toggleBuildingInventoryPopup.Show(); }
 		}
 		else
 		{
 			worldInfo = $"Resource: {groundResources[groundResourceName].name}";
+			if (GameEvents.toggleBuildingInventoryPopup.Visible) { GameEvents.toggleBuildingInventoryPopup.Hide(); }
 		}
 
 		worldInfo = $"Coordinates: {cellPositionByMouse[0]}, {cellPositionByMouse[1]}\n{worldInfo}";

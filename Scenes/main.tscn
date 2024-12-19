@@ -3294,19 +3294,25 @@ alignment = 2
 layout_mode = 2
 actionType = "Back"
 hideOnStart = true
-customActionText = "Close"
+customActionText = PackedStringArray("Close", "")
 
 [node name="PickUpItem" parent="UI/VBoxContainer" groups=["PickUpItem"] instance=ExtResource("18_fakxi")]
 layout_mode = 2
 actionType = "Interact"
 hideOnStart = true
-customActionText = "Pick Up Item"
+customActionText = PackedStringArray("Pick Up Item", "")
 overrideWithCustomTextOnStart = true
 
 [node name="ToggleInventory" parent="UI/VBoxContainer" groups=["ToggleInventory"] instance=ExtResource("18_fakxi")]
 layout_mode = 2
 actionType = "ToggleInventory"
-customActionText = "Close Inventory"
+customActionText = PackedStringArray("Close Inventory", "")
+
+[node name="ToggleBuildingInventory" parent="UI/VBoxContainer" groups=["ToggleBuildingInventory"] instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "Interact"
+customActionText = PackedStringArray("Open Building Inventory", "Close Building Inventory")
+overrideWithCustomTextOnStart = true
 
 [node name="ResourceAmount" type="Label" parent="UI"]
 visible = false

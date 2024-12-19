@@ -108,7 +108,11 @@ public partial class BuildingInventory : Control
 			}
 
 			productionProgress.Value = 0;
-			this.Hide();
+			Hide();
+
+			GameEvents.toggleBuildingInventoryPopup.Hide();
+			GameEvents.toggleBuildingInventoryPopup.SetCustomActionText();
+
 			return; 
 		}
 
@@ -270,6 +274,9 @@ public partial class BuildingInventory : Control
 		}
 		
 		UpdateInventory(buildingInfo);
+
+		GameEvents.toggleBuildingInventoryPopup.Show();
+		GameEvents.toggleBuildingInventoryPopup.SetCustomActionText(1);
 	}
 
 	public void UpdateInventory(dynamic building)

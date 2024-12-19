@@ -6,7 +6,7 @@ public partial class ActionInfoPopup : HBoxContainer
 {
 	[Export] string actionType;
 	[Export] bool hideOnStart;
-	[Export] string customActionText;
+	[Export] string[] customActionText = new string[2];
 	[Export] bool overrideWithCustomTextOnStart;
 
 	string actionText;
@@ -33,10 +33,10 @@ public partial class ActionInfoPopup : HBoxContainer
 	{
 	}
 
-	public void SetCustomActionText()
+	public void SetCustomActionText(int index = 0)
 	{
-		if (customActionText == "") { GD.PrintErr("No custom action text was set"); return; }
-		label.Text = customActionText;
+		if (customActionText[index] == "") { GD.PrintErr("No custom action text was set"); return; }
+		label.Text = customActionText[index];
 	}
 
 	public void SetDefaultActionText()

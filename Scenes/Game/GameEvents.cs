@@ -14,6 +14,7 @@ public partial class GameEvents : Node
     public static ActionInfoPopup pickUpItemPopup;
     public static ActionInfoPopup closePopup;
     public static ActionInfoPopup toggleInventoryPopup;
+    public static ActionInfoPopup toggleBuildingInventoryPopup;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -28,6 +29,7 @@ public partial class GameEvents : Node
         pickUpItemPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("PickUpItem");
         closePopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("Back");
         toggleInventoryPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleInventory");
+        toggleBuildingInventoryPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleBuildingInventory");
 	}
 
     public override void _Input(InputEvent @event)
@@ -47,6 +49,7 @@ public partial class GameEvents : Node
                 closePopup.Show();
                 pickUpItemPopup.Hide();
                 toggleInventoryPopup.Hide();
+                toggleBuildingInventoryPopup.Hide();
             }
             else if (tileMap.DISMANTLEMODE)
             {
