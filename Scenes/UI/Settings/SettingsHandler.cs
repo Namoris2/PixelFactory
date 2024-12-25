@@ -13,7 +13,7 @@ public partial class SettingsHandler : Node
 		{ "Sprint", "Sprint" },
 		{ "Interact", "Interact" },
 		{ "Rotate", "Rotate Building" },
-		{ "ToggleBuildMode", "Open BuildMenu" },
+		{ "ToggleBuildMode", "Open Build Menu" },
 		{ "ToggleDismantleMode", "Dismantle Mode" },
 		{ "ToggleInventory", "Open Inventory" },
 

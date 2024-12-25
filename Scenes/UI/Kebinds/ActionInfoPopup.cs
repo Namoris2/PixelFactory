@@ -9,7 +9,7 @@ public partial class ActionInfoPopup : HBoxContainer
 	[Export] string[] customActionText = new string[2];
 	[Export] bool overrideWithCustomTextOnStart;
 
-	string actionText;
+	public string actionText;
 	Label label;
 	ActionKey icon;
 	// Called when the node enters the scene tree for the first time.

@@ -35,7 +35,6 @@ public partial class Inventories : CanvasLayer
 				craftingMenu.ChangeRecipe(craftingMenu.selectedRecipe);
 				craftingMenu.Show();
 			}
-			GameEvents.closePopup.SetCustomActionText();
 			GameEvents.closePopup.Show();
 			GameEvents.toggleInventoryPopup.SetCustomActionText();
 			Show();

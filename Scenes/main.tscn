@@ -3314,6 +3314,11 @@ actionType = "Interact"
 customActionText = PackedStringArray("Open Building Inventory", "Close Building Inventory")
 overrideWithCustomTextOnStart = true
 
+[node name="ToggleBuildMenu" parent="UI/VBoxContainer" groups=["ToggleBuildMenuPopup"] instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "ToggleBuildMode"
+customActionText = PackedStringArray("Close Build Menu", "")
+
 [node name="ResourceAmount" type="Label" parent="UI"]
 visible = false
 anchors_preset = 2
