@@ -13,6 +13,7 @@ public partial class GameEvents : Node
 
     public static ActionInfoPopup pickUpItemPopup;
     public static ActionInfoPopup closePopup;
+    public static ActionInfoPopup rotatePopup;
     public static ActionInfoPopup toggleInventoryPopup;
     public static ActionInfoPopup toggleBuildingInventoryPopup;
     public static ActionInfoPopup toggleBuildMenuPopup;
@@ -27,10 +28,11 @@ public partial class GameEvents : Node
         worldInfo = GetNode<Label>("../UI/WorldInfo");
         camera = GetNode<PlayerCamera>("../World/Player/PlayerCamera");
 
-        pickUpItemPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("PickUpItem");
-        closePopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("Back");
-        toggleInventoryPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleInventory");
-        toggleBuildingInventoryPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleBuildingInventory");
+        closePopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("BackPopup");
+        rotatePopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("RotateBuildingPopup");
+        pickUpItemPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("PickUpItemPopup");
+        toggleInventoryPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleInventoryPopup");
+        toggleBuildingInventoryPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleBuildingInventoryPopup");
         toggleBuildMenuPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleBuildMenuPopup");
 	}
 
@@ -103,6 +105,7 @@ public partial class GameEvents : Node
                     if (!tileMap.BUILDINGMODE) { closePopup.Visible = !closePopup.Visible; }
                     toggleInventoryPopup.Visible = !toggleInventoryPopup.Visible;
                     toggleBuildingInventoryPopup.Hide();
+                    rotatePopup.Hide();
 
                     // Build Menu is closed
                     if (toggleBuildMenuPopup.actionText == toggleBuildMenuPopup.GetNode<Label>("Label").Text)

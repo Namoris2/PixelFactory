@@ -3290,25 +3290,30 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 alignment = 2
 
-[node name="Back" parent="UI/VBoxContainer" groups=["Back"] instance=ExtResource("18_fakxi")]
+[node name="Back" parent="UI/VBoxContainer" groups=["BackPopup"] instance=ExtResource("18_fakxi")]
 layout_mode = 2
 actionType = "Back"
 hideOnStart = true
 customActionText = PackedStringArray("Close", "")
 
-[node name="PickUpItem" parent="UI/VBoxContainer" groups=["PickUpItem"] instance=ExtResource("18_fakxi")]
+[node name="RotateBuilding" parent="UI/VBoxContainer" groups=["RotateBuildingPopup"] instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "Rotate"
+hideOnStart = true
+
+[node name="PickUpItem" parent="UI/VBoxContainer" groups=["PickUpItemPopup"] instance=ExtResource("18_fakxi")]
 layout_mode = 2
 actionType = "Interact"
 hideOnStart = true
 customActionText = PackedStringArray("Pick Up Item", "")
 overrideWithCustomTextOnStart = true
 
-[node name="ToggleInventory" parent="UI/VBoxContainer" groups=["ToggleInventory"] instance=ExtResource("18_fakxi")]
+[node name="ToggleInventory" parent="UI/VBoxContainer" groups=["ToggleInventoryPopup"] instance=ExtResource("18_fakxi")]
 layout_mode = 2
 actionType = "ToggleInventory"
 customActionText = PackedStringArray("Close Inventory", "")
 
-[node name="ToggleBuildingInventory" parent="UI/VBoxContainer" groups=["ToggleBuildingInventory"] instance=ExtResource("18_fakxi")]
+[node name="ToggleBuildingInventory" parent="UI/VBoxContainer" groups=["ToggleBuildingInventoryPopup"] instance=ExtResource("18_fakxi")]
 layout_mode = 2
 actionType = "Interact"
 customActionText = PackedStringArray("Open Building Inventory", "Close Building Inventory")

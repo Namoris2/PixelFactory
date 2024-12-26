@@ -77,7 +77,8 @@ public partial class MenuSelect : Button
 		tileMap.selectedBuilding = DisplayName;
 		tileMap.ToggleBuildMode(true);
 		if (!(bool)data.canRotate) { tileMap.buildingRotation = 0; }
-
+		
+		else { GameEvents.rotatePopup.Show(); }
 		GameEvents.camera.toggleZoom = true;
 		GameEvents.toggleBuildMenuPopup.SetDefaultActionText();
 		GameEvents.toggleInventoryPopup.Show();
