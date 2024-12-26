@@ -178,7 +178,8 @@ public partial class World : Godot.TileMap
 		{
 			dynamic buildingData = buildings[GetBuildingInfo(cellPositionByMouse).type.ToString()];
 			worldInfo = $"Building: {buildingData.name}";
-			if (!buildingData.name.ToString().Contains("belt")) { GameEvents.toggleBuildingInventoryPopup.Show(); }
+			if (!buildingData.type.ToString().Contains("belt")) { GameEvents.toggleBuildingInventoryPopup.Show(); }
+			else if (GameEvents.toggleBuildingInventoryPopup.Visible) { GameEvents.toggleBuildingInventoryPopup.Hide(); }
 		}
 		else
 		{
