@@ -100,7 +100,7 @@ public partial class GameEvents : Node
                 {                
                     buildMenu.ToggleBuildMode();
                     camera.toggleZoom = !buildMenu.Visible;
-                    closePopup.Visible = !closePopup.Visible;
+                    if (!tileMap.BUILDINGMODE) { closePopup.Visible = !closePopup.Visible; }
                     toggleInventoryPopup.Visible = !toggleInventoryPopup.Visible;
                     toggleBuildingInventoryPopup.Hide();
 
