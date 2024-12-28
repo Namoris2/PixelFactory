@@ -214,9 +214,12 @@ public partial class World : Godot.TileMap
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event.IsActionPressed("ToggleDismantleMode"))
+		if (!UITOGGLE)
 		{
-			ToggleDismantleMode();
+			if (@event.IsActionPressed("ToggleDismantleMode"))
+			{
+				ToggleDismantleMode();
+			}
 		}
 
 		// only if is 'BUILDINGMODE' toggled
@@ -651,7 +654,8 @@ public partial class World : Godot.TileMap
 					}
 			}
 		}
-		else {
+		else 
+		{
 			SetCell(tileMapLayer, cellPositionByMouse, tileMapId, atlasPosition);
 		}
 
