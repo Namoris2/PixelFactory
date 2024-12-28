@@ -45,22 +45,10 @@ public partial class GameEvents : Node
             if (pauseMenu.Visible)
             {
                 pauseMenu.UnpauseGame();
-                closePopup.Hide();
-                closePopup.SetCustomActionText();
-                toggleInventoryPopup.Show();
-                toggleBuildMenuPopup.Show();
-                toggleDismantleModePopup.Show();
             }
             else if (!(tileMap.BUILDINGMODE || tileMap.DISMANTLEMODE || inventories.Visible || buildMenu.Visible))
             {
                 pauseMenu.PauseGame();
-                closePopup.SetDefaultActionText();
-                closePopup.Show();
-                pickUpItemPopup.Hide();
-                toggleInventoryPopup.Hide();
-                toggleBuildingInventoryPopup.Hide();
-                toggleBuildMenuPopup.Hide();
-                toggleDismantleModePopup.Hide();
             }
             else if (tileMap.DISMANTLEMODE && !buildMenu.Visible)
             {
