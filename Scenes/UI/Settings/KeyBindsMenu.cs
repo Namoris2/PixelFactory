@@ -26,7 +26,14 @@ public partial class KeyBindsMenu : Control
 			actionLabel.Text = action.Value;
 
 			Godot.Collections.Array<InputEvent> events = InputMap.ActionGetEvents(action.Key);
-			icon.key = events[0].AsText().TrimSuffix(" (Physical)");
+			if (events[0] is InputEventMouseButton)
+			{
+				icon.key = "Mouse" + (int)(events[0] as InputEventMouseButton).ButtonIndex;
+			}
+			else
+			{
+				icon.key = events[0].AsText().TrimSuffix(" (Physical)");
+			}
 
 			buttonsContainer.AddChild(keyBindEdit);
 		}

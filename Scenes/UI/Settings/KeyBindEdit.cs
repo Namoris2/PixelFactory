@@ -58,18 +58,18 @@ public partial class KeyBindEdit : Button
 			InputMap.ActionAddEvent(actionType, inputs[i]);
 		}
 
-		icon.key = inputs[0].AsText().TrimSuffix(" (Physical)");
-		icon.SetKeyIcon(icon.key);
-
 		editingAction = false;
 		Disabled = false;
 
-		string bind = icon.key;
+		string bind = inputs[0].AsText().TrimSuffix(" (Physical)");
 		if (@event is InputEventMouse)
 		{
 			InputEventMouseButton button = @event as InputEventMouseButton;
 			bind = "Mouse" + (int)button.ButtonIndex;
 		}
+
+		icon.key = bind;
+		icon.SetKeyIcon(bind);
 
 		settingsHandler.SaveConfigFile("KeyboardMouseBinds", actionType, bind);
 
