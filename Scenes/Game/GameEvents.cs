@@ -17,6 +17,7 @@ public partial class GameEvents : Node
     public static ActionInfoPopup toggleInventoryPopup;
     public static ActionInfoPopup toggleBuildingInventoryPopup;
     public static ActionInfoPopup toggleBuildMenuPopup;
+    public static ActionInfoPopup toggleDismantleModePopup;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -34,6 +35,7 @@ public partial class GameEvents : Node
         toggleInventoryPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleInventoryPopup");
         toggleBuildingInventoryPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleBuildingInventoryPopup");
         toggleBuildMenuPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleBuildMenuPopup");
+        toggleDismantleModePopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleDismantleModePopup");
 	}
 
     public override void _Input(InputEvent @event)
@@ -46,6 +48,8 @@ public partial class GameEvents : Node
                 closePopup.Hide();
                 closePopup.SetCustomActionText();
                 toggleInventoryPopup.Show();
+                toggleBuildMenuPopup.Show();
+                toggleDismantleModePopup.Show();
             }
             else if (!(tileMap.BUILDINGMODE || tileMap.DISMANTLEMODE || inventories.Visible || buildMenu.Visible))
             {
@@ -55,8 +59,10 @@ public partial class GameEvents : Node
                 pickUpItemPopup.Hide();
                 toggleInventoryPopup.Hide();
                 toggleBuildingInventoryPopup.Hide();
+                toggleBuildMenuPopup.Hide();
+                toggleDismantleModePopup.Hide();
             }
-            else if (tileMap.DISMANTLEMODE)
+            else if (tileMap.DISMANTLEMODE && !buildMenu.Visible)
             {
                 tileMap.ToggleDismantleMode(false);
             }
@@ -64,9 +70,10 @@ public partial class GameEvents : Node
             {
                 camera.toggleZoom = true;
                 buildMenu.ToggleBuildMode();
-                closePopup.Hide();
+                if (!tileMap.DISMANTLEMODE) { closePopup.Hide(); }
                 toggleBuildMenuPopup.SetDefaultActionText();
                 toggleInventoryPopup.Show();
+                toggleDismantleModePopup.Show();
             }
             else if (inventories.Visible)
             {
@@ -102,10 +109,11 @@ public partial class GameEvents : Node
                 {                
                     buildMenu.ToggleBuildMode();
                     camera.toggleZoom = !buildMenu.Visible;
-                    if (!tileMap.BUILDINGMODE) { closePopup.Visible = !closePopup.Visible; }
+                    if (!tileMap.BUILDINGMODE && !tileMap.DISMANTLEMODE) { closePopup.Visible = !closePopup.Visible; }
                     toggleInventoryPopup.Visible = !toggleInventoryPopup.Visible;
                     toggleBuildingInventoryPopup.Hide();
                     rotatePopup.Hide();
+                    toggleDismantleModePopup.Visible = !toggleDismantleModePopup.Visible;
 
                     // Build Menu is closed
                     if (toggleBuildMenuPopup.actionText == toggleBuildMenuPopup.GetNode<Label>("Label").Text)

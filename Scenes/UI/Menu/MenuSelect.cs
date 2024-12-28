@@ -82,6 +82,8 @@ public partial class MenuSelect : Button
 		GameEvents.camera.toggleZoom = true;
 		GameEvents.toggleBuildMenuPopup.SetDefaultActionText();
 		GameEvents.toggleInventoryPopup.Show();
+		GameEvents.toggleDismantleModePopup.Show();
+		GameEvents.toggleDismantleModePopup.SetCustomActionText();
 	}
 
 	private void ShowBuildingInfo()

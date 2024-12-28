@@ -3324,6 +3324,12 @@ layout_mode = 2
 actionType = "ToggleBuildMode"
 customActionText = PackedStringArray("Close Build Menu", "")
 
+[node name="ToggleDismantleMode" parent="UI/VBoxContainer" groups=["ToggleDismantleModePopup"] instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "ToggleDismantleMode"
+customActionText = PackedStringArray("Enable Dismantle Mode", "Disable Dismantle Mode")
+overrideWithCustomTextOnStart = true
+
 [node name="ResourceAmount" type="Label" parent="UI"]
 visible = false
 anchors_preset = 2

@@ -751,6 +751,13 @@ public partial class World : Godot.TileMap
 			{
 				constructingPart.QueueFree();
 			}
+			GameEvents.closePopup.Show();
+			GameEvents.toggleDismantleModePopup.SetCustomActionText(1);
+		}
+		else
+		{
+			GameEvents.closePopup.Hide();
+			GameEvents.toggleDismantleModePopup.SetCustomActionText();
 		}
 	}
 
