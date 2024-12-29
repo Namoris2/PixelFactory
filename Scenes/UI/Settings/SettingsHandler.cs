@@ -67,7 +67,8 @@ public partial class SettingsHandler : Node
             if (keyEvent.Contains("Mouse"))
             {
                 InputEventMouseButton loadedButton = new();
-                loadedButton.ButtonIndex = (MouseButton)int.Parse(keyEvent.Replace("Mouse", ""));
+                string mouseButton = keyEvent.Replace("Mouse", "");
+                loadedButton.ButtonIndex = (MouseButton)Enum.Parse(typeof(MouseButton), mouseButton);
                 inputs[0] = loadedButton;
             }
             else

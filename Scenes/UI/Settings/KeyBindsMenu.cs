@@ -28,7 +28,7 @@ public partial class KeyBindsMenu : Control
 			Godot.Collections.Array<InputEvent> events = InputMap.ActionGetEvents(action.Key);
 			if (events[0] is InputEventMouseButton)
 			{
-				icon.key = "Mouse" + (int)(events[0] as InputEventMouseButton).ButtonIndex;
+				icon.key = "Mouse" + (events[0] as InputEventMouseButton).ButtonIndex;
 			}
 			else
 			{

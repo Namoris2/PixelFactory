@@ -65,7 +65,7 @@ public partial class KeyBindEdit : Button
 		if (@event is InputEventMouse)
 		{
 			InputEventMouseButton button = @event as InputEventMouseButton;
-			bind = "Mouse" + (int)button.ButtonIndex;
+			bind = "Mouse" + button.ButtonIndex;
 		}
 
 		icon.key = bind;
