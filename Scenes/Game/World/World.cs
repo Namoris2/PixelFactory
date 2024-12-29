@@ -81,7 +81,7 @@ public partial class World : Godot.TileMap
 	dynamic resourcesHarvestedByHand;
 
 	int resourceAmount = 100000;
-	dynamic buildings;
+	public dynamic buildings;
 	dynamic items;
 	dynamic groundResources;
 	dynamic recipes;
@@ -204,6 +204,23 @@ public partial class World : Godot.TileMap
 		}
 		if (!BUILDINGMODE && !DISMANTLEMODE && !UITOGGLE)
 		{
+			// Player is hovering over harvestable resource
+			if (GroundResourceValidate(resourcesHarvestedByHand.canBeUsedOn, new List<string>{groundResourceName}) && buildingsData == null)
+			{
+				GameEvents.harvestResourcePopup.SetCustomActionText();
+				GameEvents.harvestResourcePopup.Show();
+			}
+			// Player is hovering over machine
+			else if (buildingsData != null && GetBuildingInfo(cellPositionByMouse).buildingType.ToString() == "machine")
+			{
+				GameEvents.harvestResourcePopup.SetCustomActionText(1);
+				GameEvents.harvestResourcePopup.Show();
+			}
+			else
+			{
+				GameEvents.harvestResourcePopup.Hide();
+			}
+
 			if(Input.IsActionPressed("Use"))
 			{
 				// farming resources
@@ -668,7 +685,7 @@ public partial class World : Godot.TileMap
 			playerInventory.PutToInventory(groundResourceName, 1);
 		}
 
-		if (buildingsData != null && building.buildingType.ToString() == "machine" && (Input.IsActionPressed("TakeAll") || Input.IsActionJustPressed("Use")) ) 
+		if (buildingsData != null && building.buildingType.ToString() == "machine" && (Input.IsActionPressed("TakeAll") || Input.IsActionJustPressed("Use"))) 
 		{
 			building.outputSlots[0].amount = playerInventory.PutToInventory(building.outputSlots[0].resource.ToString(), (int)building.outputSlots[0].amount);
 		}

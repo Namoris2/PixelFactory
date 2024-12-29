@@ -3308,6 +3308,13 @@ hideOnStart = true
 customActionText = PackedStringArray("Pick Up Item", "")
 overrideWithCustomTextOnStart = true
 
+[node name="HarvestResource" parent="UI/VBoxContainer" groups=["HarvestResourcePopup"] instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "Use"
+hideOnStart = true
+customActionText = PackedStringArray("Harvest Resource", "Collect items")
+overrideWithCustomTextOnStart = true
+
 [node name="ToggleInventory" parent="UI/VBoxContainer" groups=["ToggleInventoryPopup"] instance=ExtResource("18_fakxi")]
 layout_mode = 2
 actionType = "ToggleInventory"

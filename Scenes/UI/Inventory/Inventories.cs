@@ -36,6 +36,8 @@ public partial class Inventories : CanvasLayer
 				craftingMenu.Show();
 			}
 			GameEvents.closePopup.Show();
+			GameEvents.harvestResourcePopup.Hide();
+			GameEvents.rotatePopup.Hide();
 			GameEvents.toggleInventoryPopup.SetCustomActionText();
 			GameEvents.toggleBuildMenuPopup.Hide();
 			GameEvents.toggleDismantleModePopup.Hide();
@@ -44,8 +46,9 @@ public partial class Inventories : CanvasLayer
 		else
 		{
 			Hide();
+			if (!(tileMap.BUILDINGMODE || tileMap.DISMANTLEMODE)) { GameEvents.closePopup.Hide(); }
 			GameEvents.pickUpItemPopup.Hide();
-			GameEvents.closePopup.Hide();
+			if (tileMap.BUILDINGMODE && (bool)tileMap.buildings[tileMap.selectedBuilding].canRotate) { GameEvents.rotatePopup.Show(); }
 			GameEvents.toggleInventoryPopup.SetDefaultActionText();
 			GameEvents.toggleBuildMenuPopup.Show();
 			GameEvents.toggleDismantleModePopup.Show();

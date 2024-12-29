@@ -35,6 +35,7 @@ public partial class PauseMenu : Control
 		GameEvents.closePopup.SetDefaultActionText();
 		GameEvents.closePopup.Show();
 		GameEvents.pickUpItemPopup.Hide();
+		GameEvents.harvestResourcePopup.Hide();
 		GameEvents.toggleInventoryPopup.Hide();
 		GameEvents.toggleBuildingInventoryPopup.Hide();
 		GameEvents.toggleBuildMenuPopup.Hide();

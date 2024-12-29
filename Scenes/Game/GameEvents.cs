@@ -14,6 +14,7 @@ public partial class GameEvents : Node
     public static ActionInfoPopup pickUpItemPopup;
     public static ActionInfoPopup closePopup;
     public static ActionInfoPopup rotatePopup;
+    public static ActionInfoPopup harvestResourcePopup;
     public static ActionInfoPopup toggleInventoryPopup;
     public static ActionInfoPopup toggleBuildingInventoryPopup;
     public static ActionInfoPopup toggleBuildMenuPopup;
@@ -32,6 +33,7 @@ public partial class GameEvents : Node
         closePopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("BackPopup");
         rotatePopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("RotateBuildingPopup");
         pickUpItemPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("PickUpItemPopup");
+        harvestResourcePopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("HarvestResourcePopup");
         toggleInventoryPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleInventoryPopup");
         toggleBuildingInventoryPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleBuildingInventoryPopup");
         toggleBuildMenuPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleBuildMenuPopup");
