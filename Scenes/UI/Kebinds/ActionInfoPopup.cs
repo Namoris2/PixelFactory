@@ -24,7 +24,14 @@ public partial class ActionInfoPopup : HBoxContainer
 		if (overrideWithCustomTextOnStart) { SetCustomActionText();}
 
 		Array<InputEvent> inputs = InputMap.ActionGetEvents(actionType);
-		icon.key = inputs[0].AsText().TrimSuffix(" (Physical)");
+		if (inputs[0] is InputEventMouseButton)
+		{
+			icon.key = "Mouse" + (inputs[0] as InputEventMouseButton).ButtonIndex;
+		}
+		else
+		{
+			icon.key = inputs[0].AsText().TrimSuffix(" (Physical)");
+		}
 		icon.SetKeyIcon(icon.key);
 	}
 
