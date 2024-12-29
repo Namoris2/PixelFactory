@@ -15,17 +15,17 @@ public partial class KeyBindsMenu : Control
 		resetBinds = GetNode<Button>("ResetBinds");
 		resetBinds.Pressed += ResetBinds;
 		
-		foreach (KeyValuePair<string,string> action in SettingsHandler.actions)
+		foreach (string action in SettingsHandler.keyBinds)
 		{
 			KeyBindEdit keyBindEdit = (KeyBindEdit)GD.Load<PackedScene>("res://Scenes/UI/Settings/KeyBindEdit.tscn").Instantiate();
 			Label actionLabel = keyBindEdit.GetNode<Label>("HBoxContainer/Action");
 			ActionKey icon = keyBindEdit.GetNode<ActionKey>("HBoxContainer/ActionKey");
 			Label keyLabel = keyBindEdit.GetNode<Label>("HBoxContainer/Key");
 
-			keyBindEdit.actionType = action.Key;
-			actionLabel.Text = action.Value;
+			keyBindEdit.actionType = action;
+			actionLabel.Text = SettingsHandler.actions[action];
 
-			Godot.Collections.Array<InputEvent> events = InputMap.ActionGetEvents(action.Key);
+			Godot.Collections.Array<InputEvent> events = InputMap.ActionGetEvents(action);
 			if (events[0] is InputEventMouseButton)
 			{
 				icon.key = "Mouse" + (events[0] as InputEventMouseButton).ButtonIndex;
