@@ -210,6 +210,10 @@ itemType = "Rotor"
 layout_mode = 2
 itemType = "Stator"
 
+[node name="Motor" parent="ColorRect/ItemsScrollContainer/ItemsContainer/IndustrialParts/Items" index="2" instance=ExtResource("1_caiuq")]
+layout_mode = 2
+itemType = "Motor"
+
 [editable path="ColorRect/ItemsScrollContainer/ItemsContainer/Ingots"]
 [editable path="ColorRect/ItemsScrollContainer/ItemsContainer/StandardParts"]
 [editable path="ColorRect/ItemsScrollContainer/ItemsContainer/Compounds"]

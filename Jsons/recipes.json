@@ -308,6 +308,26 @@
             }
         ]
     },
+    "Motor" : {
+        "name" : "Motor",
+        "cyclesPerMinute" : 5,
+        "input" : [
+            {
+                "name" : "Rotor",
+                "amount" : 2
+            },
+            {
+                "name" : "Stator",
+                "amount" : 2
+            }
+        ],
+        "output" : [
+            {
+                "name" : "Motor",
+                "amount" : 1
+            }
+        ]
+    },
     "ModularFrame" : {
         "name" : "Modular Frame",
         "cyclesPerMinute" : 1,

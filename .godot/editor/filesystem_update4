@@ -62,3 +62,4 @@ res://Scenes/UI/Settings/KeyBindEdit.cs
 res://Scenes/UI/Settings/KeyBindsMenu.cs
 res://Scenes/UI/Settings/SettingsHandler.cs
 res://Scenes/UI/ui.cs
+res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn

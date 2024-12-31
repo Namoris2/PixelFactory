@@ -120,6 +120,12 @@
 		"maxStackSize" : 100,
 		"atlasCoords" : [3, 2]
 	},
+	"Motor" : {
+		"type" : "Motor",
+		"name" : "Motor",
+		"maxStackSize" : 50,
+		"atlasCoords" : [3, 3]
+	},
 	"ModularFrame" : {
 		"type" : "ModularFrame",
 		"name" : "Modular Frame",
