@@ -4,7 +4,7 @@ using System;
 
 public partial class ActionInfoPopup : HBoxContainer
 {
-	[Export] string actionType;
+	[Export] public string actionType;
 	[Export] bool hideOnStart;
 	[Export] string[] customActionText = new string[2];
 	[Export] bool overrideWithCustomTextOnStart;
@@ -23,16 +23,7 @@ public partial class ActionInfoPopup : HBoxContainer
 		SetDefaultActionText();
 		if (overrideWithCustomTextOnStart) { SetCustomActionText();}
 
-		Array<InputEvent> inputs = InputMap.ActionGetEvents(actionType);
-		if (inputs[0] is InputEventMouseButton)
-		{
-			icon.key = "Mouse" + (inputs[0] as InputEventMouseButton).ButtonIndex;
-		}
-		else
-		{
-			icon.key = inputs[0].AsText().TrimSuffix(" (Physical)");
-		}
-		icon.SetKeyIcon(icon.key);
+		SetActionIcon();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -49,5 +40,19 @@ public partial class ActionInfoPopup : HBoxContainer
 	public void SetDefaultActionText()
 	{
 		label.Text = actionText;
+	}
+
+	public void SetActionIcon()
+	{
+		Array<InputEvent> inputs = InputMap.ActionGetEvents(actionType);
+		if (inputs[0] is InputEventMouseButton)
+		{
+			icon.key = "Mouse" + (inputs[0] as InputEventMouseButton).ButtonIndex;
+		}
+		else
+		{
+			icon.key = inputs[0].AsText().TrimSuffix(" (Physical)");
+		}
+		icon.SetKeyIcon(icon.key);
 	}
 }
