@@ -202,6 +202,7 @@ public partial class InventorySlot : Button
 
 				itemType = recipe[slotType.ToLower()][inventorySlotIndex].name;
 				building[$"{slotType.ToLower()}Slots"][inventorySlotIndex].resource = itemType;
+				buildingInventory.UpdateInventory(buildingInventory.buildingInfo);
 			}
 			
 
@@ -232,10 +233,15 @@ public partial class InventorySlot : Button
 		{
 			if (inventoryType == "machine" && holdingItem.itemName == itemType)
 			{
-				int amount = int.Parse(resourceAmount.Text);
+				int amount = 0;
+				if (resourceAmount.Text != "")
+				{
+					amount = int.Parse(resourceAmount.Text);
+				}
 				int difference = PutItems(amount, (int)items[itemType].maxStackSize);
 
 				tileMap.PutItemsToSlot(buildingCoordinates, difference, itemType, slotType, inventorySlotIndex);
+				buildingInventory.UpdateInventory(buildingInventory.buildingInfo);
 				return;
 			}
 
