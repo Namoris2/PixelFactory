@@ -5,12 +5,15 @@ public partial class ItemName : Label
 {
 	Vector2 position;
 	Vector2 slotPosition;
-
+	TextureRect item;
+	HoldingItem holdingItem;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		TextureRect item = GetNode<TextureRect>("../ItemTexture");
+		item = GetNode<TextureRect>("../ItemTexture");
+		holdingItem = GetNode<HoldingItem>("/root/main/UI/Inventories/HoldingItem");
+
 		item.MouseEntered += ShowItemName;
 		item.MouseExited += HideItemName;
 
@@ -41,20 +44,30 @@ public partial class ItemName : Label
 
 	private void ShowItemName()
 	{
-		InventorySlot slot = this.GetParent<InventorySlot>();
+		InventorySlot slot = GetParent<InventorySlot>();
+		if (slot.UserExport && !holdingItem.ISHOLDINGITEM && slot.itemType != "") 
+		{
+			GameEvents.splitStackPopup.Show(); 
+			GameEvents.splitStackPopup.SetDefaultActionText();
+		}
+		else if (slot.UserImport && holdingItem.ISHOLDINGITEM && (slot.itemType == holdingItem.itemName || slot.itemType == ""))
+		{
+			GameEvents.splitStackPopup.Show(); 
+			GameEvents.splitStackPopup.SetCustomActionText();
+		}
 		
 		if (slot.itemType == "") { return; }
 
-
 		LoadFile load = new();
 		dynamic items = load.LoadJson("items.json");
-		this.Text = items[slot.itemType].name.ToString();
+		Text = items[slot.itemType].name.ToString();
 		Size = new (0, 0);
-		this.Show();
+		Show();
 	}
 	
 	private void HideItemName()
 	{
-		this.Hide();
+		GameEvents.splitStackPopup.Hide();
+		Hide();
 	}
 }

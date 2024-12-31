@@ -224,6 +224,7 @@ public partial class InventorySlot : Button
 			{
 				tileMap.RemoveItemsFromSlot(buildingCoordinates, removedAmount, slotType, inventorySlotIndex);
 			}
+			GameEvents.splitStackPopup.SetCustomActionText();
 		}
 
 		// putting item to slot
@@ -293,6 +294,7 @@ public partial class InventorySlot : Button
 
 				tileMap.PutItemsToSlot(buildingCoordinates, amount, itemType, slotType, inventorySlotIndex);
 			}
+			GameEvents.splitStackPopup.SetDefaultActionText();
 		}
 
 		if (craftingMenu.Visible)
@@ -300,8 +302,8 @@ public partial class InventorySlot : Button
 			craftingMenu.ChangeRecipe(craftingMenu.selectedRecipe);
 		}
 
-		this.ShowHoldingItem -= holdingItem.ShowHoldingItem;
-		this.HideHoldingItem -= holdingItem.HideHoldingItem;
+		ShowHoldingItem -= holdingItem.ShowHoldingItem;
+		HideHoldingItem -= holdingItem.HideHoldingItem;
 	}
 
 	private int PutItems(int amount, int maxStackSize)

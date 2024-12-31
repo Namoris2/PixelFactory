@@ -18,7 +18,8 @@ public partial class SettingsHandler : Node
 		{ "ToggleInventory", "Open Inventory" },
 
         { "Back", "Back" },
-        { "Use", "Use" }
+        { "Use", "Use" },
+        { "SplitItems", "Split Stack" }
 	};
     public static Dictionary<string, InputEvent> defaultBinds = new();
     const string configPath = "user://settings.ini";

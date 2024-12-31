@@ -3337,6 +3337,12 @@ actionType = "ToggleDismantleMode"
 customActionText = PackedStringArray("Enable Dismantle Mode", "Disable Dismantle Mode")
 overrideWithCustomTextOnStart = true
 
+[node name="SplitStack" parent="UI/ActionPopups" groups=["SplitStackPopup"] instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "SplitItems"
+hideOnStart = true
+customActionText = PackedStringArray("Put One Item", "")
+
 [node name="ResourceAmount" type="Label" parent="UI"]
 visible = false
 anchors_preset = 2

@@ -10,6 +10,7 @@ res://Scenes/UI/Kebinds/ActionKey.tscn
 res://Scenes/UI/Settings/KeyBindEdit.tscn
 res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn
 res://Scenes/UI/Kebinds/ActionInfoPopup.tscn
+res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/Game/GameEvents.cs
 res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/World/AnimatedBuildingPartsController.cs
@@ -62,6 +63,3 @@ res://Scenes/UI/Settings/KeyBindEdit.cs
 res://Scenes/UI/Settings/KeyBindsMenu.cs
 res://Scenes/UI/Settings/SettingsHandler.cs
 res://Scenes/UI/ui.cs
-res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
-res://Particles/Buildings/smallDrill/Coal.tscn
-res://Particles/Buildings/smallDrill/Limestone.tscn
