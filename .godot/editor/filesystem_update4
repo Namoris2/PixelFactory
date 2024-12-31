@@ -64,3 +64,4 @@ res://Scenes/UI/Settings/SettingsHandler.cs
 res://Scenes/UI/ui.cs
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Particles/Buildings/smallDrill/Coal.tscn
+res://Particles/Buildings/smallDrill/Limestone.tscn
