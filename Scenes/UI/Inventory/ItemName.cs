@@ -45,7 +45,7 @@ public partial class ItemName : Label
 	private void ShowItemName()
 	{
 		InventorySlot slot = GetParent<InventorySlot>();
-		if (slot.UserExport && !holdingItem.ISHOLDINGITEM && slot.itemType != "") 
+		if (slot.UserExport && !holdingItem.ISHOLDINGITEM && slot.resourceAmount.Text != "") 
 		{
 			GameEvents.splitStackPopup.Show(); 
 			GameEvents.splitStackPopup.SetDefaultActionText();
