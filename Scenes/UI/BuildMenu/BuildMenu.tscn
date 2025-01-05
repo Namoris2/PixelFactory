@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://bsymbesh48kwd"]
+[gd_scene load_steps=10 format=3 uid="uid://bsymbesh48kwd"]
 
+[ext_resource type="Texture2D" uid="uid://c3sd4rclulxst" path="res://Gimp/Icons/BuildMenuCategories/Production.png" id="1_jdlmj"]
 [ext_resource type="Script" path="res://Scenes/UI/BuildMenu/TabSelect.cs" id="1_jxuxl"]
 [ext_resource type="PackedScene" uid="uid://cycrfkkc7xrqg" path="res://Scenes/UI/Menu/MenuSelect.tscn" id="1_oydjw"]
 [ext_resource type="PackedScene" uid="uid://c2khkmfyip0p7" path="res://Scenes/UI/Menu/CollapsingMenu.tscn" id="2_k0wev"]
+[ext_resource type="Texture2D" uid="uid://bwbmympfmxycu" path="res://Gimp/Icons/BuildMenuCategories/Logistics.png" id="3_p6uhg"]
 [ext_resource type="Script" path="res://Scenes/UI/BuildMenu/BuildingInfo.cs" id="3_ss521"]
+[ext_resource type="Texture2D" uid="uid://cixu1gtu36qec" path="res://Gimp/Icons/BuildMenuCategories/Organitation.png" id="4_in15m"]
 [ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="5_uddjo"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ostt8"]
@@ -42,6 +45,10 @@ custom_minimum_size = Vector2(170, 170)
 layout_mode = 2
 disabled = true
 text = "PRODUCTION"
+icon = ExtResource("1_jdlmj")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 script = ExtResource("1_jxuxl")
 
 [node name="Logistics" type="Button" parent="VFlowContainer"]
@@ -49,6 +56,10 @@ custom_minimum_size = Vector2(170, 170)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "LOGISTICS"
+icon = ExtResource("3_p6uhg")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 script = ExtResource("1_jxuxl")
 
 [node name="Organization" type="Button" parent="VFlowContainer"]
@@ -56,6 +67,10 @@ custom_minimum_size = Vector2(170, 170)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "ORGANIZATION"
+icon = ExtResource("4_in15m")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 script = ExtResource("1_jxuxl")
 
 [node name="TabContainer" type="TabContainer" parent="." groups=["TabContainer"]]
