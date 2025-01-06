@@ -2,6 +2,7 @@ using Godot;
 using Godot.Collections;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -9,6 +10,8 @@ public partial class LoadGame : Button
 {
 	[Export] bool loadSave = true;
 	string saveName;
+
+	readonly List<char> forbiddenCharacters = new() { '<', '>', ':', '"', '/', '\\', '|', '?', '*' };
     // Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -37,6 +40,15 @@ public partial class LoadGame : Button
 		{
 			if (!GetNode<MainMenu>("/root/MainMenu").saves.Contains(saveName + ".save"))
 			{
+				foreach (char letter in saveName)
+				{
+					if (forbiddenCharacters.Contains(letter))
+					{
+						errorMessage.Text = "Game name contains forbidden characters";
+						return;
+					}
+				}
+
 				string convertedSeed = "";
 				if (seed != "")
 				{
