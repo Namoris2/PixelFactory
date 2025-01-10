@@ -36,7 +36,7 @@ public partial class LoadingScreen : Control
 			if (loadStatus == ResourceLoader.ThreadLoadStatus.Loaded)
 			{
 				//GD.Print("Game Loaded");
-				PackedScene newScene = (PackedScene)ResourceLoader.LoadThreadedGet("res://Scenes/main.tscn");
+				PackedScene newScene = (PackedScene)ResourceLoader.LoadThreadedGet(scenePath);
 				Node sceneInstantiated = newScene.Instantiate();
 				GetTree().Root.AddChild(sceneInstantiated);
 				

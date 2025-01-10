@@ -98,6 +98,7 @@ public partial class LoadGame : Button
 		GetNode<main>("/root/GameInfo").savePath = "user://saves/" + saveName + ".save";
 		loadingScreen.loadingSave = loadSave;
 		loadingScreen.scenePath = "res://Scenes/main.tscn";
+		//loadingScreen.scenePath = "res://Scenes/UI/Kebinds/ActionInfoPopup.tscn";
 		GetTree().Root.AddChild(loadingScreen);
 
 		GetNode<Node>("/root/MainMenu").QueueFree();
