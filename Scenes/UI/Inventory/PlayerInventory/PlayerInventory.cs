@@ -61,8 +61,9 @@ public partial class PlayerInventory : Control
 
 	public int PutToInventory(string itemType, int amount)
 	{
+		if (itemType == "" || amount == 0) { return 0; }
 		int maxStackSize = (int)items[itemType].maxStackSize;
-		if (amount == 0) { return 0; }
+
 		for (int i = 0; i < inventorySlots.Length; i++)
 		{
 			Label amountLabel = inventorySlots[i].resourceAmount;
