@@ -291,7 +291,7 @@ public partial class BuildingInventory : Control
 			InventorySlot slot = GetNode<InventorySlot>("TabContainer/Building/Slots/DrillOutputSlot");
 			UpdateSlot(slot, building.outputSlots[0].resource.ToString(), (int)building.outputSlots[0].amount);
 		}
-		else if (building.buildingType.ToString() == "machine")
+		else if (building.buildingType.ToString() == "machine" && building.recipe.ToString() != "none")
 		{
 			Array<Node> inputSlots = GetTree().GetNodesInGroup("InputSlots");
 			Array<Node> outputSlots = GetTree().GetNodesInGroup("OutputSlots");
