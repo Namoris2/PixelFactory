@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://bsymbesh48kwd"]
+[gd_scene load_steps=13 format=3 uid="uid://bsymbesh48kwd"]
 
+[ext_resource type="Texture2D" uid="uid://bv6dqvhrg1fxs" path="res://Gimp/UI/UI_large.png" id="1_ib1sb"]
 [ext_resource type="Texture2D" uid="uid://c3sd4rclulxst" path="res://Gimp/Icons/BuildMenuCategories/Production.png" id="1_jdlmj"]
 [ext_resource type="Script" path="res://Scenes/UI/BuildMenu/TabSelect.cs" id="1_jxuxl"]
 [ext_resource type="PackedScene" uid="uid://cycrfkkc7xrqg" path="res://Scenes/UI/Menu/MenuSelect.tscn" id="1_oydjw"]
@@ -10,6 +11,17 @@
 [ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="5_uddjo"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ostt8"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0nbn6"]
+texture = ExtResource("1_ib1sb")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+region_rect = Rect2(0, 161, 24, 24)
+
+[sub_resource type="Theme" id="Theme_waw2f"]
+Button/styles/normal = SubResource("StyleBoxTexture_0nbn6")
 
 [node name="Buildings" type="Control"]
 layout_mode = 3
@@ -43,6 +55,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Production" type="Button" parent="VFlowContainer"]
 custom_minimum_size = Vector2(170, 170)
 layout_mode = 2
+theme = SubResource("Theme_waw2f")
 disabled = true
 text = "PRODUCTION"
 icon = ExtResource("1_jdlmj")
@@ -55,6 +68,7 @@ script = ExtResource("1_jxuxl")
 custom_minimum_size = Vector2(170, 170)
 layout_mode = 2
 size_flags_horizontal = 3
+theme = SubResource("Theme_waw2f")
 text = "LOGISTICS"
 icon = ExtResource("3_p6uhg")
 icon_alignment = 1
