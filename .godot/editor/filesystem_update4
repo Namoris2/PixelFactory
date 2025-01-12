@@ -11,6 +11,7 @@ res://Scenes/UI/Settings/KeyBindEdit.tscn
 res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn
 res://Scenes/UI/Kebinds/ActionInfoPopup.tscn
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
+res://Scenes/UI/LoadingScreen/LoadingScreen.tscn
 res://Scenes/Game/GameEvents.cs
 res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/World/AnimatedBuildingPartsController.cs
