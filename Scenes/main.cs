@@ -40,4 +40,22 @@ public partial class main : Node2D
 			Input.WarpMouse(GetViewport().GetMousePosition() + inputDirection * 10);
 		}
 	}
+
+	public static void QueueFreeAllChildren(Node node)
+	{
+		Array<Node> children = node.GetChildren();
+
+		if (children.Count == 0)
+		{
+			node.QueueFree();
+			return;
+		}
+
+		foreach (Node child in children)
+		{
+			QueueFreeAllChildren(child);
+		}
+
+		node.QueueFree();
+	}
 }

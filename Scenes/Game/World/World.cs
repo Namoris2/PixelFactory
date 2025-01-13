@@ -101,16 +101,15 @@ public partial class World : Godot.TileMap
 		
 		EmitSignal(SignalName.ResourcesUpdated, resourceAmount);
 
-		LoadFile load = new();
 
 		// loads 'buildings.json' file and parses in to dynamic object
-		buildings = load.LoadJson("buildings.json");
+		buildings = LoadFile.LoadJson("buildings.json");
 		resourcesHarvestedByHand = buildings.handHarvest;
 
-		items = load.LoadJson("items.json");
-		groundResources = load.LoadJson("groundResources.json");
+		items = LoadFile.LoadJson("items.json");
+		groundResources = LoadFile.LoadJson("groundResources.json");
 
-		recipes = load.LoadJson("recipes.json");
+		recipes = LoadFile.LoadJson("recipes.json");
 
 		playerInventory = GetNode<PlayerInventory>("/root/main/UI/Inventories/InventoryGrid/PlayerInventory");
 		buildingInventory = playerInventory.GetNode<BuildingInventory>("../BuildingInventory");
@@ -119,6 +118,8 @@ public partial class World : Godot.TileMap
 
 		seed = GetNode<main>("/root/GameInfo").seed;
 		Load();
+
+		PrintOrphanNodes();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

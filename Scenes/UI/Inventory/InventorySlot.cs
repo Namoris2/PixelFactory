@@ -30,14 +30,12 @@ public partial class InventorySlot : Button
 	private CraftingMenu craftingMenu;
 	private BuildingInventory buildingInventory;
 	private PlayerInventory playerInventory;
-	LoadFile load = new ();
 
 	public dynamic items;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		items = load.LoadJson("items.json");
-
+		items = LoadFile.LoadJson("items.json");
 		itemTexture = GetNode<TextureRect>("ItemTexture");
 		resourceAmount = GetNode<Label>("ResourceAmount");
 		resourceName = GetNode<Label>("ItemName");
@@ -71,7 +69,6 @@ public partial class InventorySlot : Button
 		}
 
 		this.Pressed += PressedSlot;
-
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -107,7 +104,7 @@ public partial class InventorySlot : Button
 			dynamic recipe = 0;
 			if (buildingInventory.buildingInfo.buildingType.ToString() == "machine")
 			{
-				recipe = load.LoadJson("recipes.json")[building.recipe.ToString()];
+				recipe = LoadFile.LoadJson("recipes.json")[building.recipe.ToString()];
 			}
 
 			// Taking items from player inventory and putting it into building inventory
@@ -198,7 +195,7 @@ public partial class InventorySlot : Button
 				tileMap.RemoveItemsFromSlot(buildingCoordinates, removedAmount, slotType, inventorySlotIndex);
 				
 				dynamic building = tileMap.GetBuildingInfo(buildingCoordinates);
-				dynamic recipe = load.LoadJson("recipes.json")[building.recipe.ToString()];
+				dynamic recipe = LoadFile.LoadJson("recipes.json")[building.recipe.ToString()];
 
 				itemType = recipe[slotType.ToLower()][inventorySlotIndex].name;
 				building[$"{slotType.ToLower()}Slots"][inventorySlotIndex].resource = itemType;

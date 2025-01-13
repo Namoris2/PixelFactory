@@ -11,14 +11,13 @@ public partial class MenuSelect : Button
 	
 	[Export (PropertyHint.Enum, "building,recipe")]
 	public string Type = "";
-
-	LoadFile load = new();
+	
 	dynamic data;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		// loads 'buildings.json' file and parses in to dynamic object
-		data = load.LoadJson($"{Type}s.json")[DisplayName];
+		data = LoadFile.LoadJson($"{Type}s.json")[DisplayName];
 
 		GetNode<Label>("Name").Text = data.name;
 		
@@ -37,7 +36,7 @@ public partial class MenuSelect : Button
 
 			case "recipe":
 				this.Pressed += SelectRecipe;
-				data = load.LoadJson("items.json")[DisplayName];
+				data = LoadFile.LoadJson("items.json")[DisplayName];
 				Type = "item";
 				break;
 

@@ -6,7 +6,6 @@ public partial class CraftingMenu : Control
 {
 	PlayerInventory playerInventory;
 	public string selectedRecipe = "";
-	LoadFile load = new();
 	dynamic items;
 	dynamic recipes;
 	dynamic recipe;
@@ -18,8 +17,8 @@ public partial class CraftingMenu : Control
 	public override void _Ready()
 	{
 		playerInventory = GetNode<PlayerInventory>("../PlayerInventory");
-		items = load.LoadJson("items.json");
-		recipes = load.LoadJson("recipes.json");
+		items = LoadFile.LoadJson("items.json");
+		recipes = LoadFile.LoadJson("recipes.json");
 
 		inputItems = GetTree().GetNodesInGroup("CraftingInputItems");
 		outputItems = GetTree().GetNodesInGroup("CraftingOutputItems");

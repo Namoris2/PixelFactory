@@ -59,7 +59,7 @@ public partial class ItemName : Label
 		if (slot.itemType == "") { return; }
 
 		LoadFile load = new();
-		dynamic items = load.LoadJson("items.json");
+		dynamic items = LoadFile.LoadJson("items.json");
 		Text = items[slot.itemType].name.ToString();
 		Size = new (0, 0);
 		Show();

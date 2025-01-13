@@ -32,8 +32,7 @@ public partial class GenerateWorld : Node
 		playerPosition = _playerPosition;
 		generateWater = _generateWater;
 
-        LoadFile load = new();
-		dynamic groundResources = load.LoadJson("groundResources.json");
+		dynamic groundResources = LoadFile.LoadJson("groundResources.json");
 		
         resource = groundResources[resourceInput];
 		//Vector2I atlasCoords = new Vector2I((int)resource.atlasCoords[0], (int)resource.atlasCoords[1]);

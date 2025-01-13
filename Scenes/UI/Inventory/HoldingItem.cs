@@ -15,8 +15,7 @@ public partial class HoldingItem : TextureRect
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		LoadFile load = new();
-		items = load.LoadJson("items.json");
+		items = LoadFile.LoadJson("items.json");
 
 		position = GlobalPosition;
 	}

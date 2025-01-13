@@ -26,7 +26,7 @@ public partial class PlayerInventory : Control
 
 		flowContainer = GetNode<FlowContainer>("FlowContainer");
 		CreateInventorySlots();
-		items = inventorySlots[0].items;
+		items = LoadFile.LoadJson("items.json");
 
 		LoadingScreen loadingScreen = GetNodeOrNull<LoadingScreen>("/root/LoadingScreen");
 

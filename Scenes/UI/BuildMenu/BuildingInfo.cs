@@ -14,9 +14,8 @@ public partial class BuildingInfo : Panel
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		LoadFile load = new();
-		buildings = load.LoadJson("buildings.json");
-		items = load.LoadJson("items.json");
+		buildings = LoadFile.LoadJson("buildings.json");
+		items = LoadFile.LoadJson("items.json");
 
 		name = GetNode<Label>("Name");
 		description = GetNode<Label>("Description");

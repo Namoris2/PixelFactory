@@ -80,11 +80,11 @@ public partial class LoadingScreen : Control
 		if (scenePath == null) { GD.PrintErr("Scene Path not set"); return; }
 
 		savePath = GetNode<main>("/root/GameInfo").savePath;
+		requestToLoad = true;
+
 		/*StartLoadingEvent += ResourceLoader.LoadThreadedRequest;
 		EmitSignal(SignalName.StartLoadingEvent, scenePath, "", false, 0);
 		loading = true;*/
-		requestToLoad = true;
-
 
 		/*PackedScene newScene = GD.Load<PackedScene>("res://Scenes/main.tscn");
 		Node sceneInstantiated = newScene.Instantiate();

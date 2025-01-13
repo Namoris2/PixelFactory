@@ -10,7 +10,6 @@ public partial class CraftingItemSelect : Button
 	Node parent;
 	CraftingMenu craftingMenu;
 	public Label itemName;
-	LoadFile load = new();
 	dynamic item;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -19,7 +18,7 @@ public partial class CraftingItemSelect : Button
 		MouseEntered += MouseEnteredHandler;
 		MouseExited += MouseExitedHandler;
 
-		item = load.LoadJson("items.json")[itemType];
+		item = LoadFile.LoadJson("items.json")[itemType];
 
 		itemName = GetNode<Label>("ItemName");
 		itemName.Text = item.name.ToString();

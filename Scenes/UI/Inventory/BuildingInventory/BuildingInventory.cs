@@ -19,7 +19,6 @@ public partial class BuildingInventory : Control
 	public Label resourceProduction;
 	ProgressBar productionProgress;
 	public Vector2I coordinates;
-	LoadFile load = new();
 	dynamic items;
 	dynamic buildings;
 
@@ -27,9 +26,9 @@ public partial class BuildingInventory : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		recipes = load.LoadJson("recipes.json");
-		items = load.LoadJson("items.json");
-		buildings = load.LoadJson("buildings.json");
+		recipes = LoadFile.LoadJson("recipes.json");
+		items = LoadFile.LoadJson("items.json");
+		buildings = LoadFile.LoadJson("buildings.json");
 
 		tileMap = GetNode<World>("/root/main/World/TileMap");
 		tileMap.ToggleInventory += ToggleInventory;
