@@ -1,0 +1,45 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://dvicjhx5rc06g"]
+
+[ext_resource type="Texture2D" uid="uid://bv6dqvhrg1fxs" path="res://Gimp/UI/UI_large.png" id="1_q4isj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wfwxw"]
+texture = ExtResource("1_q4isj")
+texture_margin_left = 5.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(23, 161, 25, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cc4i3"]
+texture = ExtResource("1_q4isj")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(48, 161, 24, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0nbn6"]
+texture = ExtResource("1_q4isj")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(0, 161, 24, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nlkhs"]
+texture = ExtResource("1_q4isj")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(72, 161, 24, 24)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pf2d8"]
+bg_color = Color(0.2, 0.2, 0.2, 1)
+
+[resource]
+Button/styles/disabled = SubResource("StyleBoxTexture_wfwxw")
+Button/styles/hover = SubResource("StyleBoxTexture_cc4i3")
+Button/styles/normal = SubResource("StyleBoxTexture_0nbn6")
+Button/styles/pressed = SubResource("StyleBoxTexture_nlkhs")
+Panel/styles/panel = SubResource("StyleBoxFlat_pf2d8")

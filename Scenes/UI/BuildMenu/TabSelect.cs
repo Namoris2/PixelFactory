@@ -22,12 +22,12 @@ public partial class TabSelect : Button
 
 	private void ChangeTab()
 	{
-		for (int i = 0; i < parent.GetChildCount(); i++)
+		for (int i = 1; i < parent.GetChildCount() - 1; i++)
 		{
 			Button tab = (Button)parent.GetChild(i);
 			tab.Disabled = false;
 		}
 		Disabled = true;
-		tabContainer.CurrentTab = GetIndex();
+		tabContainer.CurrentTab = GetIndex() - 1;
 	}
 }

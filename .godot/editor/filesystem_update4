@@ -61,3 +61,6 @@ res://Scenes/UI/Settings/KeyBindEdit.cs
 res://Scenes/UI/Settings/KeyBindsMenu.cs
 res://Scenes/UI/Settings/SettingsHandler.cs
 res://Scenes/UI/ui.cs
+res://Themes/Button/button.tres
+res://Themes/BuiltMenu/BuildMenu.tres
+res://Particles/Buildings/smallDrill/Limestone.tscn
