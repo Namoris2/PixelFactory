@@ -3277,6 +3277,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 4
 
 [node name="BuildMenu" type="CanvasLayer" parent="UI"]
+visible = false
 script = ExtResource("15_v7e3e")
 
 [node name="Buildings" parent="UI/BuildMenu" instance=ExtResource("15_14qvx")]
