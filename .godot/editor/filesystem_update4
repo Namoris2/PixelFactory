@@ -1,11 +1,12 @@
 res://Scenes/main.tscn
 res://Themes/InventorySlot.tres
+res://Themes/BuiltMenu/BuildMenu.tres
 res://Scenes/UI/Kebinds/spritetest.tres
 res://Themes/UI.tres
 res://Scenes/UI/Menu/ChangeMenu.cs
 res://Scenes/UI/Save and Load/LoadGame.cs
-res://Scenes/UI/MainMenu/MainMenu.tscn
 res://Scenes/UI/BuildMenu/BuildMenu.tscn
+res://Scenes/UI/MainMenu/MainMenu.tscn
 res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn
 res://Scenes/UI/Kebinds/ActionInfoPopup.tscn
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
@@ -61,6 +62,3 @@ res://Scenes/UI/Settings/KeyBindEdit.cs
 res://Scenes/UI/Settings/KeyBindsMenu.cs
 res://Scenes/UI/Settings/SettingsHandler.cs
 res://Scenes/UI/ui.cs
-res://Themes/Button/button.tres
-res://Themes/BuiltMenu/BuildMenu.tres
-res://Particles/Buildings/smallDrill/Limestone.tscn
