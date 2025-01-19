@@ -314,7 +314,6 @@ public partial class BuildingInventory : Control
 			{
 				InventorySlot slot = (InventorySlot)storageSlots[i];
 				UpdateSlot(slot, building.slots[i].resource.ToString(), (int)building.slots[i].amount);
-				GD.Print(building.slots[i].resource.ToString(),  (int)building.slots[i].amount);
 			}
 		}
 	}

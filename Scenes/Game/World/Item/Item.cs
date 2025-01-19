@@ -56,10 +56,14 @@ public partial class Item : Node2D
 		bool canPutToInventory = false;
 		if (playerInventory.PutToInventory(itemType, 1) == 0) { canPutToInventory = true; }
 
-		if (canPutToInventory) 
+		if (canPutToInventory)
 		{ 
 			QueueFree(); 
 			GameEvents.pickUpItemPopup.Hide();
+
+			CollectedItemsContainer collectedItemsContainer = GetNode<CollectedItemsContainer>("/root/main/UI/CollectedItemsContainer");
+			collectedItemsContainer.ShowCollectedItem(itemType, 1);
+
 			if (!onGround)
 			{
 				World tileMap = GetNode<World>("/root/main/World/TileMap");

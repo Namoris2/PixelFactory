@@ -23,41 +23,19 @@ using System.Diagnostics.Tracing;
 
 public partial class World : Godot.TileMap
 {
-	[Signal]
-	public delegate void ResourcesUpdatedEventHandler();
-
-	[Signal]
-	public delegate void UpdateResourceInfoEventHandler(string resourceName);
-
-	[Signal]
-	public delegate void ToggleInventoryEventHandler(bool InvenotryToggle, string info, Leftovers leftovers);
-
-	[Signal]
-	public delegate void UpdateBuildingProgressEventHandler(string info);
-
-	[Signal]
-	public delegate void CreateParticleEventHandler(Vector2I coords, string type, string resource);
-
-	[Signal]
-	public delegate void RemoveParticleEventHandler(Vector2I coords, string type);
-
-	[Signal]
-	public delegate void CreateBuildingPartEventHandler(Vector2I coords, string type, int rotation, bool createdBuilding);
-
-	[Signal]
-	public delegate void RemoveBuildingPartEventHandler(Vector2I coords, string type);
+	[Signal] public delegate void CollectedItemEventHandler(string itemType, int amount);
+	[Signal] public delegate void UpdateResourceInfoEventHandler(string resourceName);
+	[Signal] public delegate void ToggleInventoryEventHandler(bool InventoryToggle, string info, Leftovers leftovers);
+	[Signal] public delegate void UpdateBuildingProgressEventHandler(string info);
+	[Signal] public delegate void CreateParticleEventHandler(Vector2I coords, string type, string resource);
+	[Signal] public delegate void RemoveParticleEventHandler(Vector2I coords, string type);
+	[Signal] public delegate void CreateBuildingPartEventHandler(Vector2I coords, string type, int rotation, bool createdBuilding);
+	[Signal] public delegate void RemoveBuildingPartEventHandler(Vector2I coords, string type);
+	[Signal] public delegate void CreateAnimatedBuildingPartEventHandler(Vector2I coords, string type, int rotation);
+	[Signal] public delegate void RemoveAnimatedBuildingPartEventHandler(Vector2I coords, string type);
 	
-	[Signal]
-	public delegate void CreateAnimatedBuildingPartEventHandler(Vector2I coords, string type, int rotation);
-
-	[Signal]
-	public delegate void RemoveAnimatedBuildingPartEventHandler(Vector2I coords, string type);
-
-	[Export]
-	private bool worldGeneration = true;
-
-	[Export]
-	int mapRadius = 250;
+	[Export] private bool worldGeneration = true;
+	[Export] int mapRadius = 250;
 	int seed;
 
 	public bool UITOGGLE = false;
@@ -98,9 +76,6 @@ public partial class World : Godot.TileMap
 	{
 		// hide cursor
 		//Input.MouseMode = Input.MouseModeEnum.Hidden;
-		
-		EmitSignal(SignalName.ResourcesUpdated, resourceAmount);
-
 
 		// loads 'buildings.json' file and parses in to dynamic object
 		buildings = LoadFile.LoadJson("buildings.json");
@@ -642,7 +617,6 @@ public partial class World : Godot.TileMap
 			if (constructingPart != null)
 			{
 				constructingPart.Position = cellPositionByMouse * 64;
-				//GD.Print(constructingPart.Position);
 			}
 
 			if ((bool)buildings[selectedBuilding].hasAdditionalAtlasPosition)
@@ -663,14 +637,22 @@ public partial class World : Godot.TileMap
 
 	private void FarmResources(dynamic building)
 	{
+		int leftoverAmount;
 		if (GroundResourceValidate(resourcesHarvestedByHand.canBeUsedOn, new List<string>{groundResourceName}) && Input.IsActionJustPressed("Use") && buildingsData == null)
 		{
-			playerInventory.PutToInventory(groundResourceName, 1);
+			leftoverAmount = playerInventory.PutToInventory(groundResourceName, 1);
+			if (leftoverAmount == 0)
+			{
+				EmitSignal(SignalName.CollectedItem, groundResourceName, 1);
+			}
 		}
 
 		if (buildingsData != null && building.buildingType.ToString() == "machine" && (Input.IsActionPressed("TakeAll") || Input.IsActionJustPressed("Use"))) 
 		{
-			building.outputSlots[0].amount = playerInventory.PutToInventory(building.outputSlots[0].resource.ToString(), (int)building.outputSlots[0].amount);
+			leftoverAmount = playerInventory.PutToInventory(building.outputSlots[0].resource.ToString(), (int)building.outputSlots[0].amount);
+
+			EmitSignal(SignalName.CollectedItem, building.outputSlots[0].resource.ToString(), (int)building.outputSlots[0].amount - leftoverAmount);
+			building.outputSlots[0].amount = leftoverAmount;
 		}
 			
 	}
@@ -843,7 +825,6 @@ public partial class World : Godot.TileMap
 					{
 						building.slots.Add(JsonConvert.DeserializeObject<dynamic>("{resource:\"\",amount:0}"));
 					}
-					//GD.Print(building.slots.Count);
 					break;
 				}
 			}
@@ -1026,7 +1007,6 @@ public partial class World : Godot.TileMap
 		for (int i = 0; i < buildingData.cost.Count; i++)
 		{
 			int leftover = playerInventory.PutToInventory(buildingData.cost[i].resource.ToString(), (int)buildingData.cost[i].amount);
-			//GD.Print(building.cost[i].resource, leftover);
 			if (leftover != 0)
 			{
 				if (leftovers.ContainsKey(buildingData.cost[i].resource.ToString()))
@@ -1047,7 +1027,6 @@ public partial class World : Godot.TileMap
 			for (int i = 0; i < building.inputSlots.Count; i++)
 			{
 				int leftover = playerInventory.PutToInventory(building.inputSlots[i].resource.ToString(), (int)building.inputSlots[i].amount);			
-				//GD.Print(building.inputSlots[i].resource, leftover);
 				if (leftover != 0)
 				{
 					if (leftovers.ContainsKey(building.inputSlots[i].resource.ToString()))
@@ -1065,7 +1044,6 @@ public partial class World : Godot.TileMap
 			for (int i = 0; i < building.outputSlots.Count; i++)
 			{
 				int leftover = playerInventory.PutToInventory(building.outputSlots[i].resource.ToString(), (int)building.outputSlots[i].amount);
-				//GD.Print(building.outputSlots[i].resource, leftover);
 				if (leftover != 0)
 				{
 					if (leftovers.ContainsKey(building.outputSlots[i].resource.ToString()))
@@ -1085,7 +1063,6 @@ public partial class World : Godot.TileMap
 			for (int i = 0; i < (int)buildingData.slotsAmount; i++)
 			{
 				int leftover = playerInventory.PutToInventory(building.slots[i].resource.ToString(), (int)building.slots[i].amount);
-				//GD.Print(building.slots[i].resource, leftover);
 				if (leftover != 0)
 				{
 					if (leftovers.ContainsKey(building.slots[i].resource.ToString()))
@@ -1135,7 +1112,6 @@ public partial class World : Godot.TileMap
 
 		if (leftovers.Count != 0)
 		{
-			//GD.Print(leftovers.Count);
 			CreateRemainsBox(leftovers);
 		}
 
@@ -1273,7 +1249,6 @@ public partial class World : Godot.TileMap
 			building.slots[slotIndex].resource = itemType;
 			building.slots[slotIndex].amount = itemAmount;
 		}
-		//GD.Print(building);
 	}
 
 	private void CreateItem(Vector2 coords, Vector2I destination, string name, float speed = 0, string id = "", Vector2I? parentBuilding = null)
@@ -1336,7 +1311,6 @@ public partial class World : Godot.TileMap
 
 		leftovers.items = slots;
 		AddChild(leftovers);
-		//GD.Print("Created Remains Box");
 	}
 
 	private bool CanTBeltTransfer(dynamic building)

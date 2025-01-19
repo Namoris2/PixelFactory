@@ -1,3 +1,4 @@
+res://Scenes/UI/HUD/CollectedItems
 res://Themes/BuiltMenu
 res://Gimp/Icons/Keys
 res://Scenes/UI/Kebinds
@@ -19,4 +20,3 @@ C:/Users/namor/OneDrive/Dokumenty/Godot/PixelFactoryBuilds/v0.2
 res://Particles/Player
 res://Gimp/Cussor
 res://Scenes/Player
-res://Scenes/UI/MainMenu
