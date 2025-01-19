@@ -44,12 +44,8 @@ public partial class MenuSelect : Button
 				GD.PrintErr($"WRONG TYPE SELECTED! {DisplayName}, {Type}");
 				break;
 		}
-		
-		Vector2I atlasCoords = new Vector2I((int)data.atlasCoords[0], (int)data.atlasCoords[1]);
 
-		texture.Atlas = GD.Load<Texture2D>($"res://Gimp/{char.ToUpper(Type[0]) + Type.Substring(1)}s/{Type}s.png");
-		texture.Region = new Rect2I(atlasCoords[0] * 16, atlasCoords[1] * 16, size.X * 16, size.Y * 16);
-		GetNode<TextureRect>("Texture").Texture = texture;
+		GetNode<TextureRect>("Texture").Texture = main.GetTexture(Type + "s.json", DisplayName);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

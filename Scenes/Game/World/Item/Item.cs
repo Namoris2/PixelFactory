@@ -86,10 +86,7 @@ public partial class Item : Node2D
 
 	public void UpdateItem(string itemType)
 	{
-		Vector2I atlasCoords = new Vector2I((int)items[itemType].atlasCoords[0], (int)items[itemType].atlasCoords[1]);
-		textureAtlas.Region = new Rect2I(atlasCoords[0] * 16, atlasCoords[1] * 16, 16, 16);
-
-		icon.Texture = textureAtlas;
+		icon.Texture = main.GetTexture("items.json", itemType);
 		name.Text = items[itemType].name.ToString();
 		this.itemType = itemType;
 	}

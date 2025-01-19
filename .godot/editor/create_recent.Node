@@ -1,9 +1,10 @@
+Timer
+TextureRect
 Panel
 VBoxContainer
 HBoxContainer
 Label
 AnimatedSprite2D
-TextureRect
 Control
 Container
 HFlowContainer
@@ -12,4 +13,3 @@ MarginContainer
 Button
 TabBar
 TabContainer
-VFlowContainer

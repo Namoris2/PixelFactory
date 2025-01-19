@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckx6mwpnnrcqw"]
+
+[ext_resource type="Script" path="res://Scenes/UI/HUD/CollectedItems/CollectedItem.cs" id="1_mboq1"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wtuab"]
+
+[node name="CollectedItem" type="HBoxContainer"]
+custom_minimum_size = Vector2(0, 28)
+anchors_preset = -1
+anchor_right = 0.108333
+anchor_bottom = 0.0296296
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mboq1")
+itemType = "IronOre"
+amount = 10
+metadata/_edit_use_anchors_ = true
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_wtuab")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="ItemAmount" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "amount"
+
+[node name="ItemName" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "item"
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

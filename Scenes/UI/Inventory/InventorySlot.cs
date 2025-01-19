@@ -80,11 +80,7 @@ public partial class InventorySlot : Button
 	{
 		if (resourceAmount.Text != "" && itemType != "")
 		{
-			Vector2I atlasCoords = new Vector2I((int)items[itemType].atlasCoords[0], (int)items[itemType].atlasCoords[1]);
-
-			textureAtlas.Region = new Rect2I(atlasCoords[0] * 16, atlasCoords[1] * 16, 16, 16);
-
-			itemTexture.Texture = textureAtlas;
+			itemTexture.Texture = main.GetTexture("items.json", itemType);
 		}
 		else
 		{
