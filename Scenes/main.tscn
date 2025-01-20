@@ -3307,6 +3307,7 @@ offset_left = -544.0
 offset_top = -408.0
 grow_horizontal = 0
 grow_vertical = 0
+mouse_filter = 2
 alignment = 2
 
 [node name="Back" parent="UI/ActionPopups" groups=["BackPopup"] instance=ExtResource("18_fakxi")]
@@ -3372,6 +3373,7 @@ offset_right = 336.0
 grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 8
+mouse_filter = 2
 alignment = 2
 script = ExtResource("20_8brqm")
 
