@@ -21,6 +21,8 @@ public partial class GameEvents : Node
     public static ActionInfoPopup toggleDismantleModePopup;
     public static ActionInfoPopup splitStackPopup;
 
+    public static CollectedItemsContainer collectedItemsContainer;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -40,6 +42,8 @@ public partial class GameEvents : Node
         toggleBuildMenuPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleBuildMenuPopup");
         toggleDismantleModePopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleDismantleModePopup");
         splitStackPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("SplitStackPopup");
+
+        collectedItemsContainer = GetNode<CollectedItemsContainer>("../UI/CollectedItemsContainer");
 	}
 
     public override void _Input(InputEvent @event)
