@@ -1,8 +1,8 @@
+HBoxContainer
 VBoxContainer
 Timer
 TextureRect
 Panel
-HBoxContainer
 Label
 AnimatedSprite2D
 Control

@@ -73,6 +73,18 @@ public partial class CraftingMenu : Control
 		foreach (Node recipeSelect in recipeSelects)
 		{
 			CraftingItemSelect select = (CraftingItemSelect)recipeSelect;
+			if (select.itemType == selectedRecipe)
+			{
+				select.Disabled = true;
+				
+				// #dfdfdf80
+				select.itemName.Modulate = new Color("#dfdfdf80");
+				select.itemIcon.Modulate = new Color("#dfdfdf80");
+				continue;
+			}
+
+			select.itemName.Modulate = new Color("#ffffff");
+			select.itemIcon.Modulate = new Color("#ffffff");
 			select.Disabled = false;
 		}
 	}

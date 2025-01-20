@@ -102,7 +102,7 @@ anchors_preset = -1
 anchor_right = 0.329671
 anchor_bottom = 1.0
 grow_vertical = 2
-color = Color(0.223529, 0.223529, 0.223529, 1)
+color = Color(0.2, 0.2, 0.2, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="ItemsScrollContainer" type="ScrollContainer" parent="ColorRect"]
@@ -114,6 +114,7 @@ offset_right = -0.000610352
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
 
 [node name="ItemsContainer" type="VBoxContainer" parent="ColorRect/ItemsScrollContainer"]
 layout_mode = 2
@@ -123,6 +124,9 @@ theme_override_constants/separation = 0
 [node name="Ingots" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("3_2g22n")]
 layout_mode = 2
 name = "Ingots"
+
+[node name="Items" parent="ColorRect/ItemsScrollContainer/ItemsContainer/Ingots" index="1"]
+theme_override_constants/separation = 0
 
 [node name="IronIngot" parent="ColorRect/ItemsScrollContainer/ItemsContainer/Ingots/Items" index="0" instance=ExtResource("1_caiuq")]
 layout_mode = 2
@@ -140,6 +144,9 @@ itemType = "SteelIngot"
 [node name="StandardParts" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("3_2g22n")]
 layout_mode = 2
 name = "Standard Parts"
+
+[node name="Items" parent="ColorRect/ItemsScrollContainer/ItemsContainer/StandardParts" index="1"]
+theme_override_constants/separation = 0
 
 [node name="IronPlate" parent="ColorRect/ItemsScrollContainer/ItemsContainer/StandardParts/Items" index="0" instance=ExtResource("1_caiuq")]
 layout_mode = 2
@@ -182,6 +189,9 @@ itemType = "EncasedSteelBeam"
 layout_mode = 2
 name = "Compounds"
 
+[node name="Items" parent="ColorRect/ItemsScrollContainer/ItemsContainer/Compounds" index="1"]
+theme_override_constants/separation = 0
+
 [node name="Concrete" parent="ColorRect/ItemsScrollContainer/ItemsContainer/Compounds/Items" index="0" instance=ExtResource("1_caiuq")]
 layout_mode = 2
 itemType = "Concrete"
@@ -189,6 +199,9 @@ itemType = "Concrete"
 [node name="Electronics" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("3_2g22n")]
 layout_mode = 2
 name = "Electronics"
+
+[node name="Items" parent="ColorRect/ItemsScrollContainer/ItemsContainer/Electronics" index="1"]
+theme_override_constants/separation = 0
 
 [node name="Wire" parent="ColorRect/ItemsScrollContainer/ItemsContainer/Electronics/Items" index="0" instance=ExtResource("1_caiuq")]
 layout_mode = 2
@@ -201,6 +214,9 @@ itemType = "Cable"
 [node name="IndustrialParts" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("3_2g22n")]
 layout_mode = 2
 name = "Industrial Parts"
+
+[node name="Items" parent="ColorRect/ItemsScrollContainer/ItemsContainer/IndustrialParts" index="1"]
+theme_override_constants/separation = 0
 
 [node name="Rotor" parent="ColorRect/ItemsScrollContainer/ItemsContainer/IndustrialParts/Items" index="0" instance=ExtResource("1_caiuq")]
 layout_mode = 2
