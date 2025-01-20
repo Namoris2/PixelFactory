@@ -114,7 +114,7 @@ size_flags_vertical = 3
 [node name="TabContainer" type="TabContainer" parent="." groups=["TabContainer"]]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.0884615
+anchor_left = 0.0934066
 anchor_right = 0.806044
 anchor_bottom = 1.0
 offset_right = 0.999268
