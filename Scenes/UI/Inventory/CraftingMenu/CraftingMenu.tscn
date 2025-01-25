@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://blfbemcfo20kf"]
+[gd_scene load_steps=6 format=3 uid="uid://blfbemcfo20kf"]
 
 [ext_resource type="PackedScene" uid="uid://j4ti07wdyqt0" path="res://Scenes/UI/Inventory/CraftingMenu/CraftingItemSelect.tscn" id="1_caiuq"]
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.cs" id="1_daig4"]
 [ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="2_7x8p6"]
+[ext_resource type="Theme" uid="uid://boj67sr4snakr" path="res://Themes/Button/CraftButton.tres" id="2_w6h05"]
 [ext_resource type="PackedScene" uid="uid://cd611gi8b5pde" path="res://Scenes/UI/Menu/VCollapsingMenu.tscn" id="3_2g22n"]
 
 [node name="CraftingMenu" type="Control" groups=["CraftingMenu"]]
@@ -27,12 +28,14 @@ grow_vertical = 2
 
 [node name="Craft" type="Button" parent="CraftingBackground"]
 layout_mode = 0
-offset_left = 548.0
-offset_top = 380.0
-offset_right = 662.0
-offset_bottom = 434.0
+offset_left = 546.0
+offset_top = 375.0
+offset_right = 670.0
+offset_bottom = 429.0
+focus_mode = 0
+theme = ExtResource("2_w6h05")
 theme_override_font_sizes/font_size = 30
-text = "Craft"
+text = "CRAFT"
 
 [node name="CraftingInputItems" type="HFlowContainer" parent="CraftingBackground"]
 layout_mode = 0
@@ -40,6 +43,7 @@ offset_left = 300.0
 offset_top = 285.0
 offset_right = 910.0
 offset_bottom = 385.0
+mouse_filter = 2
 alignment = 1
 
 [node name="InputSlot0" parent="CraftingBackground/CraftingInputItems" groups=["CraftingInputItems"] instance=ExtResource("2_7x8p6")]
@@ -71,6 +75,7 @@ offset_left = 300.0
 offset_top = 473.0
 offset_right = 910.0
 offset_bottom = 573.0
+mouse_filter = 2
 alignment = 1
 
 [node name="InputSlot0" parent="CraftingBackground/CraftingOutputItems" groups=["CraftingOutputItems"] instance=ExtResource("2_7x8p6")]

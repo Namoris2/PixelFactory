@@ -1,5 +1,5 @@
+res://Themes/Button
 res://Scenes/UI/HUD/CollectedItems
-res://Themes/BuiltMenu
 res://Gimp/Icons/Keys
 res://Scenes/UI/Kebinds
 C:/Users/namor/OneDrive/Dokumenty/Godot/PixelFactoryBuilds/v0.4
@@ -11,7 +11,6 @@ res://Scenes/Game/World/BuildingParts
 res://Scenes/Game/World
 C:/Users/namor/OneDrive/Dokumenty/Godot/PixelFactoryBuilds/v03.1
 C:/Users/namor/OneDrive/Dokumenty/Godot/PixelFactoryBuilds/v0.3
-res://Themes/Button
 res://Themes
 res://Scenes/Game/World/Leftovers
 res://Scenes/UI/BuildMenu
