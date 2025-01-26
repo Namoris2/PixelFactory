@@ -15,6 +15,7 @@ public partial class CraftingItemSelect : Button
 	public override void _Ready()
 	{
 		Pressed += SelectRecipe;
+		ButtonDown += ButtonHeldDown;
 		MouseEntered += MouseEnteredHandler;
 		MouseExited += MouseExitedHandler;
 
@@ -43,6 +44,13 @@ public partial class CraftingItemSelect : Button
 	private void SelectRecipe()
 	{
 		craftingMenu.ChangeRecipe(itemType);
+	}
+
+	private void ButtonHeldDown()
+	{
+		// #ffffff30
+		itemName.Modulate = new Color("#ffffff30");
+		itemIcon.Modulate = new Color("#ffffff30");
 	}
 
 	private void MouseEnteredHandler()

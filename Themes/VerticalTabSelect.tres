@@ -38,6 +38,8 @@ region_rect = Rect2(72, 161, 24, 24)
 bg_color = Color(0.2, 0.2, 0.2, 1)
 
 [resource]
+Button/colors/font_pressed_color = Color(1, 1, 1, 0.188235)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 0.188235)
 Button/styles/disabled = SubResource("StyleBoxTexture_wfwxw")
 Button/styles/hover = SubResource("StyleBoxTexture_cc4i3")
 Button/styles/normal = SubResource("StyleBoxTexture_0nbn6")
