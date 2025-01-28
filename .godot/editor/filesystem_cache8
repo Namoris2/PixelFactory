@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1738063522
+::res://::1738097783
 Categories.txt::TextFile::-1::1733823426::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1733218658::0::1::::<><>::
 icon.png::CompressedTexture2D::8638131494384726703::1707211003::1707211003::1::::<><>::
@@ -132,7 +132,7 @@ playerPlaceholderUp.png::CompressedTexture2D::7564680213892751662::1705953484::1
 UI.png::CompressedTexture2D::3688618435197837518::1717428295::1717428298::1::::<><>::
 UI_large.png::CompressedTexture2D::3924593948733844548::1737888910::1737888939::1::::<><>::
 ::res://Gimp/UI/Inventory/::1737925731
-::res://Gimp/UI/Inventory/BuildingInventory/::1738068421
+::res://Gimp/UI/Inventory/BuildingInventory/::1738068434
 BuildingDetail.png::CompressedTexture2D::2909358517986969112::1738066777::1738066779::1::::<><>::
 BuildingInventory.png::CompressedTexture2D::2171659358986798631::1738054538::1738054541::1::::<><>::
 BuildingName.png::CompressedTexture2D::1538383314653730172::1738054217::1738054541::1::::<><>::
@@ -226,9 +226,9 @@ Inventories.cs::CSharpScript::-1::1737393598::0::1::::<>CanvasLayer<>::
 InventorySlot.cs::CSharpScript::-1::1737294568::0::1::::<>Button<>::
 InventorySlot.tscn::PackedScene::4053074305986315248::1736791111::0::1::::<><>::res://Scenes/UI/Inventory/InventorySlot.cs<>uid://bfqrtqjof5nbe::::res://Themes/InventorySlot.tres<>res://Scenes/UI/Inventory/ItemName.cs
 ItemName.cs::CSharpScript::-1::1736790896::0::1::::<>Label<>::
-::res://Scenes/UI/Inventory/BuildingInventory/::1738068345
+::res://Scenes/UI/Inventory/BuildingInventory/::1738068466
 BuildingInventory.cs::CSharpScript::-1::1738068250::0::1::::<>Control<>::
-BuildingInventory.tscn::PackedScene::8891338696894478521::1738068345::0::1::::<><>::res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.cs<>uid://cycrfkkc7xrqg::::res://Scenes/UI/Menu/MenuSelect.tscn<>uid://bx0lsoflefadc::::res://Scenes/UI/Inventory/InventorySlot.tscn<>uid://c2khkmfyip0p7::::res://Scenes/UI/Menu/CollapsingMenu.tscn<>uid://5676axmk8hit::::res://Gimp/UI/Inventory/BuildingInventory/BuildingInventory.png<>uid://bhpkyepf67433::::res://Gimp/UI/Inventory/BuildingInventory/BuildingDetail.png<>uid://dt2ciw8i8uffr::::res://Gimp/UI/Inventory/BuildingInventory/SlotBackgroundLarge.png<>uid://pqkvxa7ejvmc::::res://Gimp/UI/Inventory/BuildingInventory/ProgressBarFull.png
+BuildingInventory.tscn::PackedScene::8891338696894478521::1738068466::0::1::::<><>::res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.cs<>uid://cycrfkkc7xrqg::::res://Scenes/UI/Menu/MenuSelect.tscn<>uid://bx0lsoflefadc::::res://Scenes/UI/Inventory/InventorySlot.tscn<>uid://c2khkmfyip0p7::::res://Scenes/UI/Menu/CollapsingMenu.tscn<>uid://5676axmk8hit::::res://Gimp/UI/Inventory/BuildingInventory/BuildingInventory.png<>uid://bhpkyepf67433::::res://Gimp/UI/Inventory/BuildingInventory/BuildingDetail.png<>uid://dt2ciw8i8uffr::::res://Gimp/UI/Inventory/BuildingInventory/SlotBackgroundLarge.png<>uid://pqkvxa7ejvmc::::res://Gimp/UI/Inventory/BuildingInventory/ProgressBarFull.png
 ::res://Scenes/UI/Inventory/CraftingMenu/::1738068345
 CraftingItemSelect.cs::CSharpScript::-1::1737888882::0::1::::<>Button<>::
 CraftingItemSelect.tscn::PackedScene::692735820345872655::1738068345::0::1::::<><>::uid://dvicjhx5rc06g::::res://Themes/VerticalTabSelect.tres<>res://Scenes/UI/Inventory/CraftingMenu/CraftingItemSelect.cs<>uid://bxi2smg4lvdt8::::res://Gimp/placeholder.png
