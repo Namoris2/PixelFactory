@@ -17,7 +17,11 @@ public partial class BuildingInventory : Control
 	private Label building;
 	private Label resources;
 	public Label resourceProduction;
-	ProgressBar productionProgress;
+	TextureProgressBar productionProgress;
+	private PanelContainer inputSlotsBackground;
+	private PanelContainer outputSlotsBackground;
+	private Control buildingDetail;
+
 	public Vector2I coordinates;
 	dynamic items;
 	dynamic buildings;
@@ -33,8 +37,12 @@ public partial class BuildingInventory : Control
 		tileMap = GetNode<World>("/root/main/World/TileMap");
 		tileMap.ToggleInventory += ToggleInventory;
 
-		productionProgress = GetNode<ProgressBar>("TabContainer/Building/ProductionProgress");
+		productionProgress = GetNode<TextureProgressBar>("TabContainer/Building/ProductionProgress");
 		resourceProduction = GetNode<Label>("TabContainer/Building/Production");
+		buildingDetail = GetNode<Control>("TabContainer/Building/BuildingDetail");
+
+		inputSlotsBackground = GetNode<PanelContainer>("TabContainer/Building/Slots/InputSlotsBackground");
+		outputSlotsBackground = GetNode<PanelContainer>("TabContainer/Building/Slots/OutputSlotsBackground");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -127,6 +135,10 @@ public partial class BuildingInventory : Control
 
 			productionProgress.Hide();
 			resourceProduction.Hide();
+			buildingDetail.Hide();
+
+			inputSlotsBackground.Hide();
+			outputSlotsBackground.Hide();
 
 			for (int i = 0; i < leftovers.items.Count; i++)
 			{
@@ -163,6 +175,7 @@ public partial class BuildingInventory : Control
 				GetNode<ScrollContainer>("TabContainer/Building/Slots/StorageSlots").Hide();
 				productionProgress.Show();
 				resourceProduction.Show();
+				buildingDetail.Show();				
 					
 				buildingName.Text = buildingData.name;
 				dynamic recipe = recipes[buildingInfo.recipe.ToString()];
@@ -211,6 +224,7 @@ public partial class BuildingInventory : Control
 						Array<Node> inputSlots = GetTree().GetNodesInGroup("InputSlots");
 						Array<Node> outputSlots = GetTree().GetNodesInGroup("OutputSlots");
 
+						inputSlotsBackground.Show();
 						for (int i = 0; i < recipe.input.Count; i++)
 						{
 							slot = (InventorySlot)inputSlots[i];
@@ -223,6 +237,7 @@ public partial class BuildingInventory : Control
 							slot.Show();
 						}
 
+						outputSlotsBackground.Show();
 						for (int i = 0; i < recipe.output.Count; i++)
 						{
 							slot = (InventorySlot)outputSlots[i];
@@ -247,6 +262,10 @@ public partial class BuildingInventory : Control
 				buildingName.Text = buildingData.name.ToString();
 				productionProgress.Hide();
 				resourceProduction.Hide();
+				buildingDetail.Hide();
+
+				inputSlotsBackground.Hide();
+				outputSlotsBackground.Hide();
 				
 				for (int i = 0; i < (int)buildingInfo.slots.Count; i++)
 				{
@@ -283,7 +302,11 @@ public partial class BuildingInventory : Control
 		Vector2I coords = new Vector2I((int)building.coords[0], (int)building.coords[1]);
 		if (coordinates != coords || GetTree().GetNodesInGroup("RemainsSlots").Count != 0) { return; }
 		
-		if (building.buildingType.ToString() == "machine") { productionProgress.Value = (double)building.productionProgress; }
+		if (building.buildingType.ToString() == "machine") 
+		{ 
+			productionProgress.Value = (double)building.productionProgress; 
+			productionProgress.GetNode<Label>("Progress").Text = Math.Floor((double)building.productionProgress * 100).ToString() + "%";
+		}
 
 		if (building.type.ToString().Contains("Drill"))
 		{	

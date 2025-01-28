@@ -1,4 +1,4 @@
-res://Scenes/main.tscn
+res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Themes/VerticalTabSelect.tres
 res://Themes/InventorySlot.tres
 res://Themes/Button/CraftButton.tres
@@ -6,10 +6,10 @@ res://Scenes/UI/Kebinds/spritetest.tres
 res://Themes/UI.tres
 res://Scenes/UI/Menu/ChangeMenu.cs
 res://Scenes/UI/Save and Load/LoadGame.cs
+res://Scenes/main.tscn
 res://Scenes/UI/MainMenu/MainMenu.tscn
 res://Scenes/UI/BuildMenu/BuildMenu.tscn
 res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn
-res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/UI/Inventory/CraftingMenu/CraftingItemSelect.tscn
 res://Scenes/Game/GameEvents.cs
 res://Scenes/Game/LoadFile.cs

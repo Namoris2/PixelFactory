@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5676axmk8hit"
-path="res://.godot/imported/BuildingInventory.png-3aeea4e00895f75604d55ca617f40e5f.ctex"
+uid="uid://dt2ciw8i8uffr"
+path="res://.godot/imported/SlotBackgroundLarge.png-f1a794bf50a455e2f738464a77308e10.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Gimp/UI/Inventory/BuildingInventory.png"
-dest_files=["res://.godot/imported/BuildingInventory.png-3aeea4e00895f75604d55ca617f40e5f.ctex"]
+source_file="res://Gimp/UI/Inventory/BuildingInventory/SlotBackgroundLarge.png"
+dest_files=["res://.godot/imported/SlotBackgroundLarge.png-f1a794bf50a455e2f738464a77308e10.ctex"]
 
 [params]
 
