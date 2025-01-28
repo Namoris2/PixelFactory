@@ -65,9 +65,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_sjaja")
 theme_override_font_sizes/font_size = 30
+current_tab = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Recipes" type="TabContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_l8bnn")
 tabs_visible = false
@@ -244,7 +246,6 @@ DisplayName = "Motor"
 Type = "recipe"
 
 [node name="Building" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="BackGround" type="TextureRect" parent="TabContainer/Building"]
@@ -653,7 +654,7 @@ texture_under = ExtResource("6_bl6k8")
 texture_progress = ExtResource("8_r8plo")
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="TabContainer/Building/ProductionProgress"]
+[node name="Progress" type="Label" parent="TabContainer/Building/ProductionProgress"]
 layout_mode = 0
 offset_right = 367.0
 offset_bottom = 72.0
