@@ -702,7 +702,7 @@ public partial class World : Godot.TileMap
 		}
 		else
 		{
-			EmitSignal(SignalName.CreateBuildingPart, cellPositionByMouse, selectedBuilding, 0, false);
+			EmitSignal(SignalName.CreateBuildingPart, cellPositionByMouse, selectedBuilding, buildingRotation, false);
 		}
 	}
 
