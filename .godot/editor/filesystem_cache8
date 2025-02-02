@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1738220220
+::res://::1738513430
 Categories.txt::TextFile::-1::1733823426::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1733218658::0::1::::<><>::
 icon.png::CompressedTexture2D::8638131494384726703::1707211003::1707211003::1::::<><>::
@@ -75,13 +75,15 @@ Organitation.png::CompressedTexture2D::5383093920769440322::1736106871::17361068
 Production.png::CompressedTexture2D::6775522624339263435::1736106104::1736106106::1::::<><>::
 ::res://Gimp/Icons/Keys/::1736264127
 Keys.png::CompressedTexture2D::1029617192767295188::1735398850::1735398962::1::::<><>::
-::res://Gimp/Items/::1737893279
+::res://Gimp/Items/::1738514675
 ItemHolder.png::CompressedTexture2D::3002865090224841687::1724082520::1724082522::1::::<><>::
-items.png::CompressedTexture2D::6904434550548872743::1737893263::1737893279::1::::<><>::
+items.png::CompressedTexture2D::6904434550548872743::1738514709::1738514709::1::::<><>::
 ::res://Gimp/Items/Cable/::1736263709
 Cable.png::CompressedTexture2D::8310534552905708135::1735656425::1735656434::1::::<><>::
 ::res://Gimp/Items/Coal/::1736264127
 Coal.png::CompressedTexture2D::4100528739090829500::1731087960::1731088003::1::::<><>::
+::res://Gimp/Items/Concrete/::1738514682
+Concrete.png::CompressedTexture2D::8729204011953026349::1738514682::1738514709::1::::<><>::
 ::res://Gimp/Items/CopperIngot/::1736264128
 CopperIngot.png::CompressedTexture2D::4422495201685171049::1714928573::1714928644::1::::<><>::
 ::res://Gimp/Items/CopperOre/::1736264128
@@ -128,7 +130,7 @@ playerPlaceholder.png::CompressedTexture2D::8051769752180933358::1705953484::171
 playerPlaceholderLeft.png::CompressedTexture2D::6943067938357929141::1705953484::1713642766::1::::<><>::
 playerPlaceholderRight.png::CompressedTexture2D::2020068171592622252::1705953484::1713642766::1::::<><>::
 playerPlaceholderUp.png::CompressedTexture2D::7564680213892751662::1705953484::1713642766::1::::<><>::
-::res://Gimp/UI/::1738221602
+::res://Gimp/UI/::1738221619
 UI.png::CompressedTexture2D::3688618435197837518::1717428295::1717428298::1::::<><>::
 UI_large.png::CompressedTexture2D::3924593948733844548::1738221603::1738221619::1::::<><>::
 ::res://Gimp/UI/Inventory/::1737925731
@@ -283,8 +285,8 @@ SettingsContainer.tscn::PackedScene::7376510308453134004::1730834163::0::1::::<>
 SettingsHandler.cs::CSharpScript::-1::1735651558::0::1::::<>Node<>::
 ::res://Singletons/::1736261591
 ::res://Themes/::1738221482
-InventorySlot.tres::Theme::2771461919830256154::1738220663::0::1::::<><>::
 CollapsingMenu.tres::Theme::7591569900084746187::1738221482::0::1::::<><>::uid://bv6dqvhrg1fxs::::res://Gimp/UI/UI_large.png
+InventorySlot.tres::Theme::2771461919830256154::1738220663::0::1::::<><>::
 UI.tres::Theme::1814479987901896604::1738220663::0::1::::<><>::uid://bss2ah0453dis::::res://Gimp/UI/UI.png
 VerticalTabSelect.tres::Theme::8649880700220980008::1738220663::0::1::::<><>::uid://bv6dqvhrg1fxs::::res://Gimp/UI/UI_large.png
 ::res://Themes/BuildMenu/::1737390587
