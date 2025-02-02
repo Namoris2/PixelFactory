@@ -20,6 +20,7 @@ public partial class BuildingInventory : Control
 	TextureProgressBar productionProgress;
 	private PanelContainer inputSlotsBackground;
 	private PanelContainer outputSlotsBackground;
+	private PanelContainer singleSlotBackground;
 	private Control buildingDetail;
 
 	public Vector2I coordinates;
@@ -43,6 +44,7 @@ public partial class BuildingInventory : Control
 
 		inputSlotsBackground = GetNode<PanelContainer>("TabContainer/Building/Slots/InputSlotsBackground");
 		outputSlotsBackground = GetNode<PanelContainer>("TabContainer/Building/Slots/OutputSlotsBackground");
+		singleSlotBackground = GetNode<PanelContainer>("TabContainer/Building/Slots/SingleSlotBackground");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -139,6 +141,7 @@ public partial class BuildingInventory : Control
 
 			inputSlotsBackground.Hide();
 			outputSlotsBackground.Hide();
+			singleSlotBackground.Hide();
 
 			for (int i = 0; i < leftovers.items.Count; i++)
 			{
@@ -175,7 +178,8 @@ public partial class BuildingInventory : Control
 				GetNode<ScrollContainer>("TabContainer/Building/Slots/StorageSlots").Hide();
 				productionProgress.Show();
 				resourceProduction.Show();
-				buildingDetail.Show();				
+				singleSlotBackground.Hide();		
+				buildingDetail.Show();
 					
 				buildingName.Text = buildingData.name;
 				dynamic recipe = recipes[buildingInfo.recipe.ToString()];
@@ -218,6 +222,10 @@ public partial class BuildingInventory : Control
 						slot.GetNode<Label>("Rate").Text = $"{buildingData.productionMultiplier * buildingInfo.tiles * recipe.cyclesPerMinute * recipe.output[0].amount} / min";
 						slot.UpdateSlotTexture(slot.itemType);
 						slot.Show();
+
+						singleSlotBackground.Show();
+						inputSlotsBackground.Hide();
+						outputSlotsBackground.Hide();
 					}
 					else
 					{
@@ -266,6 +274,7 @@ public partial class BuildingInventory : Control
 
 				inputSlotsBackground.Hide();
 				outputSlotsBackground.Hide();
+				singleSlotBackground.Hide();
 				
 				for (int i = 0; i < (int)buildingInfo.slots.Count; i++)
 				{
@@ -310,7 +319,7 @@ public partial class BuildingInventory : Control
 
 		if (building.type.ToString().Contains("Drill"))
 		{	
-			InventorySlot slot = GetNode<InventorySlot>("TabContainer/Building/Slots/DrillOutputSlot");
+			InventorySlot slot = GetNode<InventorySlot>("TabContainer/Building/Slots/SingleSlotBackground/DrillOutputSlot");
 			UpdateSlot(slot, building.outputSlots[0].resource.ToString(), (int)building.outputSlots[0].amount);
 		}
 		else if (building.buildingType.ToString() == "machine" && building.recipe.ToString() != "none")

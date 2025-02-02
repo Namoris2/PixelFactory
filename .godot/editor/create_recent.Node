@@ -1,8 +1,8 @@
+PanelContainer
 Label
 ProgressBar
 TextureProgressBar
 TextureRect
-PanelContainer
 Container
 VBoxContainer
 FlowContainer
