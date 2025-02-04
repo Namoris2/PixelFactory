@@ -23,6 +23,9 @@ public partial class BuildingInventory : Control
 	private PanelContainer singleSlotBackground;
 	private Control buildingDetail;
 
+	public TabContainer tabContainer;
+	Control tabSelect;
+
 	public Vector2I coordinates;
 	dynamic items;
 	dynamic buildings;
@@ -45,6 +48,9 @@ public partial class BuildingInventory : Control
 		inputSlotsBackground = GetNode<PanelContainer>("TabContainer/Building/Slots/InputSlotsBackground");
 		outputSlotsBackground = GetNode<PanelContainer>("TabContainer/Building/Slots/OutputSlotsBackground");
 		singleSlotBackground = GetNode<PanelContainer>("TabContainer/Building/Slots/SingleSlotBackground");
+
+		tabContainer = GetNode<TabContainer>("TabContainer");
+		tabSelect = GetNode<Control>("TabContainer/Building/TabSelects");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -126,12 +132,10 @@ public partial class BuildingInventory : Control
 		}
 
 		buildingInfo = _buildingInfo;
-		TabContainer tabContainer = GetNode<TabContainer>("TabContainer");
 		Label buildingName = GetNode<Label>("TabContainer/Building/Name");
 		
 		if (leftovers != null)
 		{	
-			tabContainer.TabsVisible = false;
 			tabContainer.CurrentTab = 1;
 			buildingName.Text = "Leftovers";
 
@@ -142,6 +146,8 @@ public partial class BuildingInventory : Control
 			inputSlotsBackground.Hide();
 			outputSlotsBackground.Hide();
 			singleSlotBackground.Hide();
+
+			tabSelect.Hide();
 
 			for (int i = 0; i < leftovers.items.Count; i++)
 			{
@@ -166,15 +172,6 @@ public partial class BuildingInventory : Control
 		switch (buildingInfo.buildingType.ToString())
 		{
 			case "machine":
-				if ((bool)buildingData.canChooseRecipe)
-				{
-					tabContainer.TabsVisible = true;
-				}
-				else
-				{
-					tabContainer.TabsVisible = false;
-				}
-
 				GetNode<ScrollContainer>("TabContainer/Building/Slots/StorageSlots").Hide();
 				productionProgress.Show();
 				resourceProduction.Show();
@@ -187,7 +184,7 @@ public partial class BuildingInventory : Control
 
 				if (!buildingInfo.type.ToString().Contains("Drill"))
 				{
-					TabContainer recipesTab = GetNode<TabContainer>("TabContainer/Recipes");
+					TabContainer recipesTab = GetNode<TabContainer>("TabContainer/RecipesContainer/VBoxContainer/Recipes");
 					string buildingType = buildingInfo.type.ToString();
 					buildingType = buildingType.ToUpper()[0] + buildingType.Substring(1);
 
@@ -226,9 +223,11 @@ public partial class BuildingInventory : Control
 						singleSlotBackground.Show();
 						inputSlotsBackground.Hide();
 						outputSlotsBackground.Hide();
+						tabSelect.Hide();
 					}
 					else
 					{
+						tabSelect.Show();
 						Array<Node> inputSlots = GetTree().GetNodesInGroup("InputSlots");
 						Array<Node> outputSlots = GetTree().GetNodesInGroup("OutputSlots");
 
@@ -275,6 +274,8 @@ public partial class BuildingInventory : Control
 				inputSlotsBackground.Hide();
 				outputSlotsBackground.Hide();
 				singleSlotBackground.Hide();
+
+				tabSelect.Hide();
 				
 				for (int i = 0; i < (int)buildingInfo.slots.Count; i++)
 				{

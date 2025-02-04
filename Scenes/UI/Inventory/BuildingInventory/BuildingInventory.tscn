@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dyxbbw8tmug2l"]
+[gd_scene load_steps=31 format=3 uid="uid://dyxbbw8tmug2l"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.cs" id="1_10j8y"]
 [ext_resource type="Texture2D" uid="uid://bv6dqvhrg1fxs" path="res://Gimp/UI/UI_large.png" id="2_2n3xo"]
@@ -10,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://dt2ciw8i8uffr" path="res://Gimp/UI/Inventory/BuildingInventory/SlotBackgroundLarge.png" id="6_bl6k8"]
 [ext_resource type="Theme" uid="uid://14s5f3lpl3rm" path="res://Themes/SlotBackground.tres" id="7_tdbxp"]
 [ext_resource type="Texture2D" uid="uid://pqkvxa7ejvmc" path="res://Gimp/UI/Inventory/BuildingInventory/ProgressBarFull.png" id="8_r8plo"]
+[ext_resource type="Texture2D" uid="uid://c7aru6kn3dy3b" path="res://Gimp/UI/Inventory/BuildingInventory/TabSelection/Left.png" id="10_xby1s"]
+[ext_resource type="Texture2D" uid="uid://5hi35hh7k6nd" path="res://Gimp/UI/Inventory/BuildingInventory/TabSelection/Right.png" id="11_2t5gl"]
+[ext_resource type="Script" path="res://Scenes/UI/Inventory/BuildingInventory/TabSelection.cs" id="12_elxp8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ak47j"]
 
@@ -17,6 +20,7 @@
 TabContainer/styles/panel = SubResource("StyleBoxEmpty_ak47j")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l8bnn"]
+content_margin_top = 0.0
 texture = ExtResource("2_2n3xo")
 texture_margin_left = 4.0
 texture_margin_top = 4.0
@@ -24,6 +28,134 @@ texture_margin_right = 4.0
 texture_margin_bottom = 4.0
 region_rect = Rect2(24, 161, 24, 24)
 modulate_color = Color(0.67451, 0.67451, 0.67451, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jf0r3"]
+content_margin_left = 12.0
+content_margin_top = 0.0
+content_margin_right = 8.0
+content_margin_bottom = 0.0
+texture = ExtResource("2_2n3xo")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(24, 161, 24, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uuyt3"]
+content_margin_left = 12.0
+content_margin_top = 0.0
+content_margin_right = 8.0
+content_margin_bottom = 0.0
+texture = ExtResource("2_2n3xo")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(48, 161, 24, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xjo1o"]
+content_margin_left = 12.0
+content_margin_top = 0.0
+content_margin_right = 8.0
+content_margin_bottom = 0.0
+texture = ExtResource("2_2n3xo")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(0, 161, 24, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vhswi"]
+content_margin_left = 12.0
+content_margin_top = 0.0
+content_margin_right = 8.0
+content_margin_bottom = 0.0
+texture = ExtResource("2_2n3xo")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(72, 161, 24, 24)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pf2d8"]
+bg_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="Theme" id="Theme_134rn"]
+Button/colors/font_pressed_color = Color(1, 1, 1, 0.188235)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 0.188235)
+Button/styles/disabled = SubResource("StyleBoxTexture_jf0r3")
+Button/styles/hover = SubResource("StyleBoxTexture_uuyt3")
+Button/styles/normal = SubResource("StyleBoxTexture_xjo1o")
+Button/styles/pressed = SubResource("StyleBoxTexture_vhswi")
+Panel/styles/panel = SubResource("StyleBoxFlat_pf2d8")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7hs4n"]
+texture = ExtResource("2_2n3xo")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_bottom = 4.0
+expand_margin_left = 4.0
+region_rect = Rect2(0, 161, 20, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dikne"]
+texture = ExtResource("2_2n3xo")
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+expand_margin_right = 4.0
+region_rect = Rect2(4, 161, 20, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ps5q3"]
+content_margin_left = 12.0
+content_margin_right = 8.0
+texture = ExtResource("2_2n3xo")
+texture_margin_left = 6.0
+texture_margin_top = 7.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(24, 209, 24, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x5jfd"]
+content_margin_left = 12.0
+content_margin_top = 0.0
+content_margin_right = 8.0
+content_margin_bottom = 0.0
+texture = ExtResource("2_2n3xo")
+texture_margin_left = 6.0
+texture_margin_top = 7.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(48, 209, 24, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i4eek"]
+content_margin_left = 12.0
+content_margin_top = 0.0
+content_margin_right = 8.0
+content_margin_bottom = 0.0
+texture = ExtResource("2_2n3xo")
+texture_margin_left = 6.0
+texture_margin_top = 7.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(0, 209, 24, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j5fge"]
+content_margin_left = 12.0
+content_margin_top = 0.0
+content_margin_right = 8.0
+content_margin_bottom = 0.0
+texture = ExtResource("2_2n3xo")
+texture_margin_left = 6.0
+texture_margin_top = 7.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(72, 209, 24, 24)
+
+[sub_resource type="Theme" id="Theme_i2ryh"]
+Button/styles/disabled = SubResource("StyleBoxTexture_ps5q3")
+Button/styles/hover = SubResource("StyleBoxTexture_x5jfd")
+Button/styles/normal = SubResource("StyleBoxTexture_i4eek")
+Button/styles/pressed = SubResource("StyleBoxTexture_j5fge")
 
 [sub_resource type="Theme" id="Theme_ecnio"]
 
@@ -39,13 +171,6 @@ size_flags_vertical = 4
 script = ExtResource("1_10j8y")
 metadata/_edit_use_anchors_ = true
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.0373281
-metadata/_edit_use_anchors_ = true
-
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -56,68 +181,109 @@ grow_vertical = 2
 theme = SubResource("Theme_sjaja")
 theme_override_font_sizes/font_size = 30
 current_tab = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Recipes" type="TabContainer" parent="TabContainer"]
-visible = false
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_l8bnn")
 tabs_visible = false
 metadata/_edit_use_anchors_ = true
 
-[node name="Smelter" type="TabBar" parent="TabContainer/Recipes" groups=["Recipes"]]
+[node name="RecipesContainer" type="PanelContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_l8bnn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/RecipesContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TabSelects" type="HBoxContainer" parent="TabContainer/RecipesContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = SubResource("Theme_134rn")
+theme_override_constants/separation = 0
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Background" type="Panel" parent="TabContainer/RecipesContainer/VBoxContainer/TabSelects"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_7hs4n")
+
+[node name="Recipes" type="Button" parent="TabContainer/RecipesContainer/VBoxContainer/TabSelects"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 20
+disabled = true
+text = "Recipes"
+
+[node name="Building" type="Button" parent="TabContainer/RecipesContainer/VBoxContainer/TabSelects"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 20
+text = "Building"
+script = ExtResource("12_elxp8")
+index = 1
+
+[node name="Background2" type="Panel" parent="TabContainer/RecipesContainer/VBoxContainer/TabSelects"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_dikne")
+
+[node name="Recipes" type="TabContainer" parent="TabContainer/RecipesContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 1
+tabs_visible = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Smelter" type="TabBar" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes" groups=["Recipes"]]
+visible = false
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Recipes/Smelter"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Smelter"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
 
-[node name="Ingots" parent="TabContainer/Recipes/Smelter/VBoxContainer" instance=ExtResource("3_thli6")]
+[node name="Ingots" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Smelter/VBoxContainer" instance=ExtResource("3_thli6")]
 layout_mode = 2
 name = "Ingots"
 
-[node name="IronIngot" parent="TabContainer/Recipes/Smelter/VBoxContainer/Ingots/Items" index="0" instance=ExtResource("2_amxgm")]
+[node name="IronIngot" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Smelter/VBoxContainer/Ingots/Items" index="0" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "IronIngot"
 Type = "recipe"
 
-[node name="CopperIngot" parent="TabContainer/Recipes/Smelter/VBoxContainer/Ingots/Items" index="1" instance=ExtResource("2_amxgm")]
+[node name="CopperIngot" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Smelter/VBoxContainer/Ingots/Items" index="1" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "CopperIngot"
 Type = "recipe"
 
-[node name="Foundry" type="TabBar" parent="TabContainer/Recipes" groups=["Recipes"]]
-visible = false
+[node name="Foundry" type="TabBar" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes" groups=["Recipes"]]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Recipes/Foundry"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Foundry"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
 
-[node name="Ingots" parent="TabContainer/Recipes/Foundry/VBoxContainer" instance=ExtResource("3_thli6")]
+[node name="Ingots" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Foundry/VBoxContainer" instance=ExtResource("3_thli6")]
 layout_mode = 2
 name = "Ingots"
 
-[node name="SteelIngot" parent="TabContainer/Recipes/Foundry/VBoxContainer/Ingots/Items" index="0" instance=ExtResource("2_amxgm")]
+[node name="SteelIngot" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Foundry/VBoxContainer/Ingots/Items" index="0" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "SteelIngot"
 Type = "recipe"
 
-[node name="Constructor" type="TabBar" parent="TabContainer/Recipes" groups=["Recipes"]]
+[node name="Constructor" type="TabBar" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes" groups=["Recipes"]]
 visible = false
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Recipes/Constructor"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -126,111 +292,110 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="StandardParts" parent="TabContainer/Recipes/Constructor/VBoxContainer" instance=ExtResource("3_thli6")]
+[node name="StandardParts" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer" instance=ExtResource("3_thli6")]
 layout_mode = 2
 name = "Standard Parts"
 
-[node name="IronPlate" parent="TabContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="0" instance=ExtResource("2_amxgm")]
+[node name="IronPlate" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="0" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "IronPlate"
 Type = "recipe"
 
-[node name="IronRod" parent="TabContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="1" instance=ExtResource("2_amxgm")]
+[node name="IronRod" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="1" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "IronRod"
 Type = "recipe"
 
-[node name="Screws" parent="TabContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="2" instance=ExtResource("2_amxgm")]
+[node name="Screws" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="2" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "Screws"
 Type = "recipe"
 
-[node name="CopperSheet" parent="TabContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="3" instance=ExtResource("2_amxgm")]
+[node name="CopperSheet" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="3" instance=ExtResource("2_amxgm")]
 visible = false
 layout_mode = 2
 DisplayName = "CopperSheet"
 Type = "recipe"
 
-[node name="SteelBeam" parent="TabContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="4" instance=ExtResource("2_amxgm")]
+[node name="SteelBeam" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="4" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "SteelBeam"
 Type = "recipe"
 
-[node name="SteelPipe" parent="TabContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="5" instance=ExtResource("2_amxgm")]
+[node name="SteelPipe" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer/StandardParts/Items" index="5" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "SteelPipe"
 Type = "recipe"
 
-[node name="Compounds" parent="TabContainer/Recipes/Constructor/VBoxContainer" instance=ExtResource("3_thli6")]
+[node name="Compounds" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer" instance=ExtResource("3_thli6")]
 layout_mode = 2
 name = "Compounds"
 
-[node name="Concrete" parent="TabContainer/Recipes/Constructor/VBoxContainer/Compounds/Items" index="0" instance=ExtResource("2_amxgm")]
+[node name="Concrete" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer/Compounds/Items" index="0" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "Concrete"
 Type = "recipe"
 
-[node name="Electronics" parent="TabContainer/Recipes/Constructor/VBoxContainer" instance=ExtResource("3_thli6")]
+[node name="Electronics" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer" instance=ExtResource("3_thli6")]
 layout_mode = 2
 name = "Electronics"
 
-[node name="Wire" parent="TabContainer/Recipes/Constructor/VBoxContainer/Electronics/Items" index="0" instance=ExtResource("2_amxgm")]
+[node name="Wire" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer/Electronics/Items" index="0" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "Wire"
 Type = "recipe"
 
-[node name="Cable" parent="TabContainer/Recipes/Constructor/VBoxContainer/Electronics/Items" index="1" instance=ExtResource("2_amxgm")]
+[node name="Cable" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer/Electronics/Items" index="1" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "Cable"
 Type = "recipe"
 
-[node name="Assembler" type="TabBar" parent="TabContainer/Recipes" groups=["Recipes"]]
+[node name="Assembler" type="TabBar" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes" groups=["Recipes"]]
 visible = false
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Recipes/Assembler"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Assembler"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
 
-[node name="StandardParts" parent="TabContainer/Recipes/Assembler/VBoxContainer" instance=ExtResource("3_thli6")]
+[node name="StandardParts" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Assembler/VBoxContainer" instance=ExtResource("3_thli6")]
 layout_mode = 2
 name = "Standard Parts"
 
-[node name="ReinforcedIronPlate" parent="TabContainer/Recipes/Assembler/VBoxContainer/StandardParts/Items" index="0" instance=ExtResource("2_amxgm")]
+[node name="ReinforcedIronPlate" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Assembler/VBoxContainer/StandardParts/Items" index="0" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "ReinforcedIronPlate"
 Type = "recipe"
 
-[node name="ModularFrame" parent="TabContainer/Recipes/Assembler/VBoxContainer/StandardParts/Items" index="1" instance=ExtResource("2_amxgm")]
+[node name="ModularFrame" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Assembler/VBoxContainer/StandardParts/Items" index="1" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "ModularFrame"
 Type = "recipe"
 
-[node name="EncasedSteelBeam" parent="TabContainer/Recipes/Assembler/VBoxContainer/StandardParts/Items" index="2" instance=ExtResource("2_amxgm")]
+[node name="EncasedSteelBeam" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Assembler/VBoxContainer/StandardParts/Items" index="2" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "EncasedSteelBeam"
 Type = "recipe"
 
-[node name="IndustrialParts" parent="TabContainer/Recipes/Assembler/VBoxContainer" instance=ExtResource("3_thli6")]
+[node name="IndustrialParts" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Assembler/VBoxContainer" instance=ExtResource("3_thli6")]
 layout_mode = 2
 name = "Industrial Parts"
 
-[node name="Rotor" parent="TabContainer/Recipes/Assembler/VBoxContainer/IndustrialParts/Items" index="0" instance=ExtResource("2_amxgm")]
+[node name="Rotor" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Assembler/VBoxContainer/IndustrialParts/Items" index="0" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "Rotor"
 Type = "recipe"
 
-[node name="Stator" parent="TabContainer/Recipes/Assembler/VBoxContainer/IndustrialParts/Items" index="1" instance=ExtResource("2_amxgm")]
+[node name="Stator" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Assembler/VBoxContainer/IndustrialParts/Items" index="1" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "Stator"
 Type = "recipe"
 
-[node name="Motor" parent="TabContainer/Recipes/Assembler/VBoxContainer/IndustrialParts/Items" index="2" instance=ExtResource("2_amxgm")]
+[node name="Motor" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Assembler/VBoxContainer/IndustrialParts/Items" index="2" instance=ExtResource("2_amxgm")]
 layout_mode = 2
 DisplayName = "Motor"
 Type = "recipe"
@@ -260,6 +425,47 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_e4ymd")
 metadata/_edit_use_anchors_ = true
+
+[node name="TabSelects" type="HBoxContainer" parent="TabContainer/Building"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00549487
+anchor_right = 0.996703
+anchor_bottom = 0.0481336
+offset_right = 0.000366211
+offset_bottom = 0.999966
+theme = SubResource("Theme_i2ryh")
+theme_override_constants/separation = 0
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Background" type="TextureRect" parent="TabContainer/Building/TabSelects"]
+layout_mode = 2
+texture = ExtResource("10_xby1s")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Recipes" type="Button" parent="TabContainer/Building/TabSelects"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 20
+text = "Recipes"
+script = ExtResource("12_elxp8")
+index = 0
+
+[node name="Building" type="Button" parent="TabContainer/Building/TabSelects"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 20
+disabled = true
+text = "Building"
+
+[node name="Background2" type="TextureRect" parent="TabContainer/Building/TabSelects"]
+layout_mode = 2
+texture = ExtResource("11_2t5gl")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Slots" type="Control" parent="TabContainer/Building"]
 layout_mode = 1
@@ -662,10 +868,10 @@ text = "0%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[editable path="TabContainer/Recipes/Smelter/VBoxContainer/Ingots"]
-[editable path="TabContainer/Recipes/Foundry/VBoxContainer/Ingots"]
-[editable path="TabContainer/Recipes/Constructor/VBoxContainer/StandardParts"]
-[editable path="TabContainer/Recipes/Constructor/VBoxContainer/Compounds"]
-[editable path="TabContainer/Recipes/Constructor/VBoxContainer/Electronics"]
-[editable path="TabContainer/Recipes/Assembler/VBoxContainer/StandardParts"]
-[editable path="TabContainer/Recipes/Assembler/VBoxContainer/IndustrialParts"]
+[editable path="TabContainer/RecipesContainer/VBoxContainer/Recipes/Smelter/VBoxContainer/Ingots"]
+[editable path="TabContainer/RecipesContainer/VBoxContainer/Recipes/Foundry/VBoxContainer/Ingots"]
+[editable path="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer/StandardParts"]
+[editable path="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer/Compounds"]
+[editable path="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer/Electronics"]
+[editable path="TabContainer/RecipesContainer/VBoxContainer/Recipes/Assembler/VBoxContainer/StandardParts"]
+[editable path="TabContainer/RecipesContainer/VBoxContainer/Recipes/Assembler/VBoxContainer/IndustrialParts"]
