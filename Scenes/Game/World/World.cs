@@ -68,6 +68,7 @@ public partial class World : Godot.TileMap
 	PlayerInventory playerInventory;
 	BuildingInventory buildingInventory;
 	GenerateWorld generateWorld;
+	Label worldInfoLabel;
 
 	List<Thread> runningThreads = new();
 
@@ -90,11 +91,12 @@ public partial class World : Godot.TileMap
 		buildingInventory = playerInventory.GetNode<BuildingInventory>("../BuildingInventory");
 
 		generateWorld = GetNode<GenerateWorld>("/root/GenerateWorld");
+		worldInfoLabel = (Label)GetTree().GetFirstNodeInGroup("WorldInfo");
 
 		seed = GetNode<main>("/root/GameInfo").seed;
 		Load();
 
-		PrintOrphanNodes();
+		//PrintOrphanNodes();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -165,7 +167,10 @@ public partial class World : Godot.TileMap
 
 		worldInfo = $"Coordinates: {cellPositionByMouse[0]}, {cellPositionByMouse[1]}\n{worldInfo}";
 		
-		EmitSignal(SignalName.UpdateResourceInfo, worldInfo);
+		if (worldInfoLabel.Text != worldInfo)
+		{
+			worldInfoLabel.Text = worldInfo;
+		}
 		
 		// moves square cursor to tiles
 		CursorTexture();

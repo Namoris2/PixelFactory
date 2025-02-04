@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://Scenes/UI/HUD/ResourceAmount.cs" id="8_2nicb"]
 [ext_resource type="PackedScene" uid="uid://crq7hbeb86rlt" path="res://Scenes/UI/Inventory/HoldingItem.tscn" id="8_capta"]
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/Inventories.cs" id="8_jtdr3"]
-[ext_resource type="Script" path="res://Scenes/UI/HUD/WolrdInfo.cs" id="9_17mov"]
+[ext_resource type="Script" path="res://Scenes/UI/HUD/WorldInfo.cs" id="9_17mov"]
 [ext_resource type="PackedScene" uid="uid://brtiqnhheuky7" path="res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn" id="9_a0ikk"]
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/HoldingItem.cs" id="9_otqso"]
 [ext_resource type="Script" path="res://Scenes/UI/HUD/FPSCounter.cs" id="10_fkqdi"]
@@ -3390,7 +3390,7 @@ theme_override_font_sizes/font_size = 50
 text = "Resources: 0"
 script = ExtResource("8_2nicb")
 
-[node name="WorldInfo" type="Label" parent="UI"]
+[node name="WorldInfo" type="Label" parent="UI" groups=["WorldInfo"]]
 offset_right = 251.0
 offset_bottom = 72.0
 size_flags_horizontal = 0
