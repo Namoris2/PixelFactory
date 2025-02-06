@@ -1,10 +1,10 @@
-TextureRect
 Panel
+Label
+TextureRect
 PanelContainer
 VBoxContainer
 Button
 HBoxContainer
-Label
 ProgressBar
 TextureProgressBar
 Container

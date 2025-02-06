@@ -5,6 +5,7 @@ using System;
 public partial class CraftingMenu : Control
 {
 	PlayerInventory playerInventory;
+	Label recipeLabel;
 	public string selectedRecipe = "";
 	dynamic items;
 	dynamic recipes;
@@ -17,6 +18,7 @@ public partial class CraftingMenu : Control
 	public override void _Ready()
 	{
 		playerInventory = GetNode<PlayerInventory>("../PlayerInventory");
+		recipeLabel = GetNode<Label>("CraftingBackground/Recipe");
 		items = LoadFile.LoadJson("items.json");
 		recipes = LoadFile.LoadJson("recipes.json");
 
@@ -36,6 +38,8 @@ public partial class CraftingMenu : Control
 	{
 		selectedRecipe = itemType;
 		recipe = recipes[itemType];
+
+		recipeLabel.Text = recipe.name.ToString();
 
 		for (int i = 1; i < inputItems.Count; i++)
 		{
