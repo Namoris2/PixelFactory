@@ -39,7 +39,7 @@ res://Scenes/UI/HUD/FPSCounter.cs
 res://Scenes/UI/HUD/ResourceAmount.cs
 res://Scenes/UI/HUD/TestLabel.cs
 res://Scenes/UI/HUD/TestSprite.cs
-res://Scenes/UI/HUD/WolrdInfo.cs
+res://Scenes/UI/HUD/WorldInfo.cs
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.cs
 res://Scenes/UI/Inventory/BuildingInventory/TabSelection.cs
 res://Scenes/UI/Inventory/CraftingMenu/CraftingItemSelect.cs
@@ -69,4 +69,3 @@ res://Scenes/UI/Settings/KeyBindEdit.cs
 res://Scenes/UI/Settings/KeyBindsMenu.cs
 res://Scenes/UI/Settings/SettingsHandler.cs
 res://Scenes/UI/ui.cs
-res://Scenes/UI/HUD/WorldInfo.cs
