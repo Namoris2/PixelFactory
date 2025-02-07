@@ -180,12 +180,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_sjaja")
 theme_override_font_sizes/font_size = 30
-current_tab = 1
 tabs_visible = false
 metadata/_edit_use_anchors_ = true
 
 [node name="RecipesContainer" type="PanelContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_l8bnn")
 
@@ -401,6 +399,7 @@ DisplayName = "Motor"
 Type = "recipe"
 
 [node name="Building" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="BackGround" type="TextureRect" parent="TabContainer/Building"]

@@ -18,6 +18,7 @@ inventorySize = 20
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.772549, 0.772549, 0.772549, 1)
 texture_filter = 1
 texture_repeat = 2
 layout_mode = 1

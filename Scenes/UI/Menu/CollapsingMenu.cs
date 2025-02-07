@@ -23,6 +23,10 @@ public partial class CollapsingMenu : VBoxContainer
 		button.Pressed += ToggleCollapse;
 		nameLabel.Text = name;
 		labelWidth = nameLabel.Size.X;
+
+		foreach (Control item in items.GetChildren())
+		{
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
