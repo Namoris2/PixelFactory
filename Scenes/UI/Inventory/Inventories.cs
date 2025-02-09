@@ -35,11 +35,25 @@ public partial class Inventories : CanvasLayer
 				craftingMenu.ChangeRecipe(craftingMenu.selectedRecipe);
 				craftingMenu.Show();
 			}
+			GameEvents.closePopup.Show();
+			GameEvents.harvestResourcePopup.Hide();
+			GameEvents.rotatePopup.Hide();
+			GameEvents.toggleInventoryPopup.SetCustomActionText();
+			GameEvents.toggleBuildMenuPopup.Hide();
+			GameEvents.toggleDismantleModePopup.Hide();
 			Show();
 		}
 		else
 		{
 			Hide();
+			if (!(tileMap.BUILDINGMODE || tileMap.DISMANTLEMODE)) { GameEvents.closePopup.Hide(); }
+			GameEvents.pickUpItemPopup.Hide();
+			if (tileMap.BUILDINGMODE && (bool)tileMap.buildings[tileMap.selectedBuilding].canRotate) { GameEvents.rotatePopup.Show(); }
+			GameEvents.toggleInventoryPopup.SetDefaultActionText();
+			GameEvents.toggleBuildMenuPopup.Show();
+			GameEvents.toggleDismantleModePopup.Show();
+
+
 			GetNode<Control>("InventoryGrid/BuildingInventory").Hide();
 			GetNode<Control>("InventoryGrid/CraftingMenu").Hide();
 

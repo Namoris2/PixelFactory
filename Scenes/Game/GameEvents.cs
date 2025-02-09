@@ -11,6 +11,18 @@ public partial class GameEvents : Node
     private Label worldInfo;
     public static PlayerCamera camera;
 
+    public static ActionInfoPopup pickUpItemPopup;
+    public static ActionInfoPopup closePopup;
+    public static ActionInfoPopup rotatePopup;
+    public static ActionInfoPopup harvestResourcePopup;
+    public static ActionInfoPopup toggleInventoryPopup;
+    public static ActionInfoPopup toggleBuildingInventoryPopup;
+    public static ActionInfoPopup toggleBuildMenuPopup;
+    public static ActionInfoPopup toggleDismantleModePopup;
+    public static ActionInfoPopup splitStackPopup;
+
+    public static CollectedItemsContainer collectedItemsContainer;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -20,6 +32,18 @@ public partial class GameEvents : Node
         pauseMenu = GetNode<PauseMenu>("../UI/PauseMenu");
         worldInfo = GetNode<Label>("../UI/WorldInfo");
         camera = GetNode<PlayerCamera>("../World/Player/PlayerCamera");
+
+        closePopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("BackPopup");
+        rotatePopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("RotateBuildingPopup");
+        pickUpItemPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("PickUpItemPopup");
+        harvestResourcePopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("HarvestResourcePopup");
+        toggleInventoryPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleInventoryPopup");
+        toggleBuildingInventoryPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleBuildingInventoryPopup");
+        toggleBuildMenuPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleBuildMenuPopup");
+        toggleDismantleModePopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleDismantleModePopup");
+        splitStackPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("SplitStackPopup");
+
+        collectedItemsContainer = GetNode<CollectedItemsContainer>("../UI/CollectedItemsContainer");
 	}
 
     public override void _Input(InputEvent @event)
@@ -34,7 +58,7 @@ public partial class GameEvents : Node
             {
                 pauseMenu.PauseGame();
             }
-            else if (tileMap.DISMANTLEMODE)
+            else if (tileMap.DISMANTLEMODE && !buildMenu.Visible)
             {
                 tileMap.ToggleDismantleMode(false);
             }
@@ -42,6 +66,10 @@ public partial class GameEvents : Node
             {
                 camera.toggleZoom = true;
                 buildMenu.ToggleBuildMode();
+                if (!tileMap.DISMANTLEMODE) { closePopup.Hide(); }
+                toggleBuildMenuPopup.SetDefaultActionText();
+                toggleInventoryPopup.Show();
+                toggleDismantleModePopup.Show();
             }
             else if (inventories.Visible)
             {
@@ -65,13 +93,35 @@ public partial class GameEvents : Node
 
             if (@event.IsActionPressed("Interact"))
             {
-                ToggleBuildingInventory(!inventories.Visible);
+                if (!buildMenu.Visible)
+                {
+                    ToggleBuildingInventory(!inventories.Visible);
+                }
             }
 
             if (@event.IsActionPressed("ToggleBuildMode"))
             {
-                buildMenu.ToggleBuildMode();
-                camera.toggleZoom = !buildMenu.Visible;
+                if (!inventories.Visible)
+                {                
+                    buildMenu.ToggleBuildMode();
+                    camera.toggleZoom = !buildMenu.Visible;
+                    if (!tileMap.BUILDINGMODE && !tileMap.DISMANTLEMODE) { closePopup.Visible = !closePopup.Visible; }
+                    toggleInventoryPopup.Visible = !toggleInventoryPopup.Visible;
+                    toggleBuildingInventoryPopup.Hide();
+                    rotatePopup.Hide();
+                    toggleDismantleModePopup.Visible = !toggleDismantleModePopup.Visible;
+
+                    // Build Menu is closed
+                    if (toggleBuildMenuPopup.actionText == toggleBuildMenuPopup.GetNode<Label>("Label").Text)
+                    {
+                        toggleBuildMenuPopup.SetCustomActionText();
+                    }
+                    // Build Menu is opened
+                    else
+                    {
+                        toggleBuildMenuPopup.SetDefaultActionText();
+                    }
+                }
             }
         }
     }

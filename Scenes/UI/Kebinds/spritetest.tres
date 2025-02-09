@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=65 format=3 uid="uid://bw55y6hguecdc"]
+[gd_resource type="SpriteFrames" load_steps=72 format=3 uid="uid://bw55y6hguecdc"]
 
 [ext_resource type="Texture2D" uid="uid://ow0v6kx3a2jw" path="res://Gimp/Icons/Keys/Keys.png" id="1_xuiey"]
 
@@ -250,6 +250,34 @@ region = Rect2(51, 71, 18, 13)
 atlas = ExtResource("1_xuiey")
 region = Rect2(162, 29, 18, 13)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_xai5l"]
+atlas = ExtResource("1_xuiey")
+region = Rect2(44, 84, 9, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cq6ts"]
+atlas = ExtResource("1_xuiey")
+region = Rect2(54, 84, 9, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4oou"]
+atlas = ExtResource("1_xuiey")
+region = Rect2(64, 84, 9, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pce30"]
+atlas = ExtResource("1_xuiey")
+region = Rect2(74, 84, 9, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ux1n"]
+atlas = ExtResource("1_xuiey")
+region = Rect2(44, 100, 9, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kuhfu"]
+atlas = ExtResource("1_xuiey")
+region = Rect2(54, 100, 9, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iiyim"]
+atlas = ExtResource("1_xuiey")
+region = Rect2(64, 100, 9, 14)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_5f240"]
 atlas = ExtResource("1_xuiey")
 region = Rect2(1, 85, 42, 13)
@@ -442,6 +470,27 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7hmkl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xai5l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cq6ts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4oou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pce30")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ux1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kuhfu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iiyim")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5f240")

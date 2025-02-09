@@ -11,14 +11,13 @@ public partial class MenuSelect : Button
 	
 	[Export (PropertyHint.Enum, "building,recipe")]
 	public string Type = "";
-
-	LoadFile load = new();
+	
 	dynamic data;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		// loads 'buildings.json' file and parses in to dynamic object
-		data = load.LoadJson($"{Type}s.json")[DisplayName];
+		data = LoadFile.LoadJson($"{Type}s.json")[DisplayName];
 
 		GetNode<Label>("Name").Text = data.name;
 		
@@ -37,7 +36,7 @@ public partial class MenuSelect : Button
 
 			case "recipe":
 				this.Pressed += SelectRecipe;
-				data = load.LoadJson("items.json")[DisplayName];
+				data = LoadFile.LoadJson("items.json")[DisplayName];
 				Type = "item";
 				break;
 
@@ -45,12 +44,8 @@ public partial class MenuSelect : Button
 				GD.PrintErr($"WRONG TYPE SELECTED! {DisplayName}, {Type}");
 				break;
 		}
-		
-		Vector2I atlasCoords = new Vector2I((int)data.atlasCoords[0], (int)data.atlasCoords[1]);
 
-		texture.Atlas = GD.Load<Texture2D>($"res://Gimp/{char.ToUpper(Type[0]) + Type.Substring(1)}s/{Type}s.png");
-		texture.Region = new Rect2I(atlasCoords[0] * 16, atlasCoords[1] * 16, size.X * 16, size.Y * 16);
-		GetNode<TextureRect>("Texture").Texture = texture;
+		GetNode<TextureRect>("Texture").Texture = main.GetTexture(Type + "s.json", DisplayName);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -77,8 +72,13 @@ public partial class MenuSelect : Button
 		tileMap.selectedBuilding = DisplayName;
 		tileMap.ToggleBuildMode(true);
 		if (!(bool)data.canRotate) { tileMap.buildingRotation = 0; }
-
+		
+		else { GameEvents.rotatePopup.Show(); }
 		GameEvents.camera.toggleZoom = true;
+		GameEvents.toggleBuildMenuPopup.SetDefaultActionText();
+		GameEvents.toggleInventoryPopup.Show();
+		GameEvents.toggleDismantleModePopup.Show();
+		GameEvents.toggleDismantleModePopup.SetCustomActionText();
 	}
 
 	private void ShowBuildingInfo()

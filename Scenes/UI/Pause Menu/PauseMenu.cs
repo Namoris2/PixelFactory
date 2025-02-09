@@ -31,6 +31,16 @@ public partial class PauseMenu : Control
 		Visible = true;
 		GetTree().Paused = !GetTree().Paused;
 		worldInfo.Hide();
+
+		GameEvents.closePopup.SetDefaultActionText();
+		GameEvents.closePopup.Show();
+		GameEvents.pickUpItemPopup.Hide();
+		GameEvents.harvestResourcePopup.Hide();
+		GameEvents.toggleInventoryPopup.Hide();
+		GameEvents.toggleBuildingInventoryPopup.Hide();
+		GameEvents.toggleBuildMenuPopup.Hide();
+		GameEvents.toggleDismantleModePopup.Hide();
+		GameEvents.collectedItemsContainer.Hide();
 	}
 
 	public void UnpauseGame()
@@ -38,5 +48,12 @@ public partial class PauseMenu : Control
 		Visible = false;
 		GetTree().Paused = false;
 		worldInfo.Show();
+
+		GameEvents.closePopup.Hide();
+		GameEvents.closePopup.SetCustomActionText();
+		GameEvents.toggleInventoryPopup.Show();
+		GameEvents.toggleBuildMenuPopup.Show();
+		GameEvents.toggleDismantleModePopup.Show();
+		GameEvents.collectedItemsContainer.Show();
 	}
 }

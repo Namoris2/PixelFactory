@@ -114,10 +114,28 @@
 		"maxStackSize" : 100,
 		"atlasCoords" : [3, 1]
 	},
+	"Stator" : {
+		"type" : "Stator",
+		"name" : "Stator",
+		"maxStackSize" : 100,
+		"atlasCoords" : [3, 2]
+	},
+	"Motor" : {
+		"type" : "Motor",
+		"name" : "Motor",
+		"maxStackSize" : 50,
+		"atlasCoords" : [3, 3]
+	},
 	"ModularFrame" : {
 		"type" : "ModularFrame",
 		"name" : "Modular Frame",
 		"maxStackSize" : 50,
-		"atlasCoords" : [3, 2]
+		"atlasCoords" : [3, 4]
+	},
+	"EncasedSteelBeam" : {
+		"type" : "EncasedSteelBeam",
+		"name" : "Encased Steel Beam",
+		"maxStackSize" : 100,
+		"atlasCoords" : [4, 2]
 	}
 }

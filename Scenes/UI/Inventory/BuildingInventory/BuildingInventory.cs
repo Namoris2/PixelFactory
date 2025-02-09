@@ -17,9 +17,16 @@ public partial class BuildingInventory : Control
 	private Label building;
 	private Label resources;
 	public Label resourceProduction;
-	ProgressBar productionProgress;
+	TextureProgressBar productionProgress;
+	private PanelContainer inputSlotsBackground;
+	private PanelContainer outputSlotsBackground;
+	private PanelContainer singleSlotBackground;
+	private Control buildingDetail;
+
+	public TabContainer tabContainer;
+	Control tabSelect;
+
 	public Vector2I coordinates;
-	LoadFile load = new();
 	dynamic items;
 	dynamic buildings;
 
@@ -27,15 +34,23 @@ public partial class BuildingInventory : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		recipes = load.LoadJson("recipes.json");
-		items = load.LoadJson("items.json");
-		buildings = load.LoadJson("buildings.json");
+		recipes = LoadFile.LoadJson("recipes.json");
+		items = LoadFile.LoadJson("items.json");
+		buildings = LoadFile.LoadJson("buildings.json");
 
 		tileMap = GetNode<World>("/root/main/World/TileMap");
 		tileMap.ToggleInventory += ToggleInventory;
 
-		productionProgress = GetNode<ProgressBar>("TabContainer/Building/ProductionProgress");
+		productionProgress = GetNode<TextureProgressBar>("TabContainer/Building/ProductionProgress");
 		resourceProduction = GetNode<Label>("TabContainer/Building/Production");
+		buildingDetail = GetNode<Control>("TabContainer/Building/BuildingDetail");
+
+		inputSlotsBackground = GetNode<PanelContainer>("TabContainer/Building/Slots/InputSlotsBackground");
+		outputSlotsBackground = GetNode<PanelContainer>("TabContainer/Building/Slots/OutputSlotsBackground");
+		singleSlotBackground = GetNode<PanelContainer>("TabContainer/Building/Slots/SingleSlotBackground");
+
+		tabContainer = GetNode<TabContainer>("TabContainer");
+		tabSelect = GetNode<Control>("TabContainer/Building/TabSelects");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -108,22 +123,31 @@ public partial class BuildingInventory : Control
 			}
 
 			productionProgress.Value = 0;
-			this.Hide();
+			Hide();
+
+			GameEvents.toggleBuildingInventoryPopup.Hide();
+			GameEvents.toggleBuildingInventoryPopup.SetCustomActionText();
+
 			return; 
 		}
 
 		buildingInfo = _buildingInfo;
-		TabContainer tabContainer = GetNode<TabContainer>("TabContainer");
 		Label buildingName = GetNode<Label>("TabContainer/Building/Name");
 		
 		if (leftovers != null)
 		{	
-			tabContainer.TabsVisible = false;
 			tabContainer.CurrentTab = 1;
 			buildingName.Text = "Leftovers";
 
 			productionProgress.Hide();
 			resourceProduction.Hide();
+			buildingDetail.Hide();
+
+			inputSlotsBackground.Hide();
+			outputSlotsBackground.Hide();
+			singleSlotBackground.Hide();
+
+			tabSelect.Hide();
 
 			for (int i = 0; i < leftovers.items.Count; i++)
 			{
@@ -142,25 +166,17 @@ public partial class BuildingInventory : Control
 			Show();
 			return;
 		}
-		//GD.Print(buildingInfo);
 
 		dynamic buildingData = buildings[buildingInfo.type.ToString()];
 		coordinates = new ((int)buildingInfo.coords[0], (int)buildingInfo.coords[1]);
 		switch (buildingInfo.buildingType.ToString())
 		{
 			case "machine":
-				if ((bool)buildingData.canChooseRecipe)
-				{
-					tabContainer.TabsVisible = true;
-				}
-				else
-				{
-					tabContainer.TabsVisible = false;
-				}
-
 				GetNode<ScrollContainer>("TabContainer/Building/Slots/StorageSlots").Hide();
 				productionProgress.Show();
 				resourceProduction.Show();
+				singleSlotBackground.Hide();		
+				buildingDetail.Show();
 					
 				buildingName.Text = buildingData.name;
 				dynamic recipe = recipes[buildingInfo.recipe.ToString()];
@@ -168,7 +184,7 @@ public partial class BuildingInventory : Control
 
 				if (!buildingInfo.type.ToString().Contains("Drill"))
 				{
-					TabContainer recipesTab = GetNode<TabContainer>("TabContainer/Recipes");
+					TabContainer recipesTab = GetNode<TabContainer>("TabContainer/RecipesContainer/VBoxContainer/Recipes");
 					string buildingType = buildingInfo.type.ToString();
 					buildingType = buildingType.ToUpper()[0] + buildingType.Substring(1);
 
@@ -203,12 +219,19 @@ public partial class BuildingInventory : Control
 						slot.GetNode<Label>("Rate").Text = $"{buildingData.productionMultiplier * buildingInfo.tiles * recipe.cyclesPerMinute * recipe.output[0].amount} / min";
 						slot.UpdateSlotTexture(slot.itemType);
 						slot.Show();
+
+						singleSlotBackground.Show();
+						inputSlotsBackground.Hide();
+						outputSlotsBackground.Hide();
+						tabSelect.Hide();
 					}
 					else
 					{
+						tabSelect.Show();
 						Array<Node> inputSlots = GetTree().GetNodesInGroup("InputSlots");
 						Array<Node> outputSlots = GetTree().GetNodesInGroup("OutputSlots");
 
+						inputSlotsBackground.Show();
 						for (int i = 0; i < recipe.input.Count; i++)
 						{
 							slot = (InventorySlot)inputSlots[i];
@@ -221,6 +244,7 @@ public partial class BuildingInventory : Control
 							slot.Show();
 						}
 
+						outputSlotsBackground.Show();
 						for (int i = 0; i < recipe.output.Count; i++)
 						{
 							slot = (InventorySlot)outputSlots[i];
@@ -245,6 +269,13 @@ public partial class BuildingInventory : Control
 				buildingName.Text = buildingData.name.ToString();
 				productionProgress.Hide();
 				resourceProduction.Hide();
+				buildingDetail.Hide();
+
+				inputSlotsBackground.Hide();
+				outputSlotsBackground.Hide();
+				singleSlotBackground.Hide();
+
+				tabSelect.Hide();
 				
 				for (int i = 0; i < (int)buildingInfo.slots.Count; i++)
 				{
@@ -269,6 +300,11 @@ public partial class BuildingInventory : Control
 				tileMap.UITOGGLE = false;
 				break;
 		}
+		
+		UpdateInventory(buildingInfo);
+
+		GameEvents.toggleBuildingInventoryPopup.Show();
+		GameEvents.toggleBuildingInventoryPopup.SetCustomActionText(1);
 	}
 
 	public void UpdateInventory(dynamic building)
@@ -276,14 +312,18 @@ public partial class BuildingInventory : Control
 		Vector2I coords = new Vector2I((int)building.coords[0], (int)building.coords[1]);
 		if (coordinates != coords || GetTree().GetNodesInGroup("RemainsSlots").Count != 0) { return; }
 		
-		if (building.buildingType.ToString() == "machine") { productionProgress.Value = (double)building.productionProgress; }
+		if (building.buildingType.ToString() == "machine") 
+		{ 
+			productionProgress.Value = (double)building.productionProgress; 
+			productionProgress.GetNode<Label>("Progress").Text = Math.Floor((double)building.productionProgress * 100).ToString() + "%";
+		}
 
 		if (building.type.ToString().Contains("Drill"))
 		{	
-			InventorySlot slot = GetNode<InventorySlot>("TabContainer/Building/Slots/DrillOutputSlot");
+			InventorySlot slot = GetNode<InventorySlot>("TabContainer/Building/Slots/SingleSlotBackground/DrillOutputSlot");
 			UpdateSlot(slot, building.outputSlots[0].resource.ToString(), (int)building.outputSlots[0].amount);
 		}
-		else if (building.buildingType.ToString() == "machine")
+		else if (building.buildingType.ToString() == "machine" && building.recipe.ToString() != "none")
 		{
 			Array<Node> inputSlots = GetTree().GetNodesInGroup("InputSlots");
 			Array<Node> outputSlots = GetTree().GetNodesInGroup("OutputSlots");

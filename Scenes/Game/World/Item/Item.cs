@@ -15,14 +15,13 @@ public partial class Item : Node2D
 	private AtlasTexture textureAtlas = new ();
 	private Sprite2D icon;
 
-	private bool mouseHover = false;
+	public bool mouseHover = false;
 	dynamic items;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{		
-		LoadFile load = new();
-		items = load.LoadJson("items.json");
+		items = LoadFile.LoadJson("items.json");
 
 		icon = GetNode<Sprite2D>("Icon");
 		name = GetNode<Label>("Name");
@@ -57,9 +56,14 @@ public partial class Item : Node2D
 		bool canPutToInventory = false;
 		if (playerInventory.PutToInventory(itemType, 1) == 0) { canPutToInventory = true; }
 
-		if (canPutToInventory) 
+		if (canPutToInventory)
 		{ 
 			QueueFree(); 
+			GameEvents.pickUpItemPopup.Hide();
+
+			CollectedItemsContainer collectedItemsContainer = GetNode<CollectedItemsContainer>("/root/main/UI/CollectedItemsContainer");
+			collectedItemsContainer.ShowCollectedItem(itemType, 1);
+
 			if (!onGround)
 			{
 				World tileMap = GetNode<World>("/root/main/World/TileMap");
@@ -86,10 +90,7 @@ public partial class Item : Node2D
 
 	public void UpdateItem(string itemType)
 	{
-		Vector2I atlasCoords = new Vector2I((int)items[itemType].atlasCoords[0], (int)items[itemType].atlasCoords[1]);
-		textureAtlas.Region = new Rect2I(atlasCoords[0] * 16, atlasCoords[1] * 16, 16, 16);
-
-		icon.Texture = textureAtlas;
+		icon.Texture = main.GetTexture("items.json", itemType);
 		name.Text = items[itemType].name.ToString();
 		this.itemType = itemType;
 	}
@@ -97,12 +98,14 @@ public partial class Item : Node2D
 	private void OnMouseEnter()
 	{
 		name.Show();
+		GameEvents.pickUpItemPopup.Show();
 		mouseHover = true;
 	}
 
 	private void OnMouseExit()
 	{
 		name.Hide();
+		GameEvents.pickUpItemPopup.Hide();
 		mouseHover = false;
 	}
 }

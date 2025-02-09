@@ -43,5 +43,7 @@ public partial class BuildMenu : CanvasLayer
 		Visible = false;
 		tileMap.ToggleBuildMode();
 		worldInfo.Visible = !Visible;
+		GameEvents.closePopup.Hide();
+		GameEvents.rotatePopup.Hide();
 	}
 }

@@ -5,23 +5,26 @@ using System;
 public partial class CraftingMenu : Control
 {
 	PlayerInventory playerInventory;
+	Label recipeLabel;
 	public string selectedRecipe = "";
-	LoadFile load = new();
 	dynamic items;
 	dynamic recipes;
 	dynamic recipe;
 
 	Array<Node> inputItems;
 	Array<Node> outputItems;
+	Array<Node> recipeSelects;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		playerInventory = GetNode<PlayerInventory>("../PlayerInventory");
-		items = load.LoadJson("items.json");
-		recipes = load.LoadJson("recipes.json");
+		recipeLabel = GetNode<Label>("CraftingBackground/Recipe");
+		items = LoadFile.LoadJson("items.json");
+		recipes = LoadFile.LoadJson("recipes.json");
 
 		inputItems = GetTree().GetNodesInGroup("CraftingInputItems");
 		outputItems = GetTree().GetNodesInGroup("CraftingOutputItems");
+		recipeSelects = GetTree().GetNodesInGroup("CraftingMeneRecipeSelect");
 
 		GetNode<Button>("CraftingBackground/Craft").Pressed += Craft;
 	}
@@ -35,6 +38,8 @@ public partial class CraftingMenu : Control
 	{
 		selectedRecipe = itemType;
 		recipe = recipes[itemType];
+
+		recipeLabel.Text = recipe.name.ToString();
 
 		for (int i = 1; i < inputItems.Count; i++)
 		{
@@ -67,6 +72,24 @@ public partial class CraftingMenu : Control
 			slot.itemType = recipe.output[i].name.ToString();
 			slot.UpdateSlotTexture(recipe.output[i].name.ToString());
 			slot.Show();
+		}
+
+		foreach (Node recipeSelect in recipeSelects)
+		{
+			CraftingItemSelect select = (CraftingItemSelect)recipeSelect;
+			if (select.itemType == selectedRecipe)
+			{
+				select.Disabled = true;
+				
+				// #dfdfdf80
+				select.itemName.Modulate = new Color("#dfdfdf80");
+				select.itemIcon.Modulate = new Color("#dfdfdf80");
+				continue;
+			}
+
+			select.itemName.Modulate = new Color("#ffffff");
+			select.itemIcon.Modulate = new Color("#ffffff");
+			select.Disabled = false;
 		}
 	}
 

@@ -21,8 +21,6 @@ public partial class ActionKey : TextureRect
 	{
 		try
 		{
-			//string keyString = @event.AsText().Replace(" ", "");
-			
 			if (int.TryParse(keyString, out _))
 			{
 				keyString = "Num" + keyString;

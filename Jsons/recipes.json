@@ -288,6 +288,46 @@
             }
         ]
     },
+    "Stator" : {
+        "name" : "Stator",
+        "cyclesPerMinute" : 5,
+        "input" : [
+            {
+                "name" : "SteelPipe",
+                "amount" : 3
+            },
+            {
+                "name" : "Wire",
+                "amount" : 8
+            }
+        ],
+        "output" : [
+            {
+                "name" : "Stator",
+                "amount" : 1
+            }
+        ]
+    },
+    "Motor" : {
+        "name" : "Motor",
+        "cyclesPerMinute" : 5,
+        "input" : [
+            {
+                "name" : "Rotor",
+                "amount" : 2
+            },
+            {
+                "name" : "Stator",
+                "amount" : 2
+            }
+        ],
+        "output" : [
+            {
+                "name" : "Motor",
+                "amount" : 1
+            }
+        ]
+    },
     "ModularFrame" : {
         "name" : "Modular Frame",
         "cyclesPerMinute" : 1,
@@ -305,6 +345,26 @@
             {
                 "name" : "ModularFrame",
                 "amount" : 2
+            }
+        ]
+    },
+    "EncasedSteelBeam": {
+        "name" : "Encased Steel Beam",
+        "cyclesPerMinute" : 6,
+        "input" : [
+            {
+                "name" : "SteelIngot",
+                "amount" : 3
+            },
+            {
+                "name" : "Concrete",
+                "amount" : 6
+            }
+        ],
+        "output" : [
+            {
+                "name" : "EncasedSteelBeam",
+                "amount" : 1
             }
         ]
     }

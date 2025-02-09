@@ -65,5 +65,12 @@ public enum KeyboardKeys
     Space,
     Backspace,
     Enter,
+    MouseNone,
+    MouseLeft,
+    MouseRight,
+    MouseMiddle,
+    MouseWheelUp,
+    MouseWheelDown,
+    MouseWheelUpDown,
     Unknown    
 } 

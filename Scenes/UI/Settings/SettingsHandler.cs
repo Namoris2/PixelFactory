@@ -3,7 +3,24 @@ using System;
 using System.Collections.Generic;
 
 public partial class SettingsHandler : Node
-{	readonly string[] keyBinds = new string[] { "MoveUp", "MoveDown", "MoveLeft", "MoveRight","Sprint","Interact","Rotate", "ToggleBuildMode", "ToggleDismantleMode", "ToggleInventory"};
+{	public static readonly string[] keyBinds = new string[] { "MoveUp", "MoveDown", "MoveLeft", "MoveRight", "Sprint", "Interact", "Rotate", "ToggleBuildMode", "ToggleDismantleMode", "ToggleInventory"};
+	public static readonly Dictionary<string, string> actions = new()
+	{
+		{ "MoveUp", "Move Up" },
+		{ "MoveDown", "Move Down" },
+		{ "MoveLeft", "Move Left" },
+		{ "MoveRight", "Move Right" },
+		{ "Sprint", "Sprint" },
+		{ "Interact", "Interact" },
+		{ "Rotate", "Rotate Building" },
+		{ "ToggleBuildMode", "Open Build Menu" },
+		{ "ToggleDismantleMode", "Dismantle Mode" },
+		{ "ToggleInventory", "Open Inventory" },
+
+        { "Back", "Back" },
+        { "Use", "Use" },
+        { "SplitItems", "Split Stack" }
+	};
     public static Dictionary<string, InputEvent> defaultBinds = new();
     const string configPath = "user://settings.ini";
     ConfigFile configFile = new();
@@ -52,7 +69,8 @@ public partial class SettingsHandler : Node
             if (keyEvent.Contains("Mouse"))
             {
                 InputEventMouseButton loadedButton = new();
-                loadedButton.ButtonIndex = (MouseButton)int.Parse(keyEvent.Replace("Mouse", ""));
+                string mouseButton = keyEvent.Replace("Mouse", "");
+                loadedButton.ButtonIndex = (MouseButton)Enum.Parse(typeof(MouseButton), mouseButton);
                 inputs[0] = loadedButton;
             }
             else

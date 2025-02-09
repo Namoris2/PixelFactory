@@ -13,7 +13,7 @@ Standard Parts
 	CopperSheet
 	SteelBeam
 	SteelPipe
-	EncasedIndustrialBeam
+	EncasedSteelBeam
 
 Electronics
 	Wire

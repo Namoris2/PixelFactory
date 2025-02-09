@@ -1,14 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://j4ti07wdyqt0"]
+[gd_scene load_steps=4 format=3 uid="uid://j4ti07wdyqt0"]
 
+[ext_resource type="Theme" uid="uid://dvicjhx5rc06g" path="res://Themes/VerticalTabSelect.tres" id="1_1q0dg"]
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/CraftingMenu/CraftingItemSelect.cs" id="1_duhh3"]
 [ext_resource type="Texture2D" uid="uid://bxi2smg4lvdt8" path="res://Gimp/placeholder.png" id="1_ii1hf"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dhfkn"]
-
-[sub_resource type="Theme" id="Theme_86hsv"]
-Button/styles/focus = SubResource("StyleBoxEmpty_dhfkn")
-
-[node name="CraftingItemSelect" type="Button"]
+[node name="CraftingItemSelect" type="Button" groups=["CraftingMeneRecipeSelect"]]
 custom_minimum_size = Vector2(0, 100)
 anchors_preset = -1
 anchor_right = 0.15625
@@ -16,7 +12,8 @@ anchor_bottom = 0.0925926
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-theme = SubResource("Theme_86hsv")
+focus_mode = 0
+theme = ExtResource("1_1q0dg")
 script = ExtResource("1_duhh3")
 metadata/_edit_use_anchors_ = true
 
@@ -29,21 +26,31 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemIcon" type="TextureRect" parent="."]
-layout_mode = 0
-anchor_left = 0.05
-anchor_top = 0.15
-anchor_right = 0.283333
-anchor_bottom = 0.85
-texture = ExtResource("1_ii1hf")
-metadata/_edit_use_anchors_ = true
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+clip_children = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.5
+offset_top = -30.0
+offset_right = 132.5
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="ItemName" type="Label" parent="."]
-layout_mode = 0
-offset_left = 95.0
-offset_top = 39.0
-offset_right = 291.0
-offset_bottom = 85.0
+[node name="ItemIcon" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_ii1hf")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="ItemName" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
-text = "item Name"
-autowrap_mode = 3
+text = "item Name
+"
+autowrap_mode = 2

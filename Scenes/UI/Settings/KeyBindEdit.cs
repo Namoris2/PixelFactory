@@ -9,6 +9,7 @@ public partial class KeyBindEdit : Button
 	public InputEvent defaultKeyBind;
 	Label keyLabel;
 	ActionKey icon;
+	VBoxContainer popupContainer;
 	bool editingAction = false;
 	[Export] public string actionType;
 	public override void _Ready()
@@ -16,6 +17,7 @@ public partial class KeyBindEdit : Button
 		settingsHandler = GetNode<SettingsHandler>("/root/SettingsHandler");
 		keyLabel = GetNode<Label>("HBoxContainer/Key");
 		icon = GetNode<ActionKey>("HBoxContainer/ActionKey");
+		popupContainer = GetNodeOrNull<VBoxContainer>("/root/main/UI/ActionPopups");
 		Pressed += ToggleEditing;
 	}
 
@@ -58,22 +60,30 @@ public partial class KeyBindEdit : Button
 			InputMap.ActionAddEvent(actionType, inputs[i]);
 		}
 
-		icon.key = inputs[0].AsText().TrimSuffix(" (Physical)");
-		icon.SetKeyIcon(icon.key);
-
 		editingAction = false;
 		Disabled = false;
 
-		string bind = icon.key;
+		string bind = inputs[0].AsText().TrimSuffix(" (Physical)");
 		if (@event is InputEventMouse)
 		{
 			InputEventMouseButton button = @event as InputEventMouseButton;
-			bind = "Mouse" + (int)button.ButtonIndex;
+			bind = "Mouse" + button.ButtonIndex;
 		}
+
+		icon.key = bind;
+		icon.SetKeyIcon(bind);
 
 		settingsHandler.SaveConfigFile("KeyboardMouseBinds", actionType, bind);
 
 		keyLabel.Hide();
 		icon.Show();
+
+		if (popupContainer != null)
+		{
+			foreach (ActionInfoPopup popup in popupContainer.GetChildren())
+			{
+				if (popup.actionType == actionType) { popup.SetActionIcon(); }
+			}
+		}
 	}
 }

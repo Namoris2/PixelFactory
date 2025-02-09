@@ -25,12 +25,18 @@ public partial class SaveGame : Button
 		foreach (dynamic node in nodes)
 		{
 			dynamic savedNode = node.Save();
-			//GD.Print(savedNode);
 			savedData.Add(node.Name, savedNode);
 		}
 
-		savedGame.StoreLine(Newtonsoft.Json.JsonConvert.SerializeObject(savedData));
-		GD.Print("Game Saved");
-		savedGame.Close();
+		if (savedGame != null)
+		{
+			savedGame.StoreLine(Newtonsoft.Json.JsonConvert.SerializeObject(savedData));
+			GD.Print("Game Saved");
+			savedGame.Close();
+		}
+		else
+		{
+			GD.Print("Saving failed");
+		}
 	}
 }

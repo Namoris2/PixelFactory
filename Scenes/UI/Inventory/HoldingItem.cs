@@ -15,8 +15,7 @@ public partial class HoldingItem : TextureRect
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		LoadFile load = new();
-		items = load.LoadJson("items.json");
+		items = LoadFile.LoadJson("items.json");
 
 		position = GlobalPosition;
 	}
@@ -37,14 +36,9 @@ public partial class HoldingItem : TextureRect
 		ISHOLDINGITEM = true;
 
 		GetNode<Label>("ResourceAmount").Text = itemAmount;
-		AtlasTexture texture = new ();
-		Vector2I atlasCoords = new Vector2I((int)items[type].atlasCoords[0], (int)items[type].atlasCoords[1]);
+		Texture = main.GetTexture("items.json", type);
 
-		texture.Atlas = GD.Load<Texture2D>("res://Gimp/Items/items.png");
-		texture.Region = new Rect2I(atlasCoords[0] * 16, atlasCoords[1] * 16, 16, 16);
-		this.Texture = texture;
-
-		this.Show();
+		Show();
 	}
 
 	public void HideHoldingItem()
@@ -55,6 +49,6 @@ public partial class HoldingItem : TextureRect
 
 		GetNode<Label>("ResourceAmount").Text = "";
 
-		this.Hide();
+		Hide();
 	}
 }

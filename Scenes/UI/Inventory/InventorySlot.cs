@@ -30,14 +30,12 @@ public partial class InventorySlot : Button
 	private CraftingMenu craftingMenu;
 	private BuildingInventory buildingInventory;
 	private PlayerInventory playerInventory;
-	LoadFile load = new ();
 
 	public dynamic items;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		items = load.LoadJson("items.json");
-
+		items = LoadFile.LoadJson("items.json");
 		itemTexture = GetNode<TextureRect>("ItemTexture");
 		resourceAmount = GetNode<Label>("ResourceAmount");
 		resourceName = GetNode<Label>("ItemName");
@@ -71,7 +69,6 @@ public partial class InventorySlot : Button
 		}
 
 		this.Pressed += PressedSlot;
-
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -83,11 +80,7 @@ public partial class InventorySlot : Button
 	{
 		if (resourceAmount.Text != "" && itemType != "")
 		{
-			Vector2I atlasCoords = new Vector2I((int)items[itemType].atlasCoords[0], (int)items[itemType].atlasCoords[1]);
-
-			textureAtlas.Region = new Rect2I(atlasCoords[0] * 16, atlasCoords[1] * 16, 16, 16);
-
-			itemTexture.Texture = textureAtlas;
+			itemTexture.Texture = main.GetTexture("items.json", itemType);
 		}
 		else
 		{
@@ -107,7 +100,7 @@ public partial class InventorySlot : Button
 			dynamic recipe = 0;
 			if (buildingInventory.buildingInfo.buildingType.ToString() == "machine")
 			{
-				recipe = load.LoadJson("recipes.json")[building.recipe.ToString()];
+				recipe = LoadFile.LoadJson("recipes.json")[building.recipe.ToString()];
 			}
 
 			// Taking items from player inventory and putting it into building inventory
@@ -130,12 +123,14 @@ public partial class InventorySlot : Button
 						itemType = "";
 						resourceAmount.Text = "";
 						UpdateSlotTexture(itemType);
+						buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
 					}
 					else
 					{
 						int puttingAmount = maxStackSize - buildingAmount;
 						PutItems(-puttingAmount, maxStackSize);
 						tileMap.PutItemsToSlot(buildingInventory.coordinates, puttingAmount, itemType, "input", index);
+						buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
 					}
 				}
 				else if (building.buildingType.ToString() == "storage")
@@ -146,6 +141,7 @@ public partial class InventorySlot : Button
 						itemType = "";
 						resourceAmount.Text = "";
 						UpdateSlotTexture(itemType);
+						buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
 					}
 					else
 					{
@@ -163,10 +159,11 @@ public partial class InventorySlot : Button
 				
 				if (inventoryType == "machine")
 				{
-
 					itemType = recipe[slotType.ToLower()][inventorySlotIndex].name;
 					building[$"{slotType.ToLower()}Slots"][inventorySlotIndex].resource = itemType;
 				}
+				
+				buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
 			}
 			return;
 		}
@@ -194,10 +191,11 @@ public partial class InventorySlot : Button
 				tileMap.RemoveItemsFromSlot(buildingCoordinates, removedAmount, slotType, inventorySlotIndex);
 				
 				dynamic building = tileMap.GetBuildingInfo(buildingCoordinates);
-				dynamic recipe = load.LoadJson("recipes.json")[building.recipe.ToString()];
+				dynamic recipe = LoadFile.LoadJson("recipes.json")[building.recipe.ToString()];
 
 				itemType = recipe[slotType.ToLower()][inventorySlotIndex].name;
 				building[$"{slotType.ToLower()}Slots"][inventorySlotIndex].resource = itemType;
+				buildingInventory.UpdateInventory(buildingInventory.buildingInfo);
 			}
 			
 
@@ -220,6 +218,7 @@ public partial class InventorySlot : Button
 			{
 				tileMap.RemoveItemsFromSlot(buildingCoordinates, removedAmount, slotType, inventorySlotIndex);
 			}
+			GameEvents.splitStackPopup.SetCustomActionText();
 		}
 
 		// putting item to slot
@@ -227,10 +226,15 @@ public partial class InventorySlot : Button
 		{
 			if (inventoryType == "machine" && holdingItem.itemName == itemType)
 			{
-				int amount = int.Parse(resourceAmount.Text);
+				int amount = 0;
+				if (resourceAmount.Text != "")
+				{
+					amount = int.Parse(resourceAmount.Text);
+				}
 				int difference = PutItems(amount, (int)items[itemType].maxStackSize);
 
 				tileMap.PutItemsToSlot(buildingCoordinates, difference, itemType, slotType, inventorySlotIndex);
+				buildingInventory.UpdateInventory(buildingInventory.buildingInfo);
 				return;
 			}
 
@@ -289,6 +293,7 @@ public partial class InventorySlot : Button
 
 				tileMap.PutItemsToSlot(buildingCoordinates, amount, itemType, slotType, inventorySlotIndex);
 			}
+			GameEvents.splitStackPopup.SetDefaultActionText();
 		}
 
 		if (craftingMenu.Visible)
@@ -296,8 +301,8 @@ public partial class InventorySlot : Button
 			craftingMenu.ChangeRecipe(craftingMenu.selectedRecipe);
 		}
 
-		this.ShowHoldingItem -= holdingItem.ShowHoldingItem;
-		this.HideHoldingItem -= holdingItem.HideHoldingItem;
+		ShowHoldingItem -= holdingItem.ShowHoldingItem;
+		HideHoldingItem -= holdingItem.HideHoldingItem;
 	}
 
 	private int PutItems(int amount, int maxStackSize)
