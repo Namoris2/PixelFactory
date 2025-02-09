@@ -136,7 +136,7 @@ grow_vertical = 2
 layout_mode = 2
 name = "Drills"
 
-[node name="smallDrill" parent="TabContainer/Production/VBoxContainer/Drills/Items" index="0" instance=ExtResource("1_oydjw")]
+[node name="smallDrill" parent="TabContainer/Production/VBoxContainer/Drills/Items" index="0" groups=["Tutorial1"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "smallDrill"
 Type = "building"
@@ -151,12 +151,12 @@ Type = "building"
 layout_mode = 2
 name = "Smelters"
 
-[node name="smelter" parent="TabContainer/Production/VBoxContainer/Smelters/Items" index="0" instance=ExtResource("1_oydjw")]
+[node name="smelter" parent="TabContainer/Production/VBoxContainer/Smelters/Items" index="0" groups=["Tutorial2"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "smelter"
 Type = "building"
 
-[node name="foundry" parent="TabContainer/Production/VBoxContainer/Smelters/Items" index="1" instance=ExtResource("1_oydjw")]
+[node name="foundry" parent="TabContainer/Production/VBoxContainer/Smelters/Items" index="1" groups=["BasicSteelProduction"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "foundry"
 Type = "building"
@@ -165,12 +165,12 @@ Type = "building"
 layout_mode = 2
 name = "Manufacturers"
 
-[node name="constructor" parent="TabContainer/Production/VBoxContainer/Manufacturers/Items" index="0" instance=ExtResource("1_oydjw")]
+[node name="constructor" parent="TabContainer/Production/VBoxContainer/Manufacturers/Items" index="0" groups=["Tutorial3"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "constructor"
 Type = "building"
 
-[node name="assembler" parent="TabContainer/Production/VBoxContainer/Manufacturers/Items" index="1" instance=ExtResource("1_oydjw")]
+[node name="assembler" parent="TabContainer/Production/VBoxContainer/Manufacturers/Items" index="1" groups=["PartAssembly"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "assembler"
 Type = "building"
@@ -190,7 +190,7 @@ grow_vertical = 2
 layout_mode = 2
 name = "Conveyor Belts"
 
-[node name="belt1" parent="TabContainer/Logistics/VBoxContainer/ConveyorBelts/Items" index="0" instance=ExtResource("1_oydjw")]
+[node name="belt1" parent="TabContainer/Logistics/VBoxContainer/ConveyorBelts/Items" index="0" groups=["Tutorial4"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "belt1"
 Type = "building"
@@ -199,17 +199,17 @@ Type = "building"
 layout_mode = 2
 name = "Conveyor Bridges"
 
-[node name="beltArm1" parent="TabContainer/Logistics/VBoxContainer/ConveyorBridges/Items" index="0" instance=ExtResource("1_oydjw")]
+[node name="beltArm1" parent="TabContainer/Logistics/VBoxContainer/ConveyorBridges/Items" index="0" groups=["Tutorial4"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "beltArm1"
 Type = "building"
 
-[node name="beltArm2" parent="TabContainer/Logistics/VBoxContainer/ConveyorBridges/Items" index="1" instance=ExtResource("1_oydjw")]
+[node name="beltArm2" parent="TabContainer/Logistics/VBoxContainer/ConveyorBridges/Items" index="1" groups=["Logistics2"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "beltArm2"
 Type = "building"
 
-[node name="beltArm2Long" parent="TabContainer/Logistics/VBoxContainer/ConveyorBridges/Items" index="2" instance=ExtResource("1_oydjw")]
+[node name="beltArm2Long" parent="TabContainer/Logistics/VBoxContainer/ConveyorBridges/Items" index="2" groups=["Logistics2"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "beltArm2Long"
 Type = "building"
@@ -230,7 +230,7 @@ grow_vertical = 2
 layout_mode = 2
 name = "Storage Containers"
 
-[node name="smallStorage" parent="TabContainer/Organization/VBoxContainer/StorageContainers/Items" index="0" instance=ExtResource("1_oydjw")]
+[node name="smallStorage" parent="TabContainer/Organization/VBoxContainer/StorageContainers/Items" index="0" groups=["Tutorial1"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "smallStorage"
 Type = "building"

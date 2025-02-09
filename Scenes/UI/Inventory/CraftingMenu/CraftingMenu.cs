@@ -24,7 +24,7 @@ public partial class CraftingMenu : Control
 
 		inputItems = GetTree().GetNodesInGroup("CraftingInputItems");
 		outputItems = GetTree().GetNodesInGroup("CraftingOutputItems");
-		recipeSelects = GetTree().GetNodesInGroup("CraftingMeneRecipeSelect");
+		recipeSelects = GetTree().GetNodesInGroup("CraftingNameRecipeSelect");
 
 		GetNode<Button>("CraftingBackground/Craft").Pressed += Craft;
 	}

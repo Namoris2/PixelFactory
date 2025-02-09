@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/CraftingMenu/CraftingItemSelect.cs" id="1_duhh3"]
 [ext_resource type="Texture2D" uid="uid://bxi2smg4lvdt8" path="res://Gimp/placeholder.png" id="1_ii1hf"]
 
-[node name="CraftingItemSelect" type="Button" groups=["CraftingMeneRecipeSelect"]]
+[node name="CraftingItemSelect" type="Button" groups=["CraftingNameRecipeSelect"]]
 custom_minimum_size = Vector2(0, 100)
 anchors_preset = -1
 anchor_right = 0.15625
