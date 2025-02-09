@@ -1,6 +1,7 @@
-[gd_scene load_steps=29 format=3 uid="uid://bbqmsnkmc3pac"]
+[gd_scene load_steps=30 format=3 uid="uid://bbqmsnkmc3pac"]
 
 [ext_resource type="Script" path="res://Scenes/Game/GameEvents.cs" id="1_st43b"]
+[ext_resource type="Script" path="res://Scenes/Game/Research.cs" id="2_80wiu"]
 [ext_resource type="Script" path="res://Scenes/Game/World/BuildingPartsController.cs" id="3_1aiw1"]
 [ext_resource type="Script" path="res://Scenes/Game/World/AnimatedBuildingPartsController.cs" id="3_blam1"]
 [ext_resource type="Texture2D" uid="uid://cakt6ts1d5n8k" path="res://Gimp/Ground Materials/ground.png" id="3_cesio"]
@@ -3195,6 +3196,9 @@ sources/1 = SubResource("TileSetAtlasSource_7gb0d")
 [node name="GameEvents" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("1_st43b")
+
+[node name="Research" type="Node" parent="." groups=["CanSave"]]
+script = ExtResource("2_80wiu")
 
 [node name="World" type="Node2D" parent="."]
 

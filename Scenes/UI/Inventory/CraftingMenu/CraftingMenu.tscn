@@ -152,7 +152,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="Ingots" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("3_2g22n")]
+[node name="Ingots" parent="ColorRect/ItemsScrollContainer/ItemsContainer" groups=["ResearchItemContainer"] instance=ExtResource("3_2g22n")]
 layout_mode = 2
 name = "Ingots"
 
@@ -172,7 +172,7 @@ itemType = "CopperIngot"
 layout_mode = 2
 itemType = "SteelIngot"
 
-[node name="StandardParts" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("3_2g22n")]
+[node name="StandardParts" parent="ColorRect/ItemsScrollContainer/ItemsContainer" groups=["ResearchItemContainer"] instance=ExtResource("3_2g22n")]
 layout_mode = 2
 name = "Standard Parts"
 
@@ -216,7 +216,7 @@ itemType = "SteelPipe"
 layout_mode = 2
 itemType = "EncasedSteelBeam"
 
-[node name="Compounds" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("3_2g22n")]
+[node name="Compounds" parent="ColorRect/ItemsScrollContainer/ItemsContainer" groups=["ResearchItemContainer"] instance=ExtResource("3_2g22n")]
 layout_mode = 2
 name = "Compounds"
 
@@ -227,7 +227,7 @@ theme_override_constants/separation = 0
 layout_mode = 2
 itemType = "Concrete"
 
-[node name="Electronics" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("3_2g22n")]
+[node name="Electronics" parent="ColorRect/ItemsScrollContainer/ItemsContainer" groups=["ResearchItemContainer"] instance=ExtResource("3_2g22n")]
 layout_mode = 2
 name = "Electronics"
 
@@ -242,7 +242,7 @@ itemType = "Wire"
 layout_mode = 2
 itemType = "Cable"
 
-[node name="IndustrialParts" parent="ColorRect/ItemsScrollContainer/ItemsContainer" instance=ExtResource("3_2g22n")]
+[node name="IndustrialParts" parent="ColorRect/ItemsScrollContainer/ItemsContainer" groups=["ResearchItemContainer"] instance=ExtResource("3_2g22n")]
 layout_mode = 2
 name = "Industrial Parts"
 

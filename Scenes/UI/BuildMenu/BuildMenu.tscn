@@ -132,7 +132,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Drills" parent="TabContainer/Production/VBoxContainer" instance=ExtResource("2_k0wev")]
+[node name="Drills" parent="TabContainer/Production/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("2_k0wev")]
 layout_mode = 2
 name = "Drills"
 
@@ -147,7 +147,7 @@ layout_mode = 2
 DisplayName = "mediumDrill"
 Type = "building"
 
-[node name="Smelters" parent="TabContainer/Production/VBoxContainer" instance=ExtResource("2_k0wev")]
+[node name="Smelters" parent="TabContainer/Production/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("2_k0wev")]
 layout_mode = 2
 name = "Smelters"
 
@@ -161,7 +161,7 @@ layout_mode = 2
 DisplayName = "foundry"
 Type = "building"
 
-[node name="Manufacturers" parent="TabContainer/Production/VBoxContainer" instance=ExtResource("2_k0wev")]
+[node name="Manufacturers" parent="TabContainer/Production/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("2_k0wev")]
 layout_mode = 2
 name = "Manufacturers"
 
@@ -186,7 +186,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ConveyorBelts" parent="TabContainer/Logistics/VBoxContainer" instance=ExtResource("2_k0wev")]
+[node name="ConveyorBelts" parent="TabContainer/Logistics/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("2_k0wev")]
 layout_mode = 2
 name = "Conveyor Belts"
 
@@ -195,7 +195,7 @@ layout_mode = 2
 DisplayName = "belt1"
 Type = "building"
 
-[node name="ConveyorBridges" parent="TabContainer/Logistics/VBoxContainer" instance=ExtResource("2_k0wev")]
+[node name="ConveyorBridges" parent="TabContainer/Logistics/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("2_k0wev")]
 layout_mode = 2
 name = "Conveyor Bridges"
 
@@ -226,7 +226,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StorageContainers" parent="TabContainer/Organization/VBoxContainer" instance=ExtResource("2_k0wev")]
+[node name="StorageContainers" parent="TabContainer/Organization/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("2_k0wev")]
 layout_mode = 2
 name = "Storage Containers"
 

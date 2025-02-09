@@ -101,7 +101,7 @@ public partial class GameEvents : Node
 
             if (@event.IsActionPressed("ToggleBuildMode"))
             {
-                if (!inventories.Visible)
+                if (!inventories.Visible /*&& Research.research.Count > 1*/)
                 {                
                     buildMenu.ToggleBuildMode();
                     camera.toggleZoom = !buildMenu.Visible;

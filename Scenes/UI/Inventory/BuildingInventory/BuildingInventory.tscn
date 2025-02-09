@@ -243,7 +243,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Ingots" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Smelter/VBoxContainer" instance=ExtResource("3_thli6")]
+[node name="Ingots" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Smelter/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("3_thli6")]
 layout_mode = 2
 name = "Ingots"
 
@@ -268,7 +268,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Ingots" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Foundry/VBoxContainer" instance=ExtResource("3_thli6")]
+[node name="Ingots" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Foundry/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("3_thli6")]
 layout_mode = 2
 name = "Ingots"
 
@@ -290,7 +290,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="StandardParts" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer" instance=ExtResource("3_thli6")]
+[node name="StandardParts" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("3_thli6")]
 layout_mode = 2
 name = "Standard Parts"
 
@@ -325,7 +325,7 @@ layout_mode = 2
 DisplayName = "SteelPipe"
 Type = "recipe"
 
-[node name="Compounds" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer" instance=ExtResource("3_thli6")]
+[node name="Compounds" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("3_thli6")]
 layout_mode = 2
 name = "Compounds"
 
@@ -334,7 +334,7 @@ layout_mode = 2
 DisplayName = "Concrete"
 Type = "recipe"
 
-[node name="Electronics" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer" instance=ExtResource("3_thli6")]
+[node name="Electronics" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("3_thli6")]
 layout_mode = 2
 name = "Electronics"
 
@@ -360,7 +360,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StandardParts" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Assembler/VBoxContainer" instance=ExtResource("3_thli6")]
+[node name="StandardParts" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Assembler/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("3_thli6")]
 layout_mode = 2
 name = "Standard Parts"
 
@@ -379,7 +379,7 @@ layout_mode = 2
 DisplayName = "EncasedSteelBeam"
 Type = "recipe"
 
-[node name="IndustrialParts" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Assembler/VBoxContainer" instance=ExtResource("3_thli6")]
+[node name="IndustrialParts" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Assembler/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("3_thli6")]
 layout_mode = 2
 name = "Industrial Parts"
 
