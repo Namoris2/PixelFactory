@@ -4,12 +4,11 @@ using System.Collections.Generic;
 
 public partial class Research : Node
 {
-	static public List<string> research;
+	List<string> research= new() { "Tutorial0" };
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		research = new() { "Tutorial0" };
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,4 +39,10 @@ public partial class Research : Node
     {
         return research;
     }
+
+	public void UnlockResearch(string unlock)
+	{
+		research.Add(unlock);
+		GetTree().CallGroup("ResearchItemContainer", "UnlockItem", unlock);
+	}
 }

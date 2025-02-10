@@ -52,13 +52,13 @@ public partial class LoadingScreen : Control
 				
 				if (loadingSave)
 				{
+					if (!Godot.FileAccess.FileExists(savePath)) { return; }
+					
 					FileAccess saveFile = FileAccess.Open(savePath, FileAccess.ModeFlags.Read);
 					string savedGame = saveFile.GetAsText();
 					saveFile.Close();
 					Array<Node> nodes = GetTree().GetNodesInGroup("CanSave");
 
-					if (!Godot.FileAccess.FileExists(savePath)) { return; }
-				
 					//string[] savedGameList = savedGame.Split("\n");
 
 					//int i = 0;
@@ -80,36 +80,39 @@ public partial class LoadingScreen : Control
 		if (scenePath == null) { GD.PrintErr("Scene Path not set"); return; }
 
 		savePath = GetNode<main>("/root/GameInfo").savePath;
-		requestToLoad = true;
-
+		
+		if (!OS.IsDebugBuild())
+		{
+			requestToLoad = true;
+			return;
+		}
+		
 		/*StartLoadingEvent += ResourceLoader.LoadThreadedRequest;
 		EmitSignal(SignalName.StartLoadingEvent, scenePath, "", false, 0);
 		loading = true;*/
 
-		/*PackedScene newScene = GD.Load<PackedScene>("res://Scenes/main.tscn");
+		PackedScene newScene = GD.Load<PackedScene>("res://Scenes/main.tscn");
 		Node sceneInstantiated = newScene.Instantiate();
 		GetTree().Root.AddChild(sceneInstantiated);
 		
-		if (loadingSave)
+		FileAccess saveFile = FileAccess.Open(savePath, FileAccess.ModeFlags.Read);
+		string savedGame = saveFile.GetAsText();
+		saveFile.Close();
+		Array<Node> nodes = GetTree().GetNodesInGroup("CanSave");
+
+		if (!Godot.FileAccess.FileExists(savePath)) { return; }
+	
+		//string[] savedGameList = savedGame.Split("\n");
+
+		//int i = 0;
+		foreach (dynamic node in nodes)
 		{
-			FileAccess saveFile = FileAccess.Open(savePath, FileAccess.ModeFlags.Read);
-			string savedGame = saveFile.GetAsText();
-			saveFile.Close();
-			Array<Node> nodes = GetTree().GetNodesInGroup("CanSave");
-
-			if (!Godot.FileAccess.FileExists(savePath)) { return; }
-		
-			//string[] savedGameList = savedGame.Split("\n");
-
-			//int i = 0;
-			foreach (dynamic node in nodes)
-			{
-				dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject(savedGame);
-				node.Load(data);
-				//i++;
-			}
-			//GD.Print("Save Loaded");
+			dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject(savedGame);
+			node.Load(data);
+			//i++;
 		}
-		QueueFree();*/
+		//GD.Print("Save Loaded");
+
+		QueueFree();
 	}
 }

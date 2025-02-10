@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bbqmsnkmc3pac"]
+[gd_scene load_steps=31 format=3 uid="uid://bbqmsnkmc3pac"]
 
 [ext_resource type="Script" path="res://Scenes/Game/GameEvents.cs" id="1_st43b"]
 [ext_resource type="Script" path="res://Scenes/Game/Research.cs" id="2_80wiu"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://dovmqqqkotuid" path="res://Scenes/UI/Kebinds/ActionInfoPopup.tscn" id="18_fakxi"]
 [ext_resource type="PackedScene" uid="uid://bxn21jfq72eky" path="res://Scenes/UI/Pause Menu/PauseMenu.tscn" id="19_3uy5l"]
 [ext_resource type="Script" path="res://Scenes/UI/HUD/CollectedItems/CollectedItemsContainer.cs" id="20_8brqm"]
+[ext_resource type="Script" path="res://Scenes/Game/UnlockTest.cs" id="25_75d5c"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x64vh"]
 
@@ -3197,7 +3198,7 @@ sources/1 = SubResource("TileSetAtlasSource_7gb0d")
 process_mode = 3
 script = ExtResource("1_st43b")
 
-[node name="Research" type="Node" parent="." groups=["CanSave"]]
+[node name="Research" type="Node" parent="." groups=["CanSave", "Research"]]
 script = ExtResource("2_80wiu")
 
 [node name="World" type="Node2D" parent="."]
@@ -3416,3 +3417,12 @@ text = "FPS: 0"
 horizontal_alignment = 2
 script = ExtResource("10_fkqdi")
 metadata/_edit_use_anchors_ = true
+
+[node name="UnlockTest" type="Button" parent="UI"]
+offset_left = 1360.0
+offset_top = 996.0
+offset_right = 1600.0
+offset_bottom = 1071.0
+theme_override_font_sizes/font_size = 35
+text = "Unlock"
+script = ExtResource("25_75d5c")

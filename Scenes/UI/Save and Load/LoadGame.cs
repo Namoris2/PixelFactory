@@ -101,7 +101,7 @@ public partial class LoadGame : Button
 		GetTree().Root.AddChild(loadingScreen);
 
 		GetNode<Node>("/root/MainMenu").QueueFree();
-		loadingScreen.CallDeferred("StartLoading");
+		loadingScreen.StartLoading();
 
 		//GD.Print("scene changed");
 		return;
