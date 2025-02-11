@@ -14,6 +14,7 @@ res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
 res://Scenes/UI/Inventory/CraftingMenu/CraftingItemSelect.tscn
+res://Scenes/UI/ResearchMenu/ResearchMenu.tscn
 res://Scenes/Game/GameEvents.cs
 res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/Research.cs
@@ -34,7 +35,6 @@ res://Scenes/Player/PlayerCamera.cs
 res://Scenes/Tests/Generation/GenerationTest.cs
 res://Scenes/UI/BuildMenu/BuildingInfo.cs
 res://Scenes/UI/BuildMenu/BuildMenu.cs
-res://Scenes/UI/BuildMenu/TabSelect.cs
 res://Scenes/UI/HUD/CollectedItems/CollectedItem.cs
 res://Scenes/UI/HUD/CollectedItems/CollectedItemsContainer.cs
 res://Scenes/UI/HUD/FPSCounter.cs
@@ -62,12 +62,16 @@ res://Scenes/UI/MainMenu/MainMenu.cs
 res://Scenes/UI/Menu/CollapsingMenu.cs
 res://Scenes/UI/Menu/ExitGame.cs
 res://Scenes/UI/Menu/MenuSelect.cs
+res://Scenes/UI/Menu/TabSelect.cs
 res://Scenes/UI/Pause Menu/PauseMenu.cs
 res://Scenes/UI/Pause Menu/SaveQuit.cs
 res://Scenes/UI/Pause Menu/Unpause.cs
+res://Scenes/UI/ResearchMenu/ResearchMenu.cs
+res://Scenes/UI/ResearchMenu/ResearchSelect.cs
 res://Scenes/UI/Save and Load/DeleteSave.cs
 res://Scenes/UI/Save and Load/SaveGame.cs
 res://Scenes/UI/Settings/KeyBindEdit.cs
 res://Scenes/UI/Settings/KeyBindsMenu.cs
 res://Scenes/UI/Settings/SettingsHandler.cs
 res://Scenes/UI/ui.cs
+res://Scenes/UI/ResearchMenu/Unlock.tscn

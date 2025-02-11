@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bbqmsnkmc3pac"]
+[gd_scene load_steps=32 format=3 uid="uid://bbqmsnkmc3pac"]
 
 [ext_resource type="Script" path="res://Scenes/Game/GameEvents.cs" id="1_st43b"]
 [ext_resource type="Script" path="res://Scenes/Game/Research.cs" id="2_80wiu"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" path="res://Scenes/UI/BuildMenu/BuildMenu.cs" id="15_v7e3e"]
 [ext_resource type="PackedScene" uid="uid://dovmqqqkotuid" path="res://Scenes/UI/Kebinds/ActionInfoPopup.tscn" id="18_fakxi"]
 [ext_resource type="PackedScene" uid="uid://bxn21jfq72eky" path="res://Scenes/UI/Pause Menu/PauseMenu.tscn" id="19_3uy5l"]
+[ext_resource type="PackedScene" uid="uid://2vptpjgcdw7y" path="res://Scenes/UI/ResearchMenu/ResearchMenu.tscn" id="19_b06j7"]
 [ext_resource type="Script" path="res://Scenes/UI/HUD/CollectedItems/CollectedItemsContainer.cs" id="20_8brqm"]
 [ext_resource type="Script" path="res://Scenes/Game/UnlockTest.cs" id="25_75d5c"]
 
@@ -3282,11 +3283,23 @@ layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 4
 
-[node name="BuildMenu" type="CanvasLayer" parent="UI"]
+[node name="Menus" type="CanvasLayer" parent="UI"]
+
+[node name="BuildMenu" parent="UI/Menus" instance=ExtResource("15_14qvx")]
 visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -910.0
+offset_top = -490.0
+offset_right = 910.0
+offset_bottom = 490.0
 script = ExtResource("15_v7e3e")
 
-[node name="Buildings" parent="UI/BuildMenu" instance=ExtResource("15_14qvx")]
+[node name="ResearchMenu" parent="UI/Menus" instance=ExtResource("19_b06j7")]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -3419,6 +3432,7 @@ script = ExtResource("10_fkqdi")
 metadata/_edit_use_anchors_ = true
 
 [node name="UnlockTest" type="Button" parent="UI"]
+visible = false
 offset_left = 1360.0
 offset_top = 996.0
 offset_right = 1600.0

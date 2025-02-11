@@ -4,6 +4,7 @@ using System.Security;
 
 public partial class TabSelect : Button
 {
+	[Export] private string TabContainerGroup = "";
 	private Node parent;
 	private TabContainer tabContainer;
 	// Called when the node enters the scene tree for the first time.
@@ -12,7 +13,7 @@ public partial class TabSelect : Button
 		Pressed += ChangeTab;
 
 		parent = GetParent();
-		tabContainer = (TabContainer)GetTree().GetNodesInGroup("TabContainer")[0];
+		tabContainer = (TabContainer)GetTree().GetFirstNodeInGroup(TabContainerGroup);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

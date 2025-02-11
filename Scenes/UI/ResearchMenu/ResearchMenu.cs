@@ -1,0 +1,142 @@
+using Godot;
+using System;
+
+public partial class ResearchMenu : Control
+{
+	PlayerInventory playerInventory;
+	public HBoxContainer researchSelects;
+	HFlowContainer unlocksContainer;
+	HFlowContainer costContainer;
+	Label researchLabel;
+	Label researchedLabel;
+	Button researchButton;
+
+	dynamic unlocks;
+	//dynamic
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+		playerInventory = (PlayerInventory)GetTree().GetFirstNodeInGroup("PlayerInventory");
+		researchSelects = GetNode<HBoxContainer>("ScrollContainer/ResearchSelects");
+		unlocksContainer = GetNode<HFlowContainer>("HSplitContainer/PanelContainer/Unlocks");
+		costContainer = GetNode<HFlowContainer>("HSplitContainer/ResearchCost/CostContainer");
+		researchLabel = GetNode<Label>("HSplitContainer/ResearchCost/ResearchName");
+		researchedLabel = GetNode<Label>("HSplitContainer/ResearchCost/Researched");
+		researchButton = GetNode<Button>("HSplitContainer/ResearchCost/Research");
+
+		unlocks = LoadFile.LoadJson("unlocks.json");
+
+		// Hides all research selects
+		for (int i = 2; i < researchSelects.GetChildCount() - 1; i++)
+		{
+			(researchSelects.GetChild(i) as Button).Hide();
+		}
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+
+	public void ChangeTab(string researchName, string researchText)
+	{
+		dynamic research = unlocks[researchName];
+
+		foreach (Control slot in costContainer.GetChildren())
+		{
+			slot.Hide();
+		}
+
+		foreach (Control unlock in unlocksContainer.GetChildren())
+		{
+			unlock.QueueFree();
+		}
+
+		researchedLabel.Hide();
+		researchButton.Show();
+
+
+		researchLabel.Text = researchText;
+		if (Research.research.Contains(researchName))
+		{
+			researchedLabel.Show();
+			researchButton.Hide();
+		}
+		else
+		{
+			// Sets information to all cost slots
+			for (int i = 0; i < research.researchCost.Count; i++)
+			{
+				string costName = research.researchCost[i].name.ToString();
+				int costAmount = (int)research.researchCost[i].amount;
+
+				InventorySlot slot = (InventorySlot)costContainer.GetChild(i);
+				int amount = playerInventory.GetItemAmount(costName);
+				slot.resourceAmount.Text = $"{amount}/{costAmount}";
+				slot.itemType = costName;
+				slot.UpdateSlotTexture(costName);
+				slot.Show();
+			}
+		}
+
+		for (int i = 0; i < research.unlocks.Count; i++)
+		{
+			AddResearchInfo(research.unlocks[i], researchName);
+		}
+
+		for (int i = 0; i < research.researchUnlocks.Count; i++)
+		{
+			AddResearchInfo(research.researchUnlocks[i], researchName, "research");
+		}
+	}
+
+	private void AddResearchInfo(dynamic researchInfo, string researchName, string unlockType = "")
+	{
+		string unlockName = "";
+		string jsonName = "";
+		string name = "";
+		if (unlockType == "")
+		{ 
+			unlockName = researchInfo.name.ToString();
+			unlockType = researchInfo.type.ToString(); 
+			jsonName = $"{unlockType}s.json";
+			name = LoadFile.LoadJson(unlockType + "s.json")[unlockName].name.ToString();
+		}
+
+		if (unlockType == "recipe")
+		{
+			jsonName = "items.json";
+		}
+
+		Control unlock = (Control)GD.Load<PackedScene>("Scenes/UI/ResearchMenu/Unlock.tscn").Instantiate();
+		TextureRect unlockIcon = unlock.GetNode<TextureRect>("Icon");
+		Label unlockLabel = unlock.GetNode<Label>("Name");
+
+		if (unlockType == "research")
+		{
+			unlockIcon.Texture = GD.Load<Texture2D>("res://Gimp/Icons/ResearchIcons/NewResearch.png");
+			unlockLabel.Text = $"New research: {researchSelects.GetNode<ResearchSelect>(researchInfo.ToString()).Text}";
+		}
+		else
+		{
+			unlockIcon.Texture = main.GetTexture(jsonName, unlockName);
+			unlockLabel.Text = $"{unlockType[0].ToString().ToUpper() + unlockType.Substring(1)}: {name}";
+		}
+
+		if (Research.research.Contains(researchName))
+		{
+			unlockIcon.Modulate = new("#8c8c8c");
+			unlockLabel.Modulate = new("#8c8c8c");
+		}
+
+		unlocksContainer.AddChild(unlock);
+	}
+
+	public void ShowUnlockedResearch(string researchName)
+	{
+		foreach (dynamic unlock in unlocks[researchName].researchUnlocks)
+		{
+			researchSelects.GetNode<Button>(unlock.ToString()).Show();
+		}
+	}
+}

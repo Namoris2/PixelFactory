@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class BuildMenu : CanvasLayer
+public partial class BuildMenu : Control
 {
 	World tileMap;
 	Label worldInfo;

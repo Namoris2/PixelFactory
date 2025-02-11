@@ -1,0 +1,266 @@
+{
+    "Tutorial1" : {
+        "researchCost" : [
+            {
+                "name" : "IronRod",
+                "amount" : 10
+            }
+        ],
+        "unlocks" : [
+            {
+                "name" : "smallDrill",
+                "type" : "building"
+            },
+            {
+                "name" : "smallStorage",
+                "type" : "building"
+            }
+        ],
+        "researchUnlocks" : [
+            "Tutorial2"
+        ]
+    },
+    "Tutorial2" : {
+        "researchCost" : [
+            {
+                "name" : "IronRod",
+                "amount" : 20
+            },
+            {
+                "name" : "IronPlate",
+                "amount" : 10
+            }
+        ],
+        "unlocks" : [
+            {
+                "name" : "smelter",
+                "type" : "building"
+            },
+            {
+                "name" : "CopperIngot",
+                "type" : "recipe"
+            },
+            {
+                "name" : "Wire",
+                "type" : "recipe"
+            },
+            {
+                "name" : "Cable",
+                "type" : "recipe"
+            }
+        ],
+        "researchUnlocks" : [
+            "Tutorial3"
+        ]
+    },
+    "Tutorial3" : {
+        "researchCost" : [
+            {
+                "name" : "IronRod",
+                "amount" : 20
+            },
+            {
+                "name" : "IronPlate",
+                "amount" : 20
+            },
+            {
+                "name" : "Wire",
+                "amount" : 20
+            }
+        ],
+        "unlocks" : [
+            {
+                "name" : "constructor",
+                "type" : "building"
+            },
+            {
+                "name" : "Concrete",
+                "type" : "recipe"
+            },
+            {
+                "name" : "Screws",
+                "type" : "recipe"
+            },
+            {
+                "name" : "ReinforcedIronPlate",
+                "type" : "recipe"
+            }
+        ],
+        "researchUnlocks" : [
+            "Tutorial4"
+        ]
+    },
+    "Tutorial4" : {
+        "researchCost" : [
+            {
+                "name" : "IronPlate",
+                "amount" : 75
+            },
+            {
+                "name" : "Cable",
+                "amount" : 20
+            },
+            {
+                "name" : "Concrete",
+                "amount" : 10
+            }
+        ],
+        "unlocks" : [
+            {
+                "name" : "belt1",
+                "type" : "building"
+            },
+            {
+                "name" : "beltArm1",
+                "type" : "building"
+            }
+        ],
+        "researchUnlocks" : [
+            "PartAssembly",
+            "Logistics2"
+        ]
+    },
+    "PartAssembly" : {
+        "researchCost" : [
+            {
+                "name" : "Cable",
+                "amount" : 200
+            },
+            {
+                "name" : "IronRod",
+                "amount" : 200
+            },
+            {
+                "name" : "Screws",
+                "amount" : 500
+            },
+            {
+                "name" : "IronPlate",
+                "amount" : 300
+            }
+        ],
+        "unlocks" : [
+            {
+                "name" : "assembler",
+                "type" : "building"
+            },
+            {
+                "name" : "Rotor",
+                "type" : "recipe"
+            },
+            {
+                "name" : "ModularFrame",
+                "type" : "recipe"
+            }
+        ],
+        "researchUnlocks" : [
+            "BasicSteelProduction",
+            "AdvancedSteelProduction"
+        ]
+    },
+    "Logistics2" : {
+        "researchCost" : [
+            {
+                "name" : "ReinforcedIronPlate",
+                "amount" : 50
+            },
+            {
+                "name" : "Concrete",
+                "amount" : 200
+            },
+            {
+                "name" : "IronRod",
+                "amount" : 300
+            },
+            {
+                "name" : "IronPlate",
+                "amount" : 300
+            }
+        ],
+        "unlocks" : [
+            {
+                "name" : "beltArm2",
+                "type" : "building"
+            },
+            {
+                "name" : "beltArm2Long",
+                "type" : "building"
+            }
+        ],
+        "researchUnlocks" : []
+    },
+    "BasicSteelProduction" : {
+        "researchCost" : [
+            {
+                "name" : "ModularFrame",
+                "amount" : 50
+            },
+            {
+                "name" : "Rotor",
+                "amount" : 150
+            },
+            {
+                "name" : "Concrete",
+                "amount" : 500
+            },
+            {
+                "name" : "Wire",
+                "amount" : 1000
+            }
+        ],
+        "unlocks" : [
+            {
+                "name" : "foundry",
+                "type" : "building"
+            },
+            {
+                "name" : "SteelIngot",
+                "type" : "recipe"
+            },
+            {
+                "name" : "SteelBeam",
+                "type" : "recipe"
+            },
+            {
+                "name" : "SteelPipe",
+                "type" : "recipe"
+            }
+        ],
+        "researchUnlocks" : []
+    },
+    "AdvancedSteelProduction" : {
+        "researchCost" : [
+            {
+                "name" : "SteelPipe",
+                "amount" : 100
+            },
+            {
+                "name" : "ModularFrame",
+                "amount" : 100
+            },
+            {
+                "name" : "Rotor",
+                "amount" : 200
+            },
+            {
+                "name" : "Concrete",
+                "amount" : 500
+            }
+        ],
+        "unlocks" : [
+            {
+                "name" : "EncasedSteelBeam",
+                "type" : "recipe"
+            },
+            {
+                "name" : "Stator",
+                "type" : "recipe"
+            },
+            {
+                "name" : "Motor",
+                "type" : "recipe"
+            }
+        ],
+        "researchUnlocks" : []
+    }
+}

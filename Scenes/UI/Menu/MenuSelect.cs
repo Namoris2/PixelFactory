@@ -65,7 +65,7 @@ public partial class MenuSelect : Button
 
 	private void Build()
 	{
-		BuildMenu buildMenu = GetNode<BuildMenu>("/root/main/UI/BuildMenu");
+		BuildMenu buildMenu = GetNode<BuildMenu>("/root/main/UI/Menus/BuildMenu");
 		buildMenu.ToggleBuildMode();
 
 		World tileMap = GetNode<World>("/root/main/World/TileMap");

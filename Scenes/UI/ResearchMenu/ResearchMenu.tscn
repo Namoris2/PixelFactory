@@ -1,0 +1,231 @@
+[gd_scene load_steps=7 format=3 uid="uid://2vptpjgcdw7y"]
+
+[ext_resource type="Script" path="res://Scenes/UI/ResearchMenu/ResearchMenu.cs" id="1_ikb24"]
+[ext_resource type="Theme" uid="uid://dvicjhx5rc06g" path="res://Themes/VerticalTabSelect.tres" id="2_ip2go"]
+[ext_resource type="Script" path="res://Scenes/UI/ResearchMenu/ResearchSelect.cs" id="3_41wkn"]
+[ext_resource type="Texture2D" uid="uid://bv6dqvhrg1fxs" path="res://Gimp/UI/UI_large.png" id="4_3okfm"]
+[ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="4_8we5s"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pjfmq"]
+texture = ExtResource("4_3okfm")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(24, 161, 24, 24)
+modulate_color = Color(0.67451, 0.67451, 0.67451, 1)
+
+[node name="ResearchMenu" type="Control" groups=["ResearchMenu"]]
+custom_minimum_size = Vector2(1820, 980)
+layout_mode = 3
+anchor_right = 0.947917
+anchor_bottom = 0.907407
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ikb24")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 0.173469
+vertical_scroll_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="ResearchSelects" type="HBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_ip2go")
+theme_override_constants/separation = 0
+
+[node name="Background" type="Panel" parent="ScrollContainer/ResearchSelects"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Tutorial1" type="Button" parent="ScrollContainer/ResearchSelects"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+focus_mode = 0
+disabled = true
+text = "Ore Extraction"
+script = ExtResource("3_41wkn")
+
+[node name="Tutorial2" type="Button" parent="ScrollContainer/ResearchSelects"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+focus_mode = 0
+text = "Ore Smelting"
+script = ExtResource("3_41wkn")
+
+[node name="Tutorial3" type="Button" parent="ScrollContainer/ResearchSelects"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+focus_mode = 0
+text = "Basic Proressing"
+script = ExtResource("3_41wkn")
+
+[node name="Tutorial4" type="Button" parent="ScrollContainer/ResearchSelects"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+focus_mode = 0
+text = "Logistics MK1"
+script = ExtResource("3_41wkn")
+
+[node name="PartAssembly" type="Button" parent="ScrollContainer/ResearchSelects"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+focus_mode = 0
+text = "Part Assembly"
+script = ExtResource("3_41wkn")
+
+[node name="Logistics2" type="Button" parent="ScrollContainer/ResearchSelects"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+focus_mode = 0
+text = "Logistics MK2"
+script = ExtResource("3_41wkn")
+
+[node name="BasicSteelProduction" type="Button" parent="ScrollContainer/ResearchSelects"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+focus_mode = 0
+text = "Basic Steel
+Production"
+script = ExtResource("3_41wkn")
+
+[node name="AdvancedSteelProduction" type="Button" parent="ScrollContainer/ResearchSelects"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+focus_mode = 0
+text = "Advanced Steel
+Production"
+script = ExtResource("3_41wkn")
+
+[node name="Background2" type="Panel" parent="ScrollContainer/ResearchSelects"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+layout_mode = 0
+offset_top = 169.0
+offset_right = 1821.0
+offset_bottom = 979.0
+theme_override_constants/separation = 0
+theme_override_constants/minimum_grab_thickness = 0
+theme_override_constants/autohide = 0
+split_offset = 1350
+dragger_visibility = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="HSplitContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_pjfmq")
+
+[node name="Unlocks" type="HFlowContainer" parent="HSplitContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="ResearchCost" type="Control" parent="HSplitContainer"]
+layout_mode = 2
+
+[node name="CostContainer" type="HFlowContainer" parent="HSplitContainer/ResearchCost"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -201.0
+offset_top = -31.0
+offset_right = 201.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Cost0" parent="HSplitContainer/ResearchCost/CostContainer" instance=ExtResource("4_8we5s")]
+visible = false
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="Cost1" parent="HSplitContainer/ResearchCost/CostContainer" instance=ExtResource("4_8we5s")]
+visible = false
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="Cost2" parent="HSplitContainer/ResearchCost/CostContainer" instance=ExtResource("4_8we5s")]
+visible = false
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="Cost3" parent="HSplitContainer/ResearchCost/CostContainer" instance=ExtResource("4_8we5s")]
+visible = false
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="Cost4" parent="HSplitContainer/ResearchCost/CostContainer" instance=ExtResource("4_8we5s")]
+visible = false
+layout_mode = 2
+UserImport = false
+UserExport = false
+
+[node name="Researched" type="Label" parent="HSplitContainer/ResearchCost"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -8.0
+offset_right = 20.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Researched"
+uppercase = true
+
+[node name="ResearchName" type="Label" parent="HSplitContainer/ResearchCost"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.5
+offset_top = -342.0
+offset_right = 200.5
+offset_bottom = -312.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "name"
+horizontal_alignment = 1
+
+[node name="Research" type="Button" parent="HSplitContainer/ResearchCost"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -91.0
+offset_top = -186.0
+offset_right = 97.0
+offset_bottom = -132.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 30
+text = "RESEARCH"

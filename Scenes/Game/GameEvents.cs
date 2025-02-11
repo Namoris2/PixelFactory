@@ -6,6 +6,7 @@ public partial class GameEvents : Node
 	private World tileMap;
     private Inventories inventories;
     private BuildMenu buildMenu;
+    private ResearchMenu researchMenu;
     private PauseMenu pauseMenu;
     public Leftovers leftovers;
     private Label worldInfo;
@@ -28,7 +29,8 @@ public partial class GameEvents : Node
 	{
         tileMap = GetNode<World>("../World/TileMap");
         inventories = GetNode<Inventories>("../UI/Inventories");
-        buildMenu = GetNode<BuildMenu>("../UI/BuildMenu");
+        buildMenu = GetNode<BuildMenu>("../UI/Menus/BuildMenu");
+        researchMenu = GetNode<ResearchMenu>("../UI/Menus/ResearchMenu");
         pauseMenu = GetNode<PauseMenu>("../UI/PauseMenu");
         worldInfo = GetNode<Label>("../UI/WorldInfo");
         camera = GetNode<PlayerCamera>("../World/Player/PlayerCamera");
@@ -54,7 +56,7 @@ public partial class GameEvents : Node
             {
                 pauseMenu.UnpauseGame();
             }
-            else if (!(tileMap.BUILDINGMODE || tileMap.DISMANTLEMODE || inventories.Visible || buildMenu.Visible))
+            else if (!(tileMap.BUILDINGMODE || tileMap.DISMANTLEMODE || inventories.Visible || buildMenu.Visible || researchMenu.Visible))
             {
                 pauseMenu.PauseGame();
             }
@@ -76,13 +78,18 @@ public partial class GameEvents : Node
                 inventories.ToggleInventory(false);
                 ToggleBuildingInventory(false);
             }
+            else if (researchMenu.Visible)
+            {
+                researchMenu.Hide();
+                tileMap.UITOGGLE = false;
+            }
         }
 
         if (!pauseMenu.Visible)
         {
             if (@event.IsActionPressed("ToggleInventory"))
             {
-                if (!buildMenu.Visible)
+                if (!buildMenu.Visible && !researchMenu.Visible)
                 {
                     inventories.ToggleInventory(!inventories.Visible);
                     camera.toggleZoom = !inventories.Visible;    
@@ -93,7 +100,7 @@ public partial class GameEvents : Node
 
             if (@event.IsActionPressed("Interact"))
             {
-                if (!buildMenu.Visible)
+                if (!buildMenu.Visible && !researchMenu.Visible)
                 {
                     ToggleBuildingInventory(!inventories.Visible);
                 }
@@ -101,7 +108,7 @@ public partial class GameEvents : Node
 
             if (@event.IsActionPressed("ToggleBuildMode"))
             {
-                if (!inventories.Visible /*&& Research.research.Count > 1*/)
+                if (!inventories.Visible && !researchMenu.Visible/*&& Research.research.Count > 1*/)
                 {                
                     buildMenu.ToggleBuildMode();
                     camera.toggleZoom = !buildMenu.Visible;
@@ -121,6 +128,16 @@ public partial class GameEvents : Node
                     {
                         toggleBuildMenuPopup.SetDefaultActionText();
                     }
+                }
+            }
+
+            if (@event.IsActionPressed("ToggleResearchMenu"))
+            {
+                if (!inventories.Visible && !buildMenu.Visible)
+                {
+                    researchMenu.Visible = !researchMenu.Visible;
+                    tileMap.UITOGGLE = researchMenu.Visible;
+                    worldInfo.Visible = !researchMenu.Visible;
                 }
             }
         }
