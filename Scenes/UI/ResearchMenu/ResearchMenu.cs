@@ -4,6 +4,7 @@ using System;
 public partial class ResearchMenu : Control
 {
 	PlayerInventory playerInventory;
+	Research researchController;
 	public HBoxContainer researchSelects;
 	HFlowContainer unlocksContainer;
 	HFlowContainer costContainer;
@@ -11,12 +12,14 @@ public partial class ResearchMenu : Control
 	Label researchedLabel;
 	Button researchButton;
 
+	string selectedResearch;
 	dynamic unlocks;
 	//dynamic
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		playerInventory = (PlayerInventory)GetTree().GetFirstNodeInGroup("PlayerInventory");
+		researchController = (Research)GetTree().GetFirstNodeInGroup("Research");
 		researchSelects = GetNode<HBoxContainer>("ScrollContainer/ResearchSelects");
 		unlocksContainer = GetNode<HFlowContainer>("HSplitContainer/PanelContainer/Unlocks");
 		costContainer = GetNode<HFlowContainer>("HSplitContainer/ResearchCost/CostContainer");
@@ -25,6 +28,7 @@ public partial class ResearchMenu : Control
 		researchButton = GetNode<Button>("HSplitContainer/ResearchCost/Research");
 
 		unlocks = LoadFile.LoadJson("unlocks.json");
+		researchButton.Pressed += ResearchItems;
 
 		// Hides all research selects
 		for (int i = 2; i < researchSelects.GetChildCount() - 1; i++)
@@ -40,6 +44,7 @@ public partial class ResearchMenu : Control
 
 	public void ChangeTab(string researchName, string researchText)
 	{
+		selectedResearch = researchName;
 		dynamic research = unlocks[researchName];
 
 		foreach (Control slot in costContainer.GetChildren())
@@ -130,6 +135,27 @@ public partial class ResearchMenu : Control
 		}
 
 		unlocksContainer.AddChild(unlock);
+	}
+
+	private void ResearchItems()
+	{
+		Research.research.Add(selectedResearch);
+		researchedLabel.Show();
+		researchButton.Hide();
+
+		foreach (Control slot in costContainer.GetChildren())
+		{
+			slot.Hide();
+		}
+
+		foreach (Control unlock in unlocksContainer.GetChildren())
+		{
+			unlock.GetNode<TextureRect>("Icon").Modulate = new("#8c8c8c");
+			unlock.GetNode<Label>("Name").Modulate = new("#8c8c8c");
+		}
+
+		researchController.UnlockResearch(selectedResearch);
+		ShowUnlockedResearch(selectedResearch);
 	}
 
 	public void ShowUnlockedResearch(string researchName)
