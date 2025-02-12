@@ -13,11 +13,18 @@ public partial class Research : Node
 		research = new() { "Tutorial0" };
 
 		researchMenu = (ResearchMenu)GetTree().GetFirstNodeInGroup("ResearchMenu");
+		researchMenu.CallDeferred("ChangeTab", "Tutorial1", "Ore Extraction");
+
+		foreach (CollapsingMenu researchItemContainer in GetTree().GetNodesInGroup("ResearchItemContainer"))
+		{
+			researchItemContainer.CallDeferred("UnlockItem", "Tutorial0");
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+
 	}
 
 	public void Load(dynamic data) 
@@ -35,9 +42,8 @@ public partial class Research : Node
 				researchMenu.researchSelects.GetNode<Button>(research[i]).Show();
 			}
 		}
-		researchMenu.ChangeTab("Tutorial1", "Ore Extraction");
 
-		for (int i = 0; i < research.Count; i++)
+		for (int i = 1; i < research.Count; i++)
 		{
 			GetTree().CallGroup("ResearchItemContainer", "UnlockItem", research[i]);
 		}

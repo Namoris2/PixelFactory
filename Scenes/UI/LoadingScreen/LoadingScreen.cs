@@ -95,23 +95,20 @@ public partial class LoadingScreen : Control
 		Node sceneInstantiated = newScene.Instantiate();
 		GetTree().Root.AddChild(sceneInstantiated);
 		
-		FileAccess saveFile = FileAccess.Open(savePath, FileAccess.ModeFlags.Read);
-		string savedGame = saveFile.GetAsText();
-		saveFile.Close();
-		Array<Node> nodes = GetTree().GetNodesInGroup("CanSave");
 
-		if (!Godot.FileAccess.FileExists(savePath)) { return; }
-	
-		//string[] savedGameList = savedGame.Split("\n");
-
-		//int i = 0;
-		foreach (dynamic node in nodes)
+		if (FileAccess.FileExists(savePath)) 
 		{
-			dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject(savedGame);
-			node.Load(data);
-			//i++;
+			FileAccess saveFile = FileAccess.Open(savePath, FileAccess.ModeFlags.Read);
+			string savedGame = saveFile.GetAsText();
+			saveFile.Close();
+			Array<Node> nodes = GetTree().GetNodesInGroup("CanSave");
+
+			foreach (dynamic node in nodes)
+			{
+				dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject(savedGame);
+				node.Load(data);
+			}
 		}
-		//GD.Print("Save Loaded");
 
 		QueueFree();
 	}

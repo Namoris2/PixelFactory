@@ -44,6 +44,7 @@ public partial class ResearchMenu : Control
 
 	public void ChangeTab(string researchName, string researchText)
 	{
+		GD.Print(researchName);
 		selectedResearch = researchName;
 		dynamic research = unlocks[researchName];
 
