@@ -12,7 +12,7 @@ public partial class ResearchMenu : Control
 	Label researchedLabel;
 	Button researchButton;
 
-	string selectedResearch;
+	public string selectedResearch;
 	dynamic unlocks;
 	//dynamic
 	// Called when the node enters the scene tree for the first time.
@@ -67,22 +67,6 @@ public partial class ResearchMenu : Control
 			researchedLabel.Show();
 			researchButton.Hide();
 		}
-		else
-		{
-			// Sets information to all cost slots
-			for (int i = 0; i < research.researchCost.Count; i++)
-			{
-				string costName = research.researchCost[i].name.ToString();
-				int costAmount = (int)research.researchCost[i].amount;
-
-				InventorySlot slot = (InventorySlot)costContainer.GetChild(i);
-				int amount = playerInventory.GetItemAmount(costName);
-				slot.resourceAmount.Text = $"{amount}/{costAmount}";
-				slot.itemType = costName;
-				slot.UpdateSlotTexture(costName);
-				slot.Show();
-			}
-		}
 
 		for (int i = 0; i < research.unlocks.Count; i++)
 		{
@@ -93,6 +77,8 @@ public partial class ResearchMenu : Control
 		{
 			AddResearchInfo(research.researchUnlocks[i], researchName, "research");
 		}
+
+		CheckResearchCost();
 	}
 
 	private void AddResearchInfo(dynamic researchInfo, string researchName, string unlockType = "")
@@ -137,6 +123,44 @@ public partial class ResearchMenu : Control
 		unlocksContainer.AddChild(unlock);
 	}
 
+	public void CheckResearchCost()
+	{
+		bool canResearch = true;
+		dynamic research = unlocks[selectedResearch];
+
+		for (int i = 0; i < research.researchCost.Count; i++)
+		{
+			int amount = playerInventory.GetItemAmount(research.researchCost[i].name.ToString());
+			if (!Research.research.Contains(selectedResearch)) { ShowCostSlot(research.researchCost[i], i); } // Sets information to all cost slots
+			canResearch &= amount >= (int)research.researchCost[i].amount;
+		}
+
+		researchButton.Disabled = !canResearch;
+	}
+
+	private void ShowCostSlot(dynamic cost, int index)
+	{
+		string costName = cost.name.ToString();
+		int costAmount = (int)cost.amount;
+
+		InventorySlot slot = (InventorySlot)costContainer.GetChild(index);
+		int amount = playerInventory.GetItemAmount(costName);
+		slot.resourceAmount.Text = $"{amount}/{costAmount}";
+		slot.itemType = costName;
+		slot.UpdateSlotTexture(costName);
+		slot.Show();
+	}
+
+	private void RemoveCostItems()
+	{
+		dynamic research = unlocks[selectedResearch];
+
+		for (int i = 0; i < research.researchCost.Count; i++)
+		{
+			playerInventory.RemoveFromInventory(research.researchCost[i].name.ToString(), (int)research.researchCost[i].amount);
+		}
+	}
+
 	private void ResearchItems()
 	{
 		Research.research.Add(selectedResearch);
@@ -155,6 +179,7 @@ public partial class ResearchMenu : Control
 		}
 
 		researchController.UnlockResearch(selectedResearch);
+		RemoveCostItems();
 		ShowUnlockedResearch(selectedResearch);
 	}
 

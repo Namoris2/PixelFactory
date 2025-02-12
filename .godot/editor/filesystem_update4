@@ -1,7 +1,3 @@
-res://Scenes/UI/Settings/SettingsHandler.cs
-res://Scenes/main.cs
-res://Scenes/Game/World/GenerateWorld.cs
-res://Scenes/Game/LoadFile.cs
 res://Scenes/main.tscn
 res://Themes/VerticalTabSelect.tres
 res://Themes/InventorySlot.tres
@@ -20,17 +16,20 @@ res://Scenes/UI/Inventory/CraftingMenu/CraftingItemSelect.tscn
 res://Scenes/UI/ResearchMenu/ResearchMenu.tscn
 res://Scenes/UI/ResearchMenu/Unlock.tscn
 res://Scenes/Game/GameEvents.cs
+res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/Research.cs
 res://Scenes/Game/UnlockTest.cs
 res://Scenes/Game/World/AnimatedBuildingPartsController.cs
 res://Scenes/Game/World/AnimatedBuildingParts/AnimatedBuildingPart.cs
 res://Scenes/Game/World/BuildingPartsController.cs
 res://Scenes/Game/World/BuildingParts/BuildingPart.cs
+res://Scenes/Game/World/GenerateWorld.cs
 res://Scenes/Game/World/Item/Item.cs
 res://Scenes/Game/World/Leftovers/Leftovers.cs
 res://Scenes/Game/World/ParticleController.cs
 res://Scenes/Game/World/World.cs
 res://Scenes/InputMapTest.cs
+res://Scenes/main.cs
 res://Scenes/Player/Player.cs
 res://Scenes/Player/PlayerCamera.cs
 res://Scenes/Tests/Generation/GenerationTest.cs
@@ -73,4 +72,5 @@ res://Scenes/UI/Save and Load/DeleteSave.cs
 res://Scenes/UI/Save and Load/SaveGame.cs
 res://Scenes/UI/Settings/KeyBindEdit.cs
 res://Scenes/UI/Settings/KeyBindsMenu.cs
+res://Scenes/UI/Settings/SettingsHandler.cs
 res://Scenes/UI/ui.cs

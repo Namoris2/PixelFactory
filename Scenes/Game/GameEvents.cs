@@ -138,6 +138,11 @@ public partial class GameEvents : Node
                     researchMenu.Visible = !researchMenu.Visible;
                     tileMap.UITOGGLE = researchMenu.Visible;
                     worldInfo.Visible = !researchMenu.Visible;
+
+                    if (researchMenu.Visible)
+                    {
+                        researchMenu.CheckResearchCost();
+                    }
                 }
             }
         }

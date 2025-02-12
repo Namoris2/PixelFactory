@@ -33,9 +33,9 @@ public partial class Research : Node
 				// Shows only unlocked research selects
 				researchMenu.ShowUnlockedResearch(research[i]);
 				researchMenu.researchSelects.GetNode<Button>(research[i]).Show();
-				researchMenu.ChangeTab("Tutorial1", "Ore Extraction");
 			}
 		}
+		researchMenu.ChangeTab("Tutorial1", "Ore Extraction");
 
 		for (int i = 0; i < research.Count; i++)
 		{
