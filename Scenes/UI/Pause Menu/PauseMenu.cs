@@ -40,6 +40,7 @@ public partial class PauseMenu : Control
 		GameEvents.toggleBuildingInventoryPopup.Hide();
 		GameEvents.toggleBuildMenuPopup.Hide();
 		GameEvents.toggleDismantleModePopup.Hide();
+		GameEvents.toggleResearchMenuPopup.Hide();
 		GameEvents.collectedItemsContainer.Hide();
 	}
 
@@ -54,6 +55,7 @@ public partial class PauseMenu : Control
 		GameEvents.toggleInventoryPopup.Show();
 		GameEvents.toggleBuildMenuPopup.Show();
 		GameEvents.toggleDismantleModePopup.Show();
+		GameEvents.toggleResearchMenuPopup.Show();
 		GameEvents.collectedItemsContainer.Show();
 	}
 }

@@ -42,9 +42,43 @@ public partial class ResearchMenu : Control
 	{
 	}
 
+	public void ToggleResearchMenu(bool? toggle = null)
+	{
+		if (toggle == null)
+		{
+			toggle = !Visible;
+		}
+
+		Visible = (bool)toggle;
+		if (!GameEvents.tileMap.BUILDINGMODE && !GameEvents.tileMap.DISMANTLEMODE) { GameEvents.closePopup.Visible = !GameEvents.closePopup.Visible; }
+
+		if (Visible)
+		{
+			CheckResearchCost();
+			GameEvents.toggleBuildingInventoryPopup.Hide();
+			GameEvents.toggleInventoryPopup.Hide();
+			GameEvents.toggleBuildMenuPopup.Hide();
+			GameEvents.toggleDismantleModePopup.Hide();
+			GameEvents.rotatePopup.Hide();
+			GameEvents.toggleResearchMenuPopup.SetCustomActionText();
+		}
+		else
+		{
+			GameEvents.toggleBuildingInventoryPopup.Show();
+			GameEvents.toggleInventoryPopup.Show();
+			GameEvents.toggleBuildMenuPopup.Show();
+			GameEvents.toggleDismantleModePopup.Show();
+			GameEvents.toggleResearchMenuPopup.SetDefaultActionText();
+
+			if (GameEvents.tileMap.BUILDINGMODE && (bool)GameEvents.tileMap.buildings[GameEvents.tileMap.selectedBuilding].canRotate)
+			{
+				GameEvents.rotatePopup.Show();
+			}
+		}
+	}
+
 	public void ChangeTab(string researchName, string researchText)
 	{
-		GD.Print(researchName);
 		selectedResearch = researchName;
 		dynamic research = unlocks[researchName];
 

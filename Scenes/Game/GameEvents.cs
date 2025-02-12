@@ -3,7 +3,7 @@ using System;
 
 public partial class GameEvents : Node
 {
-	private World tileMap;
+	public static World tileMap;
     private Inventories inventories;
     private BuildMenu buildMenu;
     private ResearchMenu researchMenu;
@@ -20,6 +20,7 @@ public partial class GameEvents : Node
     public static ActionInfoPopup toggleBuildingInventoryPopup;
     public static ActionInfoPopup toggleBuildMenuPopup;
     public static ActionInfoPopup toggleDismantleModePopup;
+    public static ActionInfoPopup toggleResearchMenuPopup;
     public static ActionInfoPopup splitStackPopup;
 
     public static CollectedItemsContainer collectedItemsContainer;
@@ -43,6 +44,7 @@ public partial class GameEvents : Node
         toggleBuildingInventoryPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleBuildingInventoryPopup");
         toggleBuildMenuPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleBuildMenuPopup");
         toggleDismantleModePopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleDismantleModePopup");
+        toggleResearchMenuPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleResearchMenuPopup");
         splitStackPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("SplitStackPopup");
 
         collectedItemsContainer = GetNode<CollectedItemsContainer>("../UI/CollectedItemsContainer");
@@ -60,7 +62,7 @@ public partial class GameEvents : Node
             {
                 pauseMenu.PauseGame();
             }
-            else if (tileMap.DISMANTLEMODE && !buildMenu.Visible)
+            else if (tileMap.DISMANTLEMODE && !buildMenu.Visible && !inventories.Visible && !researchMenu.Visible)
             {
                 tileMap.ToggleDismantleMode(false);
             }
@@ -80,7 +82,7 @@ public partial class GameEvents : Node
             }
             else if (researchMenu.Visible)
             {
-                researchMenu.Hide();
+                researchMenu.ToggleResearchMenu(false);
                 tileMap.UITOGGLE = false;
             }
         }
@@ -135,14 +137,9 @@ public partial class GameEvents : Node
             {
                 if (!inventories.Visible && !buildMenu.Visible)
                 {
-                    researchMenu.Visible = !researchMenu.Visible;
+                    researchMenu.ToggleResearchMenu();
                     tileMap.UITOGGLE = researchMenu.Visible;
                     worldInfo.Visible = !researchMenu.Visible;
-
-                    if (researchMenu.Visible)
-                    {
-                        researchMenu.CheckResearchCost();
-                    }
                 }
             }
         }

@@ -3375,6 +3375,11 @@ actionType = "ToggleDismantleMode"
 customActionText = PackedStringArray("Enable Dismantle Mode", "Disable Dismantle Mode")
 overrideWithCustomTextOnStart = true
 
+[node name="ToggleResearchMenu" parent="UI/ActionPopups" groups=["ToggleResearchMenuPopup"] instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "ToggleResearchMenu"
+customActionText = PackedStringArray("Close Research Menu", "")
+
 [node name="SplitStack" parent="UI/ActionPopups" groups=["SplitStackPopup"] instance=ExtResource("18_fakxi")]
 layout_mode = 2
 actionType = "SplitItems"
