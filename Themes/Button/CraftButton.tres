@@ -1,6 +1,18 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://boj67sr4snakr"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://boj67sr4snakr"]
 
 [ext_resource type="Texture2D" uid="uid://bv6dqvhrg1fxs" path="res://Gimp/UI/UI_large.png" id="1_nh5pq"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0j80f"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 8.0
+texture = ExtResource("1_nh5pq")
+texture_margin_left = 10.0
+texture_margin_top = 7.0
+texture_margin_right = 10.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(241, 161, 48, 48)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ghbo2"]
 content_margin_left = 4.0
@@ -40,6 +52,7 @@ region_rect = Rect2(145, 161, 48, 48)
 
 [resource]
 Button/colors/font_pressed_color = Color(0.764706, 0.764706, 0.764706, 1)
+Button/styles/disabled = SubResource("StyleBoxTexture_0j80f")
 Button/styles/hover = SubResource("StyleBoxTexture_ghbo2")
 Button/styles/normal = SubResource("StyleBoxTexture_dlxwd")
 Button/styles/pressed = SubResource("StyleBoxTexture_rr4mw")

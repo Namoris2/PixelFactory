@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://2vptpjgcdw7y"]
+[gd_scene load_steps=9 format=3 uid="uid://2vptpjgcdw7y"]
 
 [ext_resource type="Script" path="res://Scenes/UI/ResearchMenu/ResearchMenu.cs" id="1_ikb24"]
 [ext_resource type="Theme" uid="uid://dvicjhx5rc06g" path="res://Themes/VerticalTabSelect.tres" id="2_ip2go"]
 [ext_resource type="Script" path="res://Scenes/UI/ResearchMenu/ResearchSelect.cs" id="3_41wkn"]
 [ext_resource type="Texture2D" uid="uid://bv6dqvhrg1fxs" path="res://Gimp/UI/UI_large.png" id="4_3okfm"]
 [ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="4_8we5s"]
+[ext_resource type="Theme" uid="uid://boj67sr4snakr" path="res://Themes/Button/CraftButton.tres" id="6_8f7hv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_haiyw"]
 bg_color = Color(0.2, 0.2, 0.2, 1)
@@ -234,5 +235,7 @@ offset_right = 97.0
 offset_bottom = -132.0
 grow_horizontal = 2
 grow_vertical = 0
+focus_mode = 0
+theme = ExtResource("6_8f7hv")
 theme_override_font_sizes/font_size = 30
 text = "RESEARCH"
