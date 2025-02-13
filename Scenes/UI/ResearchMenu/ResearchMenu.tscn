@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://2vptpjgcdw7y"]
+[gd_scene load_steps=8 format=3 uid="uid://2vptpjgcdw7y"]
 
 [ext_resource type="Script" path="res://Scenes/UI/ResearchMenu/ResearchMenu.cs" id="1_ikb24"]
 [ext_resource type="Theme" uid="uid://dvicjhx5rc06g" path="res://Themes/VerticalTabSelect.tres" id="2_ip2go"]
 [ext_resource type="Script" path="res://Scenes/UI/ResearchMenu/ResearchSelect.cs" id="3_41wkn"]
 [ext_resource type="Texture2D" uid="uid://bv6dqvhrg1fxs" path="res://Gimp/UI/UI_large.png" id="4_3okfm"]
 [ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="4_8we5s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_haiyw"]
+bg_color = Color(0.2, 0.2, 0.2, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pjfmq"]
 texture = ExtResource("4_3okfm")
@@ -25,13 +28,16 @@ grow_vertical = 2
 script = ExtResource("1_ikb24")
 metadata/_edit_use_anchors_ = true
 
-[node name="Panel" type="Panel" parent="."]
+[node name="BackGround" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -0.000610352
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_haiyw")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
@@ -132,8 +138,9 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_pjfmq")
 [node name="Unlocks" type="HFlowContainer" parent="HSplitContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="ResearchCost" type="Control" parent="HSplitContainer"]
+[node name="ResearchCost" type="Panel" parent="HSplitContainer"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_pjfmq")
 
 [node name="CostContainer" type="HFlowContainer" parent="HSplitContainer/ResearchCost"]
 layout_mode = 1
