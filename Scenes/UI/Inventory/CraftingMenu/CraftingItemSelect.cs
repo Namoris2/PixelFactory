@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public partial class CraftingItemSelect : Button
 {
 	[Export] public string itemType;
-	bool mouseHover;
 	Node parent;
 	CraftingMenu craftingMenu;
 	public Label itemName;
@@ -16,7 +15,6 @@ public partial class CraftingItemSelect : Button
 	{
 		Pressed += SelectRecipe;
 		ButtonDown += ButtonHeldDown;
-		MouseEntered += MouseEnteredHandler;
 		MouseExited += MouseExitedHandler;
 
 		item = LoadFile.LoadJson("items.json")[itemType];
@@ -53,13 +51,12 @@ public partial class CraftingItemSelect : Button
 		itemIcon.Modulate = new Color("#ffffff30");
 	}
 
-	private void MouseEnteredHandler()
-	{
-		mouseHover = true;
-	}
-
 	private void MouseExitedHandler()
 	{
-		mouseHover = false;
+		if (!Disabled)
+		{
+			itemName.Modulate = new Color("white");
+			itemIcon.Modulate = new Color("white");
+		}
 	}
 }
