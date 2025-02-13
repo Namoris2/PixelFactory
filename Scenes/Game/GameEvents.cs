@@ -84,6 +84,7 @@ public partial class GameEvents : Node
             {
                 researchMenu.ToggleResearchMenu(false);
                 tileMap.UITOGGLE = false;
+                camera.toggleZoom = true;
             }
         }
 
@@ -138,6 +139,7 @@ public partial class GameEvents : Node
                 if (!inventories.Visible && !buildMenu.Visible)
                 {
                     researchMenu.ToggleResearchMenu();
+                    camera.toggleZoom = !researchMenu.Visible;
                     tileMap.UITOGGLE = researchMenu.Visible;
                     worldInfo.Visible = !researchMenu.Visible;
                 }

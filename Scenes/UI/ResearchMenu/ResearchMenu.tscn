@@ -122,15 +122,19 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
-layout_mode = 0
-offset_top = 169.0
-offset_right = 1821.0
-offset_bottom = 979.0
-theme_override_constants/separation = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0065934
+anchor_top = 0.172449
+anchor_right = 0.993406
+anchor_bottom = 0.987755
+offset_right = 0.00012207
+theme_override_constants/separation = 20
 theme_override_constants/minimum_grab_thickness = 0
 theme_override_constants/autohide = 0
 split_offset = 1350
 dragger_visibility = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="HSplitContainer"]
 layout_mode = 2
