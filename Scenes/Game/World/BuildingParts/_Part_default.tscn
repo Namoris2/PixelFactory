@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://qqscsciaujkn"]
 
-[ext_resource type="Script" path="res://Scenes/Game/World/BuildingParts/BuildingPart.cs" id="1_2jhqs"]
+[ext_resource type="Script" uid="uid://baf56efbnxlj4" path="res://Scenes/Game/World/BuildingParts/BuildingPart.cs" id="1_2jhqs"]
 
 [node name="Part" type="Node2D" groups=["BuildingPart"]]
 script = ExtResource("1_2jhqs")

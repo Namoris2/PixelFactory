@@ -1,6 +1,6 @@
 [gd_scene load_steps=31 format=3 uid="uid://dyxbbw8tmug2l"]
 
-[ext_resource type="Script" path="res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.cs" id="1_10j8y"]
+[ext_resource type="Script" uid="uid://xui1wiq26ds3" path="res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.cs" id="1_10j8y"]
 [ext_resource type="Texture2D" uid="uid://bv6dqvhrg1fxs" path="res://Gimp/UI/UI_large.png" id="2_2n3xo"]
 [ext_resource type="PackedScene" uid="uid://cycrfkkc7xrqg" path="res://Scenes/UI/Menu/MenuSelect.tscn" id="2_amxgm"]
 [ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="2_e53n2"]
@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://pqkvxa7ejvmc" path="res://Gimp/UI/Inventory/BuildingInventory/ProgressBarFull.png" id="8_r8plo"]
 [ext_resource type="Texture2D" uid="uid://c7aru6kn3dy3b" path="res://Gimp/UI/Inventory/BuildingInventory/TabSelection/Left.png" id="10_xby1s"]
 [ext_resource type="Texture2D" uid="uid://5hi35hh7k6nd" path="res://Gimp/UI/Inventory/BuildingInventory/TabSelection/Right.png" id="11_2t5gl"]
-[ext_resource type="Script" path="res://Scenes/UI/Inventory/BuildingInventory/TabSelection.cs" id="12_elxp8"]
+[ext_resource type="Script" uid="uid://60j7l05pp8me" path="res://Scenes/UI/Inventory/BuildingInventory/TabSelection.cs" id="12_elxp8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ak47j"]
 

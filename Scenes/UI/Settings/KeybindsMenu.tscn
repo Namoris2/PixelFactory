@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b1pyswhxuea04"]
 
-[ext_resource type="Script" path="res://Scenes/UI/Settings/KeyBindsMenu.cs" id="1_b0dp0"]
+[ext_resource type="Script" uid="uid://5bnf7qrynfvq" path="res://Scenes/UI/Settings/KeyBindsMenu.cs" id="1_b0dp0"]
 
 [node name="KeyBindsMenu" type="Control"]
 custom_minimum_size = Vector2(0, 800)

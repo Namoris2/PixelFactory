@@ -283,7 +283,8 @@
         "speed" : 60,
         "moveProgress" : 0,
         "canBePlacedOn" : ["Grass", "Concrete"],
-        "item" : ""
+        "item" : "",
+        "receivingFromArm" : false
     },
     "beltArm1" : {
         "buildingType" : "beltArm",

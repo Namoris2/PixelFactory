@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://i4r6u351cl60"]
 
-[ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="1_nriof"]
+[ext_resource type="Script" uid="uid://blx3hmxmskp7o" path="res://Scenes/Player/Player.cs" id="1_nriof"]
 [ext_resource type="Texture2D" uid="uid://c2liy4ptpmr6h" path="res://Gimp/Player/player.png" id="2_b3ijg"]
-[ext_resource type="Script" path="res://Scenes/Player/PlayerCamera.cs" id="2_laqpu"]
+[ext_resource type="Script" uid="uid://b4a1xxhy1p348" path="res://Scenes/Player/PlayerCamera.cs" id="2_laqpu"]
 [ext_resource type="PackedScene" uid="uid://cgckafhm8cnhu" path="res://Particles/Player/ParticlesStationary.tscn" id="4_jttik"]
 [ext_resource type="PackedScene" uid="uid://bef21wdbhc87x" path="res://Particles/Player/ParticlesMoving.tscn" id="5_lal68"]
 

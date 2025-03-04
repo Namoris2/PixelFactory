@@ -81,7 +81,7 @@ public partial class LoadingScreen : Control
 
 		savePath = GetNode<main>("/root/GameInfo").savePath;
 		
-		if (!OS.IsDebugBuild())
+		//if (!OS.IsDebugBuild())
 		{
 			requestToLoad = true;
 			return;

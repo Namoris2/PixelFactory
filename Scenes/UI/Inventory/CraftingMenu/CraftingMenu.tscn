@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://blfbemcfo20kf"]
 
 [ext_resource type="PackedScene" uid="uid://j4ti07wdyqt0" path="res://Scenes/UI/Inventory/CraftingMenu/CraftingItemSelect.tscn" id="1_caiuq"]
-[ext_resource type="Script" path="res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.cs" id="1_daig4"]
+[ext_resource type="Script" uid="uid://paibd2htmta2" path="res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.cs" id="1_daig4"]
 [ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="2_7x8p6"]
 [ext_resource type="Texture2D" uid="uid://dvjjda6je56tp" path="res://Gimp/UI/CraftingMenu/CraftingMenu.png" id="2_arwfs"]
 [ext_resource type="Theme" uid="uid://boj67sr4snakr" path="res://Themes/Button/CraftButton.tres" id="2_w6h05"]

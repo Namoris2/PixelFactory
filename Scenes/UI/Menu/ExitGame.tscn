@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ealmg15lgtr5"]
 
-[ext_resource type="Script" path="res://Scenes/UI/Menu/ExitGame.cs" id="1_tvdh1"]
+[ext_resource type="Script" uid="uid://dg1scljt73hls" path="res://Scenes/UI/Menu/ExitGame.cs" id="1_tvdh1"]
 
 [node name="ExitGame" type="Button"]
 custom_minimum_size = Vector2(500, 100)

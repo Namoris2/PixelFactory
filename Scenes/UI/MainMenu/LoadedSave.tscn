@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://isno1ke6mjop"]
 
-[ext_resource type="Script" path="res://Scenes/UI/Save and Load/LoadGame.cs" id="1_pikq7"]
-[ext_resource type="Script" path="res://Scenes/UI/MainMenu/DeleteSaveDialog/ShowDialog.cs" id="2_pqsu1"]
+[ext_resource type="Script" uid="uid://dvq8pgl0l1414" path="res://Scenes/UI/Save and Load/LoadGame.cs" id="1_pikq7"]
+[ext_resource type="Script" uid="uid://clevp7nvtf27u" path="res://Scenes/UI/MainMenu/DeleteSaveDialog/ShowDialog.cs" id="2_pqsu1"]
 
 [node name="Save" type="Panel" groups=["LoadedSave"]]
 custom_minimum_size = Vector2(0, 150)

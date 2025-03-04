@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://brtiqnhheuky7"]
 
-[ext_resource type="Script" path="res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.cs" id="1_6h8xj"]
+[ext_resource type="Script" uid="uid://c5d7sd5h5vffv" path="res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.cs" id="1_6h8xj"]
 [ext_resource type="Texture2D" uid="uid://bxi2smg4lvdt8" path="res://Gimp/placeholder.png" id="2_pe8rg"]
-[ext_resource type="Script" path="res://Scenes/UI/Inventory/PlayerInventory/PrintInventory.cs" id="3_nngbd"]
+[ext_resource type="Script" uid="uid://cueugk2naayyq" path="res://Scenes/UI/Inventory/PlayerInventory/PrintInventory.cs" id="3_nngbd"]
 
 [node name="PlayerInventory" type="Control"]
 texture_filter = 1
