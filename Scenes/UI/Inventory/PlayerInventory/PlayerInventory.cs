@@ -24,7 +24,7 @@ public partial class PlayerInventory : Control
 	{
 		inventorySlots = new InventorySlot[inventorySize];
 
-		flowContainer = GetNode<FlowContainer>("FlowContainer");
+		flowContainer = GetNode<FlowContainer>("PanelContainer/FlowContainer");
 		CreateInventorySlots();
 		items = LoadFile.LoadJson("items.json");
 
