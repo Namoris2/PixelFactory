@@ -39,8 +39,10 @@ public partial class Inventories : CanvasLayer
 			GameEvents.harvestResourcePopup.Hide();
 			GameEvents.rotatePopup.Hide();
 			GameEvents.toggleInventoryPopup.SetCustomActionText();
+			GameEvents.toggleBuildingInventoryPopup.Hide();
 			GameEvents.toggleBuildMenuPopup.Hide();
 			GameEvents.toggleDismantleModePopup.Hide();
+			GameEvents.toggleResearchMenuPopup.Hide();
 			Show();
 		}
 		else
@@ -52,6 +54,7 @@ public partial class Inventories : CanvasLayer
 			GameEvents.toggleInventoryPopup.SetDefaultActionText();
 			GameEvents.toggleBuildMenuPopup.Show();
 			GameEvents.toggleDismantleModePopup.Show();
+			GameEvents.toggleResearchMenuPopup.Show();
 
 
 			GetNode<Control>("InventoryGrid/BuildingInventory").Hide();

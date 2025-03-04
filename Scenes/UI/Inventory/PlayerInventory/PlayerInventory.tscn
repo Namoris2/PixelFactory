@@ -32,6 +32,7 @@ expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Recipe" type="Label" parent="TextureRect"]
+layout_mode = 0
 offset_left = 247.0
 offset_top = 66.0
 offset_right = 663.0

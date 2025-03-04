@@ -1,14 +1,17 @@
-res://Scenes/UI/MainMenu/MainMenu.tscn
+res://Scenes/UI/Inventory/Inventories.cs
+res://Scenes/main.tscn
+res://Themes/SlotBackground.tres
 res://Themes/VerticalTabSelect.tres
 res://Themes/InventorySlot.tres
 res://Themes/Button/CraftButton.tres
 res://Themes/CollapsingMenu.tres
-res://Themes/SlotBackground.tres
 res://Scenes/UI/Kebinds/spritetest.tres
 res://Themes/UI.tres
 res://Scenes/UI/Menu/ChangeMenu.cs
 res://Scenes/UI/Save and Load/LoadGame.cs
-res://Scenes/main.tscn
+res://Scenes/UI/MainMenu/MainMenu.tscn
+res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
+res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn
 res://Scenes/UI/Save and Load/DeleteSave.cs
 res://Scenes/Game/World/BuildingParts/BuildingPart.cs
 res://Scenes/UI/Inventory/InventorySlot.cs
@@ -43,7 +46,6 @@ res://Scenes/UI/HUD/CollectedItems/CollectedItem.cs
 res://Scenes/UI/Settings/SettingsHandler.cs
 res://Scenes/UI/HUD/ResourceAmount.cs
 res://Scenes/UI/LoadingScreen/LoadingScreen.cs
-res://Scenes/UI/Inventory/Inventories.cs
 res://Scenes/UI/Settings/KeyBindEdit.cs
 res://Scenes/UI/Settings/KeyBindsMenu.cs
 res://Scenes/UI/HUD/CollectedItems/CollectedItemsContainer.cs
@@ -68,5 +70,3 @@ res://Scenes/UI/Menu/MenuSelect.cs
 res://Scenes/UI/Menu/TabSelect.cs
 res://Scenes/UI/HUD/FPSCounter.cs
 res://Scenes/UI/Pause Menu/Unpause.cs
-res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
-res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn

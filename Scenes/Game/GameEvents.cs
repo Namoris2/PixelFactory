@@ -120,6 +120,7 @@ public partial class GameEvents : Node
                     toggleBuildingInventoryPopup.Hide();
                     rotatePopup.Hide();
                     toggleDismantleModePopup.Visible = !toggleDismantleModePopup.Visible;
+                    toggleResearchMenuPopup.Visible = !toggleResearchMenuPopup.Visible;
 
                     // Build Menu is closed
                     if (toggleBuildMenuPopup.actionText == toggleBuildMenuPopup.GetNode<Label>("Label").Text)
