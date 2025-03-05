@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bbqmsnkmc3pac"]
+[gd_scene load_steps=33 format=3 uid="uid://bbqmsnkmc3pac"]
 
 [ext_resource type="Script" uid="uid://durijao54jscu" path="res://Scenes/Game/GameEvents.cs" id="1_st43b"]
 [ext_resource type="Script" uid="uid://bxsauxvanqra3" path="res://Scenes/Game/Research.cs" id="2_80wiu"]
@@ -2067,6 +2067,45 @@ texture = ExtResource("5_ckxak")
 0:0/0/z_index = 1
 1:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cbgmd"]
+resource_name = "BuildMode"
+texture = ExtResource("4_r6w7n")
+0:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_8bfwi"]
 physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_x64vh")
@@ -2092,6 +2131,7 @@ custom_data_layer_1/type = 2
 sources/0 = SubResource("TileSetAtlasSource_b0sgr")
 sources/100 = SubResource("TileSetAtlasSource_kytue")
 sources/1 = SubResource("TileSetAtlasSource_7gb0d")
+sources/2 = SubResource("TileSetAtlasSource_cbgmd")
 
 [node name="main" type="Node2D"]
 

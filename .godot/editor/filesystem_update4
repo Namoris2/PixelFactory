@@ -1,4 +1,4 @@
-res://Scenes/UI/Inventory/Inventories.cs
+res://Scenes/Game/World/World.cs
 res://Scenes/main.tscn
 res://Themes/SlotBackground.tres
 res://Themes/VerticalTabSelect.tres
@@ -27,7 +27,6 @@ res://Scenes/UI/Menu/CollapsingMenu.cs
 res://Scenes/UI/HUD/TestSprite.cs
 res://Scenes/UI/Pause Menu/PauseMenu.cs
 res://Scenes/Game/World/GenerateWorld.cs
-res://Scenes/Game/World/World.cs
 res://Scenes/UI/Inventory/ItemName.cs
 res://Scenes/UI/Kebinds/ActionKey.cs
 res://Scenes/UI/ui.cs
@@ -46,6 +45,7 @@ res://Scenes/UI/HUD/CollectedItems/CollectedItem.cs
 res://Scenes/UI/Settings/SettingsHandler.cs
 res://Scenes/UI/HUD/ResourceAmount.cs
 res://Scenes/UI/LoadingScreen/LoadingScreen.cs
+res://Scenes/UI/Inventory/Inventories.cs
 res://Scenes/UI/Settings/KeyBindEdit.cs
 res://Scenes/UI/Settings/KeyBindsMenu.cs
 res://Scenes/UI/HUD/CollectedItems/CollectedItemsContainer.cs

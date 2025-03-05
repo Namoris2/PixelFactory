@@ -49,8 +49,8 @@ public partial class World : Godot.TileMap
 	public Vector2I cellPositionByMouse;
 
 	// setting default grid cursor parameters
-	int tileMapId = 100;
-	int tileMapLayer = 3;
+	int tileMapId = (int)AtlasIDs.Cursor;
+	int tileMapLayer = (int)Layer.Cursor;
 	Vector2I atlasPosition = new (0, 0);
 	string[] buildingsCoords = new string[] {};
 	public List<dynamic> buildingsInfo = new();
@@ -71,6 +71,20 @@ public partial class World : Godot.TileMap
 	Label worldInfoLabel;
 
 	List<Thread> runningThreads = new();
+
+    enum AtlasIDs
+	{
+		Buildings = 1,
+		BuildMode,
+		Cursor = 100
+	}
+
+	enum Layer 
+	{
+		Buildings = 1,
+		BuildMode,
+		Cursor
+	}
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -692,15 +706,15 @@ public partial class World : Godot.TileMap
 		DISMANTLEMODE = false;
 		
 		ClearLayer(tileMapLayer);
-		tileMapLayer = 2;
-		tileMapId = 1;
+		tileMapLayer = (int)Layer.BuildMode;
+		tileMapId = (int)AtlasIDs.BuildMode;
 		atlasPosition = new (0, 0);
 		
 		if (!BUILDINGMODE)
 		{
 			// draws square crosshair to TileMap
-			tileMapLayer = 3;
-			tileMapId = 100;
+			tileMapLayer = (int)Layer.Cursor;
+			tileMapId = (int)AtlasIDs.Cursor;
 			atlasPosition = new (0, 0);
 			buildingRotation = 0;
 			
@@ -724,8 +738,8 @@ public partial class World : Godot.TileMap
 		BUILDINGMODE = false;
 
 		ClearLayer(tileMapLayer);
-		tileMapLayer = 3;
-		tileMapId = 100;
+		tileMapLayer = (int)Layer.Cursor;
+		tileMapId = (int)AtlasIDs.Cursor;
 		atlasPosition = new (0, 0);	
 
 		if (DISMANTLEMODE)
@@ -965,7 +979,7 @@ public partial class World : Godot.TileMap
 		string buildingsJson = JsonConvert.SerializeObject(buildings);
 		
 		if ((int)buildingData.rotationAmount == 1) { buildingRotation = 0; }
-		SetCell(1, cellPosition, 1, new((int)buildingData.atlasCoords[0] + buildingRotation, (int)buildingData.atlasCoords[1]));	
+		SetCell((int)Layer.Buildings, cellPosition, (int)Layer.Buildings, new((int)buildingData.atlasCoords[0] + buildingRotation, (int)buildingData.atlasCoords[1]));	
 		
 		if((bool)buildingData.hasAdditionalAtlasPosition)
 		{
