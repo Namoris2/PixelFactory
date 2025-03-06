@@ -20,6 +20,7 @@ using System.Collections;
 using System.Threading;
 using System.Globalization;
 using System.Diagnostics.Tracing;
+using System.Net.NetworkInformation;
 
 public partial class World : Godot.TileMap
 {
@@ -72,16 +73,17 @@ public partial class World : Godot.TileMap
 
 	List<Thread> runningThreads = new();
 
-    enum AtlasIDs
+    public enum AtlasIDs
 	{
 		Buildings = 1,
 		BuildMode,
 		Cursor = 100
 	}
 
-	enum Layer 
+	public enum Layer 
 	{
-		Buildings = 1,
+		Ground,
+		Buildings,
 		BuildMode,
 		Cursor
 	}
@@ -141,7 +143,7 @@ public partial class World : Godot.TileMap
 		pauseMenu.CanPause = !UITOGGLE && !BUILDINGMODE;
 
 		// getting mouse position with TileMap coordinates
-		cellPositionByMouse = GetMousePosition();
+		cellPositionByMouse = GetCellPosition(GetGlobalMousePosition());
 
 		// getting tileMap data by mouse coordinates that hovers over TileMap cell
 		TileData groundData = GetCellTileData(0, cellPositionByMouse);
@@ -603,24 +605,22 @@ public partial class World : Godot.TileMap
 		generateWorld.GenerateResource(this, seed, "Limestone", playerPosition);
 		generateWorld.GenerateResource(this, seed, "Coal", playerPosition);
 	}
-
-	public Vector2I GetMousePosition()
+	
+	public Vector2I GetCellPosition(Vector2 globalPosition)
 	{
-		var mousePosition = GetGlobalMousePosition();
-		//Vector2I cellPositionByMouse = new ((int)Math.Floor(mousePosition[0] / (4 * 16)), (int)Math.Floor(mousePosition[1]  / (4 * 16)));
-		Vector2I cellPositionByMouse = new ((int)mousePosition[0] / (4 * 16), (int)mousePosition[1]  / (4 * 16));
+		Vector2I cellPosition = new ((int)Math.Floor(globalPosition[0] / (4 * 16)), (int)Math.Floor(globalPosition[1]  / (4 * 16)));
+		/*Vector2I cellPosition = new ((int)globalPosition[0] / (4 * 16), (int)globalPosition[1]  / (4 * 16));
 
-		if (mousePosition[0] < 0)
+		if (globalPosition[0] < 0)
 		{
-			cellPositionByMouse = new Vector2I((int)(cellPositionByMouse[0] - 1), (int)(cellPositionByMouse[1]));
+			cellPosition = new Vector2I((int)(cellPosition[0] - 1), (int)(cellPosition[1]));
 		}
 
-		if (mousePosition[1] < 0)
+		if (globalPosition[1] < 0)
 		{
-			cellPositionByMouse = new Vector2I((int)(cellPositionByMouse[0]), (int)(cellPositionByMouse[1] - 1));
-		}
-
-		return cellPositionByMouse;
+			cellPosition = new Vector2I((int)(cellPosition[0]), (int)(cellPosition[1] - 1));
+		}*/
+		return cellPosition;
 	}
 
 	private void CursorTexture()
@@ -875,7 +875,12 @@ public partial class World : Godot.TileMap
 		TileData data = GetCellTileData(1, cellPositionByMouse);
 		string groundResource = (string)GetCellTileData(0, cellPositionByMouse).GetCustomData("resourceName");
 
-		bool hasSpace = data == null; 
+		bool hasSpace = data == null;
+		bool isPlayerOnTile = false;
+		if (!building.type.ToString().Contains("belt"))
+		{
+			isPlayerOnTile = GetPlayerCollision(cellPositionByMouse);
+		}
 		resources.Add(groundResource);
 		
 		for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
@@ -885,6 +890,10 @@ public partial class World : Godot.TileMap
 			groundResource = (string)GetCellTileData(0, cellPositionByMouse + additionalCoords).GetCustomData("resourceName");
 
 			hasSpace &= data == null; 
+			if (!building.type.ToString().Contains("belt"))
+			{
+				isPlayerOnTile |= GetPlayerCollision(cellPositionByMouse + additionalCoords);
+			}
 			resources.Add(groundResource);
 		}
 
@@ -899,7 +908,7 @@ public partial class World : Godot.TileMap
 		{
 
 			resources.RemoveAll(resource => resource == "Grass");
-			info["canBuild"] = hasSpace && resources.Count > 0 && GroundResourceValidate(building.canBePlacedOn, resources);
+			info["canBuild"] = hasSpace && !isPlayerOnTile && resources.Count > 0 && GroundResourceValidate(building.canBePlacedOn, resources);
 			
 			if (!info["canBuild"]) { return info; }
 
@@ -922,10 +931,20 @@ public partial class World : Godot.TileMap
 		}
 		else
 		{
-			info["canBuild"] = hasSpace && resources.Count == building.additionalAtlasPosition.Count + 1 && GroundResourceValidate(building.canBePlacedOn, resources);
+			info["canBuild"] = hasSpace && !isPlayerOnTile && resources.Count == building.additionalAtlasPosition.Count + 1 && GroundResourceValidate(building.canBePlacedOn, resources);
 		}
+
 		
 		return info;
+	}
+
+	private bool GetPlayerCollision(Vector2I cellPosition)
+	{
+		CollisionShape2D playerArea = GetNode<CollisionShape2D>("../Player/BuildingCollision");
+		return GetCellPosition(playerArea.GlobalPosition) == cellPosition || 																// top-left
+			   GetCellPosition(playerArea.GlobalPosition + new Vector2(((RectangleShape2D)playerArea.Shape).Size.X / 2, 0)) == cellPosition ||	// top-right
+			   GetCellPosition(playerArea.GlobalPosition + new Vector2(0, ((RectangleShape2D)playerArea.Shape).Size.Y / 2)) == cellPosition || 	// bottom-left
+			   GetCellPosition(playerArea.GlobalPosition + ((RectangleShape2D)playerArea.Shape).Size / 2) == cellPosition;						// bottom-right
 	}
 	
 	private dynamic TrimBuildingData(dynamic building)
