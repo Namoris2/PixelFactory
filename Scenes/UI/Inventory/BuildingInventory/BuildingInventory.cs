@@ -308,7 +308,7 @@ public partial class BuildingInventory : Control
 		GameEvents.toggleBuildingInventoryPopup.SetCustomActionText(1);
 	}
 
-	public void UpdateInventory(dynamic building, string test = "")
+	public void UpdateInventory(dynamic building)
 	{
 		Vector2I coords = new Vector2I((int)building.coords[0], (int)building.coords[1]);
 		if (coordinates != coords || GetTree().GetNodesInGroup("RemainsSlots").Count != 0) { return; }
@@ -343,7 +343,6 @@ public partial class BuildingInventory : Control
 		}
 		else if (building.buildingType.ToString() == "storage")
 		{
-			if (test != "") { GD.Print("Test"); }
 			Array<Node> storageSlots = GetTree().GetNodesInGroup("StorageSlots");
 			for (int i = 0; i < (int)building.slots.Count; i++)
 			{
@@ -360,7 +359,6 @@ public partial class BuildingInventory : Control
 		if (itemAmount > 0)
 		{		
 			resourceAmount.Text = itemAmount.ToString();
-			GD.Print(itemAmount);
 			slot.itemType = itemType;
 			slot.UpdateSlotTexture(itemType);
 		}

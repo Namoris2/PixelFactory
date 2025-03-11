@@ -145,7 +145,7 @@ public partial class InventorySlot : Button
 					{
 						resourceAmount.Text = overflow.ToString();
 					}
-					buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse),"fds");
+					buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
 				}
 			}
 
