@@ -551,6 +551,15 @@ public partial class World : Godot.TileMap
 					continue;
 				}
 
+				if (building.buildingType.ToString() == "storage" && (int)buildingData.slotsAmount > (int)building.slots.Count)
+				{
+					int slotsAmount = (int)building.slots.Count;
+					for (int i = 0; i < (int)buildingData.slotsAmount - slotsAmount; i++)
+					{
+						building.slots.Add(JsonConvert.DeserializeObject<dynamic>("{resource:\"\",amount:0}"));
+					}
+				}
+
 				CreateBuilding(building, buildingData, position);
 				buildingsInfo.Add(building);
 			}

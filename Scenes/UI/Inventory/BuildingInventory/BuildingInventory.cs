@@ -22,6 +22,7 @@ public partial class BuildingInventory : Control
 	private PanelContainer inputSlotsBackground;
 	private PanelContainer outputSlotsBackground;
 	private PanelContainer singleSlotBackground;
+	private PanelContainer storageSlots;
 	private Control buildingDetail;
 
 	public TabContainer tabContainer;
@@ -49,6 +50,7 @@ public partial class BuildingInventory : Control
 		inputSlotsBackground = GetNode<PanelContainer>("TabContainer/Building/Slots/InputSlotsBackground");
 		outputSlotsBackground = GetNode<PanelContainer>("TabContainer/Building/Slots/OutputSlotsBackground");
 		singleSlotBackground = GetNode<PanelContainer>("TabContainer/Building/Slots/SingleSlotBackground");
+		storageSlots = GetNode<PanelContainer>("TabContainer/Building/Slots/StorageSlots");
 
 		tabContainer = GetNode<TabContainer>("TabContainer");
 		tabSelect = GetNode<Control>("TabContainer/Building/TabSelects");
@@ -163,7 +165,7 @@ public partial class BuildingInventory : Control
 				newSlot.UpdateSlotTexture(newSlot.itemType);
 			}
 
-			GetNode<ScrollContainer>("TabContainer/Building/Slots/StorageSlots").Show();
+			storageSlots.Show();
 			Show();
 			return;
 		}
@@ -173,7 +175,7 @@ public partial class BuildingInventory : Control
 		switch (buildingInfo.buildingType.ToString())
 		{
 			case "machine":
-				GetNode<ScrollContainer>("TabContainer/Building/Slots/StorageSlots").Hide();
+				storageSlots.Hide();
 				productionProgress.Show();
 				resourceProduction.Show();
 				singleSlotBackground.Hide();		
@@ -289,11 +291,11 @@ public partial class BuildingInventory : Control
 
 					if ((int)buildingInfo.slots[i].amount != 0) { newSlot.GetNode<Label>("ResourceAmount").Text = buildingInfo.slots[i].amount.ToString(); }
 					
-					GetNode<FlowContainer>("TabContainer/Building/Slots/StorageSlots/FlowContainer").AddChild(newSlot);
+					storageSlots.GetNode<FlowContainer>("FlowContainer").AddChild(newSlot);
 					newSlot.UpdateSlotTexture(newSlot.itemType);
 				}
 
-				GetNode<ScrollContainer>("TabContainer/Building/Slots/StorageSlots").Show();
+				storageSlots.Show();
 				Show();
 				break;
 
