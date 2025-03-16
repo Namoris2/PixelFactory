@@ -249,6 +249,10 @@
         ],
         "unlocks" : [
             {
+                "name" : "mediumDrill",
+                "type" : "building"
+            },
+            {
                 "name" : "EncasedSteelBeam",
                 "type" : "recipe"
             },

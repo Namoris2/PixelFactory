@@ -13,6 +13,8 @@ res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
 res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn
 res://Scenes/Player/player.tscn
 res://Scenes/UI/Pause Menu/PauseMenu.tscn
+res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
+res://Scenes/Game/World/Item/Item.tscn
 res://Scenes/UI/Save and Load/DeleteSave.cs
 res://Scenes/Game/World/BuildingParts/BuildingPart.cs
 res://Scenes/UI/Inventory/InventorySlot.cs
@@ -72,4 +74,4 @@ res://Scenes/UI/Menu/MenuSelect.cs
 res://Scenes/UI/Menu/TabSelect.cs
 res://Scenes/UI/HUD/FPSCounter.cs
 res://Scenes/UI/Pause Menu/Unpause.cs
-res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
+res://Scenes/UI/BuildMenu/BuildMenu.tscn

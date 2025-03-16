@@ -51,7 +51,24 @@
         "type" : "mediumDrill",
         "name" : "Medium Drill",
         "description" : "Allows to automatically extract ground resources\n\nExtracts 45 resources per minute per game tile\n\nSize: 2x2",
-        "cost" : [],
+        "cost" : [
+            { 
+                "resource" : "Motor",
+                "amount" : 4
+            },
+            {
+                "resource" : "EncasedSteelBeam",
+                "amount" : 10
+            },
+            {
+                "resource" : "SteelPipe",
+                "amount" : 20
+            },
+            {
+                "resource" : "ModularFrame",
+                "amount" : 10
+            }
+        ],
         "coords" : [0, 0],
         "atlasCoords" : [4, 4],
         "width" : 2,

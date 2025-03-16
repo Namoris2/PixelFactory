@@ -785,7 +785,7 @@ public partial class World : Godot.TileMap
 			
 			if  (building.type.ToString().Contains("Drill"))
 			{
-				building.outputSlots[0].resource = groundResourceName;
+				building.outputSlots[0].resource = groundInfo["resource"];
 				building.recipe = groundInfo["resource"];
 				building.tiles = groundInfo["tiles"];
 			}
