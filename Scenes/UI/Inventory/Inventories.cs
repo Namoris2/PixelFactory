@@ -26,6 +26,7 @@ public partial class Inventories : CanvasLayer
 	{
 		tileMap.UITOGGLE = toggle;
 		worldInfo.Visible = !toggle;
+		GameEvents.camera.toggleZoom = !toggle;
 		
 		if (toggle)
 		{

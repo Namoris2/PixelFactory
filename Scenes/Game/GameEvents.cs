@@ -150,7 +150,6 @@ public partial class GameEvents : Node
 
     private void ToggleBuildingInventory(bool toggle)
     {
-        camera.toggleZoom = !toggle;
         if (leftovers != null) // Open leftovers Inventory
         {
             inventories.ToggleBuildingInventory(toggle, "", leftovers);
