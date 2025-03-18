@@ -214,6 +214,10 @@
                 "type" : "building"
             },
             {
+                "name" : "mediumStorage",
+                "type" : "building"
+            },
+            {
                 "name" : "SteelIngot",
                 "type" : "recipe"
             },

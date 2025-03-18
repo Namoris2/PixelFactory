@@ -2063,6 +2063,7 @@ texture = ExtResource("4_r6w7n")
 6:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:5/0 = 0
 7:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:3/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kytue"]
 resource_name = "HoverCursor"
@@ -2109,6 +2110,7 @@ texture = ExtResource("4_r6w7n")
 5:5/0 = 0
 6:5/0 = 0
 7:5/0 = 0
+4:3/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_8bfwi"]
 physics_layer_0/collision_layer = 1

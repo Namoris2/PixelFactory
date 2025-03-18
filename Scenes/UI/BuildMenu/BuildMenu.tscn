@@ -241,6 +241,11 @@ layout_mode = 2
 DisplayName = "smallStorage"
 Type = "building"
 
+[node name="mediumStorage" parent="TabContainer/Organization/VBoxContainer/StorageContainers/Items" index="1" groups=["BasicSteelProduction"] instance=ExtResource("1_oydjw")]
+layout_mode = 2
+DisplayName = "mediumStorage"
+Type = "building"
+
 [node name="BuildingInfo" type="Panel" parent="." groups=["BuildingInfo"]]
 layout_mode = 1
 anchors_preset = 6

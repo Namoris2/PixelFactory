@@ -16,6 +16,8 @@ res://Scenes/UI/Pause Menu/PauseMenu.tscn
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/Game/World/Item/Item.tscn
 res://Scenes/UI/BuildMenu/BuildMenu.tscn
+res://Scenes/UI/Kebinds/ActionInfoPopup.tscn
+res://Scenes/UI/Kebinds/ActionKey.tscn
 res://Scenes/UI/Save and Load/DeleteSave.cs
 res://Scenes/Game/World/BuildingParts/BuildingPart.cs
 res://Scenes/UI/Inventory/InventorySlot.cs
