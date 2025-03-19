@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection.Metadata;
 
@@ -51,7 +52,7 @@ public partial class Item : Node2D
 	public bool PickUpItem()
     {
 		PlayerInventory playerInventory = GetNode<PlayerInventory>("/root/main/UI/Inventories/InventoryGrid/PlayerInventory");
-		InventorySlot[] inventorySlots = playerInventory.inventorySlots;
+		List<InventorySlot> inventorySlots = playerInventory.inventorySlots;
 
 		bool canPutToInventory = false;
 		if (playerInventory.PutToInventory(itemType, 1) == 0) { canPutToInventory = true; }

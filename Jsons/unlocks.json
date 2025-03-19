@@ -47,6 +47,10 @@
             {
                 "name" : "Cable",
                 "type" : "recipe"
+            },
+            {
+                "type" : "inventorySlots",
+                "amount" : 7
             }
         ],
         "researchUnlocks" : [
@@ -84,6 +88,10 @@
             {
                 "name" : "ReinforcedIronPlate",
                 "type" : "recipe"
+            },
+            {
+                "type" : "inventorySlots",
+                "amount" : 6
             }
         ],
         "researchUnlocks" : [
@@ -151,6 +159,10 @@
             {
                 "name" : "ModularFrame",
                 "type" : "recipe"
+            },
+            {
+                "type" : "inventorySlots",
+                "amount" : 8
             }
         ],
         "researchUnlocks" : [
@@ -228,6 +240,10 @@
             {
                 "name" : "SteelPipe",
                 "type" : "recipe"
+            },
+            {
+                "type" : "inventorySlots",
+                "amount" : 6
             }
         ],
         "researchUnlocks" : []
@@ -267,6 +283,10 @@
             {
                 "name" : "Motor",
                 "type" : "recipe"
+            },
+            {
+                "type" : "inventorySlots",
+                "amount" : 5
             }
         ],
         "researchUnlocks" : []

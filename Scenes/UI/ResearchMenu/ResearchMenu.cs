@@ -123,10 +123,14 @@ public partial class ResearchMenu : Control
 		string name = "";
 		if (unlockType == "")
 		{ 
-			unlockName = researchInfo.name.ToString();
 			unlockType = researchInfo.type.ToString(); 
-			jsonName = $"{unlockType}s.json";
-			name = LoadFile.LoadJson(unlockType + "s.json")[unlockName].name.ToString();
+
+			if (unlockType != "inventorySlots")
+			{
+				unlockName = researchInfo.name.ToString();
+				jsonName = $"{unlockType}s.json";
+				name = LoadFile.LoadJson(unlockType + "s.json")[unlockName].name.ToString();
+			}
 		}
 
 		if (unlockType == "recipe")
@@ -142,6 +146,11 @@ public partial class ResearchMenu : Control
 		{
 			unlockIcon.Texture = GD.Load<Texture2D>("res://Gimp/Icons/ResearchIcons/NewResearch.png");
 			unlockLabel.Text = $"New research: {researchSelects.GetNode<ResearchSelect>(researchInfo.ToString()).Text}";
+		}
+		else if (unlockType == "inventorySlots")
+		{
+			unlockIcon.Texture = GD.Load<Texture2D>("res://Gimp/Icons/ResearchIcons/InventorySlot.png");
+			unlockLabel.Text = $"+ {researchInfo.amount} Inventory Slots";
 		}
 		else
 		{
@@ -198,7 +207,6 @@ public partial class ResearchMenu : Control
 
 	private void ResearchItems()
 	{
-		Research.research.Add(selectedResearch);
 		researchedLabel.Show();
 		researchButton.Hide();
 
@@ -220,9 +228,18 @@ public partial class ResearchMenu : Control
 
 	public void ShowUnlockedResearch(string researchName)
 	{
-		foreach (dynamic unlock in unlocks[researchName].researchUnlocks)
+		foreach (dynamic researchUnlock in unlocks[researchName].researchUnlocks)
 		{
-			researchSelects.GetNode<Button>(unlock.ToString()).Show();
+			researchSelects.GetNode<Button>(researchUnlock.ToString()).Show();
+		}
+
+		foreach (dynamic unlock in unlocks[researchName].unlocks)
+		{
+			if (unlock.type.ToString() == "inventorySlots")
+			{
+				playerInventory.inventorySize += (int)unlock.amount;
+				playerInventory.AddInventorySlots((int)unlock.amount);
+			}
 		}
 	}
 }
