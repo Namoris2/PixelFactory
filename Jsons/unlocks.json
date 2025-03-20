@@ -50,7 +50,7 @@
             },
             {
                 "type" : "inventorySlots",
-                "amount" : 7
+                "amount" : 5
             }
         ],
         "researchUnlocks" : [
@@ -162,7 +162,7 @@
             },
             {
                 "type" : "inventorySlots",
-                "amount" : 8
+                "amount" : 6
             }
         ],
         "researchUnlocks" : [
@@ -197,6 +197,10 @@
             {
                 "name" : "beltArm2Long",
                 "type" : "building"
+            },
+            {
+                "type" : "inventorySlots",
+                "amount" : 3
             }
         ],
         "researchUnlocks" : []
@@ -243,7 +247,7 @@
             },
             {
                 "type" : "inventorySlots",
-                "amount" : 6
+                "amount" : 7
             }
         ],
         "researchUnlocks" : []
@@ -286,7 +290,7 @@
             },
             {
                 "type" : "inventorySlots",
-                "amount" : 5
+                "amount" : 7
             }
         ],
         "researchUnlocks" : []

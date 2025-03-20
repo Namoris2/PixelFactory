@@ -233,7 +233,14 @@ public partial class PlayerInventory : Control
 	{
 		dynamic loadedData = data[Name];
 
-		for (int i = 0; i < inventorySize; i++)
+		int size = inventorySize;
+		if (size > loadedData.Count)
+		{
+			size = loadedData.Count;
+		}
+
+
+		for (int i = 0; i < size; i++)
 		{
 			string itemType = loadedData[i].resource.ToString();
 			int amount = (int)loadedData[i].amount;
