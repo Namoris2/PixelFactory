@@ -7,7 +7,7 @@ public partial class ShowDialog : Button
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		deleteDialog = (DeleteSaveDialog)GetTree().GetNodesInGroup("DeleteSaveDialog")[0];
+		deleteDialog = (DeleteSaveDialog)GetTree().GetFirstNodeInGroup("DeleteSaveDialog");
 		Pressed += ShowDeleteDialog;
 	}
 
