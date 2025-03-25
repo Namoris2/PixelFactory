@@ -6,11 +6,9 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m0832"]
 texture = ExtResource("1_m0832")
-texture_margin_left = 4.0
-texture_margin_top = 4.0
 texture_margin_right = 4.0
 texture_margin_bottom = 4.0
-region_rect = Rect2(24, 161, 24, 24)
+region_rect = Rect2(4, 165, 20, 20)
 modulate_color = Color(0.707967, 0.707967, 0.707967, 1)
 
 [node name="Save" type="Panel" groups=["LoadedSave"]]

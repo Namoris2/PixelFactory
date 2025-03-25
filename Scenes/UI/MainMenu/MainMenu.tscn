@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cca243qeuh2c5"]
+[gd_scene load_steps=20 format=3 uid="uid://cca243qeuh2c5"]
 
 [ext_resource type="Theme" uid="uid://037hqw0mionk" path="res://Themes/UI.tres" id="1_8qc0c"]
 [ext_resource type="Script" uid="uid://l2mvkncrhtyi" path="res://Scenes/UI/MainMenu/MainMenu.cs" id="1_k8ci2"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://grr6phntv130" path="res://Scenes/UI/MainMenu/DeleteSaveDialog/DeleteSaveDialog.cs" id="6_hu7yu"]
 [ext_resource type="Script" uid="uid://fcltbndksidk" path="res://Scenes/UI/Save and Load/DeleteSave.cs" id="7_8do3p"]
 [ext_resource type="PackedScene" uid="uid://dddibunucrhbo" path="res://Scenes/UI/Settings/SettingsContainer.tscn" id="9_6s08s"]
+[ext_resource type="Texture2D" uid="uid://bv6dqvhrg1fxs" path="res://Gimp/UI/UI_large.png" id="9_vwuc7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5bhl0"]
 texture = ExtResource("2_6d34b")
@@ -1033,6 +1034,17 @@ TabContainer/styles/panel = SubResource("StyleBoxEmpty_ngjkm")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_geava"]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nw82n"]
+texture = ExtResource("9_vwuc7")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(0, 185, 24, 24)
+
+[sub_resource type="Theme" id="Theme_smnk6"]
+Panel/styles/panel = SubResource("StyleBoxTexture_nw82n")
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -1342,14 +1354,16 @@ offset_right = 511.999
 offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_smnk6")
 
 [node name="Label" type="Label" parent="UI/TabContainer/LoadGame/DeleteSaveDialog/Panel"]
 layout_mode = 0
 offset_top = 31.0
 offset_right = 1024.0
 offset_bottom = 87.0
+theme_override_constants/line_spacing = 0
 theme_override_font_sizes/font_size = 30
-text = "Are you sure you want do delete save?"
+text = "are you sure?"
 horizontal_alignment = 1
 
 [node name="Delete" type="Button" parent="UI/TabContainer/LoadGame/DeleteSaveDialog/Panel"]

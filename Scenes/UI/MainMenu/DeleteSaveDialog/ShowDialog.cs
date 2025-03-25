@@ -22,6 +22,7 @@ public partial class ShowDialog : Button
 
 		deleteDialog.saveName = saveName;
 		deleteDialog.savePath = savePath;
+		deleteDialog.label.Text = $"Are you sure you want to delete this save?\nSave name:'{saveName}'";
 		deleteDialog.index = GetParent().GetIndex();
 		deleteDialog.Show();
 	}
