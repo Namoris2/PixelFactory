@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cdaxrl6yxt1vh"]
 
-[ext_resource type="Script" path="res://Scenes/Game/World/BuildingParts/BuildingPart.cs" id="1_yhdqa"]
+[ext_resource type="Script" uid="uid://baf56efbnxlj4" path="res://Scenes/Game/World/BuildingParts/BuildingPart.cs" id="1_yhdqa"]
 [ext_resource type="Texture2D" uid="uid://clal1kffd4ec" path="res://Gimp/Buildings/ConveyorArms/conveyorArm1Beam.png" id="2_t2lvm"]
 
 [node name="BeltArm1" type="Node2D" groups=["BuildingPart"]]

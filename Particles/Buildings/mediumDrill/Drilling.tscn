@@ -1,0 +1,159 @@
+[gd_scene load_steps=8 format=3 uid="uid://80mwbil01nru"]
+
+[ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="1_aybk0"]
+
+[sub_resource type="Curve" id="Curve_aybk0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_iv28s"]
+curve = SubResource("Curve_aybk0")
+
+[sub_resource type="Gradient" id="Gradient_2l5d1"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_chlqe"]
+gradient = SubResource("Gradient_2l5d1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_aybk0"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(3, 3, 3)
+emission_shape = 3
+emission_box_extents = Vector3(3, 3, 3)
+radial_velocity_min = 20.0
+radial_velocity_max = 20.0
+gravity = Vector3(0, 98, 0)
+scale_min = 4.0
+scale_max = 4.0
+color_initial_ramp = SubResource("GradientTexture1D_chlqe")
+alpha_curve = SubResource("CurveTexture_iv28s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8ldow"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(3, 3, 3)
+emission_shape = 3
+emission_box_extents = Vector3(3, 3, 3)
+radial_velocity_min = 20.0
+radial_velocity_max = 20.0
+gravity = Vector3(0, 98, 0)
+scale_min = 4.0
+scale_max = 4.0
+color_initial_ramp = SubResource("GradientTexture1D_chlqe")
+alpha_curve = SubResource("CurveTexture_iv28s")
+
+[node name="MediumDrill" type="Node2D"]
+
+[node name="Buildings" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(416, 128)
+scale = Vector2(4, 4)
+texture = ExtResource("1_aybk0")
+
+[node name="ParticleTopLeft0" type="GPUParticles2D" parent="."]
+z_index = 2
+position = Vector2(38, 28)
+scale = Vector2(0.32, 0.32)
+amount = 5
+amount_ratio = 0.8
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_aybk0")
+
+[node name="ParticleTopLeft1" type="GPUParticles2D" parent="."]
+z_index = 2
+position = Vector2(24, 60)
+scale = Vector2(0.32, 0.32)
+amount = 5
+amount_ratio = 0.8
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_8ldow")
+
+[node name="ParticleTopLeft2" type="GPUParticles2D" parent="."]
+z_index = 2
+position = Vector2(52, 60)
+scale = Vector2(0.32, 0.32)
+amount = 5
+amount_ratio = 0.8
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_8ldow")
+
+[node name="ParticleBottomLeft0" type="GPUParticles2D" parent="."]
+z_index = 2
+position = Vector2(38, 72)
+scale = Vector2(0.32, 0.32)
+amount = 5
+amount_ratio = 0.8
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_aybk0")
+
+[node name="ParticleBottomLeft1" type="GPUParticles2D" parent="."]
+z_index = 2
+position = Vector2(24, 104)
+scale = Vector2(0.32, 0.32)
+amount = 5
+amount_ratio = 0.8
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_8ldow")
+
+[node name="ParticleBottomLeft2" type="GPUParticles2D" parent="."]
+z_index = 2
+position = Vector2(52, 104)
+scale = Vector2(0.32, 0.32)
+amount = 5
+amount_ratio = 0.8
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_8ldow")
+
+[node name="ParticleTopRight0" type="GPUParticles2D" parent="."]
+z_index = 2
+position = Vector2(76, 24)
+scale = Vector2(0.32, 0.32)
+amount = 5
+amount_ratio = 0.8
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_8ldow")
+
+[node name="ParticleTopRight1" type="GPUParticles2D" parent="."]
+z_index = 2
+position = Vector2(104, 24)
+scale = Vector2(0.32, 0.32)
+amount = 5
+amount_ratio = 0.8
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_8ldow")
+
+[node name="ParticleTopRight2" type="GPUParticles2D" parent="."]
+z_index = 2
+position = Vector2(90, 56)
+scale = Vector2(0.32, 0.32)
+amount = 5
+amount_ratio = 0.8
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_8ldow")
+
+[node name="ParticleBottomRight0" type="GPUParticles2D" parent="."]
+z_index = 2
+position = Vector2(76, 72)
+scale = Vector2(0.32, 0.32)
+amount = 5
+amount_ratio = 0.8
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_8ldow")
+
+[node name="ParticleBottomRight1" type="GPUParticles2D" parent="."]
+z_index = 2
+position = Vector2(104, 72)
+scale = Vector2(0.32, 0.32)
+amount = 5
+amount_ratio = 0.8
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_8ldow")
+
+[node name="ParticleBottomRight2" type="GPUParticles2D" parent="."]
+z_index = 2
+position = Vector2(90, 104)
+scale = Vector2(0.32, 0.32)
+amount = 5
+amount_ratio = 0.8
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_8ldow")

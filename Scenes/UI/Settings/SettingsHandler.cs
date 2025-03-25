@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 public partial class SettingsHandler : Node
-{	public static readonly string[] keyBinds = new string[] { "MoveUp", "MoveDown", "MoveLeft", "MoveRight", "Sprint", "Interact", "Rotate", "ToggleBuildMode", "ToggleDismantleMode", "ToggleInventory"};
+{	public static readonly string[] keyBinds = new string[] { "MoveUp", "MoveDown", "MoveLeft", "MoveRight", "Sprint", "Interact", "Rotate", "ToggleBuildMode", "ToggleDismantleMode", "ToggleInventory", "ToggleResearchMenu"};
 	public static readonly Dictionary<string, string> actions = new()
 	{
 		{ "MoveUp", "Move Up" },
@@ -16,6 +16,7 @@ public partial class SettingsHandler : Node
 		{ "ToggleBuildMode", "Open Build Menu" },
 		{ "ToggleDismantleMode", "Dismantle Mode" },
 		{ "ToggleInventory", "Open Inventory" },
+        { "ToggleResearchMenu", "Open Research Menu" },
 
         { "Back", "Back" },
         { "Use", "Use" },

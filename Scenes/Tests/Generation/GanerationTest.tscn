@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://csl3lmdw8rcba"]
 
-[ext_resource type="Script" path="res://Scenes/Game/World/GenerateWorld.cs" id="1_hwb1s"]
+[ext_resource type="Script" uid="uid://djbem0p5olslq" path="res://Scenes/Game/World/GenerateWorld.cs" id="1_hwb1s"]
 [ext_resource type="Texture2D" uid="uid://cakt6ts1d5n8k" path="res://Gimp/Ground Materials/ground.png" id="2_u4ujr"]
-[ext_resource type="Script" path="res://Scenes/Tests/Generation/GenerationTest.cs" id="3_hy45l"]
-[ext_resource type="Script" path="res://Scenes/Game/LoadFile.cs" id="4_bwhhn"]
+[ext_resource type="Script" uid="uid://cf3anahag7q4s" path="res://Scenes/Tests/Generation/GenerationTest.cs" id="3_hy45l"]
+[ext_resource type="Script" uid="uid://cvo544qi8e1m3" path="res://Scenes/Game/LoadFile.cs" id="4_bwhhn"]
 [ext_resource type="PackedScene" uid="uid://i4r6u351cl60" path="res://Scenes/Player/player.tscn" id="5_jboeo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_trou5"]

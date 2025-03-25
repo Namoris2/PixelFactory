@@ -123,15 +123,14 @@ public partial class InventorySlot : Button
 						itemType = "";
 						resourceAmount.Text = "";
 						UpdateSlotTexture(itemType);
-						buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
 					}
 					else
 					{
 						int puttingAmount = maxStackSize - buildingAmount;
 						PutItems(-puttingAmount, maxStackSize);
 						tileMap.PutItemsToSlot(buildingInventory.coordinates, puttingAmount, itemType, "input", index);
-						buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
 					}
+					buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
 				}
 				else if (building.buildingType.ToString() == "storage")
 				{
@@ -141,12 +140,12 @@ public partial class InventorySlot : Button
 						itemType = "";
 						resourceAmount.Text = "";
 						UpdateSlotTexture(itemType);
-						buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
 					}
 					else
 					{
 						resourceAmount.Text = overflow.ToString();
 					}
+					buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
 				}
 			}
 

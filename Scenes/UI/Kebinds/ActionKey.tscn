@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ctjahtuleggl2"]
 
 [ext_resource type="SpriteFrames" uid="uid://bw55y6hguecdc" path="res://Scenes/UI/Kebinds/spritetest.tres" id="1_ckxqg"]
-[ext_resource type="Script" path="res://Scenes/UI/Kebinds/ActionKey.cs" id="2_ad236"]
+[ext_resource type="Script" uid="uid://ct8so44i2d6bh" path="res://Scenes/UI/Kebinds/ActionKey.cs" id="2_ad236"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jr58u"]
 

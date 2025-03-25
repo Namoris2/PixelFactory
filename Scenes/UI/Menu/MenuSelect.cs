@@ -65,7 +65,7 @@ public partial class MenuSelect : Button
 
 	private void Build()
 	{
-		BuildMenu buildMenu = GetNode<BuildMenu>("/root/main/UI/BuildMenu");
+		BuildMenu buildMenu = GetNode<BuildMenu>("/root/main/UI/Menus/BuildMenu");
 		buildMenu.ToggleBuildMode();
 
 		World tileMap = GetNode<World>("/root/main/World/TileMap");
@@ -79,6 +79,7 @@ public partial class MenuSelect : Button
 		GameEvents.toggleInventoryPopup.Show();
 		GameEvents.toggleDismantleModePopup.Show();
 		GameEvents.toggleDismantleModePopup.SetCustomActionText();
+		GameEvents.toggleResearchMenuPopup.Show();
 	}
 
 	private void ShowBuildingInfo()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ckx6mwpnnrcqw"]
 
-[ext_resource type="Script" path="res://Scenes/UI/HUD/CollectedItems/CollectedItem.cs" id="1_mboq1"]
+[ext_resource type="Script" uid="uid://dlnpduad8khc2" path="res://Scenes/UI/HUD/CollectedItems/CollectedItem.cs" id="1_mboq1"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wtuab"]
 

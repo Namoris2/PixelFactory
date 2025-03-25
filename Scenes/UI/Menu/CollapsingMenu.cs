@@ -26,7 +26,9 @@ public partial class CollapsingMenu : VBoxContainer
 
 		foreach (Control item in items.GetChildren())
 		{
+			item.Hide();
 		}
+		Hide();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -46,6 +48,18 @@ public partial class CollapsingMenu : VBoxContainer
 		else
 		{
 			icon.Texture = icons[0];
+		}
+	}
+
+	public void UnlockItem(string researchName)
+	{
+		foreach (Control item in items.GetChildren())
+		{
+			if (item.IsInGroup(researchName))
+			{
+				item.Show();
+				Show();
+			}
 		}
 	}
 }

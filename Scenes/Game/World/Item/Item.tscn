@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bxmvcd6tq4wnp"]
 
-[ext_resource type="Script" path="res://Scenes/Game/World/Item/Item.cs" id="1_5j7e7"]
+[ext_resource type="Script" uid="uid://0q6yq5ulnu41" path="res://Scenes/Game/World/Item/Item.cs" id="1_5j7e7"]
 [ext_resource type="Texture2D" uid="uid://bxi2smg4lvdt8" path="res://Gimp/placeholder.png" id="2_vqmxh"]
 [ext_resource type="Texture2D" uid="uid://bi1u0qg7q6lyd" path="res://Gimp/Items/ItemHolder.png" id="3_ixips"]
 

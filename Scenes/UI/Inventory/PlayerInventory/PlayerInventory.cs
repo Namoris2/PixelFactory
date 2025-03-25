@@ -13,19 +13,16 @@ public partial class PlayerInventory : Control
     FlowContainer flowContainer;
 	private InventorySlot inventorySlot;
 	private string inventorySlotPath = "res://Scenes/UI/Inventory/InventorySlot.tscn";
-	public InventorySlot[] inventorySlots;
+	public List<InventorySlot> inventorySlots = new();
 	dynamic items;
 	
-	[Export]
-	private int inventorySize = 0; 
+	[Export] public int inventorySize = 0; 
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		inventorySlots = new InventorySlot[inventorySize];
-
-		flowContainer = GetNode<FlowContainer>("FlowContainer");
-		CreateInventorySlots();
+		flowContainer = GetNode<FlowContainer>("PanelContainer/FlowContainer");
+		AddInventorySlots(inventorySize);
 		items = LoadFile.LoadJson("items.json");
 
 		LoadingScreen loadingScreen = GetNodeOrNull<LoadingScreen>("/root/LoadingScreen");
@@ -46,16 +43,16 @@ public partial class PlayerInventory : Control
 		}*/
 	}
 
-	private void CreateInventorySlots()
+	public void AddInventorySlots(int slotsAmount)
 	{
-		for (int i = 0; i < inventorySize; i++)
+		for (int i = 0; i < slotsAmount; i++)
 		{
 			inventorySlot = (InventorySlot)GD.Load<PackedScene>(inventorySlotPath).Instantiate();
 			inventorySlot.Name = $"Slot{i}";
 			inventorySlot.inventoryType = "inventory";
 			flowContainer.AddChild(inventorySlot);
 
-			inventorySlots[i] = inventorySlot;
+			inventorySlots.Add(inventorySlot);
 		}
 	}
 
@@ -64,7 +61,7 @@ public partial class PlayerInventory : Control
 		if (itemType == "" || amount == 0) { return 0; }
 		int maxStackSize = (int)items[itemType].maxStackSize;
 
-		for (int i = 0; i < inventorySlots.Length; i++)
+		for (int i = 0; i < inventorySlots.Count; i++)
 		{
 			Label amountLabel = inventorySlots[i].resourceAmount;
 
@@ -84,7 +81,7 @@ public partial class PlayerInventory : Control
 			}
 		}
 		
-		for (int i = 0; i < inventorySlots.Length; i++)
+		for (int i = 0; i < inventorySlots.Count; i++)
 		{
 			Label amountLabel = inventorySlots[i].resourceAmount;
 
@@ -114,7 +111,7 @@ public partial class PlayerInventory : Control
 	{
 		if (itemType == "" || amount == 0) { return true; }
 
-		for (int i = 0; i < inventorySlots.Length; i++)
+		for (int i = 0; i < inventorySlots.Count; i++)
 		{
 			if (itemType == inventorySlots[i].itemType)
 			{
@@ -138,7 +135,7 @@ public partial class PlayerInventory : Control
 	{
 		if (itemType == "" || amount == 0) { return; }
 
-		for (int i = inventorySlots.Length - 1; i >= 0; i--)
+		for (int i = inventorySlots.Count - 1; i >= 0; i--)
 		{
 			Label amountLabel = inventorySlots[i].GetNode<Label>("ResourceAmount");
 			
@@ -165,7 +162,7 @@ public partial class PlayerInventory : Control
 	public int GetItemAmount(string itemType)
 	{
 		int amount = 0;
-		for (int i = 0; i < inventorySlots.Length; i++)
+		for (int i = 0; i < inventorySlots.Count; i++)
 		{
 			Label amountLabel = inventorySlots[i].GetNode<Label>("ResourceAmount");
 			
@@ -180,7 +177,7 @@ public partial class PlayerInventory : Control
 	public bool HasSpace(string itemType, int amount)
 	{
 		if (itemType == "" || amount == 0) { return true; }
-		for (int i = 0; i < inventorySlots.Length; i++)
+		for (int i = 0; i < inventorySlots.Count; i++)
 		{
 			if (inventorySlots[i].itemType == "")
 			{
@@ -235,8 +232,15 @@ public partial class PlayerInventory : Control
 	public void Load(dynamic data)
 	{
 		dynamic loadedData = data[Name];
-		//GD.Print(loadedData);
-		for (int i = 0; i < loadedData.Count; i++)
+
+		int size = inventorySize;
+		if (size > loadedData.Count)
+		{
+			size = loadedData.Count;
+		}
+
+
+		for (int i = 0; i < size; i++)
 		{
 			string itemType = loadedData[i].resource.ToString();
 			int amount = (int)loadedData[i].amount;

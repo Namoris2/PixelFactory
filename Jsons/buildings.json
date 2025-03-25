@@ -51,7 +51,24 @@
         "type" : "mediumDrill",
         "name" : "Medium Drill",
         "description" : "Allows to automatically extract ground resources\n\nExtracts 45 resources per minute per game tile\n\nSize: 2x2",
-        "cost" : [],
+        "cost" : [
+            { 
+                "resource" : "Motor",
+                "amount" : 4
+            },
+            {
+                "resource" : "EncasedSteelBeam",
+                "amount" : 10
+            },
+            {
+                "resource" : "SteelPipe",
+                "amount" : 20
+            },
+            {
+                "resource" : "ModularFrame",
+                "amount" : 10
+            }
+        ],
         "coords" : [0, 0],
         "atlasCoords" : [4, 4],
         "width" : 2,
@@ -283,7 +300,8 @@
         "speed" : 60,
         "moveProgress" : 0,
         "canBePlacedOn" : ["Grass", "Concrete"],
-        "item" : ""
+        "item" : "",
+        "receivingFromArm" : false
     },
     "beltArm1" : {
         "buildingType" : "beltArm",
@@ -376,7 +394,7 @@
         "buildingType" : "storage",
         "type" : "smallStorage",
         "name" : "Small Storage",
-        "description" : "Can store items\n\nHas 15 item slots\n\nSize: 1x1",
+        "description" : "Can store items\n\nHas 24 item slots\n\nSize: 1x1",
         "cost" : [
             {
                 "resource" : "IronPlate",
@@ -398,7 +416,36 @@
         "hasAdditionalAtlasPosition" : false,
         "additionalAtlasPosition" : [],
         "canBePlacedOn" : ["Grass", "Concrete"],
-        "slotsAmount" : 15,
+        "slotsAmount" : 24,
+        "slots" : []
+    },
+    "mediumStorage" : {
+        "buildingType" : "storage",
+        "type" : "mediumStorage",
+        "name" : "Medium Storage",
+        "description" : "Can store items\n\nHas 48 item slots\n\nSize: 1x1",
+        "cost" : [
+            {
+                "resource" : "SteelBeam",
+                "amount" : 10
+            },
+            {
+                "resource" : "SteelPipe",
+                "amount" : 10
+            }
+        ],
+        "coords" : [0, 0],
+        "atlasCoords" : [4, 3],
+        "width" : 1,
+        "height" : 1,
+        "canRotate" : false,
+        "rotationAmount" : 1,
+        "rotation" : 0,
+        "beltArmInteraction" : true,
+        "hasAdditionalAtlasPosition" : false,
+        "additionalAtlasPosition" : [],
+        "canBePlacedOn" : ["Grass", "Concrete"],
+        "slotsAmount" : 48,
         "slots" : []
     },
     "test" : {

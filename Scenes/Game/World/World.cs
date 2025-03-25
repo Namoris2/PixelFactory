@@ -20,6 +20,7 @@ using System.Collections;
 using System.Threading;
 using System.Globalization;
 using System.Diagnostics.Tracing;
+using System.Net.NetworkInformation;
 
 public partial class World : Godot.TileMap
 {
@@ -49,8 +50,8 @@ public partial class World : Godot.TileMap
 	public Vector2I cellPositionByMouse;
 
 	// setting default grid cursor parameters
-	int tileMapId = 100;
-	int tileMapLayer = 3;
+	int tileMapId = (int)AtlasIDs.Cursor;
+	int tileMapLayer = (int)Layer.Cursor;
 	Vector2I atlasPosition = new (0, 0);
 	string[] buildingsCoords = new string[] {};
 	public List<dynamic> buildingsInfo = new();
@@ -71,6 +72,21 @@ public partial class World : Godot.TileMap
 	Label worldInfoLabel;
 
 	List<Thread> runningThreads = new();
+
+    public enum AtlasIDs
+	{
+		Buildings = 1,
+		BuildMode,
+		Cursor = 100
+	}
+
+	public enum Layer 
+	{
+		Ground,
+		Buildings,
+		BuildMode,
+		Cursor
+	}
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -127,7 +143,7 @@ public partial class World : Godot.TileMap
 		pauseMenu.CanPause = !UITOGGLE && !BUILDINGMODE;
 
 		// getting mouse position with TileMap coordinates
-		cellPositionByMouse = GetMousePosition();
+		cellPositionByMouse = GetCellPosition(GetGlobalMousePosition());
 
 		// getting tileMap data by mouse coordinates that hovers over TileMap cell
 		TileData groundData = GetCellTileData(0, cellPositionByMouse);
@@ -535,6 +551,15 @@ public partial class World : Godot.TileMap
 					continue;
 				}
 
+				if (building.buildingType.ToString() == "storage" && (int)buildingData.slotsAmount > (int)building.slots.Count)
+				{
+					int slotsAmount = (int)building.slots.Count;
+					for (int i = 0; i < (int)buildingData.slotsAmount - slotsAmount; i++)
+					{
+						building.slots.Add(JsonConvert.DeserializeObject<dynamic>("{resource:\"\",amount:0}"));
+					}
+				}
+
 				CreateBuilding(building, buildingData, position);
 				buildingsInfo.Add(building);
 			}
@@ -589,24 +614,22 @@ public partial class World : Godot.TileMap
 		generateWorld.GenerateResource(this, seed, "Limestone", playerPosition);
 		generateWorld.GenerateResource(this, seed, "Coal", playerPosition);
 	}
-
-	public Vector2I GetMousePosition()
+	
+	public Vector2I GetCellPosition(Vector2 globalPosition)
 	{
-		var mousePosition = GetGlobalMousePosition();
-		//Vector2I cellPositionByMouse = new ((int)Math.Floor(mousePosition[0] / (4 * 16)), (int)Math.Floor(mousePosition[1]  / (4 * 16)));
-		Vector2I cellPositionByMouse = new ((int)mousePosition[0] / (4 * 16), (int)mousePosition[1]  / (4 * 16));
+		Vector2I cellPosition = new ((int)Math.Floor(globalPosition[0] / (4 * 16)), (int)Math.Floor(globalPosition[1]  / (4 * 16)));
+		/*Vector2I cellPosition = new ((int)globalPosition[0] / (4 * 16), (int)globalPosition[1]  / (4 * 16));
 
-		if (mousePosition[0] < 0)
+		if (globalPosition[0] < 0)
 		{
-			cellPositionByMouse = new Vector2I((int)(cellPositionByMouse[0] - 1), (int)(cellPositionByMouse[1]));
+			cellPosition = new Vector2I((int)(cellPosition[0] - 1), (int)(cellPosition[1]));
 		}
 
-		if (mousePosition[1] < 0)
+		if (globalPosition[1] < 0)
 		{
-			cellPositionByMouse = new Vector2I((int)(cellPositionByMouse[0]), (int)(cellPositionByMouse[1] - 1));
-		}
-
-		return cellPositionByMouse;
+			cellPosition = new Vector2I((int)(cellPosition[0]), (int)(cellPosition[1] - 1));
+		}*/
+		return cellPosition;
 	}
 
 	private void CursorTexture()
@@ -692,15 +715,15 @@ public partial class World : Godot.TileMap
 		DISMANTLEMODE = false;
 		
 		ClearLayer(tileMapLayer);
-		tileMapLayer = 2;
-		tileMapId = 1;
+		tileMapLayer = (int)Layer.BuildMode;
+		tileMapId = (int)AtlasIDs.BuildMode;
 		atlasPosition = new (0, 0);
 		
 		if (!BUILDINGMODE)
 		{
 			// draws square crosshair to TileMap
-			tileMapLayer = 3;
-			tileMapId = 100;
+			tileMapLayer = (int)Layer.Cursor;
+			tileMapId = (int)AtlasIDs.Cursor;
 			atlasPosition = new (0, 0);
 			buildingRotation = 0;
 			
@@ -724,8 +747,8 @@ public partial class World : Godot.TileMap
 		BUILDINGMODE = false;
 
 		ClearLayer(tileMapLayer);
-		tileMapLayer = 3;
-		tileMapId = 100;
+		tileMapLayer = (int)Layer.Cursor;
+		tileMapId = (int)AtlasIDs.Cursor;
 		atlasPosition = new (0, 0);	
 
 		if (DISMANTLEMODE)
@@ -739,6 +762,7 @@ public partial class World : Godot.TileMap
 				constructingPart.QueueFree();
 			}
 			GameEvents.closePopup.Show();
+			GameEvents.rotatePopup.Hide();
 			GameEvents.toggleDismantleModePopup.SetCustomActionText(1);
 		}
 		else
@@ -761,7 +785,7 @@ public partial class World : Godot.TileMap
 			
 			if  (building.type.ToString().Contains("Drill"))
 			{
-				building.outputSlots[0].resource = groundResourceName;
+				building.outputSlots[0].resource = groundInfo["resource"];
 				building.recipe = groundInfo["resource"];
 				building.tiles = groundInfo["tiles"];
 			}
@@ -860,7 +884,12 @@ public partial class World : Godot.TileMap
 		TileData data = GetCellTileData(1, cellPositionByMouse);
 		string groundResource = (string)GetCellTileData(0, cellPositionByMouse).GetCustomData("resourceName");
 
-		bool hasSpace = data == null; 
+		bool hasSpace = data == null;
+		bool isPlayerOnTile = false;
+		if (!building.type.ToString().Contains("belt"))
+		{
+			isPlayerOnTile = GetPlayerCollision(cellPositionByMouse);
+		}
 		resources.Add(groundResource);
 		
 		for (int i = 0; i < building.additionalAtlasPosition.Count; i++)
@@ -870,6 +899,10 @@ public partial class World : Godot.TileMap
 			groundResource = (string)GetCellTileData(0, cellPositionByMouse + additionalCoords).GetCustomData("resourceName");
 
 			hasSpace &= data == null; 
+			if (!building.type.ToString().Contains("belt"))
+			{
+				isPlayerOnTile |= GetPlayerCollision(cellPositionByMouse + additionalCoords);
+			}
 			resources.Add(groundResource);
 		}
 
@@ -884,7 +917,7 @@ public partial class World : Godot.TileMap
 		{
 
 			resources.RemoveAll(resource => resource == "Grass");
-			info["canBuild"] = hasSpace && resources.Count > 0 && GroundResourceValidate(building.canBePlacedOn, resources);
+			info["canBuild"] = hasSpace && !isPlayerOnTile && resources.Count > 0 && GroundResourceValidate(building.canBePlacedOn, resources);
 			
 			if (!info["canBuild"]) { return info; }
 
@@ -907,10 +940,20 @@ public partial class World : Godot.TileMap
 		}
 		else
 		{
-			info["canBuild"] = hasSpace && resources.Count == building.additionalAtlasPosition.Count + 1 && GroundResourceValidate(building.canBePlacedOn, resources);
+			info["canBuild"] = hasSpace && !isPlayerOnTile && resources.Count == building.additionalAtlasPosition.Count + 1 && GroundResourceValidate(building.canBePlacedOn, resources);
 		}
+
 		
 		return info;
+	}
+
+	private bool GetPlayerCollision(Vector2I cellPosition)
+	{
+		CollisionShape2D playerArea = GetNode<CollisionShape2D>("../Player/BuildingCollision");
+		return GetCellPosition(playerArea.GlobalPosition) == cellPosition || 																// top-left
+			   GetCellPosition(playerArea.GlobalPosition + new Vector2(((RectangleShape2D)playerArea.Shape).Size.X / 2, 0)) == cellPosition ||	// top-right
+			   GetCellPosition(playerArea.GlobalPosition + new Vector2(0, ((RectangleShape2D)playerArea.Shape).Size.Y / 2)) == cellPosition || 	// bottom-left
+			   GetCellPosition(playerArea.GlobalPosition + ((RectangleShape2D)playerArea.Shape).Size / 2) == cellPosition;						// bottom-right
 	}
 	
 	private dynamic TrimBuildingData(dynamic building)
@@ -964,7 +1007,7 @@ public partial class World : Godot.TileMap
 		string buildingsJson = JsonConvert.SerializeObject(buildings);
 		
 		if ((int)buildingData.rotationAmount == 1) { buildingRotation = 0; }
-		SetCell(1, cellPosition, 1, new((int)buildingData.atlasCoords[0] + buildingRotation, (int)buildingData.atlasCoords[1]));	
+		SetCell((int)Layer.Buildings, cellPosition, (int)Layer.Buildings, new((int)buildingData.atlasCoords[0] + buildingRotation, (int)buildingData.atlasCoords[1]));	
 		
 		if((bool)buildingData.hasAdditionalAtlasPosition)
 		{

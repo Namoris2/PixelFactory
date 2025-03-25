@@ -3,9 +3,10 @@ using System;
 
 public partial class GameEvents : Node
 {
-	private World tileMap;
+	public static World tileMap;
     private Inventories inventories;
     private BuildMenu buildMenu;
+    private ResearchMenu researchMenu;
     private PauseMenu pauseMenu;
     public Leftovers leftovers;
     private Label worldInfo;
@@ -19,6 +20,7 @@ public partial class GameEvents : Node
     public static ActionInfoPopup toggleBuildingInventoryPopup;
     public static ActionInfoPopup toggleBuildMenuPopup;
     public static ActionInfoPopup toggleDismantleModePopup;
+    public static ActionInfoPopup toggleResearchMenuPopup;
     public static ActionInfoPopup splitStackPopup;
 
     public static CollectedItemsContainer collectedItemsContainer;
@@ -28,7 +30,8 @@ public partial class GameEvents : Node
 	{
         tileMap = GetNode<World>("../World/TileMap");
         inventories = GetNode<Inventories>("../UI/Inventories");
-        buildMenu = GetNode<BuildMenu>("../UI/BuildMenu");
+        buildMenu = GetNode<BuildMenu>("../UI/Menus/BuildMenu");
+        researchMenu = GetNode<ResearchMenu>("../UI/Menus/ResearchMenu");
         pauseMenu = GetNode<PauseMenu>("../UI/PauseMenu");
         worldInfo = GetNode<Label>("../UI/WorldInfo");
         camera = GetNode<PlayerCamera>("../World/Player/PlayerCamera");
@@ -41,6 +44,7 @@ public partial class GameEvents : Node
         toggleBuildingInventoryPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleBuildingInventoryPopup");
         toggleBuildMenuPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleBuildMenuPopup");
         toggleDismantleModePopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleDismantleModePopup");
+        toggleResearchMenuPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("ToggleResearchMenuPopup");
         splitStackPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("SplitStackPopup");
 
         collectedItemsContainer = GetNode<CollectedItemsContainer>("../UI/CollectedItemsContainer");
@@ -54,11 +58,11 @@ public partial class GameEvents : Node
             {
                 pauseMenu.UnpauseGame();
             }
-            else if (!(tileMap.BUILDINGMODE || tileMap.DISMANTLEMODE || inventories.Visible || buildMenu.Visible))
+            else if (!(tileMap.BUILDINGMODE || tileMap.DISMANTLEMODE || inventories.Visible || buildMenu.Visible || researchMenu.Visible))
             {
                 pauseMenu.PauseGame();
             }
-            else if (tileMap.DISMANTLEMODE && !buildMenu.Visible)
+            else if (tileMap.DISMANTLEMODE && !buildMenu.Visible && !inventories.Visible && !researchMenu.Visible)
             {
                 tileMap.ToggleDismantleMode(false);
             }
@@ -76,13 +80,19 @@ public partial class GameEvents : Node
                 inventories.ToggleInventory(false);
                 ToggleBuildingInventory(false);
             }
+            else if (researchMenu.Visible)
+            {
+                researchMenu.ToggleResearchMenu(false);
+                tileMap.UITOGGLE = false;
+                camera.toggleZoom = true;
+            }
         }
 
         if (!pauseMenu.Visible)
         {
             if (@event.IsActionPressed("ToggleInventory"))
             {
-                if (!buildMenu.Visible)
+                if (!buildMenu.Visible && !researchMenu.Visible)
                 {
                     inventories.ToggleInventory(!inventories.Visible);
                     camera.toggleZoom = !inventories.Visible;    
@@ -93,7 +103,7 @@ public partial class GameEvents : Node
 
             if (@event.IsActionPressed("Interact"))
             {
-                if (!buildMenu.Visible)
+                if (!buildMenu.Visible && !researchMenu.Visible)
                 {
                     ToggleBuildingInventory(!inventories.Visible);
                 }
@@ -101,7 +111,7 @@ public partial class GameEvents : Node
 
             if (@event.IsActionPressed("ToggleBuildMode"))
             {
-                if (!inventories.Visible)
+                if (!inventories.Visible && !researchMenu.Visible/*&& Research.research.Count > 1*/)
                 {                
                     buildMenu.ToggleBuildMode();
                     camera.toggleZoom = !buildMenu.Visible;
@@ -110,6 +120,7 @@ public partial class GameEvents : Node
                     toggleBuildingInventoryPopup.Hide();
                     rotatePopup.Hide();
                     toggleDismantleModePopup.Visible = !toggleDismantleModePopup.Visible;
+                    toggleResearchMenuPopup.Visible = !toggleResearchMenuPopup.Visible;
 
                     // Build Menu is closed
                     if (toggleBuildMenuPopup.actionText == toggleBuildMenuPopup.GetNode<Label>("Label").Text)
@@ -123,12 +134,22 @@ public partial class GameEvents : Node
                     }
                 }
             }
+
+            if (@event.IsActionPressed("ToggleResearchMenu"))
+            {
+                if (!inventories.Visible && !buildMenu.Visible)
+                {
+                    researchMenu.ToggleResearchMenu();
+                    camera.toggleZoom = !researchMenu.Visible;
+                    tileMap.UITOGGLE = researchMenu.Visible;
+                    worldInfo.Visible = !researchMenu.Visible;
+                }
+            }
         }
     }
 
     private void ToggleBuildingInventory(bool toggle)
     {
-        camera.toggleZoom = !toggle;
         if (leftovers != null) // Open leftovers Inventory
         {
             inventories.ToggleBuildingInventory(toggle, "", leftovers);

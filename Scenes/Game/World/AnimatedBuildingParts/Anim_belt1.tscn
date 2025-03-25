@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://qqk3gly50y64"]
 
-[ext_resource type="Script" path="res://Scenes/Game/World/AnimatedBuildingParts/AnimatedBuildingPart.cs" id="1_56tmd"]
+[ext_resource type="Script" uid="uid://vtqr2x8151ki" path="res://Scenes/Game/World/AnimatedBuildingParts/AnimatedBuildingPart.cs" id="1_56tmd"]
 [ext_resource type="Texture2D" uid="uid://yralji1bj15x" path="res://Gimp/Buildings/buildings.png" id="2_t5ekj"]
 [ext_resource type="Texture2D" uid="uid://ca32akf8cug51" path="res://Gimp/Buildings/ConveyorBelts/belt1.png" id="3_el0nd"]
 [ext_resource type="Texture2D" uid="uid://bxi2smg4lvdt8" path="res://Gimp/placeholder.png" id="4_kwx1f"]
@@ -23,7 +23,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_d7yme"]
 _data = {
-"Main": SubResource("Animation_52av6")
+&"Main": SubResource("Animation_52av6")
 }
 
 [node name="Belt1" type="Node2D" groups=["Anim_belt1", "AnimatedPart"]]

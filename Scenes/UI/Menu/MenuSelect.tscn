@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cycrfkkc7xrqg"]
 
-[ext_resource type="Script" path="res://Scenes/UI/Menu/MenuSelect.cs" id="1_hfwbb"]
+[ext_resource type="Script" uid="uid://crt6vd8vwbsng" path="res://Scenes/UI/Menu/MenuSelect.cs" id="1_hfwbb"]
 [ext_resource type="Texture2D" uid="uid://bxi2smg4lvdt8" path="res://Gimp/placeholder.png" id="2_qdwc8"]
 
 [node name="MenuSelect" type="Button"]

@@ -3,11 +3,11 @@
 [ext_resource type="Theme" uid="uid://dvicjhx5rc06g" path="res://Themes/VerticalTabSelect.tres" id="1_81l20"]
 [ext_resource type="Texture2D" uid="uid://bv6dqvhrg1fxs" path="res://Gimp/UI/UI_large.png" id="1_ib1sb"]
 [ext_resource type="Texture2D" uid="uid://c3sd4rclulxst" path="res://Gimp/Icons/BuildMenuCategories/Production.png" id="1_jdlmj"]
-[ext_resource type="Script" path="res://Scenes/UI/BuildMenu/TabSelect.cs" id="1_jxuxl"]
 [ext_resource type="PackedScene" uid="uid://cycrfkkc7xrqg" path="res://Scenes/UI/Menu/MenuSelect.tscn" id="1_oydjw"]
 [ext_resource type="PackedScene" uid="uid://c2khkmfyip0p7" path="res://Scenes/UI/Menu/CollapsingMenu.tscn" id="2_k0wev"]
+[ext_resource type="Script" uid="uid://djhqyjo5kao8i" path="res://Scenes/UI/Menu/TabSelect.cs" id="3_1ewpx"]
 [ext_resource type="Texture2D" uid="uid://bwbmympfmxycu" path="res://Gimp/Icons/BuildMenuCategories/Logistics.png" id="3_p6uhg"]
-[ext_resource type="Script" path="res://Scenes/UI/BuildMenu/BuildingInfo.cs" id="3_ss521"]
+[ext_resource type="Script" uid="uid://dcxijtbrip78x" path="res://Scenes/UI/BuildMenu/BuildingInfo.cs" id="3_ss521"]
 [ext_resource type="Texture2D" uid="uid://cixu1gtu36qec" path="res://Gimp/Icons/BuildMenuCategories/Organitation.png" id="4_in15m"]
 [ext_resource type="PackedScene" uid="uid://bx0lsoflefadc" path="res://Scenes/UI/Inventory/InventorySlot.tscn" id="5_uddjo"]
 
@@ -32,7 +32,7 @@ region_rect = Rect2(0, 161, 20, 20)
 [sub_resource type="Theme" id="Theme_s6m71"]
 Panel/styles/panel = SubResource("StyleBoxTexture_tbyol")
 
-[node name="Buildings" type="Control"]
+[node name="BuildMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,7 +79,8 @@ icon = ExtResource("1_jdlmj")
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
-script = ExtResource("1_jxuxl")
+script = ExtResource("3_1ewpx")
+TabContainerGroup = "BuildMenuTabs"
 
 [node name="Logistics" type="Button" parent="VFlowContainer"]
 custom_minimum_size = Vector2(170, 170)
@@ -92,7 +93,8 @@ icon = ExtResource("3_p6uhg")
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
-script = ExtResource("1_jxuxl")
+script = ExtResource("3_1ewpx")
+TabContainerGroup = "BuildMenuTabs"
 
 [node name="Organization" type="Button" parent="VFlowContainer"]
 custom_minimum_size = Vector2(170, 170)
@@ -105,13 +107,14 @@ icon = ExtResource("4_in15m")
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
-script = ExtResource("1_jxuxl")
+script = ExtResource("3_1ewpx")
+TabContainerGroup = "BuildMenuTabs"
 
 [node name="BackGround2" type="Panel" parent="VFlowContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="TabContainer" type="TabContainer" parent="." groups=["TabContainer"]]
+[node name="TabContainer" type="TabContainer" parent="." groups=["BuildMenuTabs"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0934066
@@ -119,11 +122,13 @@ anchor_right = 0.806044
 anchor_bottom = 1.0
 offset_right = 0.999268
 theme = SubResource("Theme_1higc")
+current_tab = 0
 tabs_visible = false
 metadata/_edit_use_anchors_ = true
 
 [node name="Production" type="Control" parent="TabContainer"]
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Production"]
 layout_mode = 2
@@ -132,45 +137,44 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Drills" parent="TabContainer/Production/VBoxContainer" instance=ExtResource("2_k0wev")]
+[node name="Drills" parent="TabContainer/Production/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("2_k0wev")]
 layout_mode = 2
 name = "Drills"
 
-[node name="smallDrill" parent="TabContainer/Production/VBoxContainer/Drills/Items" index="0" instance=ExtResource("1_oydjw")]
+[node name="smallDrill" parent="TabContainer/Production/VBoxContainer/Drills/Items" index="0" groups=["Tutorial1"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "smallDrill"
 Type = "building"
 
-[node name="mediumDrill" parent="TabContainer/Production/VBoxContainer/Drills/Items" index="1" instance=ExtResource("1_oydjw")]
-visible = false
+[node name="mediumDrill" parent="TabContainer/Production/VBoxContainer/Drills/Items" index="1" groups=["AdvancedSteelProduction"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "mediumDrill"
 Type = "building"
 
-[node name="Smelters" parent="TabContainer/Production/VBoxContainer" instance=ExtResource("2_k0wev")]
+[node name="Smelters" parent="TabContainer/Production/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("2_k0wev")]
 layout_mode = 2
 name = "Smelters"
 
-[node name="smelter" parent="TabContainer/Production/VBoxContainer/Smelters/Items" index="0" instance=ExtResource("1_oydjw")]
+[node name="smelter" parent="TabContainer/Production/VBoxContainer/Smelters/Items" index="0" groups=["Tutorial2"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "smelter"
 Type = "building"
 
-[node name="foundry" parent="TabContainer/Production/VBoxContainer/Smelters/Items" index="1" instance=ExtResource("1_oydjw")]
+[node name="foundry" parent="TabContainer/Production/VBoxContainer/Smelters/Items" index="1" groups=["BasicSteelProduction"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "foundry"
 Type = "building"
 
-[node name="Manufacturers" parent="TabContainer/Production/VBoxContainer" instance=ExtResource("2_k0wev")]
+[node name="Manufacturers" parent="TabContainer/Production/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("2_k0wev")]
 layout_mode = 2
 name = "Manufacturers"
 
-[node name="constructor" parent="TabContainer/Production/VBoxContainer/Manufacturers/Items" index="0" instance=ExtResource("1_oydjw")]
+[node name="constructor" parent="TabContainer/Production/VBoxContainer/Manufacturers/Items" index="0" groups=["Tutorial3"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "constructor"
 Type = "building"
 
-[node name="assembler" parent="TabContainer/Production/VBoxContainer/Manufacturers/Items" index="1" instance=ExtResource("1_oydjw")]
+[node name="assembler" parent="TabContainer/Production/VBoxContainer/Manufacturers/Items" index="1" groups=["PartAssembly"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "assembler"
 Type = "building"
@@ -178,6 +182,7 @@ Type = "building"
 [node name="Logistics" type="Control" parent="TabContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Logistics"]
 layout_mode = 2
@@ -186,30 +191,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ConveyorBelts" parent="TabContainer/Logistics/VBoxContainer" instance=ExtResource("2_k0wev")]
+[node name="ConveyorBelts" parent="TabContainer/Logistics/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("2_k0wev")]
 layout_mode = 2
 name = "Conveyor Belts"
 
-[node name="belt1" parent="TabContainer/Logistics/VBoxContainer/ConveyorBelts/Items" index="0" instance=ExtResource("1_oydjw")]
+[node name="belt1" parent="TabContainer/Logistics/VBoxContainer/ConveyorBelts/Items" index="0" groups=["Tutorial4"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "belt1"
 Type = "building"
 
-[node name="ConveyorBridges" parent="TabContainer/Logistics/VBoxContainer" instance=ExtResource("2_k0wev")]
+[node name="ConveyorBridges" parent="TabContainer/Logistics/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("2_k0wev")]
 layout_mode = 2
 name = "Conveyor Bridges"
 
-[node name="beltArm1" parent="TabContainer/Logistics/VBoxContainer/ConveyorBridges/Items" index="0" instance=ExtResource("1_oydjw")]
+[node name="beltArm1" parent="TabContainer/Logistics/VBoxContainer/ConveyorBridges/Items" index="0" groups=["Tutorial4"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "beltArm1"
 Type = "building"
 
-[node name="beltArm2" parent="TabContainer/Logistics/VBoxContainer/ConveyorBridges/Items" index="1" instance=ExtResource("1_oydjw")]
+[node name="beltArm2" parent="TabContainer/Logistics/VBoxContainer/ConveyorBridges/Items" index="1" groups=["Logistics2"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "beltArm2"
 Type = "building"
 
-[node name="beltArm2Long" parent="TabContainer/Logistics/VBoxContainer/ConveyorBridges/Items" index="2" instance=ExtResource("1_oydjw")]
+[node name="beltArm2Long" parent="TabContainer/Logistics/VBoxContainer/ConveyorBridges/Items" index="2" groups=["Logistics2"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "beltArm2Long"
 Type = "building"
@@ -217,6 +222,7 @@ Type = "building"
 [node name="Organization" type="Control" parent="TabContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Organization"]
 layout_mode = 1
@@ -226,13 +232,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StorageContainers" parent="TabContainer/Organization/VBoxContainer" instance=ExtResource("2_k0wev")]
+[node name="StorageContainers" parent="TabContainer/Organization/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("2_k0wev")]
 layout_mode = 2
 name = "Storage Containers"
 
-[node name="smallStorage" parent="TabContainer/Organization/VBoxContainer/StorageContainers/Items" index="0" instance=ExtResource("1_oydjw")]
+[node name="smallStorage" parent="TabContainer/Organization/VBoxContainer/StorageContainers/Items" index="0" groups=["Tutorial1"] instance=ExtResource("1_oydjw")]
 layout_mode = 2
 DisplayName = "smallStorage"
+Type = "building"
+
+[node name="mediumStorage" parent="TabContainer/Organization/VBoxContainer/StorageContainers/Items" index="1" groups=["BasicSteelProduction"] instance=ExtResource("1_oydjw")]
+layout_mode = 2
+DisplayName = "mediumStorage"
 Type = "building"
 
 [node name="BuildingInfo" type="Panel" parent="." groups=["BuildingInfo"]]

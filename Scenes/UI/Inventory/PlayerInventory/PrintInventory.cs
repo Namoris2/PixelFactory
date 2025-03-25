@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public partial class PrintInventory : Button
@@ -19,9 +20,9 @@ public partial class PrintInventory : Button
 	{
 		GD.Print();
 		PlayerInventory playerInventory = (PlayerInventory)GetParent();
-		InventorySlot[] slots = playerInventory.inventorySlots;
+		List<InventorySlot> slots = playerInventory.inventorySlots;
 
-		for (int i = 0; i < slots.Length; i++)
+		for (int i = 0; i < slots.Count; i++)
 		{
 			InventorySlot inventorySlot = slots[i];
 			string slotName = inventorySlot.Name;

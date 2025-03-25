@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dovmqqqkotuid"]
 
-[ext_resource type="Script" path="res://Scenes/UI/Kebinds/ActionInfoPopup.cs" id="1_38i5n"]
+[ext_resource type="Script" uid="uid://munl2tpsdxds" path="res://Scenes/UI/Kebinds/ActionInfoPopup.cs" id="1_38i5n"]
 [ext_resource type="PackedScene" uid="uid://ctjahtuleggl2" path="res://Scenes/UI/Kebinds/ActionKey.tscn" id="1_lcmrb"]
 
 [node name="ActionInfoPopup" type="HBoxContainer"]

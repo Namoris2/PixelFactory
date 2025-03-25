@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://bx0lsoflefadc"]
 
-[ext_resource type="Script" path="res://Scenes/UI/Inventory/InventorySlot.cs" id="1_qn2p3"]
+[ext_resource type="Script" uid="uid://bwhfnnq5d0pfp" path="res://Scenes/UI/Inventory/InventorySlot.cs" id="1_qn2p3"]
 [ext_resource type="Theme" uid="uid://bfqrtqjof5nbe" path="res://Themes/InventorySlot.tres" id="1_rb8qi"]
-[ext_resource type="Script" path="res://Scenes/UI/Inventory/ItemName.cs" id="2_yibj1"]
+[ext_resource type="Script" uid="uid://f27470lakxyy" path="res://Scenes/UI/Inventory/ItemName.cs" id="2_yibj1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_towib"]
 content_margin_left = 2.0

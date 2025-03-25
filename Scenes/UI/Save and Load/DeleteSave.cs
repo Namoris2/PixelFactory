@@ -17,19 +17,18 @@ public partial class DeleteSave : Button
 
 	private void Delete()
 	{
-		DeleteSaveDialog parent = (DeleteSaveDialog)GetParent();
-		string savePath = parent.savePath;
+		DeleteSaveDialog deleteDialog = (DeleteSaveDialog)GetTree().GetFirstNodeInGroup("DeleteSaveDialog");
+		string savePath = deleteDialog.savePath;
 
 		Godot.FileAccess file = Godot.FileAccess.Open(savePath, Godot.FileAccess.ModeFlags.Read);
 		string absoluteSavePath = file.GetPathAbsolute();
 		file.Close();
 		File.Delete(absoluteSavePath);
 
-		parent.Hide();
-		GetNode<MainMenu>("/root/MainMenu").saves.Remove(parent.saveName + ".save");
-		GetTree().GetNodesInGroup("LoadedSave")[parent.index].QueueFree();
+		deleteDialog.Hide();
+		GetNode<MainMenu>("/root/MainMenu").saves.Remove(deleteDialog.saveName + ".save");
+		GetTree().GetNodesInGroup("LoadedSave")[deleteDialog.index].QueueFree();
 
-		GD.Print(parent.index);
 		GD.Print("Save Deleted");
 	}
 }

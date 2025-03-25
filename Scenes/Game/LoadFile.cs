@@ -12,11 +12,11 @@ public partial class LoadFile : Node
 	{
 		if (loadedJsons.ContainsKey(path)) { return loadedJsons[path]; }
 
-		using var file = Godot.FileAccess.Open($"res://Jsons/{path}", Godot.FileAccess.ModeFlags.Read);
-		string content = file.GetAsText();
-		var loadedJson = JsonConvert.DeserializeObject<dynamic>(content);
+		FileAccess loadedJson = Godot.FileAccess.Open($"res://Jsons/{path}", Godot.FileAccess.ModeFlags.Read);
+		string jsonText = loadedJson.GetAsText();
+		dynamic convertedJson = JsonConvert.DeserializeObject<dynamic>(jsonText);
 
-		loadedJsons.Add(path, loadedJson);
-		return loadedJson;
+		loadedJsons.Add(path, convertedJson);
+		return convertedJson;
 	}
 }

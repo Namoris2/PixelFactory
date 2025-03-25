@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cd611gi8b5pde"]
 
-[ext_resource type="Script" path="res://Scenes/UI/Menu/CollapsingMenu.cs" id="1_niahf"]
+[ext_resource type="Script" uid="uid://dnjaacl2tejfq" path="res://Scenes/UI/Menu/CollapsingMenu.cs" id="1_niahf"]
 [ext_resource type="Texture2D" uid="uid://c13i0uefo6w10" path="res://Gimp/Icons/Arrows/ArrowUp.png" id="2_yohcf"]
 [ext_resource type="Texture2D" uid="uid://claf7kfrrl6v8" path="res://Gimp/Icons/Arrows/ArrowDown.png" id="3_fkfvy"]
 [ext_resource type="Theme" uid="uid://dgfobupxwvfap" path="res://Themes/CollapsingMenu.tres" id="4_1358q"]
