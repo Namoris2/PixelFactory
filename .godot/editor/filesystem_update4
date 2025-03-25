@@ -1,6 +1,4 @@
-res://Scenes/UI/MainMenu/DeleteSaveDialog/ShowDialog.cs
-res://Scenes/UI/MainMenu/DeleteSaveDialog/DeleteSaveDialog.cs
-res://Scenes/UI/MainMenu/MainMenu.tscn
+res://Scenes/main.tscn
 res://Themes/SlotBackground.tres
 res://Themes/VerticalTabSelect.tres
 res://Themes/InventorySlot.tres
@@ -10,17 +8,16 @@ res://Scenes/UI/Kebinds/spritetest.tres
 res://Themes/UI.tres
 res://Scenes/UI/Menu/ChangeMenu.cs
 res://Scenes/UI/Save and Load/LoadGame.cs
-res://Scenes/main.tscn
+res://Scenes/UI/MainMenu/MainMenu.tscn
 res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
 res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn
 res://Scenes/Player/player.tscn
-res://Scenes/UI/Pause Menu/PauseMenu.tscn
-res://Scenes/UI/MainMenu/LoadedSave.tscn
 res://Scenes/UI/Save and Load/DeleteSave.cs
 res://Scenes/Game/World/BuildingParts/BuildingPart.cs
 res://Scenes/UI/Inventory/InventorySlot.cs
 res://Scenes/main.cs
 res://Scenes/Game/World/AnimatedBuildingParts/AnimatedBuildingPart.cs
+res://Scenes/UI/MainMenu/DeleteSaveDialog/ShowDialog.cs
 res://Scenes/UI/BuildMenu/BuildingInfo.cs
 res://Scenes/UI/MainMenu/MainMenu.cs
 res://Scenes/UI/BuildMenu/BuildMenu.cs
@@ -63,6 +60,7 @@ res://Scenes/UI/Pause Menu/SaveQuit.cs
 res://Scenes/UI/HUD/TestLabel.cs
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.cs
 res://Scenes/UI/Inventory/CraftingMenu/CraftingItemSelect.cs
+res://Scenes/UI/MainMenu/DeleteSaveDialog/DeleteSaveDialog.cs
 res://Scenes/Game/LoadFile.cs
 res://Scenes/Game/World/BuildingPartsController.cs
 res://Scenes/UI/Menu/ExitGame.cs

@@ -47,6 +47,7 @@ texture_margin_bottom = 9.0
 region_rect = Rect2(36, 0, 36, 36)
 
 [resource]
+Button/colors/font_pressed_color = Color(0.581033, 0.581033, 0.581033, 1)
 Button/styles/disabled = SubResource("StyleBoxTexture_38eul")
 Button/styles/focus = SubResource("StyleBoxTexture_kox30")
 Button/styles/hover = SubResource("StyleBoxTexture_ts8rq")
