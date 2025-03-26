@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public partial class Research : Node
 {
 	public static List<string> research;
+	public static int highestResearchCompleted = 0;
 	ResearchMenu researchMenu;
 
 	// Called when the node enters the scene tree for the first time.
@@ -46,6 +47,25 @@ public partial class Research : Node
 		for (int i = 1; i < research.Count; i++)
 		{
 			GetTree().CallGroup("ResearchItemContainer", "UnlockItem", research[i]);
+			
+			if (research[i].Contains("Tutorial") )
+			{
+				int tutorialIndex = int.Parse(research[i].Replace("Tutorial", ""));
+				if (tutorialIndex > highestResearchCompleted)
+				{
+					highestResearchCompleted = tutorialIndex;
+				}
+			}
+		}
+
+		if (research.Count > 5)
+		{
+			GameEvents.tutorialContainer.Hide();
+			// hide tutorial
+		}
+		else
+		{
+			GameEvents.tutorialContainer.CurrentTab = highestResearchCompleted;
 		}
     }
 

@@ -1,13 +1,13 @@
+Label
+TabContainer
 Panel
 PanelContainer
-Label
 TextureRect
 Button
 Control
 HFlowContainer
 HSplitContainer
 Container
-TabContainer
 HBoxContainer
 ScrollContainer
 Node

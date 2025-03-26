@@ -133,6 +133,7 @@ theme_override_constants/separation = 20
 theme_override_constants/minimum_grab_thickness = 0
 theme_override_constants/autohide = 0
 split_offset = 1350
+dragging_enabled = false
 dragger_visibility = 1
 metadata/_edit_use_anchors_ = true
 

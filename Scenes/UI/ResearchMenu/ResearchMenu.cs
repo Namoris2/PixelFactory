@@ -14,7 +14,7 @@ public partial class ResearchMenu : Control
 
 	public string selectedResearch;
 	dynamic unlocks;
-	//dynamic
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -54,13 +54,14 @@ public partial class ResearchMenu : Control
 
 		if (Visible)
 		{
-			CheckResearchCost();
+			//CheckResearchCost();
 			GameEvents.toggleBuildingInventoryPopup.Hide();
 			GameEvents.toggleInventoryPopup.Hide();
 			GameEvents.toggleBuildMenuPopup.Hide();
 			GameEvents.toggleDismantleModePopup.Hide();
 			GameEvents.rotatePopup.Hide();
 			GameEvents.toggleResearchMenuPopup.SetCustomActionText();
+			GameEvents.tutorialContainer.Hide();
 		}
 		else
 		{
@@ -69,6 +70,7 @@ public partial class ResearchMenu : Control
 			GameEvents.toggleBuildMenuPopup.Show();
 			GameEvents.toggleDismantleModePopup.Show();
 			GameEvents.toggleResearchMenuPopup.SetDefaultActionText();
+			GameEvents.tutorialContainer.Show();
 
 			if (GameEvents.tileMap.BUILDINGMODE && (bool)GameEvents.tileMap.buildings[GameEvents.tileMap.selectedBuilding].canRotate)
 			{
@@ -113,7 +115,7 @@ public partial class ResearchMenu : Control
 			AddResearchInfo(research.researchUnlocks[i], researchName, "research");
 		}
 
-		CheckResearchCost();
+		//CheckResearchCost();
 	}
 
 	private void AddResearchInfo(dynamic researchInfo, string researchName, string unlockType = "")
@@ -221,9 +223,32 @@ public partial class ResearchMenu : Control
 			unlock.GetNode<Label>("Name").Modulate = new("#8c8c8c");
 		}
 
+
 		researchController.UnlockResearch(selectedResearch);
-		RemoveCostItems();
+		//RemoveCostItems();
 		ShowUnlockedResearch(selectedResearch);
+
+		if (selectedResearch.Contains("Tutorial"))
+		{
+			int tutorialIndex = int.Parse(selectedResearch.Replace("Tutorial", ""));
+			if (tutorialIndex > Research.highestResearchCompleted)
+			{
+				Research.highestResearchCompleted = tutorialIndex;
+			}
+
+			if (Research.research.Count > 5)
+			{
+				GameEvents.tutorialContainer.Hide();
+			}
+			else
+			{
+				GameEvents.tutorialContainer.CurrentTab = tutorialIndex;
+			}
+
+			return;
+		}
+
+		GameEvents.tutorialContainer.Hide();
 	}
 
 	public void ShowUnlockedResearch(string researchName)

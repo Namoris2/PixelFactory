@@ -24,6 +24,7 @@ public partial class GameEvents : Node
     public static ActionInfoPopup splitStackPopup;
 
     public static CollectedItemsContainer collectedItemsContainer;
+    public static TabContainer tutorialContainer;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -48,6 +49,7 @@ public partial class GameEvents : Node
         splitStackPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("SplitStackPopup");
 
         collectedItemsContainer = GetNode<CollectedItemsContainer>("../UI/CollectedItemsContainer");
+        tutorialContainer = (TabContainer)GetTree().GetFirstNodeInGroup("TutorialContainer");
 	}
 
     public override void _Input(InputEvent @event)
@@ -74,6 +76,7 @@ public partial class GameEvents : Node
                 toggleBuildMenuPopup.SetDefaultActionText();
                 toggleInventoryPopup.Show();
                 toggleDismantleModePopup.Show();
+                tutorialContainer.Show();
             }
             else if (inventories.Visible)
             {
@@ -121,6 +124,7 @@ public partial class GameEvents : Node
                     rotatePopup.Hide();
                     toggleDismantleModePopup.Visible = !toggleDismantleModePopup.Visible;
                     toggleResearchMenuPopup.Visible = !toggleResearchMenuPopup.Visible;
+                    tutorialContainer.Visible = !tutorialContainer.Visible;
 
                     // Build Menu is closed
                     if (toggleBuildMenuPopup.actionText == toggleBuildMenuPopup.GetNode<Label>("Label").Text)
