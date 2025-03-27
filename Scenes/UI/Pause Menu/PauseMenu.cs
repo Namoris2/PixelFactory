@@ -42,7 +42,7 @@ public partial class PauseMenu : Control
 		GameEvents.toggleDismantleModePopup.Hide();
 		GameEvents.toggleResearchMenuPopup.Hide();
 		GameEvents.collectedItemsContainer.Hide();
-		GameEvents.tutorialContainer.Hide();
+		if (IsInstanceValid(GameEvents.tutorialContainer)) { GameEvents.tutorialContainer.Hide(); }
 	}
 
 	public void UnpauseGame()
@@ -58,6 +58,6 @@ public partial class PauseMenu : Control
 		GameEvents.toggleDismantleModePopup.Show();
 		GameEvents.toggleResearchMenuPopup.Show();
 		GameEvents.collectedItemsContainer.Show();
-		GameEvents.tutorialContainer.Show();
+		if (IsInstanceValid(GameEvents.tutorialContainer)) { GameEvents.tutorialContainer.Show(); }
 	}
 }

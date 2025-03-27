@@ -54,14 +54,14 @@ public partial class ResearchMenu : Control
 
 		if (Visible)
 		{
-			//CheckResearchCost();
+			CheckResearchCost();
 			GameEvents.toggleBuildingInventoryPopup.Hide();
 			GameEvents.toggleInventoryPopup.Hide();
 			GameEvents.toggleBuildMenuPopup.Hide();
 			GameEvents.toggleDismantleModePopup.Hide();
 			GameEvents.rotatePopup.Hide();
 			GameEvents.toggleResearchMenuPopup.SetCustomActionText();
-			GameEvents.tutorialContainer.Hide();
+			if (IsInstanceValid(GameEvents.tutorialContainer)) { GameEvents.tutorialContainer.Hide(); }
 		}
 		else
 		{
@@ -70,7 +70,7 @@ public partial class ResearchMenu : Control
 			GameEvents.toggleBuildMenuPopup.Show();
 			GameEvents.toggleDismantleModePopup.Show();
 			GameEvents.toggleResearchMenuPopup.SetDefaultActionText();
-			GameEvents.tutorialContainer.Show();
+			if (IsInstanceValid(GameEvents.tutorialContainer)) { GameEvents.tutorialContainer.Show(); }
 
 			if (GameEvents.tileMap.BUILDINGMODE && (bool)GameEvents.tileMap.buildings[GameEvents.tileMap.selectedBuilding].canRotate)
 			{
@@ -115,7 +115,7 @@ public partial class ResearchMenu : Control
 			AddResearchInfo(research.researchUnlocks[i], researchName, "research");
 		}
 
-		//CheckResearchCost();
+		CheckResearchCost();
 	}
 
 	private void AddResearchInfo(dynamic researchInfo, string researchName, string unlockType = "")
@@ -225,7 +225,7 @@ public partial class ResearchMenu : Control
 
 
 		researchController.UnlockResearch(selectedResearch);
-		//RemoveCostItems();
+		RemoveCostItems();
 		ShowUnlockedResearch(selectedResearch);
 
 		if (selectedResearch.Contains("Tutorial"))
@@ -238,17 +238,17 @@ public partial class ResearchMenu : Control
 
 			if (Research.research.Count > 5)
 			{
-				GameEvents.tutorialContainer.Hide();
+				GameEvents.tutorialContainer.QueueFree();
 			}
 			else
 			{
-				GameEvents.tutorialContainer.CurrentTab = tutorialIndex;
+				GameEvents.tutorialController.CurrentTab = tutorialIndex;
 			}
 
 			return;
 		}
 
-		GameEvents.tutorialContainer.Hide();
+		if (IsInstanceValid(GameEvents.tutorialContainer)) { GameEvents.tutorialContainer.QueueFree(); }
 	}
 
 	public void ShowUnlockedResearch(string researchName)

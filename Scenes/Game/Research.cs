@@ -60,12 +60,12 @@ public partial class Research : Node
 
 		if (research.Count > 5)
 		{
-			GameEvents.tutorialContainer.Hide();
+			GameEvents.tutorialContainer.QueueFree();
 			// hide tutorial
 		}
 		else
 		{
-			GameEvents.tutorialContainer.CurrentTab = highestResearchCompleted;
+			GameEvents.tutorialController.CurrentTab = highestResearchCompleted;
 		}
     }
 

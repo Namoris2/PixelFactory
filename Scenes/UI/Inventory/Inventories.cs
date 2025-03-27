@@ -44,7 +44,7 @@ public partial class Inventories : CanvasLayer
 			GameEvents.toggleBuildMenuPopup.Hide();
 			GameEvents.toggleDismantleModePopup.Hide();
 			GameEvents.toggleResearchMenuPopup.Hide();
-			GameEvents.tutorialContainer.Hide();
+			if (IsInstanceValid(GameEvents.tutorialContainer)) { GameEvents.tutorialContainer.Hide(); }
 			Show();
 		}
 		else
@@ -57,7 +57,7 @@ public partial class Inventories : CanvasLayer
 			GameEvents.toggleBuildMenuPopup.Show();
 			GameEvents.toggleDismantleModePopup.Show();
 			GameEvents.toggleResearchMenuPopup.Show();
-			GameEvents.tutorialContainer.Show();
+			if (IsInstanceValid(GameEvents.tutorialContainer)) { GameEvents.tutorialContainer.Show(); }
 
 			GetNode<Control>("InventoryGrid/BuildingInventory").Hide();
 			GetNode<Control>("InventoryGrid/CraftingMenu").Hide();

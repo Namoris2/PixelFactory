@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bbqmsnkmc3pac"]
+[gd_scene load_steps=44 format=3 uid="uid://bbqmsnkmc3pac"]
 
 [ext_resource type="Script" uid="uid://durijao54jscu" path="res://Scenes/Game/GameEvents.cs" id="1_st43b"]
 [ext_resource type="Script" uid="uid://bxsauxvanqra3" path="res://Scenes/Game/Research.cs" id="2_80wiu"]
@@ -25,6 +25,8 @@
 [ext_resource type="PackedScene" uid="uid://bxn21jfq72eky" path="res://Scenes/UI/Pause Menu/PauseMenu.tscn" id="19_3uy5l"]
 [ext_resource type="PackedScene" uid="uid://2vptpjgcdw7y" path="res://Scenes/UI/ResearchMenu/ResearchMenu.tscn" id="19_b06j7"]
 [ext_resource type="Script" uid="uid://buyhs2eyl0i6w" path="res://Scenes/UI/HUD/CollectedItems/CollectedItemsContainer.cs" id="20_8brqm"]
+[ext_resource type="PackedScene" uid="uid://ctjahtuleggl2" path="res://Scenes/UI/Kebinds/ActionKey.tscn" id="22_1w6v2"]
+[ext_resource type="Texture2D" uid="uid://c5mta7yglpfx4" path="res://Gimp/Items/items.png" id="23_ueoa1"]
 [ext_resource type="Script" uid="uid://c1yrk1e23lnd6" path="res://Scenes/Game/UnlockTest.cs" id="25_75d5c"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x64vh"]
@@ -2139,6 +2141,42 @@ sources/100 = SubResource("TileSetAtlasSource_kytue")
 sources/1 = SubResource("TileSetAtlasSource_7gb0d")
 sources/2 = SubResource("TileSetAtlasSource_cbgmd")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1w6v2"]
+atlas = ExtResource("3_cesio")
+region = Rect2(192, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7k868"]
+atlas = ExtResource("23_ueoa1")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6vcvc"]
+atlas = ExtResource("4_r6w7n")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ueoa1"]
+atlas = ExtResource("4_r6w7n")
+region = Rect2(64, 33, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpc6h"]
+atlas = ExtResource("3_cesio")
+region = Rect2(0, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kltya"]
+atlas = ExtResource("23_ueoa1")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e08e2"]
+atlas = ExtResource("4_r6w7n")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_neg2b"]
+atlas = ExtResource("4_r6w7n")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r33sp"]
+atlas = ExtResource("4_r6w7n")
+region = Rect2(0, 32, 16, 16)
+
 [node name="main" type="Node2D"]
 
 [node name="GameEvents" type="Node" parent="."]
@@ -2329,46 +2367,610 @@ actionType = "SplitItems"
 hideOnStart = true
 customActionText = PackedStringArray("Put One Item", "")
 
-[node name="Tutorial" type="TabContainer" parent="UI" groups=["TutorialContainer"]]
+[node name="TutorialContainer" type="Panel" parent="UI"]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -160.0
-offset_right = 239.0
-offset_bottom = 160.0
+offset_top = -258.0
+offset_right = 416.0
+offset_bottom = 258.0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.0775194
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 25
+text = "Tutorial"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Tutorial" type="TabContainer" parent="UI/TutorialContainer" groups=["TutorialContainer"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 40.0
+grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
 current_tab = 0
 tabs_visible = false
 
-[node name="Label0" type="Label" parent="UI/Tutorial"]
+[node name="Tutorial0" type="Control" parent="UI/TutorialContainer/Tutorial"]
 layout_mode = 2
-text = "test0"
 metadata/_tab_index = 0
 
-[node name="Label1" type="Label" parent="UI/Tutorial"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TutorialContainer/Tutorial/Tutorial0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Movement" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Movement"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Use"
+
+[node name="MoveUp" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Movement" instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "MoveUp"
+
+[node name="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Movement/MoveUp" index="0"]
+visible = false
+
+[node name="MoveLeft" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Movement" instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "MoveLeft"
+
+[node name="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Movement/MoveLeft" index="0"]
+visible = false
+
+[node name="MoveDown" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Movement" instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "MoveDown"
+
+[node name="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Movement/MoveDown" index="0"]
+visible = false
+
+[node name="MoveRight" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Movement" instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "MoveRight"
+
+[node name="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Movement/MoveRight" index="0"]
+visible = false
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Movement"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "to move"
+
+[node name="Zoom" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Zoom"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Use"
+
+[node name="Zoom" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Zoom" instance=ExtResource("22_1w6v2")]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+key = "MouseWheelUpDown"
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Zoom"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "to zoom"
+
+[node name="IronOre" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/IronOre"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Find"
+
+[node name="TextureRect" type="TextureRect" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/IronOre"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+texture = SubResource("AtlasTexture_1w6v2")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/IronOre"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "and press"
+
+[node name="ActionKey" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/IronOre" instance=ExtResource("22_1w6v2")]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+key = "MouseLeft"
+
+[node name="Label3" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/IronOre"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "to gather Iron    "
+
+[node name="Label4" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/IronOre"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Ore"
+
+[node name="IronOre2" type="TextureRect" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/IronOre"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+texture = SubResource("AtlasTexture_7k868")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Inventory" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Inventory"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Press"
+
+[node name="ActionInfoPopup" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Inventory" instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "ToggleInventory"
+
+[node name="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Inventory/ActionInfoPopup" index="0"]
+visible = false
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Inventory/ActionInfoPopup"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "to open Inventory"
+
+[node name="Craft" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Craft"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "In Inventory craft items"
+
+[node name="Research" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Research"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Press"
+
+[node name="ActionInfoPopup" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Research" instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "ToggleResearchMenu"
+
+[node name="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Research/ActionInfoPopup" index="0"]
+visible = false
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Research"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "to open Research Menu"
+
+[node name="Tutorial1" type="Control" parent="UI/TutorialContainer/Tutorial"]
 visible = false
 layout_mode = 2
-text = "test1"
 metadata/_tab_index = 1
 
-[node name="Label2" type="Label" parent="UI/Tutorial"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TutorialContainer/Tutorial/Tutorial1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Building" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Building"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Press"
+
+[node name="ActionInfoPopup" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Building" instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "ToggleBuildMode"
+
+[node name="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Building/ActionInfoPopup" index="0"]
+visible = false
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Building"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "to open Build Menu"
+
+[node name="Drill" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Drill"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Place Small Drill"
+
+[node name="Drill" type="TextureRect" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Drill"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+texture = SubResource("AtlasTexture_6vcvc")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Drill"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "on"
+
+[node name="IronOre" type="TextureRect" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Drill"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+texture = SubResource("AtlasTexture_1w6v2")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Label3" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Drill"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "to automatically"
+
+[node name="Label4" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Drill"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "gather Iron Ore"
+
+[node name="IronOre2" type="TextureRect" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Drill"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+texture = SubResource("AtlasTexture_7k868")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="BuildingInventory" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/BuildingInventory"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Press"
+
+[node name="ActionInfoPopup" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/BuildingInventory" instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "Interact"
+
+[node name="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/BuildingInventory/ActionInfoPopup" index="0"]
+visible = false
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/BuildingInventory"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "to open it's inventory"
+
+[node name="SmallStorage" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/SmallStorage"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "You can use Small Storage"
+
+[node name="Storage" type="TextureRect" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/SmallStorage"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+texture = SubResource("AtlasTexture_ueoa1")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/SmallStorage"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "to store"
+
+[node name="Label3" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/SmallStorage"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "items"
+
+[node name="Dismantle" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Dismantle"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "If you don't like the placement of a"
+
+[node name="Label3" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Dismantle"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "building you can press"
+
+[node name="ActionInfoPopup" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Dismantle" instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "ToggleDismantleMode"
+
+[node name="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Dismantle/ActionInfoPopup" index="0"]
+visible = false
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Dismantle"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "to dismantle it"
+
+[node name="Tutorial2" type="Control" parent="UI/TutorialContainer/Tutorial"]
 visible = false
 layout_mode = 2
-text = "test2"
 metadata/_tab_index = 2
 
-[node name="Label3" type="Label" parent="UI/Tutorial"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TutorialContainer/Tutorial/Tutorial2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="CopperOre" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer/CopperOre"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Find"
+
+[node name="TextureRect" type="TextureRect" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer/CopperOre"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+texture = SubResource("AtlasTexture_hpc6h")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer/CopperOre"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "and press"
+
+[node name="ActionKey" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer/CopperOre" instance=ExtResource("22_1w6v2")]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+key = "MouseLeft"
+
+[node name="Label3" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer/CopperOre"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "to gather"
+
+[node name="Label4" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer/CopperOre"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Copper Ore"
+
+[node name="TextureRect2" type="TextureRect" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer/CopperOre"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+texture = SubResource("AtlasTexture_kltya")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Smelter" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer/Smelter"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Place Smelter"
+
+[node name="Smelter" type="TextureRect" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer/Smelter"]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+texture = SubResource("AtlasTexture_e08e2")
+stretch_mode = 5
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer/Smelter"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "and choose item you"
+
+[node name="Label3" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer/Smelter"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "want to produce"
+
+[node name="Suply" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer/Suply"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Suply Smelter"
+
+[node name="Drill" type="TextureRect" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer/Suply"]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+texture = SubResource("AtlasTexture_e08e2")
+stretch_mode = 5
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer/Suply"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "with raw ores to keep"
+
+[node name="Label3" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial2/VBoxContainer/Suply"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "production active"
+
+[node name="Tutorial3" type="Control" parent="UI/TutorialContainer/Tutorial"]
 visible = false
 layout_mode = 2
-text = "test3"
 metadata/_tab_index = 3
 
-[node name="Label4" type="Label" parent="UI/Tutorial"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TutorialContainer/Tutorial/Tutorial3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Constructor" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial3/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial3/VBoxContainer/Constructor"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Use Constructor"
+
+[node name="Constructor" type="TextureRect" parent="UI/TutorialContainer/Tutorial/Tutorial3/VBoxContainer/Constructor"]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+texture = SubResource("AtlasTexture_neg2b")
+stretch_mode = 5
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial3/VBoxContainer/Constructor"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "to automatically"
+
+[node name="Label3" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial3/VBoxContainer/Constructor"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "process ingots"
+
+[node name="Tutorial4" type="Control" parent="UI/TutorialContainer/Tutorial"]
 visible = false
 layout_mode = 2
-text = "test4"
 metadata/_tab_index = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TutorialContainer/Tutorial/Tutorial4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Belt" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Belt"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Use Conveyor Belts"
+
+[node name="Belt" type="TextureRect" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Belt"]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+texture = SubResource("AtlasTexture_e08e2")
+stretch_mode = 5
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Belt"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "to move items"
+
+[node name="Label3" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Belt"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "accross the world"
+
+[node name="Bridge" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Bridge"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Use Conveyor Bridges"
+
+[node name="Bridge" type="TextureRect" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Bridge"]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+texture = SubResource("AtlasTexture_r33sp")
+stretch_mode = 5
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Bridge"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "to transfer"
+
+[node name="Label3" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Bridge"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "items between buildings or Conveyor"
+
+[node name="Label4" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Bridge"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Belts"
+
+[node name="Belt" type="TextureRect" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Bridge"]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+texture = SubResource("AtlasTexture_e08e2")
+stretch_mode = 5
+
+[node name="Collect" type="HFlowContainer" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Collect"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Press"
+
+[node name="ActionInfoPopup" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Collect" instance=ExtResource("18_fakxi")]
+layout_mode = 2
+actionType = "Interact"
+
+[node name="Label" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Collect/ActionInfoPopup" index="0"]
+visible = false
+
+[node name="Label2" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Collect"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "to collect items from Conveyor"
+
+[node name="Label3" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Collect"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Belt"
+
+[node name="Belt" type="TextureRect" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Collect"]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+texture = SubResource("AtlasTexture_e08e2")
+stretch_mode = 5
+
+[node name="Label4" type="Label" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Collect"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Belt or Brige"
+
+[node name="Bridge" type="TextureRect" parent="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Collect"]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+texture = SubResource("AtlasTexture_r33sp")
+stretch_mode = 5
 
 [node name="CollectedItemsContainer" type="VBoxContainer" parent="UI"]
 clip_children = 1
@@ -2429,3 +3031,14 @@ offset_bottom = 1071.0
 theme_override_font_sizes/font_size = 35
 text = "Unlock"
 script = ExtResource("25_75d5c")
+
+[editable path="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Movement/MoveUp"]
+[editable path="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Movement/MoveLeft"]
+[editable path="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Movement/MoveDown"]
+[editable path="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Movement/MoveRight"]
+[editable path="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Inventory/ActionInfoPopup"]
+[editable path="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Research/ActionInfoPopup"]
+[editable path="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Building/ActionInfoPopup"]
+[editable path="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/BuildingInventory/ActionInfoPopup"]
+[editable path="UI/TutorialContainer/Tutorial/Tutorial1/VBoxContainer/Dismantle/ActionInfoPopup"]
+[editable path="UI/TutorialContainer/Tutorial/Tutorial4/VBoxContainer/Collect/ActionInfoPopup"]
