@@ -2226,11 +2226,8 @@ script = ExtResource("8_jtdr3")
 
 [node name="HoldingItem" parent="UI/Inventories" instance=ExtResource("8_capta")]
 z_index = 3
-custom_minimum_size = Vector2(40, 40)
-offset_left = 176.0
-offset_top = 174.0
-offset_right = 216.0
-offset_bottom = 214.0
+offset_right = 0.0
+offset_bottom = 0.0
 expand_mode = 1
 script = ExtResource("9_otqso")
 
