@@ -180,12 +180,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_sjaja")
 theme_override_font_sizes/font_size = 30
-current_tab = 1
+current_tab = 0
 tabs_visible = false
 metadata/_edit_use_anchors_ = true
 
 [node name="RecipesContainer" type="PanelContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_l8bnn")
 metadata/_tab_index = 0
@@ -246,6 +245,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 
 [node name="Ingots" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Smelter/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("3_thli6")]
 layout_mode = 2
@@ -272,6 +272,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 
 [node name="Ingots" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Foundry/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("3_thli6")]
 layout_mode = 2
@@ -294,6 +295,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="StandardParts" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Constructor/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("3_thli6")]
@@ -366,6 +368,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 
 [node name="StandardParts" parent="TabContainer/RecipesContainer/VBoxContainer/Recipes/Assembler/VBoxContainer" groups=["ResearchItemContainer"] instance=ExtResource("3_thli6")]
 layout_mode = 2
@@ -406,6 +409,7 @@ DisplayName = "Motor"
 Type = "recipe"
 
 [node name="Building" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 

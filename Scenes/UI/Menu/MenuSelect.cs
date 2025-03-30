@@ -11,15 +11,22 @@ public partial class MenuSelect : Button
 	
 	[Export (PropertyHint.Enum, "building,recipe")]
 	public string Type = "";
+	private Label name;
+	private TextureRect icon;
 	
 	dynamic data;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		ButtonDown += PressedEffect;
+		MouseExited += RemoveEffect;
+		ButtonUp += RemoveEffect;
+
 		// loads 'buildings.json' file and parses in to dynamic object
 		data = LoadFile.LoadJson($"{Type}s.json")[DisplayName];
 
-		GetNode<Label>("Name").Text = data.name;
+		name = GetNode<Label>("Name");
+		icon = GetNode<TextureRect>("Icon");
 		
 		AtlasTexture texture = new ();
 		Vector2I size = new (1, 1);
@@ -27,7 +34,7 @@ public partial class MenuSelect : Button
 		switch (Type)
 		{
 			case "building":
-				this.Pressed += Build;
+				Pressed += Build;
 				size = new ((int)data.width, (int)data.height);
 
 				MouseEntered += ShowBuildingInfo;
@@ -35,7 +42,7 @@ public partial class MenuSelect : Button
 				break;
 
 			case "recipe":
-				this.Pressed += SelectRecipe;
+				Pressed += SelectRecipe;
 				data = LoadFile.LoadJson("items.json")[DisplayName];
 				Type = "item";
 				break;
@@ -45,7 +52,8 @@ public partial class MenuSelect : Button
 				break;
 		}
 
-		GetNode<TextureRect>("Texture").Texture = main.GetTexture(Type + "s.json", DisplayName);
+		name.Text = data.name;
+		icon.Texture = main.GetTexture(Type + "s.json", DisplayName);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -92,5 +100,17 @@ public partial class MenuSelect : Button
 	{
 		BuildingInfo buildingInfo = (BuildingInfo)GetTree().GetNodesInGroup("BuildingInfo")[0];
 		buildingInfo.HideBuildingInfo();
+	}
+
+	private void PressedEffect()
+	{
+		name.Modulate = new Color("#ffffff8f");
+		icon.Modulate = new Color("#ffffff8f");
+	}
+
+	private void RemoveEffect()
+	{
+		name.Modulate = new Color("white");
+		icon.Modulate = new Color("white");
 	}
 }

@@ -47,3 +47,5 @@ expand_mode = 2
 
 [node name="Items" type="HFlowContainer" parent="."]
 layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0

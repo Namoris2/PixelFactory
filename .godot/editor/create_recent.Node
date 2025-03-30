@@ -1,10 +1,10 @@
+Panel
 TextureRect
 VBoxContainer
 HFlowContainer
 FlowContainer
 Label
 Control
-Panel
 Container
 TabBar
 TabContainer

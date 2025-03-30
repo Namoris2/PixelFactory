@@ -74,3 +74,5 @@ res://Scenes/UI/HUD/FPSCounter.cs
 res://Scenes/UI/Pause Menu/Unpause.cs
 res://Scenes/UI/BuildMenu/BuildMenu.tscn
 res://Scenes/UI/Inventory/CraftingMenu/CraftingItemSelect.tscn
+res://Scenes/UI/Menu/MenuSelect.tscn
+res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
