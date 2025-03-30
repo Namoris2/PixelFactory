@@ -21,6 +21,10 @@ public partial class CollapsingMenu : VBoxContainer
 		items = GetNode<Control>("Items");
 
 		button.Pressed += ToggleCollapse;
+		button.ButtonDown += PressedEffect;
+		button.MouseExited += RemoveEffect;
+		button.ButtonUp += RemoveEffect;
+
 		nameLabel.Text = name;
 		labelWidth = nameLabel.Size.X;
 
@@ -61,5 +65,17 @@ public partial class CollapsingMenu : VBoxContainer
 				Show();
 			}
 		}
+	}
+
+	private void PressedEffect()
+	{
+		icon.Modulate = new Color("#ffffff8f");
+		nameLabel.Modulate = new Color("#ffffff8f");
+	}
+
+	private void RemoveEffect()
+	{
+		icon.Modulate = new Color("white");
+		nameLabel.Modulate= new Color("white");
 	}
 }
