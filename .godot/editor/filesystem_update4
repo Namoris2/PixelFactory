@@ -1,4 +1,4 @@
-res://Scenes/UI/Inventory/HoldingItem.tscn
+res://Scenes/UI/Menu/VCollapsingMenu.tscn
 res://Themes/SlotBackground.tres
 res://Themes/VerticalTabSelect.tres
 res://Themes/InventorySlot.tres
@@ -8,13 +8,11 @@ res://Scenes/UI/Kebinds/spritetest.tres
 res://Themes/UI.tres
 res://Scenes/UI/Menu/ChangeMenu.cs
 res://Scenes/UI/Save and Load/LoadGame.cs
+res://Scenes/UI/Menu/CollapsingMenu.tscn
 res://Scenes/main.tscn
 res://Scenes/UI/MainMenu/MainMenu.tscn
 res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
 res://Scenes/UI/Inventory/CraftingMenu/CraftingMenu.tscn
-res://Scenes/Player/player.tscn
-res://Scenes/UI/Kebinds/ActionKey.tscn
-res://Scenes/UI/Inventory/InventorySlot.tscn
 res://Scenes/UI/Save and Load/DeleteSave.cs
 res://Scenes/Game/World/BuildingParts/BuildingPart.cs
 res://Scenes/UI/Inventory/InventorySlot.cs
