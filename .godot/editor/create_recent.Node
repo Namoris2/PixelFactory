@@ -1,3 +1,4 @@
+PanelContainer
 Panel
 TextureRect
 VBoxContainer
@@ -8,7 +9,6 @@ Control
 Container
 TabBar
 TabContainer
-PanelContainer
 Button
 HSplitContainer
 HBoxContainer
