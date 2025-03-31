@@ -2150,7 +2150,7 @@ texture_margin_right = 4.0
 texture_margin_bottom = 4.0
 region_rect = Rect2(0, 185, 24, 24)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hpc6h"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6vcvc"]
 texture = ExtResource("22_6vcvc")
 texture_margin_left = 4.0
 texture_margin_top = 4.0
@@ -2391,6 +2391,7 @@ offset_bottom = 258.0
 grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/TutorialContainer"]
+self_modulate = Color(1, 1, 1, 0.666667)
 layout_mode = 0
 offset_right = 416.0
 offset_bottom = 40.0
@@ -2405,6 +2406,7 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Tutorial" type="TabContainer" parent="UI/TutorialContainer" groups=["TutorialContainer"]]
+self_modulate = Color(1, 1, 1, 0.666667)
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.0775194
@@ -2413,7 +2415,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxTexture_hpc6h")
+theme_override_styles/panel = SubResource("StyleBoxTexture_6vcvc")
 current_tab = 0
 tabs_visible = false
 metadata/_edit_use_anchors_ = true
