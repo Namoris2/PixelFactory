@@ -15,6 +15,7 @@ res://Scenes/UI/Menu/MenuSelect.tscn
 res://Scenes/UI/BuildMenu/BuildMenu.tscn
 res://Scenes/UI/Inventory/BuildingInventory/BuildingInventory.tscn
 res://Scenes/UI/Menu/CollapsingMenu.tscn
+res://Scenes/Game/World/Leftovers/Leftovers.tscn
 res://Scenes/UI/Save and Load/DeleteSave.cs
 res://Scenes/Game/World/BuildingParts/BuildingPart.cs
 res://Scenes/UI/Inventory/InventorySlot.cs

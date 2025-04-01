@@ -104,10 +104,10 @@ public partial class BuildingInventory : Control
 			}
 				
 			
-			Array<Node> remainsSlots = GetTree().GetNodesInGroup("LeftoversSlots");
-			for (int i = 0; i < remainsSlots.Count; i++)
+			Array<Node> leftoversSlots = GetTree().GetNodesInGroup("LeftoversSlots");
+			for (int i = 0; i < leftoversSlots.Count; i++)
 			{
-				slot = (InventorySlot)remainsSlots[i];
+				slot = (InventorySlot)leftoversSlots[i];
 				int amount = 0;
 
 				if (slot.itemType != "")
@@ -117,7 +117,7 @@ public partial class BuildingInventory : Control
 
 				leftovers.items[i].itemType = slot.itemType;
 				leftovers.items[i].itemAmount = amount;
-				main.FindNodeByNameInGroup(remainsSlots, $"LeftoversSlot{i}").QueueFree();	
+				main.FindNodeByNameInGroup(leftoversSlots, $"LeftoversSlot{i}").QueueFree();
 			}
 
 			if (leftovers != null)
@@ -141,6 +141,7 @@ public partial class BuildingInventory : Control
 		{	
 			tabContainer.CurrentTab = 1;
 			buildingName.Text = "Leftovers";
+			INVENTORYTYPE = "leftovers";
 
 			productionProgress.Hide();
 			resourceProduction.Hide();
@@ -158,6 +159,7 @@ public partial class BuildingInventory : Control
 				newSlot.Name = $"LeftoversSlot{i}";
 				newSlot.AddToGroup("LeftoversSlots");
 				newSlot.itemType =  leftovers.items[i].itemType;
+				newSlot.inventoryType = INVENTORYTYPE;
 
 				newSlot.GetNode<Label>("ResourceAmount").Text =  leftovers.items[i].itemAmount.ToString();
 				
@@ -175,12 +177,14 @@ public partial class BuildingInventory : Control
 		switch (buildingInfo.buildingType.ToString())
 		{
 			case "machine":
+				INVENTORYTYPE = "machine";
+
 				storageSlots.Hide();
 				productionProgress.Show();
 				resourceProduction.Show();
 				singleSlotBackground.Hide();		
 				buildingDetail.Show();
-					
+				
 				buildingName.Text = buildingData.name;
 				dynamic recipe = recipes[buildingInfo.recipe.ToString()];
 				resourceProduction.Text = "Recipe: none";
@@ -266,6 +270,8 @@ public partial class BuildingInventory : Control
 				break;
 
 			case "storage":
+				INVENTORYTYPE = "storage";
+
 				tabContainer.TabsVisible = false;
 				tabContainer.CurrentTab = 1;
 
@@ -285,7 +291,7 @@ public partial class BuildingInventory : Control
 					InventorySlot newSlot = (InventorySlot)GD.Load<PackedScene>("res://Scenes/UI/Inventory/InventorySlot.tscn").Instantiate();
 					newSlot.Name = $"StorageSlot{i}";
 					newSlot.AddToGroup("StorageSlots");
-					newSlot.inventoryType = "storage";
+					newSlot.inventoryType = INVENTORYTYPE;
 					newSlot.buildingCoordinates = coordinates;
 					newSlot.itemType = buildingInfo.slots[i].resource.ToString();
 

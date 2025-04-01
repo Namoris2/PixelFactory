@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 using System.Dynamic;
 
@@ -49,7 +50,7 @@ public partial class InventorySlot : Button
 		textureAtlas.Atlas = GD.Load<Texture2D>("res://Gimp/Items/items.png");
 		tileMap = GetNode<World>("/root/main/World/TileMap");
 
-		string name = this.Name;
+		string name = Name;
 		if(name.Contains("Input"))
 		{
 			slotType = "Input";
@@ -68,7 +69,7 @@ public partial class InventorySlot : Button
 			inventorySlotIndex = 0;
 		}
 
-		this.Pressed += PressedSlot;
+		Pressed += PressedSlot;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -98,7 +99,7 @@ public partial class InventorySlot : Button
 			int amount = int.Parse(resourceAmount.Text);
 			dynamic building = buildingInventory.buildingInfo;
 			dynamic recipe = 0;
-			if (buildingInventory.buildingInfo.buildingType.ToString() == "machine")
+			if (buildingInventory.INVENTORYTYPE != "leftovers" && buildingInventory.buildingInfo.buildingType.ToString() == "machine")
 			{
 				recipe = LoadFile.LoadJson("recipes.json")[building.recipe.ToString()];
 			}
@@ -107,50 +108,107 @@ public partial class InventorySlot : Button
 			if (inventoryType == "inventory" && buildingInventory.Visible)
 			{
 				holdingItem.itemAmount = resourceAmount.Text;
-
-				if (building.buildingType.ToString() == "machine")
+				
+				switch (buildingInventory.INVENTORYTYPE)
 				{
-					int index = tileMap.GetItemIndexInRecipe(recipe, "input", itemType);
-					if (index == -1) { return; }
+					case "machine":
+						int index = tileMap.GetItemIndexInRecipe(recipe, "input", itemType);
+						if (index == -1) { return; }
 
-					int buildingAmount = (int)building.inputSlots[index].amount;
-					int maxStackSize = (int)items[itemType].maxStackSize;
+						int buildingAmount = (int)building.inputSlots[index].amount;
+						int maxStackSize = (int)items[itemType].maxStackSize;
 
-					if (buildingAmount + amount <= maxStackSize)
-					{
-						PutItems(-amount, maxStackSize);
-						tileMap.PutItemsToSlot(buildingInventory.coordinates, amount, itemType, "input", index);
-						itemType = "";
-						resourceAmount.Text = "";
-						UpdateSlotTexture(itemType);
-					}
-					else
-					{
-						int puttingAmount = maxStackSize - buildingAmount;
-						PutItems(-puttingAmount, maxStackSize);
-						tileMap.PutItemsToSlot(buildingInventory.coordinates, puttingAmount, itemType, "input", index);
-					}
-					buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
-				}
-				else if (building.buildingType.ToString() == "storage")
+						if (buildingAmount + amount <= maxStackSize)
+						{
+							PutItems(-amount, maxStackSize);
+							tileMap.PutItemsToSlot(buildingInventory.coordinates, amount, itemType, "input", index);
+							itemType = "";
+							resourceAmount.Text = "";
+							UpdateSlotTexture(itemType);
+						}
+						else
+						{
+							int puttingAmount = maxStackSize - buildingAmount;
+							PutItems(-puttingAmount, maxStackSize);
+							tileMap.PutItemsToSlot(buildingInventory.coordinates, puttingAmount, itemType, "input", index);
+						}
+						buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
+						break;
+
+					case "storage":
+						int overflow = tileMap.PutItemsIntoStorage(buildingInventory.coordinates, amount, itemType);
+						if (overflow == 0)
+						{
+							itemType = "";
+							resourceAmount.Text = "";
+							UpdateSlotTexture(itemType);
+						}
+						else
+						{
+							resourceAmount.Text = overflow.ToString();
+						}
+						buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
+						break;
+
+					case "leftovers":
+						Array<Node> leftoversSlots = GetTree().GetNodesInGroup("LeftoversSlots");
+						for (int i = 0; i < leftoversSlots.Count; i++)
+						{
+							InventorySlot slot = (InventorySlot)leftoversSlots[i];
+							if (slot.itemType == itemType)
+							{
+								int slotAmount = int.Parse(slot.resourceAmount.Text);
+
+								if (slotAmount + amount > (int)items[itemType].maxStackSize)
+								{
+									amount = slotAmount + amount - (int)items[itemType].maxStackSize;
+									slot.resourceAmount.Text = items[itemType].maxStackSize.ToString();
+									resourceAmount.Text = amount.ToString();
+								}
+								else
+								{
+									slot.resourceAmount.Text = amount.ToString();
+									amount = 0;
+									UpdateSlotTexture(itemType);
+								}
+							}
+						}
+
+						if (amount == 0) { break; }
+
+						for (int i = 0; i < leftoversSlots.Count; i++)
+						{
+							InventorySlot slot = (InventorySlot)leftoversSlots[i];
+							if (slot.itemType == "")
+							{
+								slot.itemType = itemType;
+								slot.resourceAmount.Text = resourceAmount.Text;
+								slot.UpdateSlotTexture(itemType);
+
+								itemType = "";
+								resourceAmount.Text = "";
+								UpdateSlotTexture(itemType);
+							}
+						}
+						break;
+				}				
+			}
+
+			else if (inventoryType == "leftovers")
+			{
+				int overflow = playerInventory.PutToInventory(itemType, amount);
+				resourceAmount.Text = overflow.ToString();
+
+				if (overflow == 0)
 				{
-					int overflow = tileMap.PutItemsIntoStorage(buildingInventory.coordinates, amount, itemType);
-					if (overflow == 0)
-					{
-						itemType = "";
-						resourceAmount.Text = "";
-						UpdateSlotTexture(itemType);
-					}
-					else
-					{
-						resourceAmount.Text = overflow.ToString();
-					}
-					buildingInventory.UpdateInventory(tileMap.GetBuildingInfo(tileMap.cellPositionByMouse));
+					itemType = "";
+					resourceAmount.Text = "";
 				}
+				UpdateSlotTexture(itemType);
 			}
 
 			// Taking items from building inventory and putting it into player inventory
-			else if (inventoryType != "inventory")
+			else if (inventoryType != "inventory" && inventoryType != "leftovers")
 			{
 				int overflow = playerInventory.PutToInventory(itemType, amount);
 
