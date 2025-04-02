@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class KeyBindsMenu : Control
+public partial class KeyBindsMenu : VBoxContainer
 {
 	// Called when the node enters the scene tree for the first time.
 

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class CollectedItem : HBoxContainer
+public partial class CollectedItem : PanelContainer
 {
 	[Export] string itemType;
 	[Export] int amount = 0;
@@ -17,11 +17,11 @@ public partial class CollectedItem : HBoxContainer
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		itemName = GetNode<Label>("ItemName");
-		itemAmount = GetNode<Label>("ItemAmount");
-		totalAmount = GetNode<Label>("TotalAmount");
-		icon = GetNode<TextureRect>("Icon");
-		timer = GetNode<Timer>("Timer");
+		itemName = GetNode<Label>("HBoxContainer/ItemName");
+		itemAmount = GetNode<Label>("HBoxContainer/ItemAmount");
+		totalAmount = GetNode<Label>("HBoxContainer/TotalAmount");
+		icon = GetNode<TextureRect>("HBoxContainer/Icon");
+		timer = GetNode<Timer>("HBoxContainer/Timer");
 		timer.Timeout += RemoveCollectedItemIndicator;
 
 		playerInventory = GetNode<PlayerInventory>("/root/main/UI/Inventories/InventoryGrid/PlayerInventory");
