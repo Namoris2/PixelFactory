@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cca243qeuh2c5"]
+[gd_scene load_steps=21 format=3 uid="uid://cca243qeuh2c5"]
 
 [ext_resource type="Theme" uid="uid://037hqw0mionk" path="res://Themes/UI.tres" id="1_8qc0c"]
 [ext_resource type="Script" uid="uid://l2mvkncrhtyi" path="res://Scenes/UI/MainMenu/MainMenu.cs" id="1_k8ci2"]
@@ -1032,6 +1032,14 @@ sources/0 = SubResource("TileSetAtlasSource_5bhl0")
 [sub_resource type="Theme" id="Theme_qtufa"]
 TabContainer/styles/panel = SubResource("StyleBoxEmpty_ngjkm")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vwuc7"]
+texture = ExtResource("9_vwuc7")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(24, 161, 24, 24)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_geava"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nw82n"]
@@ -1167,6 +1175,7 @@ anchor_right = 0.981771
 anchor_bottom = 0.722222
 offset_top = 85.0
 offset_bottom = 85.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_vwuc7")
 
 [node name="Label" type="Label" parent="UI/TabContainer/NewGame"]
 layout_mode = 1
@@ -1287,6 +1296,20 @@ offset_bottom = 90.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 70
 text = "Load Game"
+horizontal_alignment = 1
+
+[node name="NoSaves" type="Label" parent="UI/TabContainer/LoadGame" groups=["NoSaves"]]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -476.0
+offset_top = 391.0
+offset_right = 476.0
+offset_bottom = 461.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 70
+text = "No saved games yet!"
 horizontal_alignment = 1
 
 [node name="LoadedSaves" type="ScrollContainer" parent="UI/TabContainer/LoadGame"]

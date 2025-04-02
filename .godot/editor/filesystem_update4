@@ -73,3 +73,4 @@ res://Scenes/UI/Menu/TabSelect.cs
 res://Scenes/UI/HUD/FPSCounter.cs
 res://Scenes/UI/Pause Menu/Unpause.cs
 res://Scenes/UI/Settings/KeyBindsMenu.tscn
+res://Themes/Button/button.tres

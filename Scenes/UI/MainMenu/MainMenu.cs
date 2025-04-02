@@ -36,8 +36,11 @@ public partial class MainMenu : Control
 		}
 
 		//GD.Print();
-		Node savesContainer = GetTree().GetNodesInGroup("LoadedSaves")[0];
+		Node savesContainer = GetTree().GetFirstNodeInGroup("LoadedSaves");
 		Dictionary<string, DateTime> sortedSaves = savesDictionary.OrderByDescending(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
+
+		if (sortedSaves.Count > 0) { GetTree().GetFirstNodeInGroup("NoSaves").QueueFree(); }
+
 		foreach(var save in sortedSaves)
 		{
 			Node loadedSave = GD.Load<PackedScene>("res://Scenes/UI/MainMenu/LoadedSave.tscn").Instantiate();
