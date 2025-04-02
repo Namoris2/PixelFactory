@@ -42,6 +42,7 @@ public partial class PauseMenu : Control
 		GameEvents.toggleDismantleModePopup.Hide();
 		GameEvents.toggleResearchMenuPopup.Hide();
 		GameEvents.collectedItemsContainer.Hide();
+		GameEvents.enoughResourcesLabel.Hide();
 		if (IsInstanceValid(GameEvents.tutorialContainer)) { GameEvents.tutorialContainer.Hide(); }
 	}
 

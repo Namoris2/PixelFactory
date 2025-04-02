@@ -1039,6 +1039,13 @@ public partial class World : Godot.TileMap
 		{
 			hasItem &= playerInventory.IsInInventory(items[i].resource.ToString(), (int)items[i].amount);
 		}
+
+		if (!hasItem)
+		{
+			GameEvents.enoughResourcesLabel.Show();
+			GameEvents.enoughResourcesLabel.GetNode<Godot.Timer>("Timer").Start();		
+		}
+
 		return hasItem;
 	}
 

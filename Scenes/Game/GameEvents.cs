@@ -26,6 +26,8 @@ public partial class GameEvents : Node
     public static CollectedItemsContainer collectedItemsContainer;
     public static TabContainer tutorialController;
     public static Control tutorialContainer;
+    
+    public static Label enoughResourcesLabel;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -52,6 +54,8 @@ public partial class GameEvents : Node
         collectedItemsContainer = GetNode<CollectedItemsContainer>("../UI/CollectedItemsContainer");
         tutorialController = (TabContainer)GetTree().GetFirstNodeInGroup("TutorialContainer");
         tutorialContainer = (Control)tutorialController.GetParent();
+
+        enoughResourcesLabel = GetNode<Label>("../UI/EnoughResourcesLabel");
 	}
 
     public override void _Input(InputEvent @event)
@@ -126,6 +130,7 @@ public partial class GameEvents : Node
                     rotatePopup.Hide();
                     toggleDismantleModePopup.Visible = !toggleDismantleModePopup.Visible;
                     toggleResearchMenuPopup.Visible = !toggleResearchMenuPopup.Visible;
+                    enoughResourcesLabel.Hide();
                     if (IsInstanceValid(tutorialContainer)) { tutorialContainer.Visible = !tutorialContainer.Visible; }
 
                     // Build Menu is closed

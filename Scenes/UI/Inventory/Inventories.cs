@@ -44,6 +44,7 @@ public partial class Inventories : CanvasLayer
 			GameEvents.toggleBuildMenuPopup.Hide();
 			GameEvents.toggleDismantleModePopup.Hide();
 			GameEvents.toggleResearchMenuPopup.Hide();
+			GameEvents.enoughResourcesLabel.Hide();
 			if (IsInstanceValid(GameEvents.tutorialContainer)) { GameEvents.tutorialContainer.Hide(); }
 			Show();
 		}

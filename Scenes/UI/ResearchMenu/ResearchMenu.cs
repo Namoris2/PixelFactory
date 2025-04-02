@@ -61,6 +61,7 @@ public partial class ResearchMenu : Control
 			GameEvents.toggleDismantleModePopup.Hide();
 			GameEvents.rotatePopup.Hide();
 			GameEvents.toggleResearchMenuPopup.SetCustomActionText();
+			GameEvents.enoughResourcesLabel.Hide();
 			if (IsInstanceValid(GameEvents.tutorialContainer)) { GameEvents.tutorialContainer.Hide(); }
 		}
 		else

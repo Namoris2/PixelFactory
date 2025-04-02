@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://bbqmsnkmc3pac"]
+[gd_scene load_steps=49 format=3 uid="uid://bbqmsnkmc3pac"]
 
 [ext_resource type="Script" uid="uid://durijao54jscu" path="res://Scenes/Game/GameEvents.cs" id="1_st43b"]
 [ext_resource type="Script" uid="uid://bxsauxvanqra3" path="res://Scenes/Game/Research.cs" id="2_80wiu"]
@@ -29,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://bv6dqvhrg1fxs" path="res://Gimp/UI/UI_large.png" id="22_6vcvc"]
 [ext_resource type="Texture2D" uid="uid://c5mta7yglpfx4" path="res://Gimp/Items/items.png" id="23_ueoa1"]
 [ext_resource type="Script" uid="uid://c1yrk1e23lnd6" path="res://Scenes/Game/UnlockTest.cs" id="25_75d5c"]
+[ext_resource type="Script" uid="uid://c7bbhdvuup2en" path="res://Scenes/Game/EnoughResourcesLabel.cs" id="30_7k868"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x64vh"]
 
@@ -2194,6 +2195,9 @@ region = Rect2(96, 0, 32, 32)
 atlas = ExtResource("4_r6w7n")
 region = Rect2(0, 32, 16, 16)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vcvc"]
+bg_color = Color(0.858824, 0, 0, 1)
+
 [node name="main" type="Node2D"]
 
 [node name="GameEvents" type="Node" parent="."]
@@ -3051,6 +3055,21 @@ offset_bottom = 1071.0
 theme_override_font_sizes/font_size = 35
 text = "Unlock"
 script = ExtResource("25_75d5c")
+
+[node name="EnoughResourcesLabel" type="Label" parent="UI"]
+visible = false
+offset_right = 248.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_6vcvc")
+text = "Not enough resources!"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("30_7k868")
+
+[node name="Timer" type="Timer" parent="UI/EnoughResourcesLabel"]
+
+[connection signal="timeout" from="UI/EnoughResourcesLabel/Timer" to="UI/EnoughResourcesLabel" method="hide"]
 
 [editable path="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Movement/MoveUp"]
 [editable path="UI/TutorialContainer/Tutorial/Tutorial0/VBoxContainer/Movement/MoveLeft"]

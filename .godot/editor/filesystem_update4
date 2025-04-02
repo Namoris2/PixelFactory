@@ -1,4 +1,4 @@
-res://Scenes/UI/HUD/CollectedItems/CollectedItem.tscn
+res://Scenes/main.tscn
 res://Themes/SlotBackground.tres
 res://Themes/VerticalTabSelect.tres
 res://Themes/InventorySlot.tres
@@ -8,11 +8,15 @@ res://Scenes/UI/Kebinds/spritetest.tres
 res://Themes/UI.tres
 res://Scenes/UI/Menu/ChangeMenu.cs
 res://Scenes/UI/Save and Load/LoadGame.cs
-res://Scenes/main.tscn
+res://Scenes/Game/GameEvents.cs
+res://Scenes/Game/World/World.cs
 res://Scenes/UI/MainMenu/MainMenu.tscn
 res://Scenes/UI/Inventory/PlayerInventory/PlayerInventory.tscn
 res://Scenes/UI/Settings/SettingsContainer.tscn
 res://Scenes/UI/Settings/KeyBindEdit.tscn
+res://Scenes/UI/HUD/CollectedItems/CollectedItem.tscn
+res://Scenes/UI/Settings/KeyBindsMenu.tscn
+res://Scenes/UI/Inventory/InventorySlot.tscn
 res://Scenes/UI/Save and Load/DeleteSave.cs
 res://Scenes/Game/World/BuildingParts/BuildingPart.cs
 res://Scenes/UI/Inventory/InventorySlot.cs
@@ -28,7 +32,6 @@ res://Scenes/UI/Menu/CollapsingMenu.cs
 res://Scenes/UI/HUD/TestSprite.cs
 res://Scenes/UI/Pause Menu/PauseMenu.cs
 res://Scenes/Game/World/GenerateWorld.cs
-res://Scenes/Game/World/World.cs
 res://Scenes/UI/Inventory/ItemName.cs
 res://Scenes/UI/Kebinds/ActionKey.cs
 res://Scenes/UI/ui.cs
@@ -52,7 +55,6 @@ res://Scenes/UI/Settings/KeyBindEdit.cs
 res://Scenes/UI/Settings/KeyBindsMenu.cs
 res://Scenes/UI/HUD/CollectedItems/CollectedItemsContainer.cs
 res://Scenes/UI/MainMenu/ButtonInfo.cs
-res://Scenes/Game/GameEvents.cs
 res://Scenes/Game/World/Item/Item.cs
 res://Scenes/UI/Inventory/BuildingInventory/TabSelection.cs
 res://Scenes/Game/UnlockTest.cs
@@ -72,5 +74,4 @@ res://Scenes/UI/Menu/MenuSelect.cs
 res://Scenes/UI/Menu/TabSelect.cs
 res://Scenes/UI/HUD/FPSCounter.cs
 res://Scenes/UI/Pause Menu/Unpause.cs
-res://Scenes/UI/Settings/KeyBindsMenu.tscn
-res://Themes/Button/button.tres
+res://Scenes/Game/EnoughResourcesLabel.cs
