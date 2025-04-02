@@ -9,7 +9,6 @@ public partial class KeyBindEdit : Button
 	public InputEvent defaultKeyBind;
 	Label keyLabel;
 	ActionKey icon;
-	VBoxContainer popupContainer;
 	bool editingAction = false;
 	[Export] public string actionType;
 	public override void _Ready()
@@ -17,7 +16,6 @@ public partial class KeyBindEdit : Button
 		settingsHandler = GetNode<SettingsHandler>("/root/SettingsHandler");
 		keyLabel = GetNode<Label>("HBoxContainer/Key");
 		icon = GetNode<ActionKey>("HBoxContainer/ActionKey");
-		popupContainer = GetNodeOrNull<VBoxContainer>("/root/main/UI/ActionPopups");
 		Pressed += ToggleEditing;
 	}
 
@@ -78,12 +76,9 @@ public partial class KeyBindEdit : Button
 		keyLabel.Hide();
 		icon.Show();
 
-		if (popupContainer != null)
+		foreach (ActionInfoPopup popup in GetTree().GetNodesInGroup("Popup"))
 		{
-			foreach (ActionInfoPopup popup in popupContainer.GetChildren())
-			{
-				if (popup.actionType == actionType) { popup.SetActionIcon(); }
-			}
+			if (popup.actionType == actionType) { popup.SetActionIcon(); }
 		}
 	}
 }
