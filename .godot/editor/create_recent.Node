@@ -1,7 +1,8 @@
+MarginContainer
+VBoxContainer
 PanelContainer
 Panel
 TextureRect
-VBoxContainer
 HFlowContainer
 FlowContainer
 Label

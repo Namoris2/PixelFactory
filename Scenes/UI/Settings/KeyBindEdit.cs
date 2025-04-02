@@ -14,8 +14,8 @@ public partial class KeyBindEdit : Button
 	public override void _Ready()
 	{
 		settingsHandler = GetNode<SettingsHandler>("/root/SettingsHandler");
-		keyLabel = GetNode<Label>("HBoxContainer/Key");
-		icon = GetNode<ActionKey>("HBoxContainer/ActionKey");
+		keyLabel = GetNode<Label>("MarginContainer/HBoxContainer/Key");
+		icon = GetNode<ActionKey>("MarginContainer/HBoxContainer/ActionKey");
 		Pressed += ToggleEditing;
 	}
 

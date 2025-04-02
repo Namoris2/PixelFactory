@@ -11,16 +11,16 @@ public partial class KeyBindsMenu : Control
 	
 	public override void _Ready()
 	{
-		buttonsContainer = GetNode<Node>("VBoxContainer");
+		buttonsContainer = GetNode<Node>("ActionKeys");
 		resetBinds = GetNode<Button>("ResetBinds");
 		resetBinds.Pressed += ResetBinds;
 		
 		foreach (string action in SettingsHandler.keyBinds)
 		{
 			KeyBindEdit keyBindEdit = (KeyBindEdit)GD.Load<PackedScene>("res://Scenes/UI/Settings/KeyBindEdit.tscn").Instantiate();
-			Label actionLabel = keyBindEdit.GetNode<Label>("HBoxContainer/Action");
-			ActionKey icon = keyBindEdit.GetNode<ActionKey>("HBoxContainer/ActionKey");
-			Label keyLabel = keyBindEdit.GetNode<Label>("HBoxContainer/Key");
+			Label actionLabel = keyBindEdit.GetNode<Label>("MarginContainer/HBoxContainer/Action");
+			ActionKey icon = keyBindEdit.GetNode<ActionKey>("MarginContainer/HBoxContainer/ActionKey");
+			Label keyLabel = keyBindEdit.GetNode<Label>("MarginContainer/HBoxContainer/Key");
 
 			keyBindEdit.actionType = action;
 			actionLabel.Text = SettingsHandler.actions[action];

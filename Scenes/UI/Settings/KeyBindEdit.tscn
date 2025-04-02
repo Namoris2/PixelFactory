@@ -1,33 +1,43 @@
-[gd_scene load_steps=3 format=3 uid="uid://c5t7ynans785e"]
+[gd_scene load_steps=4 format=3 uid="uid://c5t7ynans785e"]
 
 [ext_resource type="Script" uid="uid://n1prhvs2lqwt" path="res://Scenes/UI/Settings/KeyBindEdit.cs" id="1_pkaj5"]
+[ext_resource type="Theme" uid="uid://037hqw0mionk" path="res://Themes/UI.tres" id="1_uu2bg"]
 [ext_resource type="PackedScene" uid="uid://ctjahtuleggl2" path="res://Scenes/UI/Kebinds/ActionKey.tscn" id="2_xynvi"]
 
 [node name="KeyBindEdit" type="Button"]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 38)
 offset_right = 412.0
-offset_bottom = 20.0
+offset_bottom = 30.0
+theme = ExtResource("1_uu2bg")
 script = ExtResource("1_pkaj5")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 9
+theme_override_constants/margin_top = 9
+theme_override_constants/margin_right = 9
+theme_override_constants/margin_bottom = 9
 
-[node name="Action" type="Label" parent="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Action" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 26
 text = "action"
 
-[node name="Key" type="Label" parent="HBoxContainer"]
+[node name="Key" type="Label" parent="MarginContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
 text = "Press Key to Bind..."
 
-[node name="ActionKey" parent="HBoxContainer" instance=ExtResource("2_xynvi")]
+[node name="ActionKey" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_xynvi")]
 layout_mode = 2
