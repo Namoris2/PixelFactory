@@ -29,6 +29,9 @@ public partial class DeleteSave : Button
 		GetNode<MainMenu>("/root/MainMenu").saves.Remove(deleteDialog.saveName + ".save");
 		GetTree().GetNodesInGroup("LoadedSave")[deleteDialog.index].QueueFree();
 
+																		// 1 because the last save node is not freed yet
+		if (GetTree().GetFirstNodeInGroup("LoadedSaves").GetChildCount() == 1) { ((Label)GetTree().GetFirstNodeInGroup("NoSaves")).Show(); }
+
 		GD.Print("Save Deleted");
 	}
 }

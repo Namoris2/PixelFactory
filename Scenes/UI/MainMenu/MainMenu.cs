@@ -39,7 +39,7 @@ public partial class MainMenu : Control
 		Node savesContainer = GetTree().GetFirstNodeInGroup("LoadedSaves");
 		Dictionary<string, DateTime> sortedSaves = savesDictionary.OrderByDescending(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
 
-		if (sortedSaves.Count > 0) { GetTree().GetFirstNodeInGroup("NoSaves").QueueFree(); }
+		if (sortedSaves.Count > 0) { ((Label)GetTree().GetFirstNodeInGroup("NoSaves")).Hide(); }
 
 		foreach(var save in sortedSaves)
 		{
