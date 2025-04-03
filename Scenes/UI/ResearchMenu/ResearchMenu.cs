@@ -244,6 +244,8 @@ public partial class ResearchMenu : Control
 			else
 			{
 				GameEvents.tutorialController.CurrentTab = tutorialIndex;
+				GameEvents.tutorialContainer.collapsed = true;
+				GameEvents.tutorialContainer.ToggleCollapse();
 			}
 
 			return;

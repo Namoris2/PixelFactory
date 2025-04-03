@@ -1,3 +1,4 @@
+Control
 Timer
 Label
 PanelContainer
@@ -8,8 +9,6 @@ Panel
 TextureRect
 HFlowContainer
 FlowContainer
-Control
 Container
 TabBar
 TabContainer
-Button

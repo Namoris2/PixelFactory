@@ -25,7 +25,7 @@ public partial class GameEvents : Node
 
     public static CollectedItemsContainer collectedItemsContainer;
     public static TabContainer tutorialController;
-    public static Control tutorialContainer;
+    public static TutorialContainer tutorialContainer;
     
     public static Label enoughResourcesLabel;
 
@@ -52,8 +52,8 @@ public partial class GameEvents : Node
         splitStackPopup = (ActionInfoPopup)GetTree().GetFirstNodeInGroup("SplitStackPopup");
 
         collectedItemsContainer = GetNode<CollectedItemsContainer>("../UI/CollectedItemsContainer");
-        tutorialController = (TabContainer)GetTree().GetFirstNodeInGroup("TutorialContainer");
-        tutorialContainer = (Control)tutorialController.GetParent();
+        tutorialController = (TabContainer)GetTree().GetFirstNodeInGroup("TutorialController");
+        tutorialContainer = (TutorialContainer)tutorialController.GetParent();
 
         enoughResourcesLabel = GetNode<Label>("../UI/EnoughResourcesLabel");
 	}
