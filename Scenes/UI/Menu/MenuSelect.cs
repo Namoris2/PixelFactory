@@ -88,6 +88,7 @@ public partial class MenuSelect : Button
 		GameEvents.toggleDismantleModePopup.Show();
 		GameEvents.toggleDismantleModePopup.SetCustomActionText();
 		GameEvents.toggleResearchMenuPopup.Show();
+		GameEvents.tutorialContainer.Show();
 	}
 
 	private void ShowBuildingInfo()
